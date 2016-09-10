@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ===================== RATTACHEMENT CONVENTION form ============================= -->
+		<record id="view_mcisogem_rata_convention_form" model="ir.ui.view">
+			<field name="name">mcisogem.rata.convention.form</field>
+			<field name="model">mcisogem.rata.convention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Rattachement convention centre">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Rattachement convention centre" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+						</group>
+						<group>
+							<field name="convention_id" />
+						</group>
+							<label string="Choix des centres" />
+							<field name="centre_ids" >
+								<tree editable="bottom">
+									<field name="code_centre" />
+									<field name="name" />
+									<field name="code_type_centre" />
+									<field name="code_ville" />
+								</tree>
+							</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste RATTACHEMENT CONVENTION ============================= -->
+		<record id="mcisogem_rata_convention_tree" model="ir.ui.view">
+			<field name="name">mcisogem.rata.convention.tree</field>
+			<field name="model">mcisogem.rata.convention</field>
+			<field name="arch" type="xml">
+				<tree string="Rattachement convention centre">
+					<field name="convention_id" />
+					<!-- <field name="centre_ids" string="Centre(s)"/> -->
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre RATTACHEMENT CONVENTION ============================= -->
+		<record id="view_mcisogem_agr_prestat_filter" model="ir.ui.view">
+			<field name="name">mcisogem.rata.convention.select</field>
+			<field name="model">mcisogem.rata.convention</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un convention">
+					<field name="convention_id" />
+					<field name="centre_ids" string="Centre(s)"/>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu RATTACHEMENT CONVENTION -->
+		<record model="ir.actions.act_window" id="action_mcisogem_rata_convention">
+			<field name="name">Rattachement convention centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.rata.convention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour un rattachement convention centre
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Rattachement convention" id="menu_mcisogem_rata_convention"
+			action="action_mcisogem_rata_convention" sequence="5"
+			parent="menu_mcisogem_medical_etablissements_sanitairess" />
+
+	<!-- 	<menuitem action="action_mcisogem_nego_pol" parent="menu_mcisogem_medical_etablissements_sanitairess" name="Réseau de soins" sequence="6"
+		 			 id="mcisogem_reseau_soins" /> -->
+
+
+
+
+		 <!-- ===================== RATTACHEMENT RESEAU POLICE COLLEGE form ============================= -->
+		<record id="view_mcisogem_rata_reseau_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.rata.reseau.police.form</field>
+			<field name="model">mcisogem.rata.reseau.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Rattachement réseau police">
+					<sheet>
+
+						<field name="id" invisible="1"/>
+
+						<div class="oe_title">
+							<h1>
+								<field name="reseau_id" placeholder="Réseau"/>
+							</h1>
+						</div>
+
+
+						<group>
+							<field name="par_college" attrs="{'invisible':[('id','!=',False)]}"/>
+						</group>
+
+						<group col="2">
+							<group>
+								<field name="police_id" attrs="{'invisible':[('id','=',False)]}" />
+							</group>
+
+							<group>
+								<field name="college_id" attrs="{'invisible':[('id','=',False)]}"/>
+							</group>
+						</group>
+						
+
+						
+						
+						<notebook attrs="{'invisible':[('id','!=',False)]}">
+							<page string="Polices" >
+								<field name="police_ids" on_change="onchange_police(police_ids)"/>
+							</page>
+
+							<page string="Collèges" attrs="{'invisible':[('par_college','=',False)]}">
+								<field name="college_ids" />
+							</page>
+							
+						</notebook>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste RATTACHEMENT RESEAU POLICE COLLEGE ============================= -->
+		<record id="mcisogem_rata_reseau_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.rata.reseau.police.tree</field>
+			<field name="model">mcisogem.rata.reseau.police</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="reseau_id"/>
+					<field name="police_id"/>
+					<field name="college_id"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="view_mcisogem_reseau_filter" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.nego.police.select</field>
+			<field name="model">mcisogem.tarif.nego.police</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une prestation payées">
+					<field name="reseau_id"/>
+					<field name="centre_id"/>
+					<field name="convention_id"/>
+
+					<group expand="0" string="Grouper par : ">
+
+                        <filter name="group_reseau_id" string="Réseau" context="{'group_by':'reseau_id'}"/>
+
+
+                        <filter name="group_convention_id" string="Convention" context="{'group_by':'police_id'}"/>
+
+
+                    </group>					
+				</search>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu RATTACHEMENT RESEAU POLICE COLLEGE -->
+		<record model="ir.actions.act_window" id="action_mcisogem_rata_reseau_police">
+			<field name="name">Rattachement réseau police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.rata.reseau.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un rattachement
+				</p>
+			</field>
+		</record>
+
+
+		<menuitem action="action_mcisogem_rata_reseau_police" parent="menu_mcisogem_medical_etablissements_sanitairess" name="Rat. Réseau/Police" sequence="7"
+		 			 id="mcisogem_rata_reseau_police" />
+
+	</data>
+</openerp>

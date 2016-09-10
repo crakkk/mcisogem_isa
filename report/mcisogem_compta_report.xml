@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_mcisogem_compta_report_bar_graph" model="ir.ui.view">
+            <field name="name">mcisogem.compta.report.bar.graph</field>
+            <field name="model">mcisogem.compta.report</field>
+            <field name="arch" type="xml">
+                <graph string="Analyse des paiements" type="bar">
+                    <field name="garant_id"/>
+                    <field name="mode_paiement"/>
+                    <field name="montant"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mcisogem_compta_report_pivot_graph" model="ir.ui.view">
+            <field name="name">mcisogem.compta.report.pivot.graph</field>
+            <field name="model">mcisogem.compta.report</field>
+            <field name="arch" type="xml">
+                <graph string="Analyse des paiements" type="pivot">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" type="col"/>
+                    <field name="montant" type="measure"/>
+                    <field name="nbr" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mcisogem_compta_report_pie_graph" model="ir.ui.view">
+            <field name="name">mcisogem.compta.report.pie.graph</field>
+            <field name="model">mcisogem.compta.report</field>
+            <field name="arch" type="xml">
+                <graph string="Analyse des paiements" type="pie">
+                    <field name="garant_id"/>
+                    <field name="nbr"/>
+                    <field name="montant"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mcisogem_compta_report_line_graph" model="ir.ui.view">
+            <field name="name">mcisogem.compta.report.line.graph</field>
+            <field name="model">mcisogem.compta.report</field>
+            <field name="arch" type="xml">
+                <graph string="Analyse des paiements" type="line">
+                    <field name="garant_id"/>
+                    <field name="mode_paiement"/>
+                    <field name="nbr"/>
+                    <field name="montant"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_mcisogem_compta_report_tree" model="ir.ui.view">
+            <field name="name">mcisogem.compta.report.tree</field>
+            <field name="model">mcisogem.compta.report</field>
+            <field name="arch" type="xml">
+                <tree string="Analyse des paiements">
+                    <field name="garant_id"/>
+                    <field name="nbr"/>
+                    <field name="montant" sum="montant"/>                
+                </tree>
+            </field>
+        </record>
+
+    	<record id="view_mcisogem_compta_report_search" model="ir.ui.view">
+        	<field name="name">mcisogem.compta.report.search</field>
+        	<field name="model">mcisogem.compta.report</field>
+        	<field name="arch" type="xml">
+            	<search string="Analyse des paiements">
+                	<field name="period_id"/>
+                	<group expand="1" string="Grouper par:">
+                        <filter string="Période" name="group_period_id" context="{'group_by':'period_id'}"/>
+                	</group>
+            	</search>
+        	</field>
+    	</record>
+
+    	<record id="action_mcisogem_compta_report" model="ir.actions.act_window">
+        	<field name="name">Analyse des paiements</field>
+        	<field name="res_model">mcisogem.compta.report</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">graph</field>
+        	<field name="view_id" ref="view_mcisogem_compta_report_pivot_graph"/>
+        	<field name="search_view_id" ref="view_mcisogem_compta_report_search"/>
+    	</record>
+
+        <menuitem id="menu_compta_reporting" name="Comptabilité" parent="grcmci_suivi" sequence="50"/>
+
+        <menuitem name="Analyse des paiements" action="action_mcisogem_compta_report" id="menu_action_compta_reporting" parent="menu_compta_reporting"/>
+
+    </data>
+</openerp>

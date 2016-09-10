@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_conso_global_bar_graph" model="ir.ui.view">
+            <field name="name">report.conso.global.graph</field>
+            <field name="model">report.conso.global</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="periode_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="montant_remb_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_conso_global_graph" model="ir.ui.view">
+            <field name="name">report.conso.global.graph</field>
+            <field name="model">report.conso.global</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="periode_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="montant_remb_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_conso_global_2_graph" model="ir.ui.view">
+             <field name="name">report.conso.global.2.graph</field>
+             <field name="model">report.conso.global</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="periode_id"/>
+                     <field name="exercice_id"/>
+                     <field name="montant_remb_total"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_report_conso_global_line_graph" model="ir.ui.view">
+             <field name="name">report.conso.global.line.graph</field>
+             <field name="model">report.conso.global</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                    <field name="periode_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="montant_remb_total" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_conso_global_tree" model="ir.ui.view">
+            <field name="name">report.conso.global.tree</field>
+            <field name="model">report.conso.global</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="periode_id"/>
+                    <field name="exercice_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_conso_global_search" model="ir.ui.view">
+            <field name="name">report.conso.global.search</field>
+            <field name="model">report.conso.global</field>
+            <field name="arch" type="xml">
+                <search string="Consomation">
+                    <field name="exercice_id"/>
+                    <!-- <field name="periode_id"/> -->
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                        <!-- <field name="periode_id"/> -->
+                
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_conso_global" model="ir.actions.act_window">
+            <field name="name">Evolution des consomations</field>
+            <field name="res_model">report.conso.global</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_conso_global_line_graph"/>
+            <field name="search_view_id" ref="view_report_conso_global_search"/>
+        </record>
+
+        <record id="action_server_report_conso_global" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_conso_global"/>
+            <field name="code">action = pool.get('report.conso.global').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Evolution des consomations</field>
+        </record>
+
+    <menuitem name="Evolution des consomations" parent="cons" id='act_report_conso_global' action="action_server_report_conso_global" sequence="1"/>
+
+</data>
+</openerp>
+ 

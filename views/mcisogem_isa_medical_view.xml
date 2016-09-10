@@ -1,0 +1,2914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<menuitem name="Médical" id="menu_mcisogem_medical" sequence="14" groups="mcisogem_isa.group_medical_manager,mcisogem_isa.group_admin,mcisogem_isa.group_medecin_conseil"/>
+
+		<menuitem name="Médical" id="menu_mcisogem_medical_sub"
+			parent="menu_mcisogem_medical" />
+
+		
+		<menuitem name="Etablissements sanitaires"
+			id="menu_mcisogem_medical_etablissements_sanitairess" parent="menu_mcisogem_medical_sub" sequence="1"/>
+
+
+        <!-- <record id="action_res_users" model="ir.actions.act_window">
+            <field name="name">Editeur du centre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="base.view_users_tree"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+            <field name="domain">[('type_user','=','GRC')]</field>
+        </record>
+        <record id="action_res_users_view1" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="base.view_users_tree"/>
+            <field name="act_window_id" ref="action_res_users"/>
+        </record>
+        <record id="action_res_users_view2" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_users_form"/>
+            <field name="act_window_id" ref="action_res_users"/>
+        </record> -->
+
+        <!-- ===================== inherit user view ============================= -->
+		<!-- <record id="view_users_form_inherit" model="ir.ui.view">
+			<field name="name">res.users.form.inherit</field>
+			<field name="model">res.users</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_users_form" />
+			<field name="arch" type="xml">
+				<field name="company_id" position="after">
+			
+					<group>
+						<field name="type_user" widget="radio"/>
+                    </group>
+
+
+					<label for="mcisogem_role_user_id" class="oe_edit_only" attrs="{'invisible':[('type_user','=',False)]}" string="Rôle" />
+					<h2>
+						<field name="mcisogem_role_user_id" attrs="{'invisible':[('type_user','=',False)]}" domain="[('type_user','=',type_user)]" on_change="onchange_role(mcisogem_role_user_id,context)" />
+						<field name="view1" invisible="1" />
+						<field name="view2" invisible="1" />
+						<field name="view3" invisible="1" />
+						<field name="view4" invisible="1" />
+					</h2>
+
+
+					<label for="centre_id" class="oe_edit_only" string="Centre de soins" attrs="{'invisible':[('view2','=',False)]}" />
+					<h2>
+						<field name="centre_id" attrs="{'invisible':[('view2','=',False)]}" />
+					</h2>
+
+					<label for="garant_id" class="oe_edit_only" string="Garant" attrs="{'invisible':[('view3','=',False)]}" />
+					<h2>
+						<field name="garant_id" attrs="{'invisible':[('view3','=',False)]}" />
+					</h2>
+
+					<label for="souscr_id" class="oe_edit_only" string="Souscripteur" attrs="{'invisible':[('view4','=',False)]}" />
+					<h2>
+						<field name="souscr_id" attrs="{'invisible':[('view4','=',False)]}" />
+					</h2>
+
+					<label for="prestat_id" class="oe_edit_only" string="Prestataire" attrs="{'invisible':[('view1','=',False)]}" />
+					<h2>
+						<field name="prestat_id" attrs="{'invisible':[('view1','=',False)]}" />
+					</h2>
+
+				</field> -->
+			<!-- 	<field name="company_ids" position="replace">
+    				<field name="company_ids" invisible="1"/>
+				</field>
+
+				<xpath expr="//page[@string='Preferences']" position="attributes" > 
+                 	<attribute name='invisible'>1</attribute> 
+            	</xpath>
+            	<xpath expr="//page[@string='Access Rights']" position="attributes" > 
+                	<attribute name='invisible'>1</attribute> 
+            	</xpath> -->
+			<!-- </field>
+		</record> -->
+
+        <!-- <menuitem action="action_res_users" id="menu_action_res_users" parent="menu_mcisogem_medical_etablissements_sanitaires" name="Editeur du centre"/> -->
+
+
+
+        <!-- ========= formulaire de resiliation de TARIF convention ============= -->
+		<record id="view_mcisogem_tarif_convention_resilier_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.resilier.form</field>
+			<field name="model">mcisogem.resil.tarif.convention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<div class="oe_title">
+						<br />
+						<table>
+									<tr>
+										<td >
+											<div >
+												<label for="Date de résiliation : " string="Date de résiliation : " />
+											</div>                                            
+										</td>
+										<td >							
+												<field name="date_resiliation_tarif" class="oe_inline" />
+										</td>
+									</tr>
+							</table>
+					</div>
+					<footer>
+							<button string="Valider" name="write" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+					</footer>
+
+				</sheet>
+			</field>
+		</record>
+
+		<!-- Action du menu historique de TARIF resiliation -->
+		<record model="ir.actions.act_window" id="action_mcisogem_convention_resilier">
+			<field name="name">Historique des résiliations et réactivations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.resil.tarif.convention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+
+		<!-- ========= formulaire de resiliation de convention ============= -->
+		<record id="view_mcisogem_convention_resilier_form" model="ir.ui.view">
+			<field name="name">mcisogem.convention.resilier.form</field>
+			<field name="model">mcisogem.resil.convention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<div class="oe_title">
+						<br />
+						<table>
+									<tr>
+										<td >
+											<div >
+												<label for="Date de résiliation : " string="Date de résiliation : " />
+											</div>                                            
+										</td>
+										<td >							
+												<field name="date_fin_convention" class="oe_inline" />
+										</td>
+									</tr>
+							</table>
+					</div>
+					<footer>
+							<button string="Valider" name="write" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+					</footer>
+
+				</sheet>
+			</field>
+		</record>
+
+		<!-- Action du menu historique de resiliation -->
+		<record model="ir.actions.act_window" id="action_mcisogem_convention_resilier">
+			<field name="name">Historique des résiliations et réactivations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.resil.convention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		<!-- ===================== type de centre form ============================= -->
+		<record id="view_mcisogem_type_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.type.centre.form</field>
+			<field name="model">mcisogem.type.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Type de centre">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+												<label for="Libéllé type : " string="Libéllé type : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="name" placeholder="Libéllé type" class="oe_inline" />
+											</h1>
+										</td>
+									</tr>
+							</table>
+						</div>
+						<group>
+							</group>
+						<group>
+							<group>
+								<field name="code_type_centre2" />
+							</group>
+							<group>
+								<field name="code_type_reserve" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_type_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.type.centre.tree</field>
+			<field name="model">mcisogem.type.centre</field>
+			<field name="arch" type="xml">
+				<tree string="Type de centre">
+					<field name="id" />
+					<field name="name" />
+					<field name="code_type_centre2" />
+					<field name="code_type_reserve" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_type_centre_filter" model="ir.ui.view">
+			<field name="name">mcisogem.type.centre.select</field>
+			<field name="model">mcisogem.type.centre</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un type de centre">
+					<field name="code_type_centre2" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_type_centre">
+			<field name="name">Type de centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.type.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer type de centre.
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Type etablissement sanitaire" id="menu_mcisogem_type_etablissements_sanitaires" action="action_mcisogem_type_centre" sequence="1" parent="menu_mcisogem_medical_etablissements_sanitairess" />
+
+	<!-- 	<menuitem action="action_mcisogem_nego_pol" parent="menu_mcisogem_medical_etablissements_sanitairess" name="Rattachement Police/Centre"
+		 			 id="mcisogem_tarif_nego_pol_menus" sequence="6"/> -->
+
+
+
+		<!-- ===================== plage de centre form ============================= -->
+		<!-- <record id="view_mcisogem_plage_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.plage.centre.form</field>
+			<field name="model">mcisogem.plage.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Plage de centre">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Plage de centre" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="numero_plage_centre" />
+							</group>
+							<group>
+								<field name="code_type_centre" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="code_plage" />
+							</group>
+							<group></group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record> -->
+
+		<!-- ===================== Liste plage de centre ============================= -->
+		<!-- <record id="mcisogem_plage_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.plage.centre.tree</field>
+			<field name="model">mcisogem.plage.centre</field>
+			<field name="arch" type="xml">
+				<tree string="Plage de centre">
+					<field name="numero_plage_centre" />
+					<field name="code_type_centre" />
+					<field name="code_centre" />
+					<field name="code_plage" />
+					<field name="dernier_numero" />
+				</tree>
+			</field>
+		</record> -->
+
+		<!-- ===================== filtre plage de centre ============================= -->
+		<!-- <record id="view_mcisogem_plage_centre_filter" model="ir.ui.view">
+			<field name="name">mcisogem.plage.centre.select</field>
+			<field name="model">mcisogem.plage.centre</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une plage de centre">
+					<field name="numero_plage_centre" />
+					<field name="code_type_centre" />
+					<field name="code_plage" />
+				</search>
+			</field>
+		</record> -->
+
+		<!-- Action du menu plage de centre -->
+		<!-- <record model="ir.actions.act_window" id="action_mcisogem_plage_centre">
+			<field name="name">Plage de centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.plage.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une plage de centre.
+				</p>
+			</field>
+		</record> -->
+
+		<!-- <menuitem name="Plage de centre" id="menu_mcisogem_plage_centre"
+			action="action_mcisogem_plage_centre" sequence="1"
+			parent="menu_mcisogem_medical_etablissements_sanitaires" /> -->
+
+
+		<!-- ===================== centre form ============================= -->
+		<record id="view_mcisogem_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.centre.form</field>
+			<field name="model">mcisogem.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<header>
+						<button name="button_to_done" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user" string="Validation Comptable"
+							states="done" type="object" class="oe_highlight"
+							confirm="Valider les informations comptables ?" />
+					<field name="state" widget="statusbar" statusbar_visible="draft,done,finish"
+						statusbar_colors='{"progress":"blue"}' />
+				</header>
+				<form string="Centre" create="true" edit="true" delete="false">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1"/>
+							<!-- <field name="is_manager" invisible="1"/> -->
+							<field name="show_chp" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:9px;" >
+												<label for="Code : " string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="code_centre" class="oe_inline" attrs="{'invisible':[('view','=',False)]}"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+												<label for="Libéllé : " string="Libéllé : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="name" placeholder="Libéllé" class="oe_inline"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+							
+							<label for="activer" string="Actif" />
+							<field name="activer" class="oe_inline"/>
+							<group>
+							</group>
+						</div>
+						<div>
+						</div>
+						<br/>						
+						<group>
+							<field name="code_type_centre"/>
+							
+							<field name="code_externe" string="Code externe" />
+						</group>
+						<group>
+							<group>
+								<field name="code_territoire" />
+								<field name="code_ville" on_change="onchange_code_ville_centre(code_ville,context)" />
+								<field name="code_district" domain="[('ville_id','=',code_ville)]" />
+								<field name="code_commune" domain="[('code_ville','=',code_ville)]" />								
+							</group>
+							<group>
+								<field name="code_bp_centre" />
+								<field name="bp_centre" />
+								<field name="adresse_centre" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="tel_centre1" />
+								<field name="tel_centre2" />
+								
+								<field name="longitude" />
+								<field name="latitude" />
+							</group>
+							<group>
+								<field name="email_centre" widget="email" />
+								<field name="capital" />
+								<field name="privilege" widget="selection" />
+							</group>
+						</group>
+								
+						<notebook>
+							<page string="Informations complémentaires">
+								<group>
+									<group>
+										<field name="responsable" />
+										<field name="tel_resp_hh" />
+										<field name="correspondant" />
+									</group>
+									<group>
+										<field name="observation_centre"/>
+									</group>
+								</group>
+							</page>
+
+							<page string="Informations bancaires" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+								<group>
+									<group>
+										<field name="numero_banque_centre" />
+										<field name="numero_compte_centre" />
+									</group>
+									<group>
+										<field name="numero_guichet_centre" />
+										<field name="cle_rib_centre" />
+									</group>
+								</group>
+								<separator string="Compte interne" colspan="4" />
+								<group>
+									<group>
+										<field name="cpta_centre" />										
+									</group>
+									<group>
+										<field name="compta_prestat_tiers" />										
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="banque_id" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="mode_paiement_centre" widget="selection" />
+										<field name="mode_paiement_centre_autre" attrs="{'invisible':[('mode_paiement_centre','!=','AU')]}" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="regl_centre_prestat" widget="selection" />
+										<field name="regl_centre_prestat_autre" attrs="{'invisible':[('regl_centre_prestat','!=','AU')]}" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== centre ============================= -->
+		<record id="mcisogem_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.centre.tree</field>
+			<field name="model">mcisogem.centre</field>
+			<field name="arch" type="xml">
+				<tree colors="red:state == 'done';green:state == 'finish'" string="Centre">
+					<field name="code_centre" />
+					<!-- <field name="code_type_centre" /> -->
+					<field name="name" />
+					<!-- <field name="code_ville" /> -->
+					<field name="code_commune" />
+					<field name="tel_centre1" />
+					<field name="tel_centre2" />
+					<field name="state" invisible="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== centre ============================= -->
+		<record id="view_mcisogem_centre_filter" model="ir.ui.view">
+			<field name="name">mcisogem.centre.select</field>
+			<field name="model">mcisogem.centre</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un centre">
+					<field name="code_centre" />
+					<field name="name" />
+					<field name="code_type_centre" />					
+					<field name="code_ville" />
+					<field name="code_commune" />
+					<group expand="0" string="Grouper par : ">
+                        <filter name="group_code_type_centre" string="Type de centre" context="{'group_by':'code_type_centre'}"/>
+                        <filter name="group_code_ville" string="Ville" context="{'group_by':'code_ville'}"/>
+                        <filter name="group_code_commune" string="Commune" context="{'group_by':'code_commune'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_centre">
+			<field name="name">Centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_group_code_ville': 1,'search_group_code_commune': 1 ,'search_default_group_code_type_centre': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un centre
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Centre" id="menu_mcisogem_centre2" action="action_mcisogem_centre"
+			 sequence="2" parent="menu_mcisogem_medical_etablissements_sanitairess" />
+
+
+
+		<menuitem name="Actes" id="menu_mcisogem_medical_acte"
+			parent="menu_mcisogem_medical_sub" sequence="3" groups="mcisogem_isa.group_medical_manager"/>
+
+		<!-- ===================== famille acte form ============================= -->
+		<record id="view_mcisogem_famille_acte_form" model="ir.ui.view">
+			<field name="name">mcisogem.fam.prest.form</field>
+			<field name="model">mcisogem.fam.prest</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Famille d'acte">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1"/>
+							<label for="libelle_court_famille" string="Code :" attrs="{'invisible':[('view','=',False)]}" class="oe_inline" />
+							<h1>
+								<field name="libelle_court_famille" placeholder="Code" class="oe_inline" />
+							</h1>
+							<label for="name" string="Libéllé :" attrs="{'invisible':[('view','=',False)]}" class="oe_inline" />
+							<h1>
+								<field name="name" placeholder="Libéllé famille d'acte" class="oe_inline" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="observation_famille" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste famille acte ============================= -->
+		<record id="mcisogem_famille_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.fam.prest.tree</field>
+			<field name="model">mcisogem.fam.prest</field>
+			<field name="arch" type="xml">
+				<tree string="Famille d'actes">
+					<field name="libelle_court_famille" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre famille acte ============================= -->
+		<record id="view_mcisogem_famille_acte_filter" model="ir.ui.view">
+			<field name="name">mcisogem.fam.prest.select</field>
+			<field name="model">mcisogem.fam.prest</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une famille d'actes">
+					<field name="libelle_court_famille" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu famille acte -->
+		<record model="ir.actions.act_window" id="action_mcisogem_famille_acte">
+			<field name="name">Famille d'actes</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.fam.prest</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une famille d'actes
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Famille d'actes" id="menu_mcisogem_type_famille_acte"
+			action="action_mcisogem_famille_acte" sequence="1"
+			parent="menu_mcisogem_medical_acte" />
+
+
+		<!-- ===================== acte form ============================= -->
+		<record id="view_mcisogem_acte_form" model="ir.ui.view">
+			<field name="name">mcisogem.nomen.prest.form</field>
+			<field name="model">mcisogem.nomen.prest</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Actes">
+					<sheet>
+						<div class="oe_title">
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:9px;" >
+												<field name="view" invisible="1"/>
+												<label for="Code : " string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="libelle_court_acte" class="oe_inline" placeholder="Code"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:9px;" >
+												<label for="Libellé : " string="Libellé : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="name" class="oe_inline" placeholder="Libellé"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+							<label string="Soumis à entente préalable" class="oe_inline" />
+							<field name="bl_nomen_envig" class="oe_inline" />
+
+						</div>
+						<group>
+								
+						</group>
+						<group>
+							<group>
+								<field name="code_fam_prest" />
+								<field name="l_cle_nomen" />
+							</group>
+							<!-- <group>
+								<field name="entente_pre" />
+							</group> -->
+						</group>
+						<group>
+							<field name="observation_nomen" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste acte ============================= -->
+		<record id="mcisogem_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.nomen.prest.tree</field>
+			<field name="model">mcisogem.nomen.prest</field>
+			<field name="arch" type="xml">
+				<tree string="Actes">
+					<!-- <field name="code_fam_prest" /> -->
+					<field name="libelle_court_acte" />
+					<field name="name" />
+					<field name="l_cle_nomen" />
+					<!-- <field name="entente_pre" /> -->
+					<field name="bl_nomen_envig" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre acte ============================= -->
+		<record id="view_mcisogem_acte_filter" model="ir.ui.view">
+			<field name="name">mcisogem.nomen.prest.select</field>
+			<field name="model">mcisogem.nomen.prest</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un acte">
+					<field name="code_fam_prest" />
+					<field name="libelle_court_acte" />
+					<field name="name" />
+					<field name="l_cle_nomen" />
+					<!-- <field name="entente_pre" /> -->
+					<field name="bl_nomen_envig" />
+					<group expand="0" string="Grouper par : ">
+                    	<filter name="group_code_fam_prest" string="Famille d'acte" context="{'group_by':'code_fam_prest'}"/>
+                	</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu acte -->
+		<record model="ir.actions.act_window" id="action_mcisogem_acte">
+			<field name="name">Actes</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.nomen.prest</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_fam_prest': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un acte
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Actes" id="menu_mcisogem_acte" action="action_mcisogem_acte" sequence="2" parent="menu_mcisogem_medical_acte" />
+
+
+
+		<!-- ===================== medicament form ============================= -->
+		<record id="view_mcisogem_medicament_form" model="ir.ui.view">
+			<field name="name">mcisogem.medicament.form</field>
+			<field name="model">mcisogem.medicament</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Médicaments">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="code_medicament" class="oe_inline" placeholder="Code"/>
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="t" on_change="chargement(t)" invisible="1"/>
+								<field name="acte_id" />
+								<field name="name" />
+							</group>
+
+							<group>
+								<field name="presentation_id" />
+								<field name="dci_id" />
+							</group>
+
+
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste medicament ============================= -->
+		<record id="mcisogem_medicament_tree" model="ir.ui.view">
+			<field name="name">mcisogem.medicament.tree</field>
+			<field name="model">mcisogem.medicament</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="code_medicament" />
+					<field name="name" />
+					<field name="acte_id" />
+					<field name="presentation_id" />
+					<field name="dci_id" />
+								
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu medicament -->
+		<record model="ir.actions.act_window" id="action_mcisogem_medicament">
+			<field name="name">Médicaments</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.medicament</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un médicament
+				</p>
+			</field>
+		</record>
+
+
+		<menuitem name="Médicaments" id="menu_mcisogem_medicament" action="action_mcisogem_medicament" sequence="3" parent="menu_mcisogem_medical_acte" />
+
+
+
+		<!-- ===================== filtre medicament ============================= -->
+		<record id="view_mcisogem_medicament_filter" model="ir.ui.view">
+			<field name="name">mcisogem.medicament.select</field>
+			<field name="model">mcisogem.medicament</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un médicament">
+					<field name="code_medicament" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		<!-- ===================== Actes soumis à entente préalable form ============================= -->
+		<record id="view_mcisogem_acte_entente_prealable_form" model="ir.ui.view">
+			<field name="name">mcisogem.acte.entente.prealable.form</field>
+			<field name="model">mcisogem.acte.entente.prealable</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Actes soumis à entente préalable" edit="true">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Actes soumis à entente préalable" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="code_famille"
+								on_change="onchange_code_famille_entente(code_famille,context)" />
+						</group>
+						<label string="Choix des actes soumis à entente préalable" attrs="{'invisible':[('code_famille','=',False)]}" />
+							<field name="acte_ids" domain="[('code_fam_prest','=',code_famille)]" attrs="{'invisible':[('code_famille','=',False)]}">
+								<tree editable="bottom">
+									<field name="libelle_court_acte" />
+									<field name="name" />
+									<field name="l_cle_nomen" />
+								</tree>
+							</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste Actes soumis à entente préalable ============================= -->
+		<record id="mcisogem_acte_entente_prealable_tree" model="ir.ui.view">
+			<field name="name">mcisogem.acte.entente.prealable.tree</field>
+			<field name="model">mcisogem.acte.entente.prealable</field>
+			<field name="arch" type="xml">
+				<tree string="Actes soumis à entente préalable">
+					<field name="code_famille" />
+					<field name="acte_ids" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre Actes soumis à entente préalable ============================= -->
+		<record id="view_mcisogem_acte_entente_prealable_filter" model="ir.ui.view">
+			<field name="name">mcisogem.acte.entente.prealable.select</field>
+			<field name="model">mcisogem.acte.entente.prealable</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un acte soumis à entente préalable">
+					<field name="code_famille" />
+					<field name="acte_ids" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu Actes soumis à entente préalable -->
+		<!-- <record model="ir.actions.act_window" id="action_mcisogem_acte_entente_prealable">
+			<field name="name">Actes soumis à entente préalable</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.acte.entente.prealable</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un acte soumis à entente préalable
+				</p>
+			</field>
+		</record> -->
+
+		<!-- Action du menu acte soumis à entente préalable -->
+		<record model="ir.actions.act_window" id="action_mcisogem_acte_entente">
+			<field name="name">Actes soumis à entente préalable</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.nomen.prest</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_fam_prest': 1}</field>
+			<field name="domain">[('bl_nomen_envig','=',True)]</field>
+		</record>
+
+		<menuitem name="Actes soumis à entente préalable" id="menu_mcisogem_acte_entente_prealable"
+			action="action_mcisogem_acte_entente" sequence="4"
+			parent="menu_mcisogem_medical_acte" />
+
+
+
+		<!-- ===================== CONVENTION form ============================= -->
+		<record id="view_mcisogem_convention_form" model="ir.ui.view">
+			<field name="name">mcisogem.convention.form</field>
+			<field name="model">mcisogem.convention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Convention">
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="draft,resil"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+												<label for="Libéllé : " string="Libéllé : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="code_conv" placeholder="Libéllé" class="oe_inline"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+						</div>
+
+
+						<div class="oe_right">
+							
+							<button class="oe_inline oe_stat_button" string="Resilier"
+								states="draft" name="button_resilier_convention" type="object" icon="fa-times-circle"
+								 />
+							<button class="oe_inline oe_stat_button" string="Réactiver"
+								states="resil" name="button_to_reactive" type="object" icon="fa-check"
+								/>							
+						</div>
+						<group>
+						</group>
+						<group>
+						</group>
+
+						<group>
+							<field name="type_tarif" widget="radio" on_change="onchange_typetarif(type_tarif,context)" attrs="{'readonly' : [('view','=',True)]}"/>
+						</group>
+
+						<group>
+							<field name="code_acte" attrs="{'invisible': [('view','=',False)]}" />
+						</group>
+						<group>
+							<field name="montant_plafond_tarif" attrs="{'invisible': [('view','=',False)]}" />
+						</group>
+
+						<group>
+							<field name="code_default_acte_temp" attrs="{'invisible': [('view','=',True)] , 'readonly' : [('type_tarif' , '=' , False)]}" >
+								<tree string="" editable="bottom" create="false" delete="false" >
+									<field name="code_acte" />
+									<field name="lettre_cle" string="Lettre clé" />
+									<field name="montant_brut_tarif" />
+								</tree>
+							</field>
+						</group>														
+							
+						<group>
+							<group>
+								<field name="date_debut_convention" />
+							</group>
+							<group attrs="{'invisible':[('state','=','draft')]}" >
+								<field name="date_fin_convention" />
+							</group>
+						</group>
+						
+						<group>
+							<field name="description_convention" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+			<!-- ===================== default acte temp  ============================= -->
+		<record id="view_mcisogem_default_acte_temp_form" model="ir.ui.view">
+			<field name="name">mcisogem.default.acte.temp.form</field>
+			<field name="model">mcisogem.default.acte.temp</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Actes">
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="code_acte" />
+							</group>
+							<group>
+								<field name="montant_brut_tarif" />
+							</group>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+
+		<!-- ===================== Liste CONVENTION ============================= -->
+		<record id="mcisogem_convention_tree" model="ir.ui.view">
+			<field name="name">mcisogem.convention.tree</field>
+			<field name="model">mcisogem.convention</field>
+			<field name="arch" type="xml">
+				<tree string="Convention">
+					<!-- <field name="code_conv" /> -->
+					<!-- <field name="type_tarif"/> -->
+					<field name="code_acte"/>
+					<field name="montant_plafond_tarif"/>
+					<field name="date_debut_convention" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+
+
+			<!-- ===================== Liste default acte temp ============================= -->
+		<record id="mcisogem_default_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.default.acte.temp.tree</field>
+			<field name="model">mcisogem.default.acte.temp</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="code_acte" />
+					<field name="montant_brut_tarif" />
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== filtre CONVENTION ============================= -->
+		<record id="view_mcisogem_convention_filter" model="ir.ui.view">
+			<field name="name">mcisogem.convention.select</field>
+			<field name="model">mcisogem.convention</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une plage de centre">
+					<field name="code_conv" />
+					<field name="type_tarif"/>
+					<field name="code_acte"/>
+					<field name="state" />
+					<group expand="0" string="Grouper par : ">
+						<filter name="group_code_conv" string="Convention" context="{'group_by':'code_conv'}"/>
+						<filter name="group_type_tarif" string="Type de tarif" context="{'group_by':'type_tarif'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu CONVENTION -->
+		<record model="ir.actions.act_window" id="action_mcisogem_convention">
+			<field name="name">Convention</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.convention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_conv': 1, 'search_default_group_type_tarif': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une convention
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Convention" id="menu_mcisogem_convention"
+			action="action_mcisogem_convention" sequence="3"
+			parent="menu_mcisogem_medical_etablissements_sanitairess" />
+
+
+		<menuitem name="Praticien" id="menu_mcisogem_medical_prestataire"
+			parent="menu_mcisogem_medical_sub" sequence="2" />
+
+		<!-- ===================== famille acte form ============================= -->
+		<record id="view_mcisogem_specialite_form" model="ir.ui.view">
+			<field name="name">mcisogem.spec.med.form</field>
+			<field name="model">mcisogem.spec.med</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Spécialités">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Spécialités" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="libelle_court_spec" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+						<!-- <group>
+							<group>
+								<field name="code_specialite_reserve" />
+							</group>
+							<group>
+								<field name="bl_prescr_autoris" />
+							</group>
+						</group> -->
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_specialite_tree" model="ir.ui.view">
+			<field name="name">mcisogem.spec.med.tree</field>
+			<field name="model">mcisogem.spec.med</field>
+			<field name="arch" type="xml">
+				<tree string="Spécialité">
+					<field name="libelle_court_spec" />
+					<field name="name" />
+					<!-- <field name="code_specialite_reserve" />
+					<field name="bl_prescr_autoris" /> -->
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_specialite_filter" model="ir.ui.view">
+			<field name="name">mcisogem.spec.med.select</field>
+			<field name="model">mcisogem.spec.med</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une spécialité">
+					<field name="libelle_court_spec" />
+					<field name="name" />
+					
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_specialite">
+			<field name="name">Spécialité</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.spec.med</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une spécialité
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Spécialité" id="menu_mcisogem_specialite"
+			action="action_mcisogem_specialite" sequence="1"
+			parent="menu_mcisogem_medical_prestataire" />
+
+
+
+
+
+		<!-- ===================== Prestataire form ============================= -->
+		<record id="view_mcisogem_prestataire_form" model="ir.ui.view">
+			<field name="name">Prestataire</field>
+			<field name="model">mcisogem.prestat</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Prestataire">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+                                                <label for="Code : " string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+                                            </div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="libelle_court_prestat" placeholder="Code" class="oe_inline"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+						</div>
+						<group>							
+						</group>
+						<group>
+							<field name="code_specialite" domain="[('bl_prescr_autoris','=',1)]" />
+						</group>
+						<group>
+							<field name="prenoms_prestat" string="Nom prestataire" />
+						</group>
+						<group>
+							<field name="observation_prestat" />
+						</group>
+						<group>
+							<group>
+								<field name="privilege" />
+							</group>
+							<group>
+								<field name="activer" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Localisation et Contacts">
+								<group>
+									<group>
+										<field name="code_territoire" />
+									</group>
+									<group>
+										<field name="code_ville"
+											on_change="onchange_code_ville_prestat(code_ville,context)" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="code_commune" domain="[('code_ville','=',code_ville)]" />
+									</group>
+									<group>
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="bp_prestat" />
+									</group>
+									<group>
+										<field name="code_bp_prestat" />
+									</group>
+								</group>
+								<group>
+									<field name="adresse_prestat" />
+								</group>
+								<group>
+									<group>
+										<field name="tel_prestat" />
+									</group>
+									<group>
+										<field name="tel1_prestat" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="email_prestat" />
+									</group>
+									<group>
+										<field name="fax_prestat" />
+									</group>
+								</group>
+							</page>
+							<page string="Infos bancaires">
+								<group>
+									<group>
+										<field name="numero_banque_prestat" />
+									</group>
+									<group>
+										<field name="numero_guichet_prestat" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="numero_compte_prestat" />
+									</group>
+									<group>
+									</group>
+								</group>
+								<separator string="Compte interne" colspan="4" />
+								<group>
+									<group>
+										<field name="cpta_prestat" />
+									</group>
+									<group>
+										<field name="compta_prestat_tiers" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="cle_rib_prestat" />
+									</group>
+									<group>
+										<field name="mode_paiement_prestat" widget="selection" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="regl_centre_prestat" widget="radio"
+											on_change="onchange_regl_centre_prestat(prenoms_prestat, context)" />
+									</group>
+									<group>
+										<field name="autre_ordre_prestat"
+											attrs="{'invisible':[('regl_centre_prestat','!=','A')]}" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste Prestataire ============================= -->
+		<record id="mcisogem_prestataire_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prestat.tree</field>
+			<field name="model">mcisogem.prestat</field>
+			<field name="arch" type="xml">
+				<tree string="Prestataire">
+					<field name="code_specialite" />
+					<field name="libelle_court_prestat" />
+					<field name="nom_prestat" />
+					<field name="prenoms_prestat" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre Prestataire ============================= -->
+		<record id="view_mcisogem_prestataire_filter" model="ir.ui.view">
+			<field name="name">mcisogem.prestat.select</field>
+			<field name="model">mcisogem.prestat</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un prestataire">
+					<field name="code_specialite" />
+					<field name="libelle_court_prestat" />
+					<field name="nom_prestat" />
+					<field name="prenoms_prestat" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu Prestataire -->
+		<record model="ir.actions.act_window" id="action_mcisogem_prestataire">
+			<field name="name">Prestataire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestat</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un prestataire
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Prestataire" id="menu_mcisogem_prestataire"
+			action="action_mcisogem_prestataire" sequence="1"
+			parent="menu_mcisogem_medical_prestataire" /> -->
+
+
+
+		<!-- ===================== Affections form ============================= -->
+		<record id="view_mcisogem_praticien_form" model="ir.ui.view">
+			<field name="name">Praticien</field>
+			<field name="model">mcisogem.praticien</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<header>
+					<button name="button_to_done" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user" string="Validation Comptable"
+							states="done" type="object" class="oe_highlight"
+							confirm="Valider les informations comptables ?" />
+					<field name="state" widget="statusbar" statusbar_visible="draft,done,finish"
+						statusbar_colors='{"progress":"blue"}' />
+				</header>
+				<form string="Praticien">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1" />
+							<field name="show_chp" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+												<label for="Code :" string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="libelle_court_prestat" attrs="{'invisible':[('view','=',False)]}" class="oe_inline"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="nom_prestat" />
+						</group>
+						<group>
+							<field name="prenoms_prestat" />
+						</group>
+						<group>
+							<field name="code_specialite" />
+						</group>
+						<group>
+							<field name="numero_ordre_prestat" />
+						</group>
+						
+						<group>
+							<field name="code_externe" />
+						</group>
+
+						<notebook>
+							<page string="Localisation et Contacts">
+								<group>
+									<group>
+										<field name="tel1_prestat" string="Téléphone 1" />
+										<field name="tel2_prestat" string="Téléphone 2" />
+									</group>
+									<group>
+										<field name="email_prestat" />
+									</group>
+								</group>
+								<group>
+								<field name="observation_prestat" />
+							</group>
+							</page>
+							<page string="Informations bancaires" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+								<group>
+									<group>
+										<field name="numero_banque_prestat" />
+										<field name="numero_compte_prestat" />
+									</group>
+									<group>
+										<field name="numero_guichet_prestat" />
+										<field name="cle_rib_prestat" />
+									</group>
+								</group>
+								<separator string="Compte interne" colspan="4" />
+								<group>
+									<group>
+										<field name="cpta_prestat" />
+									</group>
+									<group>
+										<field name="compta_prestat_tiers" />
+									</group>
+								</group>
+								<group>
+									<group>
+										<field name="mode_paiement_prestat" widget="selection" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste PRATICIEN ============================= -->
+		<record id="mcisogem_praticien_tree" model="ir.ui.view">
+			<field name="name">mcisogem.praticien.tree</field>
+			<field name="model">mcisogem.praticien</field>
+			<field name="arch" type="xml">
+				<tree colors="red:state == 'done';green:state == 'finish'" string="Praticien">
+					<field name="libelle_court_prestat" />
+					<field name="nom_prenoms_prestat" />
+					<!-- <field name="code_specialite" /> -->
+					<field name="tel1_prestat" />
+					<field name="tel2_prestat" />
+					<field name="numero_ordre_prestat" />
+					<field name="state" invisible="1" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre PRATICIEN ============================= -->
+		<record id="view_mcisogem_praticien_filter" model="ir.ui.view">
+			<field name="name">mcisogem.praticien.select</field>
+			<field name="model">mcisogem.praticien</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un praticien">
+					<field name="code_specialite" />
+					<field name="libelle_court_prestat" />
+					<field name="nom_prestat" />
+					<field name="prenoms_prestat" />
+					<field name="numero_ordre_prestat" />
+					<group expand="0" string="Grouper par : ">
+                    	<filter name="group_code_specialite" string="Spécialité" context="{'group_by':'code_specialite'}"/>
+                	</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu PRATICIEN -->
+		<record model="ir.actions.act_window" id="action_mcisogem_praticien">
+			<field name="name">Praticien</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.praticien</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_specialite': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un praticien
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Création praticien" id="menu_mcisogem_praticien"
+			action="action_mcisogem_praticien" sequence="2"
+			parent="menu_mcisogem_medical_prestataire" />
+
+
+		<menuitem name="Affections" id="menu_mcisogem_medical_affection"
+			parent="menu_mcisogem_medical_sub" sequence="4" />
+
+		<!-- ===================== famille acte form ============================= -->
+		<record id="view_mcisogem_type_affection_form" model="ir.ui.view">
+			<field name="name">mcisogem.type.affection.form</field>
+			<field name="model">mcisogem.type.aff</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Type affection">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Type affection" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_type_affection" />
+							</group>
+							<group>
+								<field name="libelle_court_affection" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="name" />
+							</group>
+							<group>
+							</group>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_type_affection_tree" model="ir.ui.view">
+			<field name="name">mcisogem.type.affection.tree</field>
+			<field name="model">mcisogem.type.aff</field>
+			<field name="arch" type="xml">
+				<tree string="Type affection">
+					<field name="code_type_affection" />
+					<field name="libelle_court_affection" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_type_affection_filter" model="ir.ui.view">
+			<field name="name">mcisogem.type.affection.select</field>
+			<field name="model">mcisogem.type.aff</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un type d'affection">
+					<field name="code_type_affection" />
+					<field name="libelle_court_affection" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_type_affection">
+			<field name="name">Type affection</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.type.aff</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une Type affection
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Type affection" id="menu_mcisogem_type_affection"
+			action="action_mcisogem_type_affection" sequence="1"
+			parent="menu_mcisogem_medical_affection" /> -->
+
+
+		<!-- ===================== famille AFFECTION form ============================= -->
+		<record id="view_mcisogem_affection_form" model="ir.ui.view">
+			<field name="name">mcisogem.affec.form</field>
+			<field name="model">mcisogem.affec</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Affection">
+					<sheet>
+						<div class="oe_title">
+							<field name="view" invisible="1" />
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:11px;" >
+												<label for="Code : " string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="code_affection" placeholder="Code" class="oe_inline"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+							<label for="activer" string="Actif" />
+							<field name="activer" />
+						</div>
+						<group>
+							<group>
+								<field name="lbc_affection" />								
+							</group>
+							<group>
+								<field name="sous_chapitre_id" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste AFFECTION ============================= -->
+		<record id="mcisogem_affection_tree" model="ir.ui.view">
+			<field name="name">mcisogem.affec.tree</field>
+			<field name="model">mcisogem.affec</field>
+			<field name="arch" type="xml">
+				<tree string="Affection">
+					<!-- <field name="sous_chapitre_id" /> -->
+					<field name="code_affection"/>
+					<field name="lbc_affection" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre AFFECTION ============================= -->
+		<record id="view_mcisogem_affection_filter" model="ir.ui.view">
+			<field name="name">mcisogem.affec.select</field>
+			<field name="model">mcisogem.affec</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une affection">
+					<field name="sous_chapitre_id" />
+					<field name="lbc_affection" />
+					<group expand="0" string="Grouper par : ">
+						<filter name="group_sous_chapitre_id" string="Sous chapitre" context="{'group_by':'sous_chapitre_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu AFFECTION -->
+		<record model="ir.actions.act_window" id="action_mcisogem_affection">
+			<field name="name">Affections</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.affec</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_sous_chapitre_id': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un affection
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Affections" id="menu_mcisogem_affection"
+			action="action_mcisogem_affection" sequence="3"
+			parent="menu_mcisogem_medical_affection" />
+
+		<!-- ===================== LISTE DES DENTS form ============================= -->
+		<record id="view_mcisogem_liste_dent_form" model="ir.ui.view">
+			<field name="name">mcisogem.liste.dent.form</field>
+			<field name="model">mcisogem.liste.dent</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Extractions dentaires">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group col="2">
+							<group>
+								<field name="type_dent" />
+								<field name="machoire" />
+							</group>
+							<group>
+								<field name="semi_arcade" />
+								<field name="enf_ad" widget="radio"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste LISTE DES DENTS ============================= -->
+		<record id="mcisogem_liste_dent_tree" model="ir.ui.view">
+			<field name="name">mcisogem.liste.dent.tree</field>
+			<field name="model">mcisogem.liste.dent</field>
+			<field name="arch" type="xml">
+				<tree string="Liste de dents">
+					<field name="name" />
+					<field name="type_dent" />
+					<field name="machoire" />
+					<field name="semi_arcade" />
+					<field name="enf_ad" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre LISTE DES DENTS ============================= -->
+		<record id="view_mcisogem_liste_dent_filter" model="ir.ui.view">
+			<field name="name">mcisogem.liste.dent.select</field>
+			<field name="model">mcisogem.liste.dent</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une dent">
+					<field name="name" />
+					<field name="type_dent" />
+					<field name="machoire" />
+					<field name="semi_arcade" />
+					<field name="enf_ad" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu LISTE DES DENTS -->
+		<record model="ir.actions.act_window" id="action_mcisogem_liste_dent">
+			<field name="name">Liste de dent</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.liste.dent</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une liste de dent
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Liste des dents" id="menu_mcisogem_liste_dent"
+			parent="menu_mcisogem_medical_sub" action="action_mcisogem_liste_dent" sequence="5" /> -->
+
+		<!-- <menuitem name="Liste des dents" id="menu_mcisogem_liste_dent"
+			action="action_mcisogem_liste_dent" sequence="1"
+			parent="menu_mcisogem_medical_actes_dentaires" /> -->
+
+		<!-- ===================== famille acte form ============================= -->
+		<record id="view_mcisogem_acte_absence_dents_form" model="ir.ui.view">
+			<field name="name">mcisogem.acte.absence.dents.form</field>
+			<field name="model">mcisogem.acte.absence.dents</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Extractions chirurgicales'">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Extractions chirurgicales" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="libelle_court_acte" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+						<group>
+							<field name="code_ext_dent" />
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_acte_absence_dents_tree" model="ir.ui.view">
+			<field name="name">mcisogem.acte.absence.dents.tree</field>
+			<field name="model">mcisogem.acte.absence.dents</field>
+			<field name="arch" type="xml">
+				<tree string="Extractions chirurgicales">
+					<field name="libelle_court_acte" />
+					<field name="name" />
+					<field name="code_ext_dent" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_acte_absence_dents_filter" model="ir.ui.view">
+			<field name="name">mcisogem.acte.absence.dents.select</field>
+			<field name="model">mcisogem.acte.absence.dents</field>
+			<field name="arch" type="xml">
+				<search string="Extractions chirurgicales">
+					<field name="libelle_court_acte" />
+					<field name="name" />
+					<field name="code_ext_dent" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_acte_absence_dents">
+			<field name="name">Extractions chirurgicales</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.acte.absence.dents</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un extractions chirurgicales
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Extractions chirurgicales" id="menu_mcisogem_acte_absence_dents"
+			action="action_mcisogem_acte_absence_dents" sequence="1"
+			parent="menu_mcisogem_medical_actes_dentaires" /> -->
+
+
+<!-- ===================== Sous Actes FORM ============================= -->
+		<record id="view_mcisogem_sous_acte_form" model="ir.ui.view">
+			<field name="name">mcisogem.sous.actes.form</field>
+			<field name="model">mcisogem.sous.actes</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sous Actes">
+					<sheet>
+						<div class="oe_title">
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:10px;" >
+												<field name="view" invisible="1"/>
+												<label for="Code : " string="Code : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="libelle_court_sous_acte" class="oe_inline" placeholder="Code"/>
+											</h1>
+										</td>
+									</tr>
+							</table>
+
+							<table>
+									<tr>
+										<td >
+											<div style="padding-top:9px;" >
+												<label for="Libellé : " string="Libellé : " attrs="{'invisible':[('view','=',False)]}" />
+											</div>                                            
+										</td>
+										<td >
+											<h1>								
+												<field name="name" class="oe_inline" placeholder="Libellé" />
+											</h1>
+										</td>
+									</tr>
+							</table>
+						</div>
+						<group>
+						</group>
+						<group>
+							<group>
+								<field name="code_famille_acte" />
+								<field name="code_acte" domain="[('code_fam_prest','=',code_famille_acte)]" />
+							</group>
+							<group>
+								<field name="bl_nomen_envig" />
+							</group>
+						</group>
+						<group>
+							<!-- <group>
+								<field name="l_cle_nomen" />
+							</group> -->
+							<group>
+								<field name="qte_cg" />
+							</group>
+						</group>
+						<group>
+							<field name="observation_nomen" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste Sous Actes ============================= -->
+		<record id="mcisogem_sous_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.sous.actes.tree</field>
+			<field name="model">mcisogem.sous.actes</field>
+			<field name="arch" type="xml">
+				<tree string="Sous Actes">
+					<!-- <field name="code_famille_acte" />
+					<field name="code_acte" /> -->
+					<field name="libelle_court_sous_acte" />
+					<field name="name" />
+					<field name="bl_nomen_envig" />
+					<field name="qte_cg" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre Sous Actes ============================= -->
+		<record id="view_mcisogem_sous_acte_filter" model="ir.ui.view">
+			<field name="name">mcisogem.sous.actes.select</field>
+			<field name="model">mcisogem.sous.actes</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un sous acte">
+					<field name="code_famille_acte" />
+					<field name="code_acte" />
+					<field name="libelle_court_sous_acte" />
+					<field name="name" />
+					<field name="bl_nomen_envig" />
+					<field name="qte_cg" />
+					<group expand="0" string="Grouper par : ">
+                    	<filter name="group_code_famille_acte" string="Famille d'acte" context="{'group_by':'code_famille_acte'}"/>
+                        <filter name="group_code_acte" string="Acte" context="{'group_by':'code_acte'}"/>
+                	</group>
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu Sous Actes -->
+		<record model="ir.actions.act_window" id="action_mcisogem_sous_acte">
+			<field name="name">Sous Actes</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.sous.actes</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_famille_acte': 1, 'search_ggroup_code_acte': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un sous acte
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Sous Actes" id="menu_mcisogem_sous_acte"
+			action="action_mcisogem_sous_acte" sequence="3"
+			parent="menu_mcisogem_medical_acte" />
+
+
+		<!-- ===================== Tarif Convention form ============================= -->
+		<record id="view_mcisogem_tarif_convention_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.form</field>
+			<field name="model">mcisogem.tarif.convention</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Tarif Convention">
+					<!-- <header>
+						<field name="state" widget="statusbar" statusbar_visible="draft,resil"
+							statusbar_colors='{"progress":"blue"}' />
+					</header> -->
+					<field name="affichage" invisible="1" />
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Tarif Convention" />
+							</h1>
+							<!-- <group attrs="{'invisible':[('state','=','draft')]}">
+								<field name="date_resiliation_tarif" />
+							</group> -->
+						</div>
+						<field name="id" invisible="1"/>
+						<!-- <div class="oe_right">
+							
+							<button class="oe_inline oe_stat_button" string="Resilier"
+								 states="draft" name="button_resilier_tarif_convention" type="object" icon="fa-times-circle"
+								 />
+							<button class="oe_inline oe_stat_button" string="Réactiver"
+								 states="resil" name="button_to_reactive" type="object" icon="fa-check"
+								/>							
+						</div> -->
+						<group>
+						</group>
+						<group>
+						</group>
+						<group col="2">
+							<group>
+								<field name="code_convention" attrs="{'readonly': [('affichage','=',1)]}"/>
+							</group>
+						</group>
+						
+						<group>
+							<group>
+								<field name="date_effet_tarif" />
+							</group>
+						</group>
+
+						
+						<group>
+							<field name="type_plafond" invisible="1" widget="radio"/>
+						</group>
+						
+						<group>
+							<field name="code_acte" on_change="onchange_acte(code_acte)" attrs="{'invisible': [('id','=',False) , ('type_plafond' , '!=' , 'med')]}"/>
+						</group>
+
+
+						<group>
+							<field name="medicament_id" attrs="{'invisible': ['|'  , ('id','=',False) , ('type_plafond' , '!=' , 'med')]}"/>
+						</group>
+
+
+						<group>
+							<field name="montant_brut_tarif" attrs="{'invisible': [('affichage','=',0)]}" />
+						</group>
+						<notebook attrs="{'invisible': [('affichage','=',1)] , 'readonly' : [('type_tarif' , '=' , False)]}">
+
+								<page string="Tarifs de la convention">
+									
+
+
+									<group>
+										<field name="code_famille" attrs="{'invisible': ['|' , ('affichage','=',1) , ('type_plafond' , '=' , 'med')]}" on_change="onchange_code_famille_tarif_convention(code_famille,context)"/>
+									</group>
+
+									<group>
+										<field name="code_tarif_convention_temp" attrs="{'readonly': [('code_famille','=',False)], 'invisible': ['|' ,('affichage','=',1) , ('type_plafond' , '=' , 'med')]}" >
+											<tree string="Choix des actes" editable="bottom" create="false" delete="false" >
+												<field name="code_acte" />
+												<field name="montant_brut_tarif" />
+											</tree>
+										</field>
+									</group>
+
+
+									<group>
+										<field name="code_tarif_convention_med_temp" attrs="{'readonly': [('code_acte','=',False)], 'invisible': ['|' ,('id','!=',False) , ('type_plafond','!=','med')]}" >
+											<tree string="Choix des médicaments" editable="bottom" create="false" delete="false" >
+												<field name="code_medicament" />
+												<field name="dci_id" />
+												<field name="presentation_id" />
+												<field name="medicament_id" />
+												<field name="montant_brut_tarif" />
+											</tree>
+										</field>
+									</group>
+
+
+								</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste Tarif convention ============================= -->
+		<record id="mcisogem_tarif_convention_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.tree</field>
+			<field name="model">mcisogem.tarif.convention</field>
+			<field name="arch" type="xml">
+				<tree string="Tarif Convention">
+					<!-- <field name="code_convention" /> -->
+					
+					<field name="code_acte" />
+					<field name="medicament_id" />
+					<field name="montant_brut_tarif" />
+					<!-- <field name="montant_plafond_tarif" /> -->
+					<field name="date_effet_tarif" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste Med convention ============================= -->
+		<record id="mcisogem_tarif_convention_med_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.med.temp.tree</field>
+			<field name="model">mcisogem.tarif.convention.med.temp</field>
+			<field name="arch" type="xml">
+				<tree string="Medicaments">
+					<field name="code_medicament" />
+					<field name="dci_id" />
+					<field name="presentation_id" />
+					<field name="medicament_id" />
+					<field name="montant_brut_tarif" />
+				</tree>
+			</field>
+		</record>
+
+
+
+
+		<!-- ===================== filtre plage de centre ============================= -->
+		<record id="view_mcisogem_tarif_convention_filter" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.select</field>
+			<field name="model">mcisogem.tarif.convention</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un tarif convention">
+					<field name="code_convention" />					
+					<field name="code_acte" />
+					<field name="date_effet_tarif" />
+					<group expand="0" string="Grouper par : ">
+                    	<filter name="group_code_convention" string="Convention" context="{'group_by':'code_convention'}"/>
+                	</group>					
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu plage de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_tarif_convention">
+			<field name="name">Tarif Convention</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tarif.convention</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_code_convention': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un tarif convention
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Tarif Convention" id="menu_mcisogem_tarif_convention"
+			action="action_mcisogem_tarif_convention" sequence="4"
+			parent="menu_mcisogem_medical_etablissements_sanitairess" />
+
+
+
+
+
+
+
+
+
+
+		<!-- ===================== Tarif centre form ============================= -->
+		<record id="view_mcisogem_tarif_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.centre.form</field>
+			<field name="model">mcisogem.tarif.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Tarif par centre">
+					
+					<sheet>
+						
+						<field name="id" invisible="1"/>
+
+						<h1 class="oe_title">
+							<field name="convention_id" placeholder="Convention"/>
+						</h1>
+						
+						<group class="oe_title" attrs="{'invisible': [('id','=',False)]}">
+							<field name="centre_id" />
+						</group>
+
+
+						<notebook attrs="{'invisible': [('id','!=',False)]}">
+							<page string="Centre">
+								<field name="centre_ids" />
+							</page>
+						</notebook>
+
+
+
+						<notebook attrs="{'invisible': [('id','!=',False)]}">
+							<page string="Familles">
+								<field name="famille_acte_ids"  on_change="onchange_famille(famille_acte_ids)"/>
+							</page>
+
+							<page string="Actes">
+								<field name="acte_ids">
+									<tree editable="bottom">
+										<field name="acte_id" />
+										<field name="tarif" />
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						
+
+						
+						<group col="2" attrs="{'invisible': [('id','=',False)]}">
+							<group>
+								<field name="acte_id" />
+							</group>
+
+							<group>
+								<field name="tarif" />
+							</group>
+							
+						</group>
+						
+						<group>
+							<field name="dt_effet" />
+						</group>
+
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_tarif_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.centre.tree</field>
+			<field name="model">mcisogem.tarif.centre</field>
+			<field name="arch" type="xml">
+				<tree>
+					<!--<field name="centre_id" />-->
+					<field name="acte_id"/>
+					<field name="tarif"/>
+					<field name="dt_effet" />
+				</tree>	
+			</field>
+		</record>
+
+		<record id="mcisogem_acte_tarif_tree" model="ir.ui.view">
+			<field name="name">mcisogem.acte.tarif.tree</field>
+			<field name="model">mcisogem.acte.tarif</field>
+			<field name="arch" type="xml">
+				<tree>
+					
+					<field name="acte_id"/>
+					<field name="tarif"/>
+				
+				</tree>	
+			</field>
+		</record>
+
+
+
+		<record id="view_mcisogem_tarif_centre_filter" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.centre.filter</field>
+			<field name="model">mcisogem.tarif.centre</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="convention_id" />
+					<field name="centre_id" />
+					<field name="acte_id" />
+
+					<group expand="0" string="Groupé Par">
+						<filter string="Convention" name="group_convention_id" context="{'group_by':'convention_id'}"/>
+                        <filter string="Centre" name="group_centre_id" context="{'group_by':'centre_id'}"/>
+                    </group>
+
+				</search>
+			</field>
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_tarif_centre">
+			<field name="name">Tarif par centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tarif.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_centre_id': 1}</field>
+		</record>
+		
+		<menuitem name="Tarif par Centre" id="menu_tarif_par_centre" parent="menu_mcisogem_medical_etablissements_sanitairess" action='action_mcisogem_tarif_centre' sequence="3" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- =====================  d entente prealable pour mci================= -->	
+
+			  <record id="view_entente_mci_form" model="ir.ui.view">
+				<field name="name">mcisogem.entente.form</field>
+				<field name="model">mcisogem.entente</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Entente préalable" create="false" edit="false">
+						<header>
+								<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+								statusbar_colors='{"progress":"blue"}' />
+						</header>
+						<sheet>
+							<div>
+								<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+	  						</div>
+							
+								<div class="oe_title">
+										
+										<field name="id" invisible="1"/>
+										<field name="affichdetail" invisible="1"/>
+										<field name="affichebenef" invisible="1"/>
+										<field name="affichsacte" invisible="1"/>
+										<field name="centre_id" invisible="1"/>
+										
+										<table>
+											<tr>
+											    <td><label for="num_entente" attrs="{'invisible':[('id','=',False)]}"/></td>
+											    <td><field name="num_entente" readonly="True" attrs="{'invisible':[('id','=',False)]}"/></td> 
+											    
+											</tr>
+											
+										</table>
+										 			<h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+									    			</h1>
+								    					<field name="affichebenef" invisible="1"/>
+
+								</div>
+								<div class="oe_right">
+									<button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+
+
+									<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+
+									
+									<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/>
+
+									
+								</div>
+							
+							<group col="3">
+								<group attrs="{'invisible':[('affichebenef','=',False)]}">
+								</group>
+								<group attrs="{'invisible':[('affichebenef','=',False)]}">
+								
+											<div class="oe_title">
+						                            <h1>
+						                                <field name="benef_test_id"  placeholder="Matricule" domain="[('garant_id' , '=' , garant_id)]" on_change="benef_change(benef_test_id)" attrs="{'invisible':[('affichebenef','=',False)]}"/>
+									    			</h1>
+								    			
+				                			</div>
+				                </group>
+				                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+								</group>
+				            </group>
+							
+								<field name="police_id" invisible="1"/>
+								<field name="college_id" invisible="1"/>
+
+				                <field name="garant_id" on_change="onchange_centre_tempo(college_id,police_id,garant_id)" invisible="1"/>
+								<field name="id_centre" on_change="onchange_centre_tempo2(id_centre,college_id)" invisible="1"/> 
+
+							<group col="1">
+		
+									
+								<group  col="2" attrs="{'invisible':[('affichdetail','=',False)]}">
+								
+								<group>
+									<field name="nom_benef" readonly="True"/>
+									<field name="prenom_benef" readonly="True"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True"/>
+									<field name="mail_benef" readonly="True"/>			
+								</group>
+								</group>
+							</group>
+							<group attrs="{'invisible':[('affichdetail','=',False)]}">
+									<field name="user_id" invisible="1"/>
+									<field name="acteent_id" options="{'no_create_edit': True}"/>
+									<field name="s_acteent_id" widget="many2many_list" attrs="{'invisible':[('affichsacte','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" domain="[('code_acte' , '=' , acteent_id)]" options="{'no_create_edit': True}"/>
+									<field name="affection_id" options="{'no_create_edit': True}"/>
+									<!-- <field name="cent_id" options="{'no_create_edit': True}"  domain="[('create_uid' , '=' , user_id)]"/> -->
+									<field name="motif"/>
+		
+								</group>
+							<group>
+									
+									
+									<field name="create_date" attrs="{'invisible':[('id','=',False)]}"/>
+		
+								</group>
+
+							 
+							
+						</sheet>	
+				</form>
+				</field>
+			</record>
+
+			<record id="view_entente_mci_tree" model="ir.ui.view">
+				<field name="name">mcisogem.entente.tree</field>
+				<field name="model">mcisogem.entente</field>
+				<field name="arch" type="xml">
+					<tree string="Entente préalable" create="false" colors="green:state == 'valide';red:state == 'attente'">
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="acteent_id" />
+						<field name="affection_id" />
+						<field name="motif"/>
+						<field name="state"/>
+						<field name="centre_id"/>	
+
+					</tree>	
+				</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_entente_med">
+				<field name="name">Entente préalable</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.entente</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('state','=','attente')]</field>
+				<field name="context">{'search_default_group_centre_id': 1}</field>
+				<!-- <field name="view_id" ref="view_entente_mci_tree"/>
+				<field name="view" ref="view_entente_mci_form"/> -->
+				
+			</record>
+
+			<record model="ir.actions.act_window" id="action_entente_med_histo">
+				<field name="name">Entente préalable histo</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.entente</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[('state','in',('valide','rejet'))]</field>
+				<field name="context">{'search_default_group_exercice_id': 1,'search_default_group_periode_id': 1,'search_default_group_centre_id': 1}</field>
+				<!-- <field name="view_id" ref="view_entente_mci_tree"/>
+				<field name="view" ref="view_entente_mci_form"/> -->
+				
+			</record>
+
+			<menuitem name="Demandes émises" id="menu_mcisogem_medical_deamnde_emise"
+			parent="menu_mcisogem_medical" sequence="2" />
+				<menuitem name="Entente préalable" id="act_entente_med" parent="menu_mcisogem_medical_deamnde_emise" action='action_entente_med' sequence="1" />
+
+		   <!-- ===================== demande d entente prealable pour mci/================= -->
+
+		   <!-- #############======= demande de prise en charge pour mci==========############# -->	
+
+
+		 <record id="view_pcharge_mci_form" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.form</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande de prise en charge" create="false" edit="false">
+					<header>
+							
+
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div>
+
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+						</div>
+							<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="affichdetail" invisible="1"/>
+								<field name="affichebenef" invisible="1"/>
+								<field name="affichsacte" invisible="1"/>
+								<field name="aff_quantite" invisible="1"/>
+								<field name="aff_mont_tt" invisible="1"/>
+								<field name="aff_hos_mat" invisible="1"/>
+								<field name="aff_mont" invisible="1"/>
+
+											<table>
+												<tr>
+												    <td><label for="num_pchrage" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td>
+												    <td><field name="num_pchrage" readonly="True" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td> 
+												    
+												</tr>
+												
+											</table>
+								
+
+								
+						                            <h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    					<field name="affichebenef" invisible="1"/>
+								    
+							    			
+			                      	    	
+
+							</div>
+							<div class="oe_right">
+								
+								<button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print" groups="mcisogem_isa.group_prestataire" states="valide"/>
+								<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/> 
+
+								
+							</div>
+							
+						
+						<group col="3">
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+							
+										
+					                            <h1>
+					                                <field name="benef_test_id"  placeholder="Matricule" domain="[('garant_id' , '=' , garant_id)]" on_change="benef_change(benef_test_id)" attrs="{'invisible':[('affichebenef','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+								    			</h1>
+							    			
+			                      	    	
+			                </group>
+			                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+			            </group>
+					          	    	<field name="police_id"  invisible="1"/>
+					          	    	<field name="college_id"  invisible="1"/>
+			                      	    <field name="garant_id" on_change="onchange_prat_tempo(college_id,police_id,garant_id)" invisible="1"/>
+										<field name="id_centre" on_change="onchange_prat_tempo2(id_centre,college_id)" invisible="1"/> 
+
+
+			                      	    	
+
+
+						<group col="1">
+								
+
+
+								
+								
+							<group  col="2" attrs="{'invisible':[('affichdetail','=',False)]}">
+								
+							
+								<group>
+									<field name="nom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="prenom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="police_benef_id" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="mail_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="college_benef_id" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>			
+								</group>
+							</group>
+						</group>
+						
+
+						<group col="2" string="Medecin traitant"  attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group>
+								<field name="user_id" invisible="1"/>
+
+								<field name="prati_id"  options="{'no_create_edit': True}" on_change="prat_change(prati_id)" domain="[('create_uid' , '=' , user_id)]" attrs="{'readonly':[('state','in', ('valide','rejet'))],'invisible':[('afficheprat','=',True)]}"/>
+								
+								<field name="afficheprat" invisible="1"/>
+	
+							</group>
+							<group attrs="{'invisible':[('afficheprat','=',False)]}">
+								<field name="nom_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								<field name="prenom_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								<field name="mail_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								<field name="tel_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+	
+							</group>
+						</group>
+						
+
+
+						
+							<group col="1" string="Nature demande" attrs="{'invisible':[('affichdetail','=',False)]}">
+
+								<group col="2">
+									<group>
+										<field name="facte_id" options="{'no_create_edit': True}" on_change="onchange_famille_acte(facte_id)" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										<field name="acte_id" options="{'no_create_edit': True}" domain="[('code_fam_prest','=','facte_id)]" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										<field name="affection_id" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									</group>
+									<group>
+										<div>
+											<label string="Piece jointe (Facture proforma ...)"></label>
+											<field name="fichier_join" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										</div>
+									</group>
+								</group>
+								
+								<group>
+									<field name="s_acteent_id" widget="many2many_list" attrs="{'invisible':[('affichsacte','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" domain="[('code_acte' , '=' , acte_id)]" options="{'no_create_edit': True}"/>
+								</group>
+
+
+								<group>
+
+
+									<field name="quantite" attrs="{'invisible':[('aff_quantite','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="montant_total_med" attrs="{'invisible':[('aff_mont_tt','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="date_hospi" attrs="{'invisible':[('aff_hos_mat','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="dure_demande" attrs="{'invisible':[('aff_hos_mat','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+										
+									<field name="monatant" attrs="{'invisible':[('aff_mont','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="create_date" attrs="{'invisible':[('id','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+
+
+																						
+									<field name="motif" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								</group>
+								
+	
+							</group>
+							<group col="2" string="Accords" attrs="{'invisible':[('state','in',('nouveau','attente'))]}">
+
+								<group>
+									<field name="nbr_jour_acc" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+								</group>
+								<group>
+									<field name="motif_valider" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_rejet" attrs="{'invisible':[('state','!=','rejet')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									
+								</group>
+								
+								
+	
+							</group>
+							
+						
+						 
+						
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+		<record id="view_pcharge_mci_tree" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.tree</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="arch" type="xml">
+				<tree string="Prise en charge" create="false" colors="green:state == 'valide';red:state == 'attente'">
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="nom_prat"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif"/>
+					<field name="state"/>
+					<field name="centre"/>
+					<field name="nbr_jour_acc"/>
+					<button name="button_prorogation" type="object"  string="PROROGATION" states="valide"  class="oe_inline oe_stat_button"  groups="mcisogem_isa.group_prestataire"/>
+					<button name="button_courier" type="object"  string="FAIRE UN COURIER" attrs="{'invisible':[('nbr_jour_acc','in', (0,1,2,3,4))]}" class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<!-- <button name="hospitalisation_en_cours" type="object" states="valide"  string="TEST EN COURS" class="oe_inline oe_stat_button"/> -->
+				</tree>	
+			</field>
+
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_pcharge_med">
+			<field name="name">Prise en charge</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.pcharge</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','attente')]</field>
+			<field name="context">{'search_default_group_centre': 1}</field>
+			<!-- <field name="view_id" ref="view_pcharge_mci_form" /> -->
+			<!-- <field name="view_id" ref="view_pcharge_mci_tree" /> -->
+			
+		</record>
+
+		<record model="ir.actions.act_window" id="action_pcharge_med_histo">
+			<field name="name">Prise en charge histo</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.pcharge</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',('valide','rejet'))]</field>
+			<field name="context">{'search_default_group_exercice_id': 1,'search_default_group_periode_id': 1,'search_default_group_centre': 1}</field>
+			<!-- <field name="view_id" ref="view_pcharge_mci_form" /> -->
+			<!-- <field name="view_id" ref="view_pcharge_mci_tree" /> -->
+			
+		</record>
+		
+		<menuitem name="Prsie en charge" id="act_pcharge_med" parent="menu_mcisogem_medical_deamnde_emise" action='action_pcharge_med' sequence="2" />
+       
+		   <!-- ===================== demande de prise en charge pour mci/================= -->
+
+		    <!-- #############======= demande de prorogation pour mci==========############# -->	
+
+
+		 <record id="view_prorogation_mci_form" model="ir.ui.view">
+			<field name="name">mcisogem.prorogation.form</field>
+			<field name="model">mcisogem.prorogation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande de prorogation" create="false" edit="false">
+					<header>
+							
+
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div>
+
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+						</div>
+							<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="pcharge_id" invisible="1" on_change="pcharge_change(pcharge_id)"/>
+								
+
+											<table>
+												<tr>
+												    <td><label for="num_prorogation" attrs="{'invisible':[('id','=',False)]}"/></td>
+												    <td><field name="num_prorogation" readonly="True" attrs="{'invisible':[('id','=',False)]}"/></td> 
+												    
+												</tr>
+												
+											</table>
+								
+
+								
+						                            <h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" />
+									    			</h1>
+								    					
+								    
+							    			
+			                      	    	
+
+							</div>
+							<div class="oe_right">
+								
+								<button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print" groups="mcisogem_isa.group_prestataire" states="valide"/>
+								<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/>
+
+
+								
+							</div>
+							
+						
+					
+
+						<group col="1">
+								
+
+
+								<field name="centre" readonly="True"/> 
+								
+							<group  col="2">
+								
+							
+								<group>
+									<field name="nom_benef" readonly="True"/>
+									<field name="prenom_benef" readonly="True"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True"/>
+									<field name="mail_benef" readonly="True"/>			
+								</group>
+							</group>
+						</group>
+						
+
+						<group col="2" string="Medecin traitant"  >
+							<group>
+								
+								<field name="praticien_id" readonly="True" options="{'no_create_edit': True}"/>
+								
+								
+	
+							</group>
+							<group >
+								<field name="nom_prat" readonly="True"/>
+								<field name="prenom_prat" readonly="True"/>
+								
+	
+							</group>
+						</group>
+						
+
+
+						
+							<group col="1" string="Nature demande" >
+
+								<group col="2">
+									<group>
+										<field name="facte_id" options="{'no_create_edit': True}"  readonly="True"/>
+										<field name="acte_id" options="{'no_create_edit': True}"  readonly="True"/>
+										<field name="affection_id" options="{'no_create_edit': True}" readonly="True"/>
+									</group>
+									<group>
+										
+									</group>
+								</group>
+
+
+								<group>
+
+										
+									<field name="date_hospi"  readonly="True"/>	
+									<field name="dure_demande" readonly="True"/>	
+									<field name="dur_sup_demande" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="create_date" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+
+																						
+									<field name="motif_prorogation" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								</group>
+								
+	
+							</group>
+							<group col="2" string="Accords" attrs="{'invisible':[('state','in',('nouveau','attente'))]}">
+
+								<group>
+									<field name="nbr_jour_acc" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+								</group>
+								<group>
+									<field name="motif_valider" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_rejet" attrs="{'invisible':[('state','!=','rejet')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									
+								</group>
+								
+								
+	
+							</group>
+							
+						
+						 
+						
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+		
+		<record id="view_prorogation_mci_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prorogation.tree</field>
+			<field name="model">mcisogem.prorogation</field>
+			<field name="arch" type="xml">
+				<tree string="Prorogation" colors="green:state == 'valide';red:state == 'attente'">
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="praticien_id"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif_prorogation"/>
+					<field name="state"/>
+					<field name="centre"/>
+					
+				</tree>	
+				
+			</field>
+
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_prorogation_mci">
+			<field name="name">Les prorogations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prorogation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_centre': 1}</field>
+			
+		</record>
+
+		<record model="ir.actions.act_window" id="action_prorogation_mci_histo">
+			<field name="name">Les prorogation histo</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prorogation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',('valide','rejet'))]</field>
+			<field name="context">{'search_default_group_centre': 1}</field>
+			
+		</record>
+
+		
+
+       <menuitem name="Prorogation" id="act_prorogation_mci" parent="menu_mcisogem_medical_deamnde_emise" action='action_prorogation_mci' sequence="3" />
+
+       <menuitem name="Historiques" id="menu_historique_presta_mc" parent="menu_mcisogem_medical_deamnde_emise" sequence="4" />
+	       	<menuitem name="Entente préalable" id="act_entente_med_histo" parent="menu_historique_presta_mc" action='action_entente_med_histo' sequence="1" />
+
+	       	<menuitem name="Prsie en charge" id="act_pcharge_med_histo" parent="menu_historique_presta_mc" action='action_pcharge_med_histo' sequence="2" />
+
+	       	<menuitem name="Prorogation" id="act_prorogation_mci_histo" parent="menu_historique_presta_mc" action='action_prorogation_mci_histo' sequence="3" />
+		   <!-- ===================== demande de prorogation/ pour mci================= -->
+
+	</data>
+</openerp>

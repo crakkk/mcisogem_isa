@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_prestation_r_centre_graph" model="ir.ui.view">
+            <field name="name">report.prestation.r.centre.graph</field>
+            <field name="model">report.prestation.r.centre</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_total" type="measure"/>
+                    <field name="montant_remb" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_r_centre_graph" model="ir.ui.view">
+            <field name="name">report.prestation.r.centre.graph</field>
+            <field name="model">report.prestation.r.centre</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                     <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_total" type="measure"/>
+                    <field name="montant_remb" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_r_centre_2_graph" model="ir.ui.view">
+             <field name="name">report.prestation.r.centre.2.graph</field>
+             <field name="model">report.prestation.r.centre</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="garant_id"/>
+                     <field name="nbr_total"/>
+                     <field name="montant_remb"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_report_prestation_r_centre_line_graph" model="ir.ui.view">
+             <field name="name">report.prestation.r.centre.line.graph</field>
+             <field name="model">report.prestation.r.centre</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                     <field name="garant_id"/>
+                     <field name="exercice_id"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_prestation_r_centre_tree" model="ir.ui.view">
+            <field name="name">report.prestation.r.centre.tree</field>
+            <field name="model">report.prestation.r.centre</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="exercice_id"/>
+                    <field name="garant_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_prestation_r_centre_search" model="ir.ui.view">
+            <field name="name">report.prestation.r.centre.search</field>
+            <field name="model">report.prestation.r.centre</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des reglements ">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_server_report_prestation_r_centre" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_prestation_r_centre"/>
+            <field name="code">action = pool.get('report.prestation.r.centre').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Graphe prestation par garant</field>
+        </record>
+
+        <record id="action_report_prestation_r_centre" model="ir.actions.act_window">
+            <field name="name">Report prestation</field>
+            <field name="res_model">report.prestation.r.centre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_prestation_r_centre_graph"/>
+            <field name="search_view_id" ref="view_report_prestation_r_centre_search"/>
+        </record>
+
+    <menuitem name="Règlement disponible centre" parent="tb" id='act_server_report_prestation_garant' action="action_server_report_prestation_r_centre"/>
+
+</data>
+</openerp>
+ 

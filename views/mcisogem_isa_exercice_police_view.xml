@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_mcisogem_exercice_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.police.form</field>
+			<field name="model">mcisogem.exercice.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Renouvelement d'exercice Police">
+					<header>
+					
+						<field name="state" widget="statusbar" statusbar_visible="draft,actif,clot" statusbar_colors='{"progress":"blue"}' />
+
+					</header>
+
+					
+
+					<sheet>
+						<div class="oe_right">
+						
+							<button class="oe_inline oe_stat_button" string="Activer"
+								 states="draft,clot" name="button_activer_exercice_police" type="object" icon="fa-check"
+								 />
+							<button class="oe_inline oe_stat_button" string="Cloturer"
+								 states="actif" name="button_cloturer_exercice_police" type="object" icon="fa-power-off"
+								/>
+
+						</div>
+
+						<div class="oe_title">
+							<h1><field name="police_id" on_change="onchange_police(police_id)" readonly="1"/></h1>
+						</div>
+						<group>
+
+						</group>
+
+						<group>
+							<field name="exercice_id" on_change="onchange_exercice(exercice_id)" />
+						</group>
+						<group col="2">
+							<group>
+								<field name="date_debut_exercice" />
+							</group>
+						
+							<group>
+								<field name="date_fin_exercice" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="mcisogem_exercice_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.police.tree</field>
+			<field name="model">mcisogem.exercice.police</field>
+			<field name="arch" type="xml">
+				<tree string="Exercice Police">
+					<field name="police_id" />
+					<field name="date_debut_exercice" />
+					<field name="date_fin_exercice" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_exercice_police_filter" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.police.select</field>
+			<field name="model">mcisogem.exercice.police</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un exercice de police">
+					<field name="police_id" />
+					<field name="date_debut_exercice" />
+					<field name="date_fin_exercice" />
+					<field name="state" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu exercice.police -->
+		<record model="ir.actions.act_window" id="action_mcisogem_exercice_police">
+			<field name="name">Exercice Police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.exercice.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create exercice police.
+				</p>
+			</field>
+		</record>
+
+		<!--<menuitem action="action_mcisogem_exercice_police" parent="mcisogem_police"
+			id="mcisogem_exercice_police" />-->
+
+	</data>
+</openerp>

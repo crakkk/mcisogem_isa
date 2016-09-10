@@ -1,0 +1,49 @@
+# import quittance_souscripteur
+# import quittance_prime
+# import quittance_mci
+# import quittance_all
+import mcisogem_compta_report
+import report_brouillard
+import benef_carte
+
+import report_stat_benef
+import report_benef_report
+import report_stat_ententep
+import report_ententep
+import report_stat_pcharge
+import report_pcharge
+import benef_inc_garant
+import benef_garant
+import report_benef_inter
+import report_stat_incorporation
+import report_incorporation
+import report_stat_retrait
+import report_retrait
+import report_stat_suspend
+import report_suspend
+import report_stat_benef_n_garant
+import report_benef_n_garant
+import report_stat_incorporation_garant
+import report_incorporation_garant
+import bon_pcharge
+import bon_prorogation
+import report_stat_retrait_garant
+import report_retrait_garant
+import report_stat_suspend_garant 
+import report_suspend_garant 
+import bon_consultation
+import report_stat_ententep_centre
+import report_ententep_centre
+import report_stat_pcharge_centre
+import report_pcharge_centre
+import report_prestation
+import report_prestation_garant
+import report_prestation_r_centre
+import report_stat_prescription
+import report_stat_conso_global
+import report_conso_global
+import report_stat_acte_conso
+import report_sinistre_prime
+import report_stat_sinistre_prime
+import report_stat_prestation_age
+import report_prestation_age

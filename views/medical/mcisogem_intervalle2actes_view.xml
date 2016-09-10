@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ===================== Intervalle de jours entre 02 actes form ============================= -->
+		<record id="view_mcisogem_intervalle2actes_form" model="ir.ui.view">
+			<field name="name">mcisogem.intervalle2actes.form</field>
+			<field name="model">mcisogem.intervalle2actes</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Intervalle de jours entre 02 actes">
+					<header>
+							<field name="state" widget="statusbar" statusbar_visible="A,R"
+								 statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+							
+
+						<div class="oe_right">
+								
+							<button class="oe_inline oe_stat_button" string="Activer"
+								 states="R" name="button_activer" type="object" icon="fa-check"
+								 />
+
+							<button class="oe_inline oe_stat_button" string="Résilier"
+								 states="A" name="button_resilier" type="object" icon="fa-times-circle" 
+							 />
+
+						</div>
+						<div class="oe_title">
+							<h1>
+								<label string="Intervalle de jours entre 02 actes" />
+							</h1>
+						</div>
+						<group>
+							</group>
+						<group>
+							<group>
+								<field name="code_acte" />
+							</group>
+							<group>
+								<field name="avecaffection" />
+							</group>
+							<group>
+								<field name="intervallejr" />
+							</group>
+							<!-- <group>
+								<field name="code_acte_gratuit" />
+							</group> -->
+							<group>
+								<field name="qteautorise" />
+							</group>
+							<group>
+								<field name="dt_eff_inter_2actes" />
+							</group>
+							<group attrs="{'invisible' : [('state' , '=' , 'A')]}">
+								<field name="dt_resil_inter_2actes" />
+							</group>
+							<!-- <group>
+								<field name="perioprescrit" />
+							</group> -->
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste Intervalle de jours entre 02 actes ============================= -->
+		<record id="mcisogem_intervalle2actes_tree" model="ir.ui.view">
+			<field name="name">mcisogem.intervalle2actes.tree</field>
+			<field name="model">mcisogem.intervalle2actes</field>
+			<field name="arch" type="xml">
+				<tree string="Intervalle de jours entre 02 actes">
+					<field name="num_intervalle" />
+					
+					<field name="intervallejr" />
+					<field name="qteautorise" />
+					<field name="dt_eff_inter_2actes" />
+					<field name="dt_resil_inter_2actes" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre Intervalle de jours entre 02 actes ============================= -->
+		<record id="view_mcisogem_intervalle2actes_filter" model="ir.ui.view">
+			<field name="name">mcisogem.intervalle2actes.select</field>
+			<field name="model">mcisogem.intervalle2actes</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un intervalle">
+					<field name="num_intervalle" />
+					<field name="code_acte" />
+					<field name="intervallejr" />
+					<field name="qteautorise" />
+					<field name="dt_eff_inter_2actes" />
+					<field name="dt_resil_inter_2actes" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu Intervalle de jours entre 02 actes -->
+		<record model="ir.actions.act_window" id="action_mcisogem_intervalle2actes">
+			<field name="name">Intervalle de jours entre 02 actes</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.intervalle2actes</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un intervalle de jours entre 02 actes
+				</p>
+			</field>
+		</record>
+
+
+		<menuitem name="Intervalle de jours entre 02 actes" id="menu_mcisogem_intervalle2actes"
+			action="action_mcisogem_intervalle2actes" sequence="5" parent="menu_mcisogem_medical_acte" />
+
+
+	</data>
+</openerp>

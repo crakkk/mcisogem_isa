@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+	<data>
+
+		<template id="report_bon">
+
+			<style type="text/css">
+					.style_0 { 
+						font-family: sans-serif; 
+						font-style: normal; 
+						font-variant: normal; 
+						font-weight: normal; 
+						font-size : 30px; 
+						color: black; 
+						text-indent: 0em; 
+						letter-spacing: normal; 
+						word-spacing: normal; 
+						text-transform: none; 
+						white-space: normal; 
+						line-height: normal;}
+					.style_1 { font-size : 30px; }
+					.style_2 { font-weight: bold; font-size : 30px; }
+			</style>
+
+			<t t-call="report.html_container">
+
+            	<t t-foreach="docs" t-as="o">
+            		<div class="page">
+
+            			<table cellpadding="0" rules="none" style="empty-cells: show; border-collapse:collapse; width:8in; overflow: hidden; table-layout:fixed;">
+						<col></col>
+						<tr>
+							<td>
+								<div style="overflow:hidden; height:0.5in">
+
+									<table style="border-collapse: collapse; empty-cells: show; height: 0.438in; width: 100%; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_1_fa2beae6-ce9b-49b9-9ac2-7206e54d10c5">
+										<col></col>
+										<col></col>
+										<tr valign="top">
+											<td style=" overflow:hidden;"></td>
+											<td style=" overflow:hidden;"></td>
+										</tr>
+										<tr style=" height: 0.271in;" valign="top">
+											<td style=" overflow:hidden; padding: 0px;" valign="top">
+												<div style="position: relative; height: 100%;">
+													<div style=" height: 0.2708333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+												</div>
+											</td>
+											<td style=" overflow:hidden; padding: 0px;" valign="top">
+												<div style="position: relative; height: 100%;">
+													<div style=" height: 0.2708333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+												</div>
+											</td>
+										</tr>
+									</table>
+
+
+								</div>
+							</td>
+						</tr>
+				<tr>
+					<td valign="top">
+						<table style="border-collapse: collapse; empty-cells: show; height: 0.917in; width: 7.958in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_2_01bb2cdc-df77-4a5d-846f-77f94a8d853c">
+							<col style=" width: 2.177in;"></col>
+							<col style=" width: 2.99in;"></col>
+							<col style=" width: 2.792in;"></col>
+							<tr style=" height: 0.219in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.21875in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.21875in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.21875in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.365in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3645833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3645833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div class="style_1" id="__bookmark_1"></div>
+										</div>
+									</div>
+								</td>
+
+
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3645833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div class="style_2" id="__bookmark_2">N° <span t-esc="o.num_bon"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.333in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+						
+
+
+						<table style="border-collapse: collapse; empty-cells: show; height: 2.24in; width: 7.948in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_3_eb12bd20-590c-4479-b78d-2cd57bd3efb5">
+							<col style=" width: 1.948in;"></col>
+							<col style=" width: 3.74in;"></col>
+							<col style=" width: 2.26in;"></col>
+							<tr style=" height: 0.323in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_3"><span t-esc="o.garant_id.name"/></div>
+										</div>
+									</div>
+								</td>
+								<td rowspan="2" style=" overflow:hidden;">
+									<div id="__bookmark_4"><span t-field="o.date_prest" t-field-options='{"format": "d MMMM y"}'/></div>
+								</td>
+							</tr>
+
+
+							<tr style=" height: 0.302in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											
+											<div id="__bookmark_5">
+												<span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.nom  if o.beneficiaire_id else ''"/>
+												<span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.prenom_benef  if o.beneficiaire_id else ''"/>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.312in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_6"><span t-esc="o.beneficiaire_id.name"/></div>
+										</div>
+									</div>
+								</td>
+								<td rowspan="2" style=" overflow:hidden;">
+									<div id="__bookmark_7"><span t-esc="o.centre_id.name"/></div>
+								</td>
+							</tr>
+							<tr style=" height: 0.312in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_8"><span t-esc="o.nom_benef"/>   <span t-esc="o.prenom_benef"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.312in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_9"><span t-esc="o.beneficiaire_id.name"/></div>
+										</div>
+									</div>
+								</td>
+								<td rowspan="2" style=" overflow:hidden;">
+									<div id="__bookmark_10"><span t-esc="o.praticien_id.nom_prenoms_prestat"/></div>
+								</td>
+							</tr>
+							<tr style=" height: 0.271in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2708333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2708333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_11"><span t-esc="o.beneficiaire_id.age"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.24in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.23958333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.23958333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_12"><span t-esc="o.beneficiaire_id.sexe"/></div>
+										</div>
+									</div>
+								</td>
+								<td rowspan="2" style=" overflow:hidden;">
+									<div id="__bookmark_13"><span t-esc="o.praticien_id.nom_prenoms_prestat"/></div>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+							</tr>
+						</table>
+						<table style="border-collapse: collapse; empty-cells: show; height: 0.417in; width: 100%; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_4_bbcf0be1-fa87-417b-8455-de9276924955">
+							<col></col>
+							<col></col>
+							<tr style=" height: 0.062in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.0625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.0625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.354in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<table style="border-collapse: collapse; empty-cells: show; height: 0.844in; width: 7.906in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_5_b05505d3-8f40-4470-b6af-c3da4983962f">
+							<col style=" width: 1.219in;"></col>
+							<col style=" width: 5.969in;"></col>
+							<col style=" width: 0.719in;"></col>
+							<tr style=" height: 0.292in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2916666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2916666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_14"><span t-esc="o.acte_id.name"/></div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2916666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_15"><span t-esc="o.acte_id.libelle_court_acte"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.552in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.5520833333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.5520833333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_16"><span t-esc="o.affection_id.lbc_affection"/></div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.5520833333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_17"><span t-esc="o.affection_id.code_affection"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<table style="border-collapse: collapse; empty-cells: show; height: 0.469in; width: 7.938in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_6_d19ff9cc-e00a-489f-ad32-1f2ebca494a0">
+							<col style=" width: 0.885in;"></col>
+							<col style=" width: 2.115in;"></col>
+							<col style=" width: 1.552in;"></col>
+							<col style=" width: 1.833in;"></col>
+							<col style=" width: 1.552in;"></col>
+							<tr valign="top">
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+							</tr>
+							<tr style=" height: 0.302in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_18"><span t-esc="o.montant_total" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_19"><span t-esc="o.part_gest"/></div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_20"><span t-esc="o.taux_part_gest"/></div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3020833333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_21"><span t-esc="o.part_gest"/></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<!-- <table style="border-collapse: collapse; empty-cells: show; height: 0.969in; width: 100%; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_7_1026ecb1-e2fe-4551-9897-f5f82091aa2b">
+							<col></col>
+							<tr style=" height: 0.385in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3854166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.312in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3125in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_22">vaccin1</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.271in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.2708333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_23">vaccin2</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table> -->
+						<table style="border-collapse: collapse; empty-cells: show; height: 0.917in; width: 100%; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_8_a8d319d2-993e-463d-9aa5-05266fb1ae77">
+							<col></col>
+							<col></col>
+							<col></col>
+							<tr style=" height: 0.417in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.417in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.4166666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.083in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.08333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.08333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.08333333333333333in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<table style="border-collapse: collapse; empty-cells: show; height: 1in; width: 7.969in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_9_0ea24798-60fe-41f0-af94-51c3fef77d72">
+							<col style=" width: 0.292in;"></col>
+							<col style=" width: 5.479in;"></col>
+							<col style=" width: 1.115in;"></col>
+							<col style=" width: 1.083in;"></col>
+							<tr style=" height: 0.406in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.40625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.40625in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div class="style_1" id="__bookmark_24">
+												<div style="visibility:hidden">&#xa0;</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.40625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.40625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.385in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3854166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3854166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div class="style_1" id="__bookmark_25">
+												<div style="visibility:hidden">&#xa0;</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3854166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3854166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.208in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.20833333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.20833333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div class="style_1" id="__bookmark_26">
+												<div style="visibility:hidden">&#xa0;</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.20833333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.20833333333333334in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<table style="border-collapse: collapse; empty-cells: show; height: 1.896in; width: 7.948in; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_10_7b662f97-924d-4429-ae6c-2e7f92668902">
+							<col style=" width: 3.76in;"></col>
+							<col style=" width: 0.104in;"></col>
+							<col style=" width: 0.115in;"></col>
+							<col style=" width: 1.833in;"></col>
+							<col style=" width: 0.604in;"></col>
+							<col style=" width: 1.531in;"></col>
+							<tr style=" height: 0.667in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<table style="border-collapse: collapse; empty-cells: show; width: 100%; overflow:hidden; table-layout:fixed;" id="AUTOGENBOOKMARK_11_7697d10a-f12c-4ea9-a479-ebc4a97a9675">
+												<col></col>
+												<tr valign="top">
+													<td style=" overflow:hidden;"></td>
+												</tr>
+												<tr valign="top">
+													<td style=" overflow:hidden;"></td>
+												</tr>
+												<tr valign="top">
+													<td style=" overflow:hidden;">
+														<div id="__bookmark_27">
+															<div style="visibility:hidden">&#xa0;</div>
+														</div>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.6666666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.354in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_28">
+												<div style="visibility:hidden">&#xa0;</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;">
+											<div id="__bookmark_29">
+												<div style="visibility:hidden"><span t-esc="o.taux_part_patient"/></div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3541666666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.156in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.15625in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.229in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.22916666666666666in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr style=" height: 0.323in;" valign="top">
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+								<td colspan="2" style=" overflow:hidden; padding: 0px;" valign="top">
+									<div style="position: relative; height: 100%;">
+										<div style=" height: 0.3229166666666667in; width: 100%; position: absolute; left: 0px; overflow:hidden;"></div>
+									</div>
+								</td>
+							</tr>
+							<tr valign="top">
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+								<td style=" overflow:hidden;"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+
+
+            		</div>
+        	    </t>
+
+       		</t>
+
+
+		</template>
+
+	</data>
+</openerp>

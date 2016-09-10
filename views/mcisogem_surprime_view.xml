@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ========= liste surprime ============= -->
+		<record id="mcisogem_surprime_tree" model="ir.ui.view">
+			<field name="name">mcisogem.surprime.tree</field>
+			<field name="model">mcisogem.surprime</field>
+			<field name="arch" type="xml">
+				<tree>
+						
+					<field name="benef_id" />
+					<!-- <field name="garant_id" /> -->
+					<field name="police_id" />		
+					<field name="college_id" />
+					<field name="type_surprime_sans_sida" />
+					<field name="sur_prime_sans_sida" />
+					<field name="type_surprime_sida" />
+					<field name="sur_prime_sida" />
+				</tree>
+			</field>
+		</record>	
+
+
+		<!-- ========= formulaire de surprime  ============= -->
+		<record id="mcisogem_surprime_form" model="ir.ui.view">
+			<field name="name">mcisogem.surpime.form</field>
+			<field name="model">mcisogem.surprime</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<field name="affiche" attrs="{'invisible':True}"/>
+					<div class="oe_title">
+						<h1>
+							<field name="benef_id" on_change="onchange_benef(benef_id)" palceholder="Bénéficiaire"/>
+						</h1>
+					</div>
+
+
+					<group col="1">
+						<group attrs="{'invisible':[('benef_id','=',False)]}">
+
+							
+
+							<field name="police_id"  options="{'no_create_edit': True}"/>	
+					
+							<field name="college_id" options="{'no_create_edit': True}" domain="[('police_id' , '=' , police_id)]"/>
+
+						</group>
+
+						<group col="2">
+							<group>
+								<field name="type_surprime_sans_sida" />
+								<field name="sur_prime_sans_sida" />
+							</group>
+							<group>
+								<field name="type_surprime_sida" />
+								<field name="sur_prime_sida" />
+							</group>
+						</group>
+					</group>
+				</sheet>
+			</field>
+		</record>	
+
+		
+
+		<!-- Action du menu historique de resiliation -->
+		<record model="ir.actions.act_window" id="action_mcisogem_surprime">
+			<field name="name">Surprime</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.surprime</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="mcisogem_surprime_tree"/>
+		</record>
+
+		
+
+	</data>	
+</openerp>

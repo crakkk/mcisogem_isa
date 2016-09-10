@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_benef">
+
+       <style>
+
+ .page{
+    
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;/* police */
+  font-weight: normal;
+  
+}
+
+
+ table {
+  border-collapse:collapse;
+  width:100%;
+  margin: auto;
+  margin-top : 15px;
+  margin-bottom : 15px;
+ }
+  th, td {
+   border:1px solid black;
+   width:10%;
+ }
+  td {
+   text-align:center;
+ }
+ th {
+    background-color: #ccc;
+    text-align:center;
+}
+  caption {
+   font-weight:bold
+ }
+  .titre {
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 7px;
+    background-color: #ccc;
+  }
+  .conteneur{
+    display: inline;
+    width: 100%;
+  }
+   .entete1, .entete2{
+      display: inline-block;
+   }
+   .entete1 {
+    
+    width: 48%;
+    position: relative;
+    
+  }
+   .entete2 {
+    
+    width: 48%;
+    position: relative;    
+  }
+  label{
+    font-weight:bold;
+    text-decoration: underline;
+  }
+  p{
+    font-weight:bold;
+  }
+</style>
+
+  <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+      <div class="page">
+        <p>Date d'impression: <span t-field="o.write_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></p>
+        <h4 class="titre">ETATS DES ASSURES ET DEPENDANT DU
+                    <!-- <p> -->
+                          <span t-if="o.date_d"><span></span><span t-field="o.date_d" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></span><span t-if="o.date_f"><span> Au : </span><span t-field="o.date_f" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></span>
+                        <!-- </p> -->
+        </h4>
+        <div>
+
+          <t t-set="total_a" t-value="0"/>
+          <t t-set="total_c" t-value="0"/>
+          <t t-set="total_e" t-value="0"/>
+          <t t-set="total_p" t-value="0"/>
+          <t t-set="total_autre" t-value="0"/>
+          <t t-set="total_famille" t-value="0"/>
+                   
+
+          <t t-foreach="o.garant_ids" t-as="garant">
+                         
+            <t t-foreach="o.police_ids" t-as="police">
+              <t t-if="police.garant_id==garant.garant_id">
+
+                <t t-foreach="o.college_ids" t-as="college">
+                  <t t-if="college.police_id==police.police_id and college.garant_id==garant.garant_id">
+                              <div class="conteneur">
+
+                                  <div class="entete1">
+
+                                      <p>Garant : <b><span t-esc="garant.garant_id.name"/></b></p>
+                                      <p>Souscripteur : <b><span t-esc="police.police_id.souscripteur_id.name"/></b></p>
+
+                                  </div>
+
+                                  <div class="entete1">
+                                    
+                                    <p>Police : <b><span t-esc="police.police_id.name" /></b></p>
+                                    <p>College : <b><span t-esc="college.college_id.name" /></b></p>
+                                    
+                                  </div>
+                                 
+                              </div>
+
+                    <div class="page_content">
+
+                      
+                                
+
+                        <t t-foreach="o.beneficiaire_id" t-as="i">
+                          <t t-if="i.garant_id==garant.garant_id and i.police_id==police.police_id and i.college_id==college.college_id">
+                              <!-- <t t-set="total_a" t-value="total_a+i.nombre_a"/>
+                              <t t-set="total_c" t-value="total_c+i.nombre_c"/> 
+                              <t t-set="total_e" t-value="total_e+i.nombre_e"/>
+                              <t t-set="total_p" t-value="total_p+i.nombre_p"/> 
+                              <t t-set="total_autre" t-value="total_autre+i.nombre_autre"/> 
+                              <t t-set="total_famille" t-value="total_famille+i.nombre_famille"/>  -->
+
+                                  <table>
+                                    <t t-if="i.statut.cod_statut_benef=='A'">
+                                   <thead>
+                                      <tr>
+                                        
+                                        <th>Matricule</th>
+                                        <th>Nom</th>
+                                        <th>Prénoms</th>
+                                        <th>Date de naissance</th>
+                                        <th>Date d'incorporation</th>
+                                        <th>Statut Beneficiaire</th>
+                                        <th>Nombre</th>
+                                        
+                                     </tr>
+                                    </thead>
+
+                                      <tr>
+                                       
+                                        <td> <span t-esc="i.beneficiaire"/> </td>
+                                        <td><span t-esc="i.nom_benef"/></td>
+                                        <td><span t-esc="i.prenom_benef"/></td>
+                                        <td><span t-field="i.date" t-field-options='{"format": "d-MMMM-Y"}'/></td>
+                                        <td><span t-field="i.date_ef" t-field-options='{"format": "d-MMMM-Y"}'/></td>
+                                        <td><span t-esc="i.statut.cod_statut_benef"/></td>
+                                        <td><span t-esc="i.nombre_famille"/></td>
+                                        
+                                        
+                                      </tr>
+                                   
+
+                                      <t t-foreach="o.beneficiaire_id" t-as="e"> 
+                                        <tr t-if="e.ass_p_id==i.id and e.garant_id==garant.garant_id and e.police_id==police.police_id and e.college_id==college.college_id">
+                                         
+                                          <td> <span t-esc="e.beneficiaire"/> </td>
+                                          <td><span t-esc="e.nom_benef"/></td>
+                                          <td><span t-esc="e.prenom_benef"/></td>
+                                          <td><span t-field="e.date" t-field-options='{"format": "d-MMMM-Y"}'/></td>
+                                          <td><span t-field="e.date_ef" t-field-options='{"format": "d-MMMM-Y"}'/></td>
+                                          <td><span t-esc="e.statut.cod_statut_benef"/></td>
+                                          <td></td>
+
+
+                                        </tr>
+
+                                      </t>
+                                     </t>
+
+                                   
+                                   
+                                    
+                                  </table>
+
+                                  
+                          </t>
+                        </t>
+                    </div>
+                    <p>Total Assurés : <t t-esc="college.nombre_a" /></p>
+                    <p>Total Conjoints : <t t-esc="college.nombre_c" /></p>
+                    <p>Total Enfants : <t t-esc="college.nombre_e" /></p>
+                    <p>Total Parents : <t t-esc="college.nombre_p" /></p>
+                    <p>Total Autres : <t t-esc="college.nombre_autre" /></p>
+                    <p>Total BENEFICIAIRES : <t t-esc="college.nombre_famille" /></p>
+
+                    <hr></hr>
+                    <p style="page-break-before:always;"> </p>
+                  
+                  </t>
+                </t>
+              </t>
+            </t>
+          </t>
+
+        </div>
+      </div>
+    </t>
+  </t>
+</template>
+</data>
+</openerp>

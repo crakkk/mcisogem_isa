@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- ========= formulaire agent centre  ============= -->
+		<record id="mcisogem_agent_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.agent.centre.form</field>
+			<field name="model">mcisogem.agent.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<group col="2" string="Agent Centre">
+						<group >
+							<field name="Code_agent" />
+							<field name="login_agent" />
+							<field name="Mdp_agent" />	
+							<field name="Dte_arr_ag" />
+							<field name="statut_agent" />
+							
+						</group>
+						<group>
+						<field name="Nom_agent" />
+							<field name="Prenom_agent" />
+							<field name="email_agent" widget="email" />
+							<field name="centre_id"  />
+							
+						</group>
+					</group>
+				</sheet>
+			</field>
+		</record>
+
+		<!-- ========= liste agent centre ============= -->
+		<record id="mcisogem_agent_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.agent.centre.tree</field>
+			<field name="model">mcisogem.agent.centre</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="Code_agent"/>
+					<field name="centre_id" />
+					<field name="Nom_agent" />	
+					<field name="Prenom_agent" />
+					
+				</tree>
+			</field>
+		</record>	
+
+
+		<!-- Action du menu agent centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_agent_centre">
+			<field name="name">Agent Centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.agent.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un agent centre.
+				</p>
+			</field>
+		</record>
+		
+				<!-- <menuitem name="Agent Centre" id="menu_mcisogem_agent_centre"
+			action="action_mcisogem_agent_centre" sequence="1"
+			parent="menu_mcisogem_medical_etablissements_sanitaires" /> -->
+	
+
+	</data>	
+</openerp>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_mcisogem_delai_carence_form" model="ir.ui.view">
+			<field name="name">mcisogem.delai.carence.form</field>
+			<field name="model">mcisogem.delai.carence</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Delai de Carence">
+
+					<sheet>
+						<field name="chargement" invisible="1"/>
+
+						<group>
+							<field name="produit_id"/>
+							<field name="id" invisible="1"/>
+						</group>
+
+						<group>
+							<field name="type_delai" on_change="onchange_type(type_delai)"/>
+						</group>
+
+						<group attrs="{'invisible':[('id' , '=' , False)]}">
+
+							<field name="fam_acte_id" attrs="{'invisible':[('type_delai','!=','fam') ]}"/>
+						
+							<field name="aff_id" attrs="{'invisible':[('type_delai','!=','aff')]}"/>
+					
+							<field name="sous_acte_id" attrs="{'invisible':[('type_delai','!=','ss')]}"/>
+						
+							<field name="medicament_id" attrs="{'invisible':[('type_delai','!=','med')]}"/>
+						</group>
+
+
+
+						<group>
+							<field name="delai"/>
+						</group>
+
+
+						<notebook attrs="{'invisible':[('id','!=',False)]}">
+
+							<page string="Famille d'actes" attrs="{'invisible':[('type_delai','!=','fam')]}">
+								<field name="fam_acte_ids" />
+							</page>
+
+							<page string="Affections" attrs="{'invisible':[('type_delai','!=','aff')]}">
+								<field name="aff_ids" />
+							</page>
+
+
+							<page string="Actes" attrs="{'invisible':['&amp;' , ('type_delai','!=','ss') , ('type_delai','!=','med')]}">
+								<field name="acte_ids" on_change="onchange_acte(acte_ids , type_delai)"/>
+							</page>
+
+							<page string="Sous actes" attrs="{'invisible':[('type_delai','!=','ss')]}">
+								<field name="sous_acte_ids" />
+							</page>
+
+							
+							<page string="Médicaments" attrs="{'invisible':[('type_delai','!=','med')]}">
+								<field name="medicament_ids" />
+							</page>
+
+							
+
+						</notebook>
+						<group>
+							
+							
+						</group>
+
+
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_delai_carence_tree" model="ir.ui.view">
+			<field name="name">mcisogem.delai.carence.tree</field>
+			<field name="model">mcisogem.delai.carence</field>
+			<field name="arch" type="xml">
+				<tree string="Delai de Carence">
+					
+					<field name="produit_id"/>
+					
+					<field name="fam_acte_id"/>
+				
+					<field name="aff_id" />
+			
+					<field name="sous_acte_id" />
+				
+					<field name="medicament_id"/>
+
+
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- Delai de Carence -->
+		<record model="ir.actions.act_window" id="action_mcisogem_delai_carence">
+			<field name="name">Delai de Carence</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.delai.carence</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour creer un delai de carence.</p>
+			</field>
+		</record>
+
+
+
+
+		<!-- <record id="view_mcisogem_delai_carence_form" model="ir.ui.view">
+			<field name="name">mcisogem.delai.carence.form</field>
+			<field name="model">mcisogem.delai.carence</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Delai de Carence">
+
+					<sheet>
+						<div class="oe_title">
+							<h1><field name="police_id" readonly="1" on_change="onchange_police(police_id)"/></h1>
+						</div>
+
+						<group>
+							<field name="affiche_par" widget="radio" attrs="{'invisible': [('id','!=',False)]}"/>
+							<field name="nbre_mois"/>
+							<field name="type_prime" invisible="1"/>
+							<field name="id" invisible="1"/>
+						</group>
+
+
+						<group col="2">
+							<group attrs="{'invisible': [('id','=',False)]}">
+
+								<field name="fam_acte_id" attrs="{'invisible': [('affiche_par','!=','fam')]}"/>
+								<field name="code_acte_id" attrs="{'invisible': [('affiche_par','!=','code')]}"/>
+								<field name="code_affec_id" attrs="{'invisible': [('affiche_par','!=','aff')]}"/>
+								<field name="code_statut_id"  attrs="{'invisible': [('type_prime','!=',1)]}"/>
+								<field name="cod_col_id" attrs="{'invisible': [('id','=',False)]}"/>
+								<field name="code_tranche_age_id" attrs="{'invisible': [('type_prime','!=',2)]}"/>
+							</group>
+						</group>
+
+
+						<notebook attrs="{'invisible': [('id','!=',False)]}">
+							
+							<page String="Collèges">
+								<field name="cod_col_ids" />
+							</page>
+
+							<page String="Statuts" attrs="{'invisible': [('type_prime','!=',1)]}">
+								<field name="cod_statut_ids"  />
+							</page>
+
+							<page String="Tranche d'age" attrs="{'invisible': [('type_prime','!=',2)]}">
+								<field name="cod_tranche_age_ids"  />
+							</page>
+
+							<page String="Famille d'actes" attrs="{'invisible': [('affiche_par','!=','fam')]}">
+								<field name="fam_acte_ids"  />
+							</page>
+
+
+							<page String="Actes" attrs="{'invisible': [('affiche_par','!=','acte')]}">
+								<field name="cod_acte_ids"  />
+							</page>
+
+							<page String="Affections" attrs="{'invisible': [('affiche_par','!=','aff') ]}">
+								<field name="cod_affec_ids"  />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_delai_carence_tree" model="ir.ui.view">
+			<field name="name">mcisogem.delai.carence.tree</field>
+			<field name="model">mcisogem.delai.carence</field>
+			<field name="arch" type="xml">
+				<tree string="Delai de Carence">
+					<field name="type_prime" invisible="1"/>
+					<field name="affiche_par" invisible="1"/>
+					<field name="police_id" />
+					<field name="cod_col_id" />
+					<field name="code_statut_id" attrs="{'invisible': [('type_prime','=',2)]}"/>
+					<field name="code_tranche_age_id" attrs="{'invisible': [('type_prime','=',1)]}"/>
+					<field name="fam_acte_id" attrs="{'invisible': [('affiche_par','!=','fam')]}"/>
+					<field name="code_acte_id" attrs="{'invisible': [('affiche_par','!=','code')]}"/>
+					<field name="code_affec_id" attrs="{'invisible': [('affiche_par','!=','aff')]}"/>
+					<field name="nbre_mois" />
+
+
+				</tree>
+			</field>
+		</record> -->
+
+
+		<!--<menuitem action="action_mcisogem_exercice_police" parent="mcisogem_police"
+			id="mcisogem_exercice_police" />-->
+
+
+
+	<!-- ===================== Liste medicament ============================= -->
+		<record id="mcisogem_delai_carence_medicament_tree" model="ir.ui.view">
+			<field name="name">mcisogem.delai.carence.medicament.temp.tree</field>
+			<field name="model">mcisogem.delai.carence.medicament.temp</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="code_medicament" />
+					<field name="name" />
+					<field name="acte_id" />
+					<field name="presentation_id" />
+					<field name="dci_id" />
+								
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_mcisogem_exclusion_acte_form" model="ir.ui.view">
+			<field name="name">mcisogem.exclusion.acte.form</field>
+			<field name="model">mcisogem.exclusion.acte</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Delai de Carence">
+
+					<sheet>
+						<div class="oe_title">
+							<h1><field name="police_id" readonly="1" attrs="{'invisible': [('id','=',False)]}"/></h1>
+						</div>
+
+						<group col="2">
+							<group>
+								<field name="affiche_par"  attrs="{'invisible': [('id','!=',False)]}"/>
+							</group>
+
+							<group>
+								<field name="tout_benef" attrs="{'invisible': [('id','!=',False)]}"/>
+								<field name="id" invisible="1"/>
+							</group>
+							
+						</group>
+
+
+						<group col="2">
+							<group attrs="{'invisible': [('id','=',False)]}">
+								<field name="fam_acte_id" attrs="{'invisible': [('affiche_par','!=','fam')]}"/>
+
+								<field name="code_acte_id" attrs="{'invisible': [('affiche_par','!=','acte')]}"/>
+
+								<field name="code_s_acte_id" attrs="{'invisible': [('affiche_par','!=','s-acte')]}"/>
+
+								<field name="code_statut_id" attrs="{'invisible': [('tout_benef','=',False)]}"/>
+
+								<field name="code_aff_id" attrs="{'invisible': [('affiche_par', '!=', 'aff' )]}"/>
+
+								<field name="code_med_id" attrs="{'invisible': [('affiche_par', '!=', 'med' )]}"/>
+
+
+								<field name="cod_benef_id" attrs="{'invisible': [('tout_benef','!=',False)]}"/>
+
+
+								<field name="cod_col_id" attrs="{'invisible': [('id','=',False)]}"/>
+								
+							</group>
+						</group>
+
+
+						<notebook attrs="{'invisible': [('id','!=',False)]}">
+							
+							<page String="Polices">
+								<field name="cod_police_ids" on_change="onchange_police(cod_police_ids ,cod_col_ids, cod_statut_ids)"/>
+							</page>
+
+
+							<page String="Collèges">
+								<field name="cod_col_ids" on_change="onchange_police(cod_police_ids ,cod_col_ids, cod_statut_ids)"/>
+							</page>
+
+
+							<page String="Statuts" attrs="{'invisible': [('tout_benef', '=', False)]}">
+								<field name="cod_statut_ids"  on_change="onchange_police(cod_police_ids ,cod_col_ids, cod_statut_ids)"/>
+							</page>
+
+							<page String="Bénéficiaires" attrs="{'invisible': [('tout_benef', '=', True)]}">
+								<field name="cod_benef_ids" />
+							</page>
+
+
+							<page String="Famille d'actes" attrs="{'invisible': [('affiche_par','!=','fam')]}">
+								<field name="fam_acte_ids"  />
+							</page>
+
+
+							<page String="Actes" attrs="{'invisible': [('affiche_par','!=','acte')]}">
+								<field name="cod_acte_ids"  />
+							</page>
+
+
+							<page String="Sous actes" attrs="{'invisible': [('affiche_par','!=','s-acte') ]}">
+								<field name="cod_s_acte_ids"  />
+							</page>
+
+							<page String="Affections" attrs="{'invisible': [('affiche_par','!=','aff')]}">
+								<field name="cod_aff_ids"  />
+							</page>
+
+
+							<page String="Médicaments" attrs="{'invisible': [('affiche_par','!=','med')]}">
+								<field name="cod_med_ids"  />
+							</page>
+
+
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_exclusion_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.exclusion.acte.tree</field>
+			<field name="model">mcisogem.exclusion.acte</field>
+			<field name="arch" type="xml">
+				<tree string="Exclusion">
+				
+					
+					<field name="police_id" />
+					<field name="cod_col_id" />
+
+					<field name="code_statut_id"/>
+					<field name="cod_benef_id"/>
+					
+					<field name="fam_acte_id"/>
+					<field name="code_acte_id"/>
+					<field name="code_s_acte_id" />
+					<field name="code_aff_id" />
+					<field name="code_med_id" />
+				
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_mcisogem_exclusion_acte_fileter" model="ir.ui.view">
+			<field name="name">mcisogem.exclusion.acte.filter</field>
+			<field name="model">mcisogem.exclusion.acte</field>
+			<field name="arch" type="xml">
+				<search>
+
+					<field name="police_id" />
+					<field name="cod_col_id" />
+					
+					<field name="code_statut_id"/>
+					<field name="cod_benef_id"/>
+					
+					<field name="fam_acte_id"/>
+					<field name="code_acte_id"/>
+					<field name="code_s_acte_id" />
+					<field name="code_med_id" />
+
+					<group expand="0" string="Groupé Par">
+                    	<filter name="group_police_id" string="police" context="{'group_by':'police_id'}"/>
+                        <filter name="group_cod_col_id" string="College" context="{'group_by':'cod_col_id'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_exclusion_acte">
+			<field name="name">Exclusion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.exclusion.acte</field>
+			<field name="context">{'search_default_group_police_id': 1 , 'search_default_group_cod_col_id' : 1}</field>
+			<!-- <field name="context">{'search_default_group_police_id': 1}</field> -->
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>
+
+
+
+
+		<!--<menuitem action="action_mcisogem_exercice_police" parent="mcisogem_police"
+			id="mcisogem_exercice_police" />-->
+
+	</data>
+</openerp>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_sinistre_prime_graph" model="ir.ui.view">
+            <field name="name">report.sinistre.prime.graph</field>
+            <field name="model">report.sinistre.prime</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <!-- <field name="sinistre_montant" type="measure"/> -->
+                    <field name="sinistre_prime" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_sinistre_prime_graph" model="ir.ui.view">
+            <field name="name">report.sinistre.prime.graph</field>
+            <field name="model">report.sinistre.prime</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <!-- <field name="sinistre_montant" type="measure"/> -->
+                    <field name="sinistre_prime" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_sinistre_prime_2_graph" model="ir.ui.view">
+             <field name="name">report.sinistre.prime.2.graph</field>
+             <field name="model">report.sinistre.prime</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="garant_id"/>
+                     <!-- <field name="sinistre_montant"/> -->
+                     <field name="sinistre_prime"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_report_sinistre_prime_line_graph" model="ir.ui.view">
+             <field name="name">report.sinistre.prime.line.graph</field>
+             <field name="model">report.sinistre.prime</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                     <field name="garant_id"/>
+                     <field name="exercice_id"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_sinistre_prime_tree" model="ir.ui.view">
+            <field name="name">report.sinistre.prime.tree</field>
+            <field name="model">report.sinistre.prime</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="garant_id"/>
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_sinistre_prime_search" model="ir.ui.view">
+            <field name="name">report.sinistre.prime.search</field>
+            <field name="model">report.sinistre.prime</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des sinistres">
+                    <field name="exercice_id"/>
+                    <field name="beneficiaire_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_sinistre_prime" model="ir.actions.act_window">
+            <field name="name">Sinistre par Période</field>
+            <field name="res_model">report.sinistre.prime</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_sinistre_prime_graph"/>
+            <field name="search_view_id" ref="view_report_sinistre_prime_search"/>
+        </record>
+
+        <record id="action_server_report_sinistre_prime" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_sinistre_prime"/>
+            <field name="code">action = pool.get('report.sinistre.prime').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Sinistre sur prime</field>
+        </record>
+
+    <menuitem name="Sinistre/Prime" parent="cons" id='act_report_sinistre_prime' action="action_server_report_sinistre_prime" sequence="5"/>
+
+</data>
+</openerp>
+ 

@@ -1,0 +1,1639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+
+		
+		<!-- ===================== Garant form ============================= -->
+		<record id="view_mcisogem_garant_form" model="ir.ui.view">
+			<field name="name">mcisogem.garant.form</field>
+			<field name="model">mcisogem.garant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<header>
+					<button name="button_to_done" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user" string="Validation Comptable"
+							states="done" type="object" class="oe_highlight"
+							confirm="Valider les informations comptables ?" />
+					<field name="state" widget="statusbar" statusbar_visible="draft,done,finish"
+						statusbar_colors='{"progress":"blue"}' />
+				</header>
+				<form string=" Garant">
+					<sheet>
+						<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+
+						<div class="oe_title" >
+							 
+							<h4 class="oe_inline">
+								<label class="oe_inline" for="id" string="N° Garant : " attrs="{'invisible': [('id','=',False)]}" /> 
+								<field class="oe_inline" name="id" readonly="1"/>
+							</h4>
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" default_focus="1" placeholder="Libellé..." />
+							</h1>
+						</div>
+							<group col="1">
+								<group string="Informations complementaires" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user">
+									<label for="type_garant_id" string="Type garant" />
+									<table>
+										<tr>
+											<td width="10%">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<field name="type_garant_id" options="{'no_create_edit': True}" />
+											</td>
+										</tr>
+									</table>
+									<label for="ville_id" string="Ville" />
+									<table>
+										<tr>
+											<td width="10%">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<field name="ville_id" />
+											</td>
+										</tr>
+									</table>
+									<field name="boite_postale" />
+									<field name="code_boite_postale" />
+									<field name="adresse_garant" />
+									<field name="telephone_garant" />
+									<field name="fax_garant" />
+									<field name="email_garant" widget="email" />
+									<field name="correspondant" />
+									<field name="responsable" />
+								</group>
+						</group>
+						<group string="Informations comptables" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+									<field name="capital" placeholder="Capital"/>
+									<field name="banque_id" />
+									<field name="show_chp" invisible="1" />
+						</group>
+						<group groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+							<label for="cpt_tp" string="Compte  Comptabilité TP" />
+									<table>
+										<tr>
+											<td >
+												<field name="cpt_tp"/>
+											</td>
+											<td >
+												<field name="cpt_tp2"/>
+											</td>
+											<td width="300px">
+												<field name="cpt_tp3"/>
+											</td>
+										</tr>
+									</table>
+						</group>
+						<group groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+							<label for="cpt_rd" string="Compte  Comptabilité RD" />
+									<table>
+										<tr>
+											<td >
+												<field name="cpt_rd"/>
+											</td>
+											<td >
+												<field name="cpt_rd2"/>
+											</td>
+											<td width="300px">
+												<field name="cpt_rd3"/>
+											</td>
+										</tr>
+									</table>
+						</group>
+						<group >
+							<field name="observation" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste des garants ============================= -->
+		<record id="mcisogem_garant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.garant.tree</field>
+			<field name="model">mcisogem.garant</field>
+			<field name="arch" type="xml">
+				<tree colors="red:state == 'done';green:state == 'finish'" string="Garants">
+					<field name="id" />
+					<field name="name" />
+					<field name="type_garant_id" />
+					<field name="ville_id" />
+					<field name="state" invisible="1" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== Kanban ============================= -->
+		<record id="mcisogem_garant_kanban" model="ir.ui.view">
+			<field name="name">mcisogem.garant.kanban</field>
+			<field name="model">mcisogem.garant</field>
+			<field name="arch" type="xml">
+				<kanban>
+					<field name="image_small" />
+					<field name="id" />
+					<field name="name" />
+					<field name="responsable" />
+					<field name="telephone_garant" />
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_vignette oe_semantic_html_override">
+								<a type="open">
+									<img
+										t-att-src="kanban_image('mcisogem.garant', 'image_small', record.id.value)"
+										class="oe_kanban_image" />
+								</a>
+								<div class="oe_kanban_details">
+									<h4>
+										<a type="open">
+											<field name="name" />
+										</a>
+									</h4>
+									<div name="tags" />
+									<ul>
+										<li>
+											Code:
+											<field name="code_garant">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Responsable :
+											<field name="responsable">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Contact :
+											<field name="telephone_garant">
+											</field>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+		<!-- ===================== filtre garant ============================= -->
+		<record id="view_mcisogem_garant_filter" model="ir.ui.view">
+			<field name="name">mcisogem.garant.select</field>
+			<field name="model">mcisogem.garant</field>
+			<field name="arch" type="xml">
+				<search string="Search garant">
+					<field name="code_garant" />
+					<field name="name" />
+					<field name="type_garant_id" />
+					<field name="ville_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu garant -->
+		<record model="ir.actions.act_window" id="action_mcisogem_garant">
+			<field name="name">Garant</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.garant</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un garant.</p>
+			</field>
+		</record>
+		
+		<!-- ===================== Courtier form ============================= -->
+		<record id="view_mcisogem_courtier_form" model="ir.ui.view">
+			<field name="name">mcisogem.courtier.form</field>
+			<field name="model">mcisogem.courtier</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Intermediaire">
+					<sheet>
+						<div class="oe_inline">
+							<h4 class="oe_inline">	
+								<label class="oe_inline" for="id" string="N° Intermediaire : " attrs="{'invisible': [('id','=',False)]}"/> 
+								<field class="oe_inline" name="id" readonly="1"/> 
+							</h4>
+							<h1>
+								<field name="name" default_focus="1" placeholder="Libellé..." />
+							</h1>
+						</div>
+						<group col="1">
+
+							<group col="2">
+								<group>
+									<field name="type_intermediaire" placeholder="Type intermediaire..." />
+								</group>
+							</group>
+
+
+							<group col="2">
+								<group string="Informations complementaires">
+									<label for="ville_id" string="Ville" />
+									<table>
+										<tr>
+											<td width="10%">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<field name="ville_id" />
+											</td>
+										</tr>
+									</table>
+									<field name="adresse" placeholder="adresse intermediaire..." />
+									<field name="mail" />
+									<field name="code_bp" />
+									<field name="boite_postale" />
+									<field name="telephone" placeholder="Ex : +225 00 00 00 00" />
+									<field name="fax" />
+								</group>
+								<group string="Autres Infos">
+									<field name="statut_social" widget="radio" />
+									<field name="taux_commission" />
+
+								</group>
+							</group>
+
+							<group col="1">
+								<group>
+									<field name="observation" />
+								</group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste courtier ============================= -->
+		<record id="mcisogem_courtier_tree" model="ir.ui.view">
+			<field name="name">mcisogem.courtier.tree</field>
+			<field name="model">mcisogem.courtier</field>
+			<field name="arch" type="xml">
+				<tree string="Intermediaire">
+					
+					<field name="code_courtier" />
+					<field name="name" />
+					<field name="ville_id" />
+					<field name="adresse" />
+					<field name="telephone" />
+					<field name="fax" />
+					<field name="observation" />
+					<field name="statut_social" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre courtier ============================= -->
+		<record id="view_mcisogem_courtier_filter" model="ir.ui.view">
+			<field name="name">mcisogem.courtier.select</field>
+			<field name="model">mcisogem.courtier</field>
+			<field name="arch" type="xml">
+				<search string="Search Intermediaire">
+					<field name="code_courtier" />
+					<field name="name" />
+					<field name="statut_social" />
+					<field name="ville_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu courtier -->
+		<record model="ir.actions.act_window" id="action_mcisogem_courtier">
+			<field name="name">Intermediaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.courtier</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un Intermediaire.</p>
+			</field>
+		</record>
+		
+		<!-- ===================== Motif suspension form ============================= -->
+		<record id="view_mcisogem_motif_suspen_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.form</field>
+			<field name="model">mcisogem.motif.suspen</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Motif suspension">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Motif suspension de police" />
+							</h1>
+						</div>
+						<group>
+
+						</group>
+
+						<group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== Motif suspension benef ============================= -->
+		<record id="view_mcisogem_motif_suspen_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.benef.form</field>
+			<field name="model">mcisogem.motif.suspen.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Motif suspension Benef">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Motif suspension" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste motif suspension ============================= -->
+		<record id="mcisogem_motif_suspen_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.tree</field>
+			<field name="model">mcisogem.motif.suspen</field>
+			<field name="arch" type="xml">
+				<tree string="Motif suspension police">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste motif suspension Benef============================= -->
+		<record id="mcisogem_motif_suspen_benef_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.benef.tree</field>
+			<field name="model">mcisogem.motif.suspen.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Motif suspention">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre motif suspension ============================= -->
+		<record id="view_mcisogem_motif_suspen_filter" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.select</field>
+			<field name="model">mcisogem.motif.suspen</field>
+			<field name="arch" type="xml">
+				<search string="Search motif suspension">
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre motif suspension benef============================= -->
+		<record id="view_mcisogem_motif_suspen_benef_filter" model="ir.ui.view">
+			<field name="name">mcisogem.motif.suspen.benef.select</field>
+			<field name="model">mcisogem.motif.suspen.benef</field>
+			<field name="arch" type="xml">
+				<search string="Search motif suspension">
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu motif suspen -->
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_suspen">
+			<field name="name">Motif suspension police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.suspen</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Click to create motif suspension police.</p>
+			</field>
+		</record>
+
+
+			<!-- Action du menu motif suspen benef-->
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_suspen_benef">
+			<field name="name">Motif suspension Benef</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.suspen.benef</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Creer un motif de suspension de beneficiaire.</p>
+			</field>
+		</record>
+	
+		<!-- ===================== Exercice form ============================= -->
+		<record id="view_mcisogem_exercice_form" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.form</field>
+			<field name="model">mcisogem.exercice</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Exercice">
+					<header>
+                    	<!--<button name="create_period" states="draft" string="Générer les périodes mensuelles" type="object" class="oe_highlight"/>-->
+                    	<field name="state" widget="statusbar" nolabel="1" />
+                	</header>
+					<sheet>
+						<div class="oe_right">
+							<button class="oe_inline oe_stat_button" string="Cloturer"
+								 states="draft" name="button_cloturer_exercice" confirm="Après la validation de la clôture de l'exercice, toutes les périodes seront aussi clôturées. Voulez vous confirmer ?" type="object" icon="fa-power-off"
+								/>
+						</div>
+						<div class="oe_title">
+							<h1>
+								<label string="Exercice" />
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="date_debut" />
+							</group>
+							<group>
+								<field name="date_fin" />
+							</group>
+						</group>
+						<group>
+							<field name="obs" />
+						</group>
+						<!--<group>-->
+							<!--<label string="Périodes" />-->
+							<!--<field colspan="4" name="period_ids" nolabel="1" widget="one2many_list" >-->
+                        		<!--<form string="Periodes" create="false">-->
+                            		<!--<group >-->
+                                		<!--<field name="name"/>-->
+                                		<!--<field name="code"/>-->
+                                		<!--<field name="date_start"/>-->
+                                		<!--<field name="date_stop"/>-->
+                                		<!--<field name="state" invisible="1"/>-->
+                            		<!--</group>-->
+                        		<!--</form>-->
+                    		<!--</field>-->
+						<!--</group>-->
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+
+
+
+		<!-- ===================== Exercice form ============================= -->
+		<record id="view_mcisogem_exercice_comptable_form" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.comptable.form</field>
+			<field name="model">mcisogem.exercice.comptable</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Exercice comptable">
+					<header>
+
+                    	<button name="create_period" states="draft" string="Générer les périodes mensuelles" type="object" class="oe_highlight"/>
+                    	<field name="state" widget="statusbar" nolabel="1" />
+
+                	</header>
+					<sheet>
+						<div class="oe_right">
+							<button class="oe_inline oe_stat_button" string="Cloturer"
+								 states="draft" name="button_cloturer_exercice" confirm="Après la validation de la clôture de l'exercice, toutes les périodes seront aussi clôturées. Voulez vous confirmer ?" type="object" icon="fa-power-off"
+								/>
+						</div>
+						<div class="oe_title">
+							<h1>
+								<label string="Exercice" />
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="date_debut" />
+							</group>
+							<group>
+								<field name="date_fin" />
+							</group>
+						</group>
+						<group>
+							<field name="obs" />
+						</group>
+						<group>
+							<label string="Périodes" />
+							<field colspan="4" name="period_ids" nolabel="1" widget="one2many_list" >
+                        		<form string="Periodes" create="false">
+                            		<group >
+                                		<field name="name"/>
+                                		<field name="code"/>
+                                		<field name="date_start"/>
+                                		<field name="date_stop"/>
+                                		<field name="state" invisible="1"/>
+                            		</group>
+                        		</form>
+                    		</field>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Exercice police ============================= -->
+		<record id="mcisogem_exercice_tree" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.tree</field>
+			<field name="model">mcisogem.exercice</field>
+			<field name="arch" type="xml">
+				<tree string="Exercice">
+					<field name="date_debut" />
+					<field name="date_fin" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== Exercice comptable ============================= -->
+		<record id="mcisogem_exercice_tree" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.comptable.tree</field>
+			<field name="model">mcisogem.exercice.comptable</field>
+			<field name="arch" type="xml">
+				<tree string="Exercice comptable">
+					<field name="date_debut" />
+					<field name="date_fin" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== Exercice police ============================= -->
+		<record id="view_mcisogem_exercice_filter" model="ir.ui.view">
+			<field name="name">mcisogem.exercice.select</field>
+			<field name="model">mcisogem.exercice</field>
+			<field name="arch" type="xml">
+				<search string="Search Exercice">
+					<field name="date_debut" />
+					<field name="date_fin" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		
+		<!-- Action du menu Exercice -->
+		<record model="ir.actions.act_window" id="action_mcisogem_exercice">
+			<field name="name">Exercice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.exercice</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un exercice.</p>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu Exercice comptable-->
+		<record model="ir.actions.act_window" id="action_mcisogem_exercice_comptable">
+			<field name="name">Exercice comptable</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.exercice.comptable</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un exercice comptable.</p>
+			</field>
+		</record>
+
+
+		
+		<!-- ===================== College form ============================= -->
+		<record id="view_mcisogem_college_form" model="ir.ui.view">
+			<field name="name">mcisogem.college.form</field>
+			<field name="model">mcisogem.college</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" College">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="College" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_college" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== College liste ============================= -->
+		<record id="mcisogem_college_tree" model="ir.ui.view">
+			<field name="name">mcisogem.college.tree</field>
+			<field name="model">mcisogem.college</field>
+			<field name="arch" type="xml">
+				<tree string="College">
+					<field name="code_college" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== college search ============================= -->
+		<record id="view_mcisogem_college_filter" model="ir.ui.view">
+			<field name="name">mcisogem.college.select</field>
+			<field name="model">mcisogem.college</field>
+			<field name="arch" type="xml">
+				<search string="College">
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu college -->
+		<record model="ir.actions.act_window" id="action_mcisogem_college">
+			<field name="name">College</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.college</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un college.</p>
+			</field>
+		</record>
+		
+
+		<!-- ===================== Type avenant form ============================= -->
+		<record id="view_mcisogem_type_avenant_form" model="ir.ui.view">
+			<field name="name">mcisogem.type.avenant.form</field>
+			<field name="model">mcisogem.type.avenant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Avenant">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Type avenant" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_type_avenant" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste type avenant ============================= -->
+		<record id="mcisogem_type_avenant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.type.avenant.tree</field>
+			<field name="model">mcisogem.type.avenant</field>
+			<field name="arch" type="xml">
+				<tree string="Type avenant">
+					<field name="code_type_avenant" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre type avenant ============================= -->
+		<record id="view_mcisogem_type_avenant_filter" model="ir.ui.view">
+			<field name="name">mcisogem.type.avenant.select</field>
+			<field name="model">mcisogem.type.avenant</field>
+			<field name="arch" type="xml">
+				<search string="Search type avenant">
+					<field name="code_type_avenant" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu type_avenant -->
+		<record model="ir.actions.act_window" id="action_mcisogem_type_avenant">
+			<field name="name">Type avenant</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.type.avenant</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un type d'avenant.</p>
+			</field>
+		</record>
+		
+		
+
+		<!-- ===================== Souscripteur form ============================= -->
+		<record id="view_mcisogem_souscripteur_form" model="ir.ui.view">
+			<field name="name">mcisogem.souscripteur.form</field>
+			<field name="model">mcisogem.souscripteur</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<header>
+					<group attrs="{'invisible':[('affiche','=',False)]}">
+						<button name="button2_to_done" string="Validation Comptable"
+							states="done" type="object" class="oe_highlight"
+							confirm="Valider les infos comptables ?" />
+						<button name="button2_to_cancel" string="Annuler" states="finish"
+							type="object" confirm="Annuler
+							la validation des infos comptables?" />
+					</group>
+					<field name="state" widget="statusbar" statusbar_visible="draft,done,finish"
+						statusbar_colors='{"progress":"blue"}' />
+				</header>
+				<form string="Souscripteur">
+					<sheet>
+						<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" default_focus="1" placeholder="Designation..." />
+							</h1>
+						</div>
+						<group col="1">
+							<group col="2">
+								<group string="Informations complementaires" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user">
+									<label for="ville_id" string="Ville" />
+									<table>
+										<tr>
+											<td width="10%">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<field name="ville_id" />
+											</td>
+										</tr>
+									</table>
+									<field name="adresse_souscripteur" placeholder="adresse souscripteur..." />
+									<field name="code_boite_postale" />
+									<field name="boite_postale" />
+									<field name="telephone" placeholder="Ex : +225 00 00 00 00" />
+									<field name="fax" />
+									<field name="email" />
+								</group>
+								<group string="Informations comptables" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+
+									<field name="affiche" invisible="1" />
+									<field name="banque_id" placeholder="Banque..." />
+										
+									<field name="mod_paiem" />
+									<field name="num_compte" placeholder="Numero compte..." />
+
+									<field name="num_guichet" placeholder="Numero guichet" />
+									<field name="num_compte_interne"  />
+									<field name="cle_rib" />
+								</group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste souscripteur ============================= -->
+		<record id="mcisogem_souscripteur_tree" model="ir.ui.view">
+			<field name="name">mcisogem.souscripteur.tree</field>
+			<field name="model">mcisogem.souscripteur</field>
+			<field name="arch" type="xml">
+				<tree string="Souscripteur">
+					<field name="name" />
+					<field name="ville_id" />
+					<field name="adresse_souscripteur" />
+					<field name="telephone" />
+					<field name="email" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== Kanban ============================= -->
+		<record id="mcisogem_souscripteur_kanban" model="ir.ui.view">
+			<field name="name">mcisogem.souscripteur.kanban</field>
+			<field name="model">mcisogem.souscripteur</field>
+			<field name="arch" type="xml">
+				<kanban>
+					<field name="image_small" />
+					<field name="name" />
+					<field name="telephone" />
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_vignette oe_semantic_html_override">
+								<a type="open">
+									<img
+										t-att-src="kanban_image('mcisogem.souscripteur', 'image_small', record.id.value)"
+										class="oe_kanban_image" />
+								</a>
+								<div class="oe_kanban_details">
+									<h4>
+										<a type="open">
+											<field name="name" />
+										</a>
+									</h4>
+									<div name="tags" />
+									<ul>
+										<li>
+											Contact:
+											<field name="telephone">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Email:
+											<field name="email">
+											</field>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+		<!-- ===================== filtre souscripteur ============================= -->
+		<record id="view_mcisogem_souscripteur_filter" model="ir.ui.view">
+			<field name="name">mcisogem.souscripteur.select</field>
+			<field name="model">mcisogem.souscripteur</field>
+			<field name="arch" type="xml">
+				<search string="Search souscripteur">
+					<field name="name" />
+					<field name="ville_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu souscripteur -->
+		<record model="ir.actions.act_window" id="action_mcisogem_souscripteur">
+			<field name="name">Souscripteur</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.souscripteur</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un souscripteur.</p>
+			</field>
+		</record>
+	
+		
+		<!-- ===================== Avenant form ============================= -->
+		<record id="view_mcisogem_avenant_form" model="ir.ui.view">
+			<field name="name">mcisogem.avenant.form</field>
+			<field name="model">mcisogem.avenant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Avenant">
+					<header>
+						
+						
+						<field name="state" widget="statusbar" statusbar_visible="draft,valid,anul"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div class="oe_right">
+							<button name="button_to_valid" states="draft,anul" type="object"
+							 string="Valider" class="oe_inline oe_stat_button" icon="fa-check" confirm="Voulez vous valider cet avenant ?" />
+						</div>
+						<div class="oe_title">
+							<label for="police_id" class="oe_edit_only" />
+							(
+							<label for="num_ave_interne_police" string="Numero avenant police :" />
+							<field name="num_ave_interne_police" class="oe_inline" />
+							)
+							<h1>
+								<field name="police_id" on_change="onchange_police(police_id)" />
+								<field name="souscripteur_police" />
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<table>
+									<tr>
+										<td width="10%">
+											<label for="type_avenant_id" string="Type avenant" />
+										</td>
+									</tr>
+									<tr>
+										<td width="10%">
+											<field name="type_avenant_id" on_change="onchange_type_avenant_id(type_avenant_id)" />
+										</td>
+									</tr>
+									<tr>
+										<td width="10%">
+											<field name="calc_prime_ave" widget="radio" />
+										</td>
+									</tr>
+								</table>
+							</group>
+							<group>
+							</group>
+						</group>
+						<br>
+						</br>
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="dt_deb_exercice_pol" />
+									<field name="dt_fin_exercice_pol" />
+								</group>
+								<group>
+									<field name="dt_eff_mod_pol">
+									</field>
+								</group>
+							</group>
+						</group>
+					
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Avenant popup form ============================= -->
+		<record id="view_mcisogem_avenant2_form" model="ir.ui.view">
+			<field name="name">mcisogem.avenant.form</field>
+			<field name="model">mcisogem.avenant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Avenant">
+					<header>
+						<button name="button_to_valid" states="draft,anul" type="object"
+							string="Valider" class="oe_highlight" confirm="Voulez vous valider cet avenant ?" />
+						<button name="button_to_anul" states="valid" type="object"
+							string="Annuler" class="oe_highlight" confirm="Voulez vous valider cet avenant ?" />
+						<field name="state" widget="statusbar" statusbar_visible="draft,valid,anul"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="police_id" class="oe_edit_only" />
+							(
+							<label for="num_ave_interne_police" string="Numero avenant police :" />
+							<field name="num_ave_interne_police" class="oe_inline" />
+							)
+							<h1>
+								<field name="police_id" on_change="onchange_police(police_id)" readonly="1"/>
+								<!-- <field name="souscripteur_police" /> -->
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<table>
+									<tr>
+										<td width="10%">
+											<label for="type_avenant_id" string="Type avenant" />
+										</td>
+									</tr>
+									<tr>
+										<td width="10%">
+											<field name="type_avenant_id" on_change="onchange_type_avenant_id(type_avenant_id)" />
+										</td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<td width="10%">
+										</td>
+									</tr>
+									<tr>
+										<td width="10%">
+											<field name="calc_prime_ave" widget="radio" />
+										</td>
+									</tr>
+								</table>
+							</group>
+							<group>
+							</group>
+						</group>
+						<br>
+						</br>
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="dt_deb_exercice_pol" />
+									<field name="dt_fin_exercice_pol" />
+								</group>
+								<group>
+									<field name="periode_mvmt_du">
+									</field>
+									<field name="periode_mvt_au">
+									</field>
+								</group>
+							</group>
+						</group>
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="dt_ope_deb_ave" />
+									<field name="dt_ope_fin_ave" />
+								</group>
+								<group>
+									<field name="dt_eff_mod_pol">
+									</field>
+								</group>
+							</group>
+						</group>
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="date_effet_prime" />
+									<field name="date_effet_police" />
+								</group>
+								<group attrs="{'invisible': [('state','!=','valid')]}">
+									<field name="dt" invisible="1" />
+									<field name="annuler" widget="checkbox" on_change="onchange_annule(annuler)" />
+									<field name="date_annuler" attrs="{'invisible': [('dt','=',False)]}" />
+								</group>
+							</group>
+						</group>
+						<footer>
+					<!-- 	<button name="write" string="Enregistrer" type="object"
+							class="oe_highlight" />
+						ou
+						<button string="Annuler" class="oe_link" special="cancel" /> -->
+					</footer>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste Avenant ============================= -->
+		<record id="mcisogem_avenant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.avenant.tree</field>
+			<field name="model">mcisogem.avenant</field>
+			<field name="arch" type="xml">
+				<tree string="Avenant">
+					<field name="num_ave_interne_police" />
+					<field name="type_avenant_id" />
+					<field name="souscripteur_police" />
+					<field name="dt_eff_mod_pol" />
+					<field name="date_effet_prime" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre avenant ============================= -->
+		<record id="view_mcisogem_avenant_filter" model="ir.ui.view">
+			<field name="name">mcisogem.avenant.select</field>
+			<field name="model">mcisogem.avenant</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un avenant">
+					<field name="souscripteur_police" />
+					<field name="type_avenant_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu avenant -->
+		<record model="ir.actions.act_window" id="action_mcisogem_avenant">
+			<field name="name">Emission avenant</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.avenant</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un avenant.</p>
+			</field>
+		</record>
+		
+		<!-- ===================== Historique prime form ============================= -->
+		<!--<menuitem name="Histo prime" id="mcisogem_histo_prime"
+			parent="menu_mcisogem_prod_etabl" />-->
+		<!-- Action du menu Histo police -->
+		<record model="ir.actions.act_window" id="action_mcisogem_histo_prime">
+			<field name="name">Histo Prime</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.prime</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer une historique de prime </p>
+			</field>
+		</record>
+		<record id="view_mcisogem_histo_prime_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.prime.form</field>
+			<field name="model">mcisogem.histo.prime</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Historique prime">
+					<header>
+					</header>
+					<sheet>
+						<h1>
+                        	<label string="Historique de prime"/>
+                    	</h1>
+
+						<field name="affiche_tab_benef" invisible="1" />
+						<field name="affiche_tab_tranche" invisible="1" />
+						<field name="affiche_budget" invisible="1" />
+						<field name="affiche_tab_college" invisible="1" />
+						<field name="modification" invisible="1" />
+						<field name="modification_tranche" invisible="1" />
+						<field name="modification_benef" invisible="1" />
+						<field name="type_prime" invisible="1" />
+
+						<group col="1">
+							<group>
+								<field name="garant_id" />
+								<field name="police_id" domain="[('garant_id','=',garant_id)]"
+									on_change="onchange_police(police_id)" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="dt_eff_mod_prime" />
+							</group>
+							<!-- <group>
+								<field name="dt_echea_pol" />
+							</group> -->
+						</group>
+						<group>
+							<field name="college_id" attrs="{'invisible': [('modification','=',0)]}" />
+						</group>
+						<group>
+							<field name="statut_benef_id" attrs="{'invisible': [('modification_benef','=',0)]}" />
+						</group>
+						<group>
+							<field name="code_tranche_age"
+								attrs="{'invisible': [('modification_tranche','=',0)]}" />
+						</group>
+
+						<group attrs="{'invisible': [('modification','=',1)]}">
+							<field name="cod_college_ids" string="Collèges" attrs="{'invisible': [('affiche_tab_college','=',0)]}" on_change="onchange_college(police_id,cod_college_ids)"/>
+						</group>
+
+						<group attrs="{'invisible': [('affiche_tab_benef','=',0)]}">
+							<field name="cod_statut_benef_ids" string="Statut de bénéficiaire" attrs="{'invisible': [('type_prime','!=',1)]}">
+								<tree editable="top/bottom" string="Statut bénéficiaire">
+									<field name="cod_statut_benef" />
+									<field name="montant_prime" on_change="onchange_montant_prime(montant_prime)" />
+									<field name="montant_prime_sida"
+										on_change="onchange_montant_prime_sida(montant_prime_sida)" />
+								</tree>
+							</field>
+						</group>
+
+						<group attrs="{'invisible': [('affiche_tab_tranche','=',0)]}">
+							<field name="cod_tranche_age_ids" string="Tranche d'age" attrs="{'invisible': [('type_prime','!=',2)]}">
+								<tree editable="top/bottom" string="Tranche Age">
+									<field name="debut" string="Debut" />
+									<field name="fin" string="Fin" />
+									<field name="montant_prime" on_change="onchange_montant_prime(montant_prime)" />
+									<field name="montant_prime_sida" on_change="onchange_montant_prime_sida(montant_prime_sida)" />
+										
+								</tree>
+							</field>
+						</group>
+
+						<group col="1">
+							<group attrs="{'invisible': [('modification','=',0)]}">
+								<field name="prim_assure" />
+								<field name="prime_sida" />
+							</group>
+							<group attrs="{'invisible': [('affiche_budget','=',0)]}">
+								<field name="budget_simple" />
+								<field name="budget_sida" />
+								<field name="budget_ttc" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="mcisogem_histo_prime_filter_1" model="ir.ui.view">
+			<field name="name">mcisogem.histo.prime.filter</field>
+			<field name="model">mcisogem.histo.prime</field>
+			<field name="arch" type="xml">
+				<search>
+
+					<field name="statut_benef_id" />
+					<field name="college_id" />
+
+					<group expand="0" string="Groupé Par">
+                    	<filter string="Statut" context="{'group_by':'statut_benef_id'}"/>
+                        <filter string="College" context="{'group_by':'college_id'}"/>
+                    </group>
+
+				</search>
+			</field>
+		</record>
+
+
+
+
+		<record id="mcisogem_histo_prime_tree_1" model="ir.ui.view">
+			<field name="name">mcisogem.histo.prime.tree</field>
+			<field name="model">mcisogem.histo.prime</field>
+			<field name="arch" type="xml">
+				<tree string="Historique de prime">
+					<field name="garant_id" />
+					<field name="college_id" />
+					<field name="statut_benef_id" />
+					<field name="code_tranche_age" />
+					<field name="dt_eff_mod_prime" />
+					<field name="prim_assure" />
+					<field name="prime_sida" />
+					
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="mcisogem_histo_prime_stat_benef_temp_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.prime.stat.benef.temp.tree</field>
+			<field name="model">mcisogem.histo.prime.stat.benef.temp</field>
+			<field name="arch" type="xml">
+				<tree string="Statut">
+					<field name="cod_statut_benef" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="mcisogem_histo_prime_temp_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.prime.college.temp.tree</field>
+			<field name="model">mcisogem.histo.prime.college.temp</field>
+			<field name="arch" type="xml">
+				<tree string="College">
+					<field name="cod_college" />
+				</tree>
+			</field>
+		</record>
+		
+		
+		<!-- Bareme -->
+		<record model="ir.actions.act_window" id="action_mcisogem_bareme">
+			<field name="name">Produit</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.bareme</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_produit_id': 1 , 'search_default_group_code_fam': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un produit.</p>
+			</field>
+		</record>
+		<record id="mcisogem_bareme_form" model="ir.ui.view">
+			<field name="name">mcisogem.bareme.form</field>
+			<field name="model">mcisogem.bareme</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="N,A,R"
+							 statusbar_colors='{"progress":"black"}' />
+					</header>
+
+					<br></br><br></br>
+					<h1>
+							<field name="produit_id" placeholder="PRODUIT"/>
+						</h1>
+
+						<div class="oe_right">
+							
+							<button class="oe_inline oe_stat_button" string="Resiliation"
+								 states="A" name="button_resilier_bareme" type="object" icon="fa-times-circle"
+								 />
+							<button class="oe_inline oe_stat_button" string="Annuler"
+								 states="R" name="button_annuler_bareme" type="object"
+								icon="fa-reply" confirm= "Ce Barême est résilié , voulez-vous le réactiver ?"/>
+							
+						</div>
+						<field name="chp_affiche" invisible="1" />
+						<field name="type_prime" invisible="1" />
+						<field name="id" invisible="1" />
+					
+
+						<notebook >
+
+							<page string="Famille" attrs="{'invisible':[('id','!=',False)]}">
+								<field name="cod_fam_ids" on_change="onchange_famille(cod_fam_ids , produit_id)"  attrs="{'readonly':[('produit_id','=',False)]}"/>
+							</page>
+
+							<page string="Choix des actes">
+							
+								<group>
+									<field name="acte_id" attrs="{'invisible':[('chp_affiche','=',0)]}" />
+								</group>
+
+								<group>
+									<field name="sous_acte" attrs="{'invisible':[('chp_affiche','=',0)]}" />
+								</group>
+
+								<group>
+									<field name="statut_id" attrs="{'invisible':[('chp_affiche','=',0)]}"/>
+								</group>
+
+
+								<group>
+									<field name="delai" attrs="{'invisible':[('id','=',False)]}"/>
+								</group>
+
+
+								
+
+
+								<field name="cod_acte_ids" attrs="{'invisible':[('chp_affiche','!=',0)] , 'readonly':[('produit_id','=',False)]}">
+
+									<tree string="ACTES" editable="top">
+
+										<field name="cod_acte" />
+										<field name="sous_acte" />
+										<field name="bl_ticm_assure_tx" />
+										<field name="ticm_assure" />
+										<field name="unite_temps_id" />
+										<field name="max_act_an_benef" />
+										<field name="plf_prest_assure" />
+										<field name="plafond_tick_mod" />
+										<field name="plf_jour" />
+
+										<field name="plf_prest_fam" />
+
+
+										<field name="delai" />
+									</tree>
+
+								</field>
+								<group>
+									<field name="param_glob" attrs="{'invisible':[('id','!=',False)]}"/>
+								</group>
+								<notebook attrs="{'invisible':[('produit_id','=',False)]}">
+
+									<page string="Définition des plafonds et de la périodicité" attrs="{'invisible':['&amp;' , ('param_glob','=',False) , ('id','=',False)]}">
+										<group col="2">
+											<group>
+												<field name="bl_ticm_assure_tx" string="%" />
+												<field name="ticm_assure" />
+											</group>
+
+											<group>
+												<field name="unite_temps_id" />
+												<field name="max_act_an_benef" />
+											</group>
+										</group>
+										
+									</page>
+									<page string="Définition des plafonds des actes" attrs="{'invisible':['&amp;' , ('param_glob','=',False) , ('id','=',False)]}">
+										<group col="2">
+
+											<group>
+												<field name="plafond_transaction_temp" />
+												<field name="plf_jour" />
+												<field name="plf_an_prest" />
+											</group>
+											<group>
+												<field name="plf_prest_fam" />
+												<field name="plf_an_fam_act" />
+
+											</group>
+										</group>
+									</page>
+
+									<!--<page string="Ticket Modérateur mouvant">-->
+										<!--<group col="2">-->
+ 											<!--<group>-->
+
+ 												 <!--<field name="tick_mod_pourcentage" />-->
+ 												 <!--<field name="tick_mod"/>-->
+ 											<!--</group>-->
+
+ 											<!--<group>-->
+ 												  <!--<field name="plafond_tick_mod"/>-->
+ 											<!--</group>-->
+										<!--</group>-->
+									<!--</page>-->
+								</notebook>
+
+							</page>
+						</notebook>
+
+						<label string="Statuts concernés" attrs="{'invisible':[('id','!=',False)]}"/>
+						<field name="cod_statut_benef_ids" attrs="{'invisible':[('id','!=',False)]}"/>
+
+
+
+						<group>
+							<field name="date_resiliation_bareme" readonly="1" attrs="{'invisible': [('date_resiliation_bareme','=',False)]}"/>
+						</group>
+
+				</form>
+			</field>
+		</record>
+
+		<!-- ========= formulaire de resiliation de barème ============= -->
+		<record id="view_mcisogem_bareme_resilier_form" model="ir.ui.view">
+			<field name="name">mcisogem.bareme.resilier.form</field>
+			<field name="model">mcisogem.bareme</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<group class="oe_title">
+						<field name="date_resiliation_bareme" default_focus="1" required="1"/>
+					</group>
+					
+					<footer>
+							<button string="Valider" name="button_valide" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+					</footer>
+
+				</sheet>
+			</field>
+		</record>
+
+
+
+		<record id="view_mcisogem_bareme_filter" model="ir.ui.view">
+			<field name="name">mcisogem.bareme.select</field>
+			<field name="model">mcisogem.bareme</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un produit">
+				
+					
+					<field name="acte_id" />
+					<field name="plf_prest_assure" />
+					<field name="ticm_assure" />
+					<field name="bl_ticm_assure_tx" />
+					<group expand="0" string="Grouper par : ">
+                        <filter name="group_produit_id" string="Produit" context="{'group_by':'produit_id'}"/>
+
+                        <filter name="group_code_fam" string="Famille" context="{'group_by':'famille_acte_id'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+		<record id="mcisogem_bareme_tree" model="ir.ui.view">
+			<field name="name">mcisogem.bareme.tree</field>
+			<field name="model">mcisogem.bareme</field>
+			<field name="arch" type="xml">
+				<tree string="Produit">
+					
+					<field name="acte_id" />
+					<field name="sous_acte"  />
+					<field name="statut_id"/>
+					<field name="plf_prest_assure" />
+					<field name="ticm_assure" />
+					<field name="delai" string="Delai de Carence(en jrs)"/>			
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="mcisogem_produit_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.produit.police.form</field>
+			<field name="model">mcisogem.produit.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Produit-Police">
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="N,A"
+							 statusbar_colors='{"progress":"black"}' />
+					</header>
+					<sheet>
+
+						<h1>  
+							<field name="police_id" on_change="onchange_police(police_id)" /> 
+						</h1>
+
+						<h3>  
+							<field name="produit_id" on_change="onchange_produit(produit_id)"/> 
+						</h3>
+
+						<field name="id" invisible="1"/>
+						<group col="3">
+							<group>
+								<field name="dt_effet_produit" />
+							</group>
+
+
+						</group>
+
+						<group col="2" attrs="{'invisible': [('id','=',False)]}">
+							<group>
+								<field name="college_id" />
+							</group>
+
+							<group>
+								<field name="statut_id" />
+							</group>
+
+						</group>
+
+						<group col="3" attrs="{'invisible': [('id','=',False)]}">
+							<group>
+								<field name="acte_id" />
+							</group>
+
+							<group>
+								<field name="sous_acte"  attrs="{'invisible': [('sous_acte','=',False)]}"/>
+							</group>
+
+
+							<group>
+								<field name="ticm_assure" />
+							</group>
+
+							<group>
+								<field name="delai" />
+							</group>
+
+						</group>
+
+
+						<group col="1" attrs="{'invisible': [('id','!=',False)]}">
+
+							<group>
+								<field name="cod_college_ids" />
+							</group>
+
+
+							<!--<group>-->
+								<!--<field name="cod_statut_benef_ids" />-->
+							<!--</group>-->
+
+						<!-- 	<group>
+								<field name="cod_acte_ids">
+									<tree>
+										<field name="acte_id" />
+										<field name="ticm_assure" />
+										<field name="delai" />
+									</tree>
+							    </field>
+							</group> -->
+
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="mcisogem_produit_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.produit.police.tree</field>
+			<field name="model">mcisogem.produit.police</field>
+			<field name="arch" type="xml">
+				<tree string="Produit - Police">
+					<!-- <field name="produit_id" /> -->
+					<field name="sous_acte" />
+					<field name="dt_effet_produit" />
+					<field name="statut_id" />
+
+					<field name="ticm_assure" />
+					<field name="college_id" />
+					<field name="delai" />
+					
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="view_mcisogem_produit_police_filter" model="ir.ui.view">
+			<field name="name">mcisogem.produit.police.select</field>
+			<field name="model">mcisogem.produit.police</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un produit">
+					<field name="produit_id" />
+					<field name="dt_effet_produit" />
+					
+					<field name="statut_id" />
+					<field name="acte_id" />
+					<field name="college_id" />
+					
+					<group expand="0" string="Grouper par : ">
+                        <filter name="group_college_id" string="Collège" context="{'group_by':'college_id'}"/>
+                        <filter name="group_acte_id" string="Acte" context="{'group_by':'acte_id'}"/>
+                    </group>
+				</search>
+			</field>
+		</record>
+
+
+		
+		<record model="ir.actions.act_window" id="action_mcisogem_produit_police">
+			<field name="name">Produit Police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.produit.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_college_id': 1 , 'search_default_group_acte_id': 1}</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour faire un rattachement avec un produit.</p>
+			</field>
+		</record>
+
+	</data>
+</openerp>
+		
+

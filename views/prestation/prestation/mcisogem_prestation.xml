@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>	
+		<!-- ========= formulaire du brouillard  ============= -->
+		<record id="mcisogem_brouillard_form" model="ir.ui.view">
+			<field name="name">mcisogem.brouillard.prestation.form</field>
+			<field name="model">mcisogem.brouillard.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Impression du brouillard" edit="false" delete="false">
+					<sheet>
+						 <div class="oe_right">
+                           
+                            <button class="oe_inline oe_stat_button" name="imprimer_brouillard" type="object" string="Imprimer" icon="fa-print" attrs="{'invisible':[('prestation_ids','=',False)]}"/>
+
+                        </div>
+
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_id,garant_id,periode_id)"/>
+								</group>
+								
+							</group>
+
+							<group>
+								<field name="garant_id" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_id,garant_id,periode_id)" widget="many2many_tags"/>
+							</group>
+
+							<group>
+								<field name="centre_id"  options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_id,garant_id,periode_id)" widget="many2many_tags"/>
+							</group>
+
+
+							<group>
+								<field name="periode_id"  options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_id,garant_id,periode_id)" domain="[('state' , '=' , 'draft')]"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									<field name="id" string="N°" readonly="True"/>
+									<field name="date_prest" string="Date" readonly="True"/>
+									<field name="num_bon" string="Num Bon" readonly="True"/>
+									<field name="beneficiaire_id" readonly="True"/>
+
+									<field name="nom_prenom" readonly="True"/>
+
+									<field name="acte_id" readonly="True"/>
+									
+									<field name="centre_id" readonly="True"/>
+									<field name="praticien_id" readonly="True"/>
+
+									<field name="montant_total" readonly="True"/>
+									<field name="part_patient" readonly="True"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="True"/>
+									<field name="state" readonly="True"/>
+								</tree>
+						</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+
+
+		<!-- ========= formulaire de validation multiple des prestations  ============= -->
+		<record id="mcisogem_valid_prest_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.prestation.form</field>
+			<field name="model">mcisogem.validation.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Validation des prestations" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+							<group>
+									<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+							<group>
+								<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+								
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+
+
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+							
+							<group>
+								<field name="periode_ids" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" domain="[('state' , '=' , 'draft')]"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									
+									<field name="id" string="N°"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="num_bon" readonly="1" string="Num Bon"/>
+									<field name="num_fact" readonly="1" string="Num Facture"/>
+									<field name="beneficiaire_id" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="affection_id" readonly="0"/>
+
+									<field name="montant_total" sum="montant_total" readonly="0"/>
+									<field name="montant_exclu" sum="montant_exclu" readonly="0"/>
+									
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="0"/>
+
+									
+									<field name="motif_exclusion"/>
+								
+
+
+									<field name="part_patient" sum="part_patient"/>
+									<field name="state"/>
+								</tree>
+							</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+		
+
+
+
+
+		<!-- ========= formulaire de validation  des prestations en reception électronique ============= -->
+		<record id="mcisogem_valid_prest_recep_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.reception.form</field>
+			<field name="model">mcisogem.validation.reception</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Validation des prestations" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+							<group>
+								<field name="action" widget="radio"/>
+							</group>
+							
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+							<group col="2">
+								<group>
+									<field name="num_fact"  on_change="onchange_pram(centre_ids,garant_ids,periode_ids,num_fact)"/>
+								</group>
+							</group>
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+
+							<group>
+								<field name="periode_ids" options="{'no_create_edit': True}" on_change="onchange_pram(centre_ids,garant_ids,periode_ids,num_fact)" domain="[('state' , '=' , 'draft')]"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									<field name="id" string="N°"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="num_bon" readonly="1" string="Num Bon"/>
+									<field name="num_fact" readonly="1" string="Num Facture"/>
+									<field name="beneficiaire_id" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="affection_id" readonly="0"/>
+
+									<field name="montant_total" sum="montant_total" readonly="0"/>
+									<field name="montant_exclu" sum="montant_exclu" readonly="0"/>
+									
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="0"/>
+
+									
+									<field name="motif_exclusion"/>
+									
+
+									<field name="part_patient" sum="part_patient"/>
+									<field name="state"/>
+								</tree>
+							</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+
+		<!-- ========= formulaire de validation multiple des creation de remboursement ou reglement  ============= -->
+		<record id="mcisogem_valid_prest_regl_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.prestation.reglement.form</field>
+			<field name="model">mcisogem.validation.prestation.reglement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Création de règlements" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+
+							<group>
+								<field name="action" widget="radio"/>
+							</group>
+
+							<group>
+								<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+
+							<group>
+									<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+
+
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+
+
+							<group>
+								<field name="periode_ids" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" domain="[('state' , '=' , 'draft')]"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									
+									<field name="id" string="N°"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="num_bon" readonly="1" string="Num Bon"/>
+									<field name="num_fact" readonly="1" string="Num Facture"/>
+									<field name="beneficiaire_id" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+									<field name="montant_exclu" readonly="0" sum="montant_exclu"/>
+									
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="0"/>
+
+									
+									<field name="motif_exclusion"/>
+								
+
+									<field name="part_patient" sum="part_patient"/>
+									<field name="state"/>
+								</tree>
+						</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+		<record id="mcisogem_prestation_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.form</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Prestation" edit="false" delete="false">
+
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="Draft,SP,P" statusbar_colors='{"progress":"green"}' />
+					</header>
+
+					<sheet>
+						 <div class="oe_right">
+
+                            <button class="oe_inline oe_stat_button" name="imprimer_bon" type="object" string="Imprimer" icon="fa-print" attrs="{'invisible':[('state','=','Draft')]}"/>
+
+                            <button class="oe_inline oe_stat_button" name="valider_prestation" type="object" string="Valider" icon="fa-check" attrs="{'invisible':['|' , ('state','!=','Draft') , ('id' , '=' , False)]}" confirm= "Voulez-vous valider cette prestation ?"/>
+
+                        </div>
+
+
+						<div>
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+						</div>
+
+						<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="affichdetail" invisible="1"/>
+								<field name="affichebenef" invisible="1"/>
+								<field name="aff_quantite" invisible="1"/>
+								<field name="aff_hos_mat" invisible="1"/>
+								<field name="code_regime" invisible="1"/>
+								<field name="type_centre" invisible="1"/>
+								
+								<label for="num_police" string="N° de Prestation:" attrs="{'invisible':[('id','=',False)]}"/>
+								<field name="id" class="oe_inline"  attrs="{'invisible':[('id','=',False)]}"/>
+								
+	                            <h1>
+
+	                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+	                                <br></br>
+
+	                                <field name="num_bon" placeholder="N° Bon" attrs="{'invisible':[('affichdetail','=',False)]}" on_change="_get_detail_bon(num_bon)" required="1"/>
+
+				    			</h1>
+
+		    					<field name="affichebenef" invisible="1"/>
+		    					<field name="a_sous_acte" invisible="1"/>
+								
+						</div>
+
+						<h2>
+							<field name="centre_user_id" on_change="onchange_presta_prat(centre_user_id)" invisible="1"/>
+						</h2>
+
+						<group col="3">
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+							<group>
+
+								
+									<div style="width:40%;margin-left:auto !important;margin-right:auto !important;">
+								        <h1>
+								            <field name="matric_benef"  placeholder="Matricule"  on_change="benef_change(matric_benef)" attrs="{'invisible':[('affichebenef','!=',False)]}" required="1"/>
+								        </h1>
+							    	</div>
+
+						        
+
+			               </group>
+			                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+			            </group>
+			            
+			            
+			            <group col="2" attrs="{'invisible':[('affichdetail','=',False)]}">	
+			            				
+							<group>
+								<field name="nom_benef" readonly="True"/>
+								<field name="date_naiss" readonly="True"/>
+							</group>
+
+							<group>
+								<field name="prenom_benef" readonly="True"/>
+								<field name="sexe" readonly="True"/>
+							</group>
+
+						</group>
+
+						
+
+						<hr attrs="{'invisible':[('affichdetail','=',False)]}"></hr>
+
+
+
+
+						<group  col="4" attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group>
+								<field name="consultation" on_change="onchange_consultation(consultation)" attrs="{'invisible':[('type_centre','=', 'PHARMACIE')]}"/>
+							</group>
+
+							<group>
+								<field name="acteenclinique" on_change="onchange_acteenclinique(acteenclinique)" attrs="{'invisible':[('type_centre','in', ['CABINET DENTAIRE' , 'PHARMACIE'])]}"/>
+							</group>
+
+							<group>
+								<field name="dentaire" on_change="onchange_dentaire(dentaire)" attrs="{'invisible':[('type_centre','!=', 'CABINET DENTAIRE')]}"/>
+							</group>
+
+							<!-- <group>
+								<field name="phamarcie" on_change="onchange_phamarcie(phamarcie)" attrs="{'invisible':[('type_centre','!=', 'PHARMACIE')]}"/>
+							</group> -->
+							
+						</group>
+
+
+						<hr attrs="{'invisible':[('affichdetail','=',False)]}"></hr>
+
+						<group col="1" attrs="{'invisible':['&amp;' , ('num_bon','=',False) , ('type_centre','=', 'PHARMACIE')]}">
+
+							<notebook colspan="3"  attrs="{'invisible':[('affichdetail','=',False)]}" >
+							<page string="Détails de la prestation"  attrs="{'invisible':[('affichdetail','=',False)]}">
+
+
+								
+
+								<group col="1">
+									<group col="1">
+
+										<group col="2" ttrs="{'invisible':[('type_centre','!=', 'PHARMACIE') , ('id' , '=' , False)]}">
+											<group>
+												<field name="acte_phar_id" attrs="{'invisible':[('type_centre','!=', 'PHARMACIE')]}" readonly="1"/>
+											</group>
+
+											<group>
+												<field name="centre_exec_id" attrs="{'invisible':[('type_centre','!=', 'PHARMACIE')]}" readonly="1"/>
+											</group>
+
+
+
+										
+										</group>
+
+
+										<group>
+											<field name="acte_id" on_change="onchange_acte(acte_id)" 
+											 attrs="{'readonly':[('consultation','=',False) , ('acteenclinique','=',False) , ('dentaire','=',False) , ('type_centre','!=', 'PHARMACIE')] , 'required' : [('type_centre','!=', 'PHARMACIE')] , 'invisible' : [('type_centre','=', 'PHARMACIE')]}" />
+										</group>
+
+										<group col="1">
+			                            	<field name="ordo_ids" widget="many2many_list">
+				                                <tree editable="bottom">
+				                                	<field name="pharmacie" invisible="1"/>
+				                                	<field name="prestation_ids" invisible="1"/> 
+				                                	<field name="id" invisible="1"/> 
+				                                	<field name="t" invisible="1"/> 
+
+				                                	<!-- <field name="acte_id" domain="[('code_fam_prest','=',t)]" />  -->
+
+				                                   <!--  <field name="medicament_ids" domain="[('acte_id','=',acte_id)]"/> -->
+				                                    <field name="medicament_ids"/>
+				                                    <field name="quantite" />
+
+				                                    <field name="pu" attrs="{'readonly':[('pharmacie','=', False)]}"/> 
+				                                </tree>
+			                            	</field> 
+		                        		</group> 
+
+
+										<group col="1">
+
+											<field name="sous_actes_ids" 
+									  			 attrs="{'invisible':[('a_sous_acte' , '=' , False)]}">
+
+			                                	<tree editable="bottom">
+			                                		<field name="acte_id" invisible="1"/>
+			                                		<field name="sous_acte_id"/>
+			                                		<field name="qte" />
+			                                	</tree>
+
+		                                	</field>
+
+
+		                                	<field name="dent_ids" attrs="{'invisible':['|' ,('acte_id','=',False), ('dentaire' , '=' , False)]}" widget="many2many_tags">
+		                                		<tree editable="bottom">
+		                                			<field name="name"/>
+		                                			<field name="enf_ad"/>
+		                                			<field name="machoire"/>
+		                                			<field name="semi_arcade"/>
+		                                			<field name="type_dent"/>
+		                                		</tree>
+		                                	</field>
+			                                
+		                                </group>
+										
+										
+
+										<group col="2">
+											<group>
+												<!-- <field name="affection_id" attrs="{'required' : [('type_centre','!=', 'PHARMACIE')] , 'invisible': [('type_centre','=', 'PHARMACIE')]}"/> -->
+
+												<field name="affection_id"/>
+
+
+											</group>
+
+											<group>
+												<field name="praticien_acte_temp_id" attrs="{'invisible':['|',('id','!=',False) , ('type_centre','=', 'PHARMACIE')]}"/>
+
+
+												<field name="praticien_id" attrs="{'invisible':['|',('id','=',False) , ('type_centre','=', 'PHARMACIE')]}"/>
+											</group>
+										</group>
+		
+									</group>
+
+									
+
+
+	                                <group col="2">
+	                                    <group class="oe_subtotal_footer oe_right">
+
+	                                    	<label for="montant_total" string="Montant Brut" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>	                                        
+
+	                                        <field name="montant_total" nolabel="1" class="oe_bold oe_account_total" attrs="{'readonly' : [('type_centre','=', 'PHARMACIE')] , 'required' : [('type_centre','!=', 'PHARMACIE')]}"/>
+
+	                                 
+	                  
+
+	                                    	<label for="montant_exclu" string="Montant exclu" class="oe_force_bold oe_mini_subtotal_footer_separator" 
+	                                		   style="padding-right: 0px !important;color:red;" attrs="{'invisible':[('montant_exclu','=',0)]}"/>
+
+	                           				<field name="montant_exclu" nolabel="1" style="color:red;" class="oe_bold oe_account_total" attrs="{'invisible':[('montant_exclu','=',0)]}" readonly="1"/> 
+
+	                                        
+
+	                                        <label for="taux_part_patient" string="* Ticket Modérateur (%)" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;" attrs="{'invisible' : [('id' , '=' , False) , ('type_centre','!=', 'PHARMACIE')]}"/>
+
+	                                        <field name="taux_part_patient" nolabel="1" class="oe_bold oe_account_total" attrs="{'invisible' : [('id' , '=' , False) , ('type_centre','!=', 'PHARMACIE')]}"/>
+
+
+	                                        <label for="part_patient" class="oe_subtotal_footer_separator oe_open_balance" string="= Part Patient" style="padding-right: 0px !important; padding-top: 6px !important;"/>
+
+	                                        <field name="part_patient" nolabel="1" class="oe_subtotal_footer_separator oe_open_balance" />                                   
+	                                    </group>
+	                            	</group>
+
+
+
+	                             </group>  
+
+	                               
+						
+							</page>	
+							
+							</notebook>
+						</group>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+
+		<record id="mcisogem_prestation_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.tree</field>
+			<field name="model">mcisogem.prestation</field>
+
+			<field name="arch" type="xml">
+				<tree string="Prestation" edit="false" delete="false">
+					<field name="id" string="N° Prestation"/>
+					<field name="date_prest"/>
+					<field name="num_bon"/>
+					<field name="beneficiaire_id"/>
+
+					<field name="nom_prenom"/>
+
+					<field name="acte_id"/>
+					
+					<field name="centre_id" />
+					<field name="praticien_id" />
+
+					<field name="montant_total" sum="montant_total"/>
+					<field name="montant_exclu" sum="montant_exclu"/>
+					
+					<field name="part_gest" string="Montant Remboursé" sum="part_gest"/>
+
+					
+					<field name="motif_exclusion"/>
+					<field name="motif_rejet"/>
+
+
+
+					<field name="part_patient" sum="part_patient"/>
+					<field name="code_regime"/>
+					<field name="state"/>
+					
+					
+				</tree>	
+			</field>
+		</record>
+
+  
+		<!-- ========= formulaire de validation direction ============= -->
+		<record id="mcisogem_valid_prest_dir_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.prestation.direction.form</field>
+			<field name="model">mcisogem.validation.prestation.direction</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Création de règlements" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+								
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(centre_ids,garant_ids,periode_ids)" />
+							</group>
+
+
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(centre_ids,garant_ids,periode_ids)"/>
+							</group>
+
+							<group>
+								<field name="periode_ids"  options="{'no_create_edit': True}" on_change="onchange_pram(centre_ids,garant_ids,periode_ids)"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_temp_ids" options="{'no_create_edit': True}" nolabel="1">
+							<tree>
+								<field name="centre_id" readonly="1"/>
+								<field name="garant_id" readonly="1"/>
+								<field name="montant_total" readonly="1"/>
+								<field name="montant_exclus" readonly="1"/>
+							</tree>
+
+						</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+
+
+        <record id="view_mcisogem_prestation_recherche_result_tree" model="ir.ui.view">
+            <field name="name">mcisogem.prestation.recherche.result.tree</field>
+            <field name="model">mcisogem.prestation.recherche.result</field>
+            <field name="arch" type="xml">
+              	<tree>
+                    <field name="centre_id"/>
+					<field name="garant_id"/>
+					<field name="montant_total"/>
+					<field name="montant_exclus"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+
+		<record id="mcisogem_prestation_mci_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.form</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Prestation" edit="true" delete="false">
+
+					<!-- <header>
+					    <button string="Valider" name="button_valider_prestation" type="object" attrs="{'invisible':[('id','=',False) , ('state' , '!=' , 'Draft')]}" confirm="Voulez-vous valider cette prestation ?"/>
+
+
+                        <button string="Invalider" name="button_invalider_prestation" type="object" attrs="{'invisible':[('id','=',False) , ('state' , '!=' , 'VD')]}" confirm="Voulez-vous invalider cette prestation ?"/>
+
+
+						<field name="state" widget="statusbar" statusbar_visible="SP,P" statusbar_colors="{&quot;progress&quot;:&quot;blue&quot;}"/>
+					</header> -->
+
+					<sheet>
+
+						<div>
+							<field name="image_medium" widget="image" class="oe_left oe_avatar"/>
+						</div>
+
+						<div class="oe_title oe_inline">
+							<field name="id" invisible="1"/>
+							<field name="affichdetail" invisible="1"/>
+							<field name="affichebenef" invisible="1"/>
+							<field name="aff_quantite" invisible="1"/>
+							<field name="aff_hos_mat" invisible="1"/>
+
+							<label for="id" string="N° de Prestation:" attrs="{'invisible':[('id','=',False)]}"/>
+							<field name="id" class="oe_inline" attrs="{'invisible':[('id','=',False)]}"/>
+
+
+							<h3>
+					            <field name="matric_benef" placeholder="Matricule" on_change="benef_change2(matric_benef)" required="1" attrs="{'invisible':[('affichebenef','!=',False)]}"/>
+					        </h3>
+
+							<h3>
+								<field name="beneficiaire_id" readonly="True" placeholder="Beneficiaire" options="{'no_create_edit': True}"/>
+							</h3>
+
+							<label for="num_fact" string="N° de Facture:" />
+							<field name="num_fact" class="oe_inline" />
+
+							
+	    					<field name="affichebenef" invisible="1"/>
+	    					<field name="a_sous_acte" invisible="1"/>
+						</div>
+
+
+						<div class="oe_right oe_inline">
+							<h1>
+								<field name="nom_prenom" readonly="True"/>
+							</h1>
+
+
+							<h4>
+								<field name="police_id" readonly="True"/>
+							</h4>
+
+							<h4>
+								<field name="college_id" readonly="True"/>
+							</h4>
+
+
+							<h6 attrs="{'invisible':[('affichebenef','=',False)]}">Date de Naissance : <field name="date_naiss" readonly="True" style="margin-top:-2px" class="oe_inline"/></h6>
+
+							<h6 attrs="{'invisible':[('affichebenef','=',False)]}">Sexe : <field name="sexe" style="margin-top:-2px" readonly="True" class="oe_inline"/></h6>
+							
+						</div>
+
+						<group></group>
+						<group></group>
+						<group col="2">
+							<group>
+								<field name="periode_id" />
+							</group>
+
+							<group>
+								<field name="date_recep" />
+							</group>
+						</group>
+			            
+			            <group col="2">
+
+			            	<group>
+			            		<field name="centre_id" on_change="_get_les_praticiens(centre_id)" class="oe_inline" required="1"/>
+			            	</group>
+
+			            	<group>
+
+								<field name="praticien_id" attrs="{'invisible':[('phamarcie' , '=' , True)] , 'required' : [('phamarcie' , '=' , False)]}"/>
+
+			            	</group>
+			            </group>
+			            
+			            <group col="2">
+
+			            	<group>
+			            		<field name="centre_exec_id" class="oe_inline" required="1"/>
+			            	</group>
+
+
+			            	<group>
+			            		<field name="num_bon" placeholder="N° Bon" on_change="_get_detail_bon(num_bon)" class="oe_inline" required="0"/>
+			            	</group>
+
+			            </group>
+
+						<hr/>
+
+
+						<group col="4" attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group>
+								<field name="consultation" on_change="onchange_consultation(consultation)"/>
+							</group>
+
+							<group>
+								<field name="acteenclinique" on_change="onchange_acteenclinique(acteenclinique)"/>
+							</group>
+
+							<group>
+								<field name="dentaire" on_change="onchange_dentaire(dentaire)"/>
+							</group>
+
+							<group>
+								<field name="phamarcie" on_change="onchange_phamarcie(phamarcie)"/>
+							</group>
+							
+						</group>
+
+
+						<hr/>
+
+						<notebook colspan="3">
+							<page string="Information Prestation">
+								<group col="1">
+									<group col="1">
+
+									<!-- 	<group col="2">
+
+												<group>
+													<field name="acte_phar_id" attrs="{'invisible':[('phamarcie' , '=' , False)]}" readonly="1"/>
+												</group>
+
+												<group>
+													<field name="affec_phar_id" attrs="{'invisible':[('phamarcie' , '=' , False)]}" readonly="1"/>
+												</group>
+
+										</group> -->
+
+
+
+										<group col="2">
+
+											<group>
+													<field name="acte_id" on_change="onchange_acte(acte_id)" attrs="{'readonly':[('consultation','=',False) , ('acteenclinique','=',False) , ('dentaire','=',False) , ('phamarcie','=',False)]}"/>
+											 </group>
+
+
+										 	<group>
+										 		
+
+												<field name="date_prest" required="1"/>
+											</group>
+											
+										</group>
+
+										<group>
+											<field name="praticien_exec_id" attrs="{'invisible':[('phamarcie' , '=' , True)] , 'required' : [('phamarcie' , '=' , False)]}"/>
+										</group>
+
+										<group>
+
+											<field name="sous_actes_ids" attrs="{'invisible':[('a_sous_acte' , '=' , False)]}">
+
+			                                	<tree editable="bottom">
+			                                		<field name="acte_id" invisible="1"/>
+			                                		<field name="sous_acte_id"/>
+			                                		<field name="qte"/>
+			                                	</tree>
+
+		                                	</field>
+
+
+		                                
+			                            	<field name="ordo_ids" widget="many2many_list">
+				                                <tree editable="bottom">
+				                                	<field name="pharmacie" invisible="1"/>
+				                                	<field name="prestation_ids" invisible="1"/> 
+				                                	<field name="id" invisible="1"/> 
+				                                	<field name="t" invisible="1"/> 
+
+				                                    <field name="medicament_ids"/>
+				                                    <field name="quantite"/>
+				                                    <field name="pu" attrs="{'readonly':[('pharmacie','=', False)]}"/>
+				                                </tree>
+			                            	</field> 
+		                        		
+
+
+
+		                                	<field name="dent_ids" attrs="{'invisible':['|' ,('acte_id','=',False), ('dentaire' , '=' , False)]}" widget="many2many_tags">
+		                                		<tree editable="bottom">
+		                                			<field name="name"/>
+		                                			<field name="enf_ad"/>
+		                                			<field name="machoire"/>
+		                                			<field name="semi_arcade"/>
+		                                			<field name="type_dent"/>
+		                                		</tree>
+		                                	</field>
+			                                
+		                                </group>
+										
+
+										<group col="2">
+											<group>
+												<field name="affection_id" attrs="{'invisible':[('phamarcie' , '=' , True)]}"/>
+											</group>
+
+											
+										</group>
+										
+									</group>
+								   <!--  <group col="3">
+	                                    <group>
+                                 			<field name="montant_total" readonly="1" string="Montant Brut"/>
+	                                    </group>
+	                                    <group>
+                                 			<field name="montant_exclu" readonly="1" attrs="{'invisible' : [('id' , '=' , False)]}"/> 
+	                                    </group>
+	                        
+	                            	</group>
+
+	                            	<group col="3">
+	                            		
+
+	                                    <group>
+                                 			 <field name="part_gest" attrs="{'invisible' : [('id' , '=' , False)]}"/>
+	                                    </group>
+
+	                                    <group>
+                                 			 <field name="taux_part_patient" attrs="{'invisible' : [('id' , '=' , False)]}" string="Ticket Mod. (%)"/>
+	                                    </group>
+
+
+	                                     <group>
+                                 			 <field name="part_patient" attrs="{'invisible' : [('id' , '=' , False)]}"/>
+	                                    </group>
+
+	                            	</group> -->
+
+
+	                            	 <group col="2" attrs="{'invisible':[('id' , '=' , False)]}">
+	                                    <group class="oe_subtotal_footer oe_right">
+
+	                                    	<label for="montant_total" string="Montant Brut" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>	                                        
+
+	                                        <field name="montant_total" nolabel="1" class="oe_bold oe_account_total" readonly="1"/>
+
+
+	                                    	<label for="montant_exclu" string="Montant exclu" class="oe_force_bold oe_mini_subtotal_footer_separator" 
+	                                		   style="padding-right: 0px !important;color:red;" attrs="{'invisible':[('montant_exclu','=',0)]}"/>
+
+	                           				<field name="montant_exclu" nolabel="1" style="color:red;" class="oe_bold oe_account_total" attrs="{'invisible':[('montant_exclu','=',0)]}" readonly="1"/> 
+
+	                                        
+
+	                                        <label for="taux_part_patient" string="* Ticket Modérateur (%)" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>
+
+	                                        <field name="taux_part_patient" nolabel="1" class="oe_bold oe_account_total"/>
+
+
+	                                        <label for="part_patient" class="oe_subtotal_footer_separator oe_open_balance" string="= Part Patient" style="padding-right: 0px !important; padding-top: 6px !important;"/>
+
+	                                        <field name="part_patient" nolabel="1" class="oe_subtotal_footer_separator oe_open_balance" />                                   
+	                                    </group>
+	                            	</group>
+
+	                         
+	                                </group>  
+
+	                               
+						
+							</page>	
+
+						</notebook>
+
+						<group attrs="{'invisible':[('id' , '=' , False)]}">
+							<field name="erreur"></field>
+						</group>
+						
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre prestation ============================= -->
+		<record id="view_prestation_filter" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.select</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="num_bon" />
+					<field name="beneficiaire_id" />
+					<field name="centre_id"/>
+					<field name="num_fact"/>
+					<field name="create_uid" string="Editeur"/>
+					<field name="state"/>
+			
+					<group expand="0" string="Groupé Par">
+						<filter string="Centre" context="{'group_by':'centre_id'}"/>
+						<filter string="N° Facture" context="{'group_by':'num_fact'}"/>
+
+						<filter string="Utilisateur" context="{'group_by':'create_uid'}"/>
+					
+                    	<filter string="Statut" context="{'group_by':'state'}"/>
+                       
+                        <filter string="Beneficiaire" context="{'group_by':'beneficiaire_id'}"/>
+                    </group>
+
+
+				</search>
+			</field>
+		</record>
+
+
+		<!-- ========= formulaire de regroupement  de prestations  ============= -->
+		<record id="mcisogem_regroup_prest_form" model="ir.ui.view">
+			<field name="name">mcisogem.regroupement.prestation.form</field>
+			<field name="model">mcisogem.regroupement.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Regroupement  des prestations" edit="false" delete="false">
+					<sheet>
+
+						<field name="init" invisible="1" on_change="_get_les_praticiens()"/>
+
+						<div class="oe_title">
+							<h1><field name="num_fact" placeholder="N° Facture"/></h1>
+						</div>
+
+
+						<group col="1">
+							
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(medecin_ids,garant_ids,periode_ids)" />
+							</group>
+
+							<group>
+								<field name="medecin_ids" widget="many2many_tags" on_change="onchange_pram(medecin_ids,garant_ids,periode_ids)"/>
+							</group>
+
+							<group>
+								<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(medecin_ids,garant_ids,periode_ids)"/>
+							</group>
+
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									<field name="id" string="N°"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="num_bon" readonly="1" string="Num Bon"/>
+									<field name="num_fact" readonly="1" string="Num Facture"/>
+									<field name="beneficiaire_id" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+									<field name="montant_exclu" sum="montant_exclu" readonly="1"/>
+									
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="1"/>
+
+									
+									<field name="motif_exclusion" readonly="1"/>
+									<field name="motif_rejet" readonly="1"/>
+
+
+									<field name="part_patient" sum="part_patient" readonly="1"/>
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_prestation_valid_dir">
+			<field name="name">Validation direction</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.validation.prestation.direction</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>			
+		</record>
+
+
+
+
+		<!-- ===================== Type exclusion form ============================= -->
+		<record id="view_mcisogem_type_exclusion_form" model="ir.ui.view">
+			<field name="name">mcisogem.type.exclusion.prestation.form</field>
+			<field name="model">mcisogem.type.exclusion.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						
+						<group>
+							<field name="name"/>
+						</group>
+							
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== Liste Type exclusion ============================= -->
+		<record id="view_mcisogem_type_exclusion_tree" model="ir.ui.view">
+			<field name="name">mcisogem.type.exclusion.prestation.tree</field>
+			<field name="model">mcisogem.type.exclusion.prestation</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== Motif exclusion form ============================= -->
+		<record id="view_mcisogem_motif_exclusion_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.exclusion.prestation.form</field>
+			<field name="model">mcisogem.motif.exclusion.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="type"/>
+							</group>
+
+							<group>
+								<field name="name"/>
+							</group>
+							
+						</group>	
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste motif exclusion ============================= -->
+		<record id="view_mcisogem_type_exclusion_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.exclusion.prestation.tree</field>
+			<field name="model">mcisogem.motif.exclusion.prestation</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="type"/>
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== Motif rejet form ============================= -->
+		<record id="view_mcisogem_motif_rejet_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.rejet.prestation.form</field>
+			<field name="model">mcisogem.motif.rejet.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+							
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste rejet exclusion ============================= -->
+		<record id="view_mcisogem_type_exclusion_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.rejet.prestation.tree</field>
+			<field name="model">mcisogem.motif.rejet.prestation</field>
+			<field name="arch" type="xml">
+				<tree>
+				
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_regroup_prestation">
+			<field name="name">Regroupement de prestations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.regroupement.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+
+			<field name="view_id" ref="mcisogem_regroup_prest_form"/>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_valid_recp">
+			<field name="name">Réception électronique</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.validation.reception</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" ref="mcisogem_valid_prest_recep_form"  />
+		</record>
+
+
+
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_prestation_mci_rd">
+			<field name="name">Prestations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="domain">[('code_regime','=','RD') , ('state' , '=' , 'SS')]</field>
+			<field name="context">{'code_regime': 'RD'}</field>
+			<field name="view_id" ref="mcisogem_prestation_mci_form"/>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_prestation_mci_tp">
+			<field name="name">Prestations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="domain">[('code_regime','=','TP') , ('state' , '=' , 'SS')]</field>
+			<field name="context">{'code_regime': 'TP'}</field>
+			<field name="view_id" ref="mcisogem_prestation_mci_form"/>
+		</record>
+
+
+		
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_prestation_cr_regl">
+			<field name="name">Création des règlements/remboursements</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.validation.prestation.reglement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_prestation">
+			<field name="name">Prestations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" ref="mcisogem_prestation_form"/>
+			
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_valid_prestation">
+			<field name="name">Validation des prestations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.validation.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>			
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_brouillard_prestation">
+			<field name="name">Brouillard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.brouillard.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>			
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_type_exclusion">
+			<field name="name">Type Exclusion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.type.exclusion.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_exclusion">
+			<field name="name">Motif Exclusion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.exclusion.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_rejet">
+			<field name="name">Motif Exclusion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.rejet.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>			
+		</record>
+
+
+ 	</data>	
+</openerp>

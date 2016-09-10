@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- ========= formulaire actes lies a un autre  ============= -->
+		<record id="mcisogem_actes_lies_autres_form" model="ir.ui.view">
+			<field name="name">mcisogem.actes.lies.autres.form</field>
+			<field name="model">mcisogem.actes.lies.autres</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<div class="oe_title">
+							<h1>
+								<label string="Groupes d'actes liés à un autre" />
+							</h1>
+						</div>
+						<group >
+							
+						</group>
+					<group col="2" >
+						<group >
+							
+							<field name="code_familles" />
+							<field name="lbc_nomprest_p" domain="[('code_fam_prest','=',code_familles)]"/>
+							
+						</group>
+						
+						<group >
+							
+							
+							<field name="dt_eff_plfd_grpe_acte_det" />
+							<field name="date_resiliation" />
+						</group>
+						
+						
+						
+					</group>
+					<group >
+							
+							<field name="code_famille" />
+							<field name="acte_ids" widget="many2many_checkboxes"
+								domain="[('code_fam_prest','=',code_famille)]" />
+							
+						</group>
+				</sheet>
+			</field>
+		</record>
+
+		<!-- ========= liste actes lies a un autre ============= -->
+		<record id="mcisogem_actes_lies_autres_tree" model="ir.ui.view">
+			<field name="name">mcisogem.actes.lies.autres.tree</field>
+			<field name="model">mcisogem.actes.lies.autres</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="code_famille"/>
+					<field name="lbc_nomprest_p" />
+					<field name="dt_eff_plfd_grpe_acte_det" />
+					<field name="date_resiliation" />
+					
+				</tree>
+			</field>
+		</record>	
+
+
+		<!-- Action du actes lies a un autre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_actes_lies_autres">
+			<field name="name">Groupe d'actes lies à un autre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.actes.lies.autres</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un Groupe d'actes lies à un autre.
+				</p>
+			</field>
+		</record>
+		
+		
+
+		<!-- <menuitem action="action_mcisogem_actes_lies_autres" parent="menu_mcisogem_medical_etablissements_sanitaires" name="Actes lies à un autre"
+		 id="mcisogem_agent_centre_menu" /> -->
+	</data>	
+</openerp>

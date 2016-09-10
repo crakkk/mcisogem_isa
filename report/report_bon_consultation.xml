@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_bon_consultation">
+
+  <style>
+		        body{
+		      width: 100%;
+		      }
+		     .page{
+			  	font-family: "Times New Roman";
+			  	font-weight: normal;
+			  	font-size: 22px;
+			  	/*color : rgba(255, 0, 0, 0);*/
+			  	
+				}
+			.entete{
+			    width: 100%;
+			  /*  border:1px solid black;*/
+			  }
+			.entete_left, .entete_centre, .entete_right{
+			      display: inline-block;
+			      vertical-align: top;
+			   }
+			.entete_left {
+			    width: 32%;
+			    position: relative;
+			    /*text-align: center;*/
+			  }
+			  .entete_centre {
+			    width: 32%;
+			    position: relative;
+			    text-align: center;
+			    margin-top: 75px;
+			  }
+
+			  .entete_centre p {
+			  	font-size: 22px;
+			  	font-weight: bold;
+			    border: 2px solid rgba(255, 0, 0, 0);
+			    color : rgba(255, 0, 0, 0);
+
+			  }
+			.entete_right {
+			    width: 32%;
+			    position: relative;  
+			    font-size: 12px;
+			    /*border: 1px solid black;*/
+			 }
+			
+			.entete_right p {
+			    float: right;
+			    /*border: 1px solid #ccc;*/
+			 }
+
+
+			.titre {
+			   font-size: 22px;
+			   text-align: center;
+			   border: 1.5px solid rgba(255, 0, 0, 0);
+			   color : rgba(255, 0, 0, 0);
+			 }
+
+			 .ordo_patien{
+			    width: 100%;
+			  /*  border:1px solid black;*/
+			  }
+
+			 .ordo_patien_left, .ordo_patien_right{
+			      display: inline-block;
+			      vertical-align: top;
+			   }
+			.ordo_patien_left {
+			    width: 49%;
+			    position: relative;
+			    /*text-align: center;*/
+			  }
+			  .ordo_patien_right {
+			    width: 49%;
+			    position: relative;
+			  }
+
+			  .benef{
+			    width: 100%;
+			  /*  border:1px solid black;*/
+			  }
+
+			 .benef_left, .benef_right{
+			      display: inline-block;
+			      vertical-align: top;
+			   }
+			.benef_left {
+			    width: 49%;
+			    position: relative;
+			    /*text-align: center;*/
+			  }
+			  .benef_right {
+			    width: 49%;
+			    position: relative;
+			  }
+
+			  table {
+			  border-collapse:collapse;
+			  width:100%;
+			  margin: auto;
+			  margin-bottom: 2%;
+			 }
+			  th, td {
+			   border:1px solid rgba(255, 0, 0, 0);
+			   
+			 }
+			  td {
+			   text-align:center;
+			   font-size: 22px;
+			  
+			 }
+			 th {
+			    background-color: #ccc;
+
+			}
+			  caption {
+			   font-weight:bold
+			 }
+
+			  label {
+			   color : rgba(255, 0, 0, 0);
+			 }
+                         
+                    
+
+                          .presta{
+			 	margin-top: 40px;
+			 }
+
+      
+
+
+  </style>
+
+
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+             	
+             	<div class="conteneur">
+
+
+					<div class="page">
+
+						<div class="entete">
+
+							<div class="entete_left">
+								
+							</div>
+
+							<div class="entete_centre">
+								<P>FICHE DE SOINS</P>
+							</div>
+
+							<div class="entete_right">
+								<P>
+									
+								</P>
+							</div>
+
+						</div>
+
+						<p class="titre">Ordornance Patient</p>
+
+						<div class="ordo_patien">
+
+							<div class="ordo_patien_left">
+								<P><label>Date / Heuree :</label> <span t-field="o.write_date" t-field-options='{"format": "d MMMM y"}'/></P>
+							</div>
+
+							<div class="ordo_patien_right">
+								<P><label>Utilisateur :</label> <span t-raw="'%s &lt;&gt;' % o.write_uid.praticien_id.nom_prestat  if o.write_uid.praticien_id.nom_prestat  else ''"/><span t-raw="'%s &lt;&gt;' % o.write_uid.praticien_id.prenoms_prestat  if o.write_uid.praticien_id.prenoms_prestat  else ''"/></P>
+							</div>
+
+						</div>
+
+						<p class="titre">Centre de Soins</p>
+
+						<div class="soins">
+
+							<P><span t-esc="o.centre_id.name"/></P>
+
+						</div>
+
+						<p class="titre">Bénéficiare</p>
+
+						<div class="benef">
+
+							<table>
+					            <tbody>
+					           
+					                <tr> 		
+					                    <td style="width: 14.5%">  </td>
+					                    <td style="width: 34.5%;text-align:left;"> <span t-esc="o.police_id.souscripteur_id.name"/> </td>
+					                    <td style="width: 14.5%">  </td>
+					                    <td style="width: 34.5%;text-align:left;"> <span t-esc="o.garant_id.name"/> </td>     
+					                </tr>
+		                	        <tr>
+		                	     	   	<td style="width: 14.5%">  </td>
+		                	     	    <td style="width: 34.5%;text-align:left;"> <span t-esc="o.nom_prenom"/> </td>
+		                	     	    <td style="width: 14.5%">  </td>
+		                	     	    <td style="width: 34.5%;text-align:left;"> <span t-esc="o.beneficiaire_id.name"/> </td>
+		                	        </tr>
+		                	        <tr>
+		                	     	   	<td style="width: 14.5%">  </td>
+		                	     	    <td style="width: 34.5%;text-align:left;"> <span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.nom  if o.beneficiaire_id.benef_id else ''"/> 
+	                                          <span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.prenom_benef  if o.beneficiaire_id.benef_id else o.nom_prenom"/> </td>
+		                	     	    <td style="width: 14.5%">  </td>
+		                	     	    <td style="width: 34.5%;text-align:left;"> <span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.name if o.beneficiaire_id.benef_id else o.beneficiaire_id.name"/> </td>
+		                	        </tr>
+			    
+					        	</tbody>
+							</table>
+
+						</div>
+
+						<div class="presta">
+
+							<P><label>Médecin traitant : </label><span t-esc="o.praticien_id.nom_prestat"/> <span t-esc="o.praticien_id.prenoms_prestat"/></P>
+							<div class="presta_table">
+								
+								<table>
+								            <tbody>
+								           <tr> 		
+								                    <td style="color : rgba(255, 0, 0, 0);"> Prescripteur </td>
+								                    <td style="color : rgba(255, 0, 0, 0);"> Exécutant </td>
+								                    <td style="color : rgba(255, 0, 0, 0);"> Affection</td>
+								                    <td style="color : rgba(255, 0, 0, 0);"> Acte </td>
+								                    <td style="color : rgba(255, 0, 0, 0);"> Montant brut </td>
+								                    <td style="color : rgba(255, 0, 0, 0);"> Montant à régler</td>
+								                    
+								                </tr>
+								                
+					                	        <tr>
+					                	     	   	<td style="padding-top: 2%;padding-bottom: 2%;width: 20.4%"> </td>
+					                	     	    <td style="padding-top: 2%;padding-bottom: 2%;width: 17.3%">  </td>
+					                	     	    <td style="padding-top: 2%;padding-bottom: 2%;width: 10.8%"> <span t-field="o.affection_id.code_affection"/> </td>
+					                	     	    <td style="padding-top: 2%;padding-bottom: 2%;width: 8.6%"> <span t-field="o.acte_id.libelle_court_acte"/></td>
+					                	     	    <td style="padding-top: 2%;padding-bottom: 2%;width: 13%"> <span t-field="o.montant_total"/></td>
+					                	     	    <td style="padding-top: 2%;padding-bottom: 2%;width: 13.9%"> <span t-field="o.part_patient"/></td>
+					                	        </tr>
+					                	        <tr>
+					                	     	   	<td colspan="4" style="padding-top: 1%;">  </td>
+					                	     	    <td colspan="2" style="padding-top: 1%;text-align: left;"> <label>Ticket modér </label> <span t-field="o.taux_part_gest"/> %</td>
+					                	     	    
+					                	        </tr>
+						    
+								        	</tbody>
+								        </table> 
+
+							</div>
+						</div>
+
+
+					</div>
+
+		
+				</div> 	
+              
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

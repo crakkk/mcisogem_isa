@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_benef_report_graph" model="ir.ui.view">
+            <field name="name">report.benef.report.graph</field>
+            <field name="model">report.benef.report</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_benef_crees" type="measure"/>
+                    <field name="nbr_benef_inc" type="measure"/>
+                    <field name="nbr_benef_ret" type="measure"/>
+                    <field name="nbr_benef_suspend" type="measure"/>
+                    <field name="nbr_benef_total" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_benef_report_graph" model="ir.ui.view">
+            <field name="name">report.benef.report.graph</field>
+            <field name="model">report.benef.report</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" type="col"/>
+                    <field name="nbr_benef_crees" type="measure"/>
+                    <field name="nbr_benef_inc" type="measure"/>
+                    <field name="nbr_benef_ret" type="measure"/>
+                    <field name="nbr_benef_suspend" type="measure"/>
+                    <field name="nbr_benef_total" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_benef_report_2_graph" model="ir.ui.view">
+             <field name="name">report.benef.report.2.graph</field>
+             <field name="model">report.benef.report</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="garant_id"/>
+                     <field name="nbr_benef_total"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_benef_report_line_graph" model="ir.ui.view">
+             <field name="name">report.benef.report.line.graph</field>
+             <field name="model">report.benef.report</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                     <field name="garant_id"/>
+                     <field name="exercice_id"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_benef_report_tree" model="ir.ui.view">
+            <field name="name">report.benef.report.tree</field>
+            <field name="model">report.benef.report</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="garant_id"/>
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_benef_report_search" model="ir.ui.view">
+            <field name="name">report.benef.report.search</field>
+            <field name="model">report.benef.report</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des bénéficiaire">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_beneficiaire_report" model="ir.actions.act_window">
+            <field name="name">Analyse des bénéficiaires</field>
+            <field name="res_model">report.benef.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_benef_report_graph"/>
+            <field name="search_view_id" ref="view_benef_report_search"/>
+        </record>
+
+         <record id="action_server_beneficiaire_report" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_benef_report"/>
+            <field name="code">action = pool.get('report.benef.report').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Analyse des bénéficiaires</field>
+        </record>
+
+    <menuitem name="Graphes" parent="ab" id='act_beneficiaire_report' action="action_server_beneficiaire_report"/>
+
+</data>
+</openerp>
+ 

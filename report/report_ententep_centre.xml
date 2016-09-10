@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_ententep_centre_graph" model="ir.ui.view">
+            <field name="name">report.ententep.centre.graph</field>
+            <field name="model">report.ententep.centre</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                     <field name="police_id" type="row"/>
+                     <field name="exercice_id" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_ententep_centre_graph" model="ir.ui.view">
+            <field name="name">report.ententep.centre.graph</field>
+            <field name="model">report.ententep.centre</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="police_id" type="row"/>
+                     <field name="exercice_id" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_ententep_centre_2_graph" model="ir.ui.view">
+             <field name="name">report.ententep.centre.2.graph</field>
+             <field name="model">report.ententep.centre</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                    <field name="police_id"/>
+                     <field name="nbr_attente"/>
+                    <field name="nbr_valide"/>
+                    <field name="nbr_rejete"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_ententep_centre_tree" model="ir.ui.view">
+            <field name="name">report.ententep.centre.tree</field>
+            <field name="model">report.ententep.centre</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                     <!-- <field name="centre_id"/> -->
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_ententep_centre_search" model="ir.ui.view">
+            <field name="name">report.ententep.centre.search</field>
+            <field name="model">report.ententep.centre</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des ententes prealables">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                       <field name="exercice_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_server_report_ententep_centre" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_ententep_centre"/>
+            <field name="code">action = pool.get('report.ententep.centre').init_server_centre(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Graphe demande d'entente prealable par centre'</field>
+        </record>
+
+        <record id="action_report_ententep_centre" model="ir.actions.act_window">
+            <field name="name">Report ententes prealables centre</field>
+            <field name="res_model">report.ententep.centre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_ententep_centre_graph"/>
+            <field name="search_view_id" ref="view_report_ententep_centre_search"/>
+        </record>
+
+    <menuitem name="Ententes préalables centre" parent="ad" id='act_server_report_ententep_centre' action="action_server_report_ententep_centre"/>
+
+</data>
+</openerp>
+ 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- ========= formulaire de copie de  tarif négocié  par police  ============= -->
+		<record id="mcisogem_histo_tarif_copie_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.copie.tarif.police.form</field>
+			<field name="model">mcisogem.histo.copie.tarif.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Copie de tarif négocié par police">
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="police_source_id" />
+							</group>
+
+							<group>
+								<field name="police_dest_id" />
+							</group>
+						</group>
+
+						<group col="2">
+							<group>
+								<field name="dt_effet_tarif" />
+							</group>
+
+							<group>
+								<field name="resilie_compris" />
+							</group>
+						</group>
+
+				    </sheet>
+			    </form>
+			</field>
+		</record>
+
+
+		<!-- ========= historique copie tarif négocié par police ============= -->
+		<record id="mcisogem_histo_tarif_copie_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.copie.tarif.police.tree</field>
+			<field name="model">mcisogem.histo.copie.tarif.police</field>
+			<field name="arch" type="xml">
+				<tree string="Historique de copie de  tarifs négociés">
+					<field name="police_source_id" />
+					<field name="police_dest_id" />
+					<field name="dt_effet_tarif" />
+					<field name="resilie_compris" />
+			    </tree>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu copie tarif négocié par police-->
+		<record model="ir.actions.act_window" id="action_mcisogem_copie_tarif_police">
+			<field name="name">Copie de tarif négocié par police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.copie.tarif.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		
+
+
+		 <!-- ========= formulaire de tarif négocié par centre  ============= -->
+		<record id="mcisogem_histo_copie_tarif_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.copie.tarif.centre.form</field>
+			<field name="model">mcisogem.histo.copie.tarif.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Copie de tarif négocié par centre">
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="centre_source_id" />
+							</group>
+
+							<group>
+								<field name="centre_dest_id" />
+							</group>
+						</group>
+							
+						<group col="2">
+							<field name="dt_effet_tarif" />
+						</group>	
+							
+				    </sheet>
+			    </form>
+			</field>
+		</record>
+
+
+		<!-- ========= historique de copie de tarif négocié par  centre ============= -->
+		<record id="mcisogem_histo_copie_tarif_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.copie.tarif.centre.tree</field>
+			<field name="model">mcisogem.histo.copie.tarif.centre</field>
+			<field name="arch" type="xml">
+				<tree string="Historique de copie de  tarifs négociés">
+					<field name="centre_source_id" />
+					<field name="centre_dest_id" />
+					<field name="dt_effet_tarif" />
+			    </tree>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu cpie tarif négocié par centre-->
+		<record model="ir.actions.act_window" id="action_mcisogem_copie_tarif_centre">
+			<field name="name">Copie de tarif négocié par centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.copie.tarif.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		
+
+	</data>	
+</openerp>

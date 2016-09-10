@@ -1,0 +1,1480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem name="Administration" id="menu_mcisogem_config" sequence="11"  groups="mcisogem_isa.group_production_manager"/>
+
+		<!-- ===================== Langues form ============================= -->
+		<record id="view_mcisogem_langue_form" model="ir.ui.view">
+			<field name="name">mcisogem.langue.form</field>
+			<field name="model">mcisogem.langue</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Langage">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Langue" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_langue" string="Code" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="ph_lib_langue" string="PH Libellé" />
+							</group>
+							<group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste langues ============================= -->
+		<record id="mcisogem_langue_tree" model="ir.ui.view">
+			<field name="name">mcisogem.langue.tree</field>
+			<field name="model">mcisogem.langue</field>
+			<field name="arch" type="xml">
+				<tree string="Langage">
+					<field name="code_langue" />
+					<field name="name" />
+					<field name="ph_lib_langue" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre langue ============================= -->
+		<record id="view_mcisogem_langue_filter" model="ir.ui.view">
+			<field name="name">mcisogem.langue.select</field>
+			<field name="model">mcisogem.langue</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un langage">
+					<field name="code_langue" />
+					<field name="name" />
+					<field name="ph_lib_langue" />
+				</search>
+			</field>
+		</record>
+
+
+
+
+		<!-- ===================== DISTRICT form ============================= -->
+		<record id="view_mcisogem_district_form" model="ir.ui.view">
+			<field name="name">mcisogem.district.form</field>
+			<field name="model">mcisogem.district</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="District">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="code_district" />
+							</div>
+							<h1>
+								<field name="code_district" default_focus="1" placeholder="Code..." />
+							</h1>
+							<field name="name" placeholder="Libellé" />
+						</div>
+							
+							<group col="1">
+								<group>
+									<field name="ville_id" />
+								</group>
+							</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste district ============================= -->
+		<record id="mcisogem_district_tree" model="ir.ui.view">
+			<field name="name">mcisogem.district.tree</field>
+			<field name="model">mcisogem.district</field>
+			<field name="arch" type="xml">
+				<tree string="District">
+					<field name="code_district" />
+					<field name="name" />
+					<field name="ville_id" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre district ============================= -->
+		<record id="view_mcisogem_district_filter" model="ir.ui.view">
+			<field name="name">mcisogem.district.select</field>
+			<field name="model">mcisogem.district</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un district">
+					<field name="code_district" />
+					<field name="name" />
+					<field name="name" />
+					<field name="ville_id" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu district -->
+		<record model="ir.actions.act_window" id="action_mcisogem_district">
+			<field name="name">District</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.district</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un district.
+				</p>
+			</field>
+		</record>
+
+		
+
+
+		<!-- Action du menu langue -->
+		<record model="ir.actions.act_window" id="action_mcisogem_langue">
+			<field name="name">Langues</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.langue</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une langue
+				</p>
+			</field>
+		</record>
+
+		<!-- Menu gauche Administration -->
+		<menuitem name="Administration" id="menu_mcisogem_config_sub"
+			parent="menu_mcisogem_config" />
+
+		<menuitem action="action_mcisogem_district" parent="menu_mcisogem_config_sub"
+			id="mcisogem_district" />
+
+			
+		<menuitem action="action_mcisogem_langue" parent="menu_mcisogem_config_sub"
+			id="mcisogem_langue" />
+
+		<!-- ===================== Pays form ============================= -->
+		<record id="view_mcisogem_pays_form" model="ir.ui.view">
+			<field name="name">mcisogem.pays.form</field>
+			<field name="model">mcisogem.pays</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Pays">
+					<sheet>
+						<group col="1">
+							<group col="2">
+								<group>
+									<field name="name" on_change="onchange_pays(name)"/>
+									<field name="code_pays" invisible="1"/>
+								</group>
+								<group>
+									<field name="zip_code" />
+								</group>
+							</group>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste pays ============================= -->
+		<record id="mcisogem_pays_tree" model="ir.ui.view">
+			<field name="name">mcisogem.pays.tree</field>
+			<field name="model">mcisogem.pays</field>
+			<field name="arch" type="xml">
+				<tree string="Pays">
+					<field name="code_pays" />
+					<field name="name" />
+					<field name="zip_code" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre pays ============================= -->
+		<record id="view_mcisogem_pays_filter" model="ir.ui.view">
+			<field name="name">mcisogem.pays.select</field>
+			<field name="model">mcisogem.pays</field>
+			<field name="arch" type="xml">
+				<search string="search pays">
+					<field name="code_pays" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu pays -->
+		<record model="ir.actions.act_window" id="action_mcisogem_pays">
+			<field name="name">Pays</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.pays</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un pays.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_pays" parent="menu_mcisogem_config_sub"
+			id="mcisogem_pays" />
+
+
+
+		<!-- ===================== Unite temps form ============================= -->
+		<record id="view_mcisogem_unite_temps_form" model="ir.ui.view">
+			<field name="name">mcisogem.unite.temps.form</field>
+			<field name="model">mcisogem.unite.temps</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Unité temps">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="name" />
+							</div>
+							<h1>
+								<field name="name" default_focus="1"
+									placeholder="Libellé..." />
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="nbre_jour" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste Unite temps ============================= -->
+		<record id="mcisogem_unite_temps_tree" model="ir.ui.view">
+			<field name="name">mcisogem.unite.temps.tree</field>
+			<field name="model">mcisogem.unite.temps</field>
+			<field name="arch" type="xml">
+				<tree string="Unité de temps">
+					<!-- <field name="code_unite_temps" /> -->
+					<field name="name" />
+					<field name="nbre_jour" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre Unite temps ============================= -->
+		<record id="view_mcisogem_unite_temps_filter" model="ir.ui.view">
+			<field name="name">mcisogem.unite.temps.select</field>
+			<field name="model">mcisogem.unite.temps</field>
+			<field name="arch" type="xml">
+				<search string="search une unité de temps">
+					<field name="code_unite_temps" />
+					<field name="name" />
+					<field name="nbre_jour" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu mod recond -->
+		<record model="ir.actions.act_window" id="action_mcisogem_unite_temps">
+			<field name="name">Unité de temps</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.unite.temps</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une unité de temps.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_unite_temps" parent="menu_mcisogem_config_sub"
+			id="mcisogem_unite_temps" />
+
+
+		<!-- ===================== Unité temps form ============================= -->
+		<record id="view_mcisogem_fam_statut_form" model="ir.ui.view">
+			<field name="name">mcisogem.fam.statut.form</field>
+			<field name="model">mcisogem.fam.statut</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Famille statut de bénéficiaire">
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="lbc_fam_statut" />
+							</group>
+							<group>
+								<field name="lb_fam_statut" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste pays ============================= -->
+		<record id="mcisogem_fam_statut_tree" model="ir.ui.view">
+			<field name="name">mcisogem.fam.statut.tree</field>
+			<field name="model">mcisogem.fam.statut</field>
+			<field name="arch" type="xml">
+				<tree string="Famille Statut de bénéficiaire">
+					<field name="lbc_fam_statut" />
+					<field name="lb_fam_statut" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre pays ============================= -->
+		<record id="view_mcisogem_fam_statut_filter" model="ir.ui.view">
+			<field name="name">mcisogem.fam.statut.select</field>
+			<field name="model">mcisogem.fam.statut</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une famille de statut de bénéficiaire">
+					<field name="lbc_fam_statut" />
+					<field name="lb_fam_statut" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu pays -->
+		<record model="ir.actions.act_window" id="action_mcisogem_fam_statut">
+			<field name="name">Famille Statut Bénéficiaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.fam.statut</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une famille de statut de
+					bénéficiaire.
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem action="action_mcisogem_fam_statut" parent="menu_mcisogem_config_sub"
+			id="mcisogem_fam_statut" /> -->
+
+
+
+
+		<!-- ===================== zone form ============================= -->
+		<record id="view_mcisogem_zone_form" model="ir.ui.view">
+			<field name="name">mcisogem.zone.form</field>
+			<field name="model">mcisogem.zone</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Zone géographique" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_zone_geo" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste zone ============================= -->
+		<record id="mcisogem_zone_tree" model="ir.ui.view">
+			<field name="name">mcisogem.zone.tree</field>
+			<field name="model">mcisogem.zone</field>
+			<field name="arch" type="xml">
+				<tree string="Zone">
+					<field name="code_zone_geo" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre zone ============================= -->
+		<record id="view_mcisogem_zone_filter" model="ir.ui.view">
+			<field name="name">mcisogem.zone.select</field>
+			<field name="model">mcisogem.zone</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une zone géographique">
+					<field name="code_zone_geo" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu zone geo -->
+		<record model="ir.actions.act_window" id="action_mcisogem_zone">
+			<field name="name">Zone géographique</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.zone</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une zone géographique.
+				</p>
+			</field>
+		</record>
+
+	<!-- 	<menuitem action="action_mcisogem_zone" parent="menu_mcisogem_config_sub"
+			id="mcisogem_zone" /> -->
+
+		<!-- ===================== Territorialite form ============================= -->
+		<record id="view_mcisogem_territoire_form" model="ir.ui.view">
+			<field name="name">mcisogem.territoire.form</field>
+			<field name="model">mcisogem.territoire</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Térritorialité">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Térritorialité" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_territoire" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+						<group>
+								<field name="pays_ids" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Territorialite liste ============================= -->
+		<record id="mcisogem_territoire_tree" model="ir.ui.view">
+			<field name="name">mcisogem.territoire.tree</field>
+			<field name="model">mcisogem.territoire</field>
+			<field name="arch" type="xml">
+				<tree string="Térritorialité">
+					<field name="code_territoire" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== Territorialite search ============================= -->
+		<record id="view_mcisogem_territoire_filter" model="ir.ui.view">
+			<field name="name">mcisogem.territoire.select</field>
+			<field name="model">mcisogem.territoire</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une térritorialité">
+					<field name="code_territoire" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu Territorialite -->
+		<record model="ir.actions.act_window" id="action_mcisogem_territoire">
+			<field name="name">Térritorialité</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.territoire</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer une térritorialité.</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_territoire" parent="menu_mcisogem_config_sub"
+			id="mcisogem_territoire" />
+
+
+		<!-- ===================== Territorialite form ============================= -->
+		<record id="view_mcisogem_regroupe_territoire_form" model="ir.ui.view">
+			<field name="name">mcisogem.regroupe.territoire.form</field>
+			<field name="model">mcisogem.regroupe.territoire</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Regroupement de térritoire">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Regroupement de térritoire" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_regroupe_territoire" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Territorialite liste ============================= -->
+		<record id="mcisogem_regroupe_territoire_tree" model="ir.ui.view">
+			<field name="name">mcisogem.regroupe.territoire.tree</field>
+			<field name="model">mcisogem.regroupe.territoire</field>
+			<field name="arch" type="xml">
+				<tree string="Regroupement de térritoire">
+					<field name="code_regroupe_territoire" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== Territorialite search ============================= -->
+		<record id="view_mcisogem_regroupe_territoire_filter" model="ir.ui.view">
+			<field name="name">mcisogem.regroupe.territoire.select</field>
+			<field name="model">mcisogem.regroupe.territoire</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un regroupement">
+					<field name="code_regroupe_territoire" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu Territorialite -->
+		<record model="ir.actions.act_window" id="action_mcisogem_regroupe_territoire">
+			<field name="name">Regroupement de térritoire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.regroupe.territoire</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un regroupement de térritoire.</p>
+			</field>
+		</record>
+
+		<!-- <menuitem action="action_mcisogem_regroupe_territoire"
+			parent="menu_mcisogem_config_sub" id="mcisogem_regroupe_territoire" />
+ -->
+
+
+		<!-- ===================== Region form ============================= -->
+		<record id="view_mcisogem_region_form" model="ir.ui.view">
+			<field name="name">mcisogem.region.form</field>
+			<field name="model">mcisogem.region</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Region">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="code_region" />
+							</div>
+							<h1>
+								<field name="code_region" default_focus="1" placeholder="Code..." />
+							</h1>
+							<field name="name" placeholder="Libellé" />
+						</div>
+						<group col="1">
+							<group col="2">
+								<group>
+									<label for="pays_id" string="Pays" />
+									<table>
+										<tr>
+											<td width="10%"></td>
+										</tr>
+										<tr>
+											<td>
+												<field name="pays_id" />
+											</td>
+										</tr>
+									</table>
+								</group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste region ============================= -->
+		<record id="mcisogem_region_tree" model="ir.ui.view">
+			<field name="name">mcisogem.region.tree</field>
+			<field name="model">mcisogem.region</field>
+			<field name="arch" type="xml">
+				<tree string="Region">
+					<field name="code_region" />
+					<field name="name" />
+					<field name="pays_id" />
+					<field name="zone_geo_id" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre region ============================= -->
+		<record id="view_mcisogem_region_filter" model="ir.ui.view">
+			<field name="name">mcisogem.region.select</field>
+			<field name="model">mcisogem.region</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une region">
+					<field name="code_region" />
+					<field name="name" />
+					<field name="pays_id" />
+					<field name="zone_geo_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu region -->
+		<record model="ir.actions.act_window" id="action_mcisogem_region">
+			<field name="name">Région</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.region</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une region.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_region" parent="menu_mcisogem_config_sub"
+			id="mcisogem_region" />
+
+		<!-- ===================== Ville form ============================= -->
+		<record id="view_mcisogem_ville_form" model="ir.ui.view">
+			<field name="name">mcisogem.ville.form</field>
+			<field name="model">mcisogem.ville</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Ville">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="code_ville" />
+							</div>
+							<h1>
+								<field name="code_ville" default_focus="1" placeholder="Code..." />
+							</h1>
+							<field name="name" placeholder="Libellé" />
+						</div>
+						<group col="1">
+							<group col="2">
+								<group>
+									<label for="region_id" string="Region" />
+									<table>
+										<tr>
+											<td width="10%"></td>
+										</tr>
+										<tr>
+											<td>
+												<field name="region_id" />
+											</td>
+										</tr>
+									</table>
+								</group>
+							
+							</group>
+							<group col="1">
+								<group>
+									<field name="code_postal" placeholder="Code postal..." />
+								</group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste ville ============================= -->
+		<record id="mcisogem_ville_tree" model="ir.ui.view">
+			<field name="name">mcisogem.ville.tree</field>
+			<field name="model">mcisogem.ville</field>
+			<field name="arch" type="xml">
+				<tree string="Ville">
+					<field name="code_ville" />
+					<field name="name" />
+					<field name="region_id" />
+					
+					<field name="code_postal" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre ville ============================= -->
+		<record id="view_mcisogem_ville_filter" model="ir.ui.view">
+			<field name="name">mcisogem.ville.select</field>
+			<field name="model">mcisogem.ville</field>
+			<field name="arch" type="xml">
+				<search string="search une ville">
+					<field name="code_ville" />
+					<field name="name" />
+					<field name="region_id" />
+					
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu ville -->
+		<record model="ir.actions.act_window" id="action_mcisogem_ville">
+			<field name="name">Ville</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.ville</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une ville.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_ville" parent="menu_mcisogem_config_sub"
+			id="mcisogem_ville" />
+
+		<!-- ===================== Centre_gestion form ============================= -->
+		<record id="view_mcisogem_centre_gestion_form" model="ir.ui.view">
+			<field name="name">mcisogem.centre.gestion.form</field>
+			<field name="model">mcisogem.centre.gestion</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Centre de gestion" create="false" delete="false">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="code_centre" />
+							</div>
+							<h1>
+								<field name="code_centre" default_focus="1" placeholder="Code..." />
+							</h1>
+							<field name="name" placeholder="Libelle du centre de gestion" />
+						</div>
+						<group col="1">
+							<group col="1">
+								<group>
+									<label for="langue_id" string="Langue" />
+									<table>
+										<tr>
+											<td width="10%"></td>
+										</tr>
+										<tr>
+											<td>
+												<field name="langue_id" />
+											</td>
+										</tr>
+									</table>
+								</group>
+							</group>
+							<group col="2">
+								<group>
+									<label for="pays_id" string="Pays" />
+									<table>
+										<tr>
+											<td width="10%"></td>
+										</tr>
+										<tr>
+											<td>
+												<field name="pays_id" />
+											</td>
+										</tr>
+									</table>
+								</group>
+								<group>
+									<label for="territoire_id" string="Territoire" />
+									<table>
+										<tr>
+											<td width="10%"></td>
+										</tr>
+										<tr>
+											<td>
+												<field name="territoire_id" />
+											</td>
+										</tr>
+									</table>
+								</group>
+							</group>
+
+
+							<group col="3">
+								<group>
+									<field name="avoir_ro" />
+								</group>
+
+								<group attrs="{'invisible': [('avoir_ro','=',False)]}">
+									<field name="ticket_m" attrs="{'required': [('avoir_ro','!=',False)]}"/>
+								</group>
+
+								<group attrs="{'invisible': [('avoir_ro','=',False)]}">
+									<field name="type_cascade"/>
+								</group>
+
+							</group>
+
+						</group>
+
+						<group>
+							<field name="cod_sup" />
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste centre de gestion ============================= -->
+		<record id="mcisogem_centre_gestion_tree" model="ir.ui.view">
+			<field name="name">mcisogem.centre.gestion.tree</field>
+			<field name="model">mcisogem.centre.gestion</field>
+			<field name="arch" type="xml">
+				<tree string="Centre de gestion" create="false" delete="false">
+					<field name="code_centre" />
+					<field name="name" />
+					<field name="langue_id" />
+					<field name="pays_id" />
+					<field name="territoire_id" />
+
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre centre gestion ============================= -->
+		<record id="view_mcisogem_centre_gestion_filter" model="ir.ui.view">
+			<field name="name">mcisogem.centre.gestion.select</field>
+			<field name="model">mcisogem.centre.gestion</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un centre gestion">
+					<field name="code_centre" />
+					<field name="name" />
+					<field name="langue_id" />
+					<field name="pays_id" />
+					<field name="territoire_id" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu centre de gestion -->
+		<record model="ir.actions.act_window" id="action_mcisogem_centre_gestion">
+			<field name="name">Centre de gestion</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.centre.gestion</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un centre de gestion.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_centre_gestion" parent="menu_mcisogem_config_sub"
+			id="mcisogem_centre_gestion" />
+
+		<!-- ===================== Banque form ============================= -->
+		<record id="view_mcisogem_banque_form" model="ir.ui.view">
+			<field name="name">mcisogem.banque.form</field>
+			<field name="model">mcisogem.banque</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Banque">
+					<sheet>
+						<div class="oe_title oe_left">
+							<div class="oe_edit_only">
+								<label for="code_banque" />
+							</div>
+							<h1>
+								<field name="code_banque" default_focus="1" placeholder="Code..." />
+							</h1>
+							<field name="name" placeholder="Libelle de la banque" />
+						</div>
+						<group col="1">
+							<group col="2">
+								<group string="Informations comptables ">
+									<field name="gestionnaire_banque" placeholder="Nom..." />
+									<field name="cpta_banque" placeholder="Swift code..." />
+									<field name="date_cloture" />
+								</group>
+								<group string="Informations complementaires">
+									<field name="telephone1" placeholder="Ex : +225 00 00 00 00" />
+									<field name="telephone2" />
+									<field name="fax" />
+									<field name="boite_postale" />
+									<field name="adresse" />
+								</group>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste banque ============================= -->
+		<record id="mcisogem_banque_tree" model="ir.ui.view">
+			<field name="name">mcisogem.banque.tree</field>
+			<field name="model">mcisogem.banque</field>
+			<field name="arch" type="xml">
+				<tree string="Banque">
+					<field name="code_banque" />
+					<field name="name" />
+					<field name="gestionnaire_banque" />
+					<field name="cpta_banque" />
+					<field name="date_cloture" />
+					<field name="telephone1" />
+					<field name="telephone2" />
+					<field name="fax" />
+					<field name="boite_postale" />
+					<field name="adresse" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre banque ============================= -->
+		<record id="view_mcisogem_banque_filter" model="ir.ui.view">
+			<field name="name">mcisogem.banque.select</field>
+			<field name="model">mcisogem.banque</field>
+			<field name="arch" type="xml">
+				<search string="search banque">
+					<field name="code_banque" />
+					<field name="name" />
+					<field name="gestionnaire_banque" />
+					<field name="cpta_banque" />
+					<field name="date_cloture" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- Action du menu banque -->
+
+		<record model="ir.actions.act_window" id="action_mcisogem_banque">
+			<field name="name">Banque</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.banque</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create banque.
+				</p>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== inherit user view ============================= -->
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <group>
+                        <field name="type_user" widget="radio"/>
+                    </group>
+
+
+                    <label for="mcisogem_role_user_id" class="oe_edit_only" attrs="{'invisible':[('type_user','=',False)]}" string="Rôle" />
+                    <h2>
+						<field name="mcisogem_role_user_id" attrs="{'invisible':[('type_user','=',False)]}" domain="[('type_user','=',type_user)]" on_change="onchange_role(mcisogem_role_user_id,context)" />
+						<field name="view1" invisible="1" />
+						<field name="view2" invisible="1" />
+						<field name="view3" invisible="1" />
+						<field name="view4" invisible="1" />
+						<field name="view5" invisible="1" />
+						<field name="view6" invisible="1" />
+					</h2>
+
+					
+					<label for="centre_id" class="oe_edit_only" string="Centre de soins" attrs="{'invisible':[('view2','=',False)]}" />
+					<h2>
+						<field name="centre_id" attrs="{'invisible':[('view2','=',False)]}" />
+					</h2>
+
+					<label for="garant_id" class="oe_edit_only" string="Garant" attrs="{'invisible':[('view3','=',False)]}" />
+					<h2>
+						<field name="garant_id" attrs="{'invisible':[('view3','=',False)]}" />
+					</h2>
+
+					<label for="souscr_id" class="oe_edit_only" string="Souscripteur" attrs="{'invisible':[('view4','=',False)]}" />
+					<h2>
+						<field name="souscr_id" attrs="{'invisible':[('view4','=',False)]}" />
+					</h2>
+
+					<label for="prestat_id" class="oe_edit_only" string="Prestataire" attrs="{'invisible':[('view1','=',False)]}" />
+					<h2>
+						<field name="prestat_id" attrs="{'invisible':[('view1','=',False)]}" />
+					</h2>
+
+					<label for="intermediaire_id" class="oe_edit_only" string="Intermédiaire" attrs="{'invisible':[('view5','=',False)]}" />
+					<h2>
+						<field name="intermediaire_id" attrs="{'invisible':[('view5','=',False)]}" />
+					</h2>
+
+					<label for="praticien_id" class="oe_edit_only" string="Medecin" attrs="{'invisible':[('view6','=',False)]}" />
+					<h2>
+						<field name="praticien_id" attrs="{'invisible':[('view6','=',False)]}" />
+					</h2>
+
+				</field>
+				<field name="company_ids" position="replace">
+    				<field name="company_ids" invisible="1"/>
+				</field>
+
+
+              <xpath expr="//page[@string='Preferences']" position="attributes" >
+                     <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Access Rights']" position="attributes" >
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        
+
+
+
+
+		<!-- ===================== inherit user view ============================= -->
+		<!-- <record id="view_users_form_inherit" model="ir.ui.view">
+			<field name="name">res.users.form.inherit</field>
+			<field name="model">res.users</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_users_form" />
+			<field name="arch" type="xml">
+				<field name="company_id" position="after">
+					<label for="poste" class="oe_edit_only" string="Poste" />
+					<h2>
+						<field name="poste" />
+					</h2>
+					<label for="code_gest_id" class="oe_edit_only" string="Centre de Gestion" />
+					<h2>
+						<field name="code_gest_id" />
+					</h2>
+				</field>
+			</field>
+		</record> -->
+
+		<!-- Action du menu user -->
+		<record id="action_res_users" model="ir.actions.act_window">
+            <field name="name">Utilisateurs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="base.view_users_tree"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+        </record>
+
+        <record id="action_res_users_view1" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="base.view_users_tree"/>
+            <field name="act_window_id" ref="action_res_users"/>
+        </record>
+        
+        <record id="action_res_users_view2" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_users_form"/>
+            <field name="act_window_id" ref="action_res_users"/>
+        </record>
+
+		<!-- Menu gauche user -->
+		<menuitem name="Utilisateurs" id="menu_mcisogem_user" parent="menu_mcisogem_config" />
+
+		<menuitem action="action_res_users" parent="menu_mcisogem_user"
+			id="mcisogem_user" />
+
+
+
+
+
+
+
+		<!-- ===================== inherit user view ============================= -->
+        <record id="action_res_users" model="ir.actions.act_window">
+            <field name="name">Editeur de centre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_users_form_inherit"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+            <field name="domain">[('type_user','=','GRC')]</field>
+        </record>
+        <record id="action_res_users2" model="ir.actions.act_window">
+            <field name="name">Utilisateurs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_users_form_inherit"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+        </record>
+
+
+        <menuitem action="action_res_users" parent="menu_mcisogem_user" id="mcisogem_user" name="Editeur de centre" sequence="2"/>
+
+        <menuitem action="action_res_users2" id="menu_action_res_users" parent="menu_mcisogem_user" name="Utilisateurs" sequence="1" />
+
+
+
+
+
+
+		<!-- ===================== Commune form ============================= -->
+		<record id="view_mcisogem_commune_form" model="ir.ui.view">
+			<field name="name">mcisogem.commune.form</field>
+			<field name="model">mcisogem.commune</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string=" Commune">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Commune" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="code_commune" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+							<group>
+								<field name="code_ville" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste commune ============================= -->
+		<record id="mcisogem_commune_tree" model="ir.ui.view">
+			<field name="name">mcisogem.commune.tree</field>
+			<field name="model">mcisogem.commune</field>
+			<field name="arch" type="xml">
+				<tree string="Commune">
+					<field name="code_commune" />
+					<field name="name" />
+					<field name="code_ville" />
+				</tree>
+			</field>
+		</record>
+		<!-- ===================== filtre commune ============================= -->
+		<record id="view_mcisogem_commune_filter" model="ir.ui.view">
+			<field name="name">mcisogem.commune.select</field>
+			<field name="model">mcisogem.commune</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une commune">
+					<field name="code_commune" />
+					<field name="name" />
+					<field name="code_ville" />
+				</search>
+			</field>
+		</record>
+		<!-- Action du menu commune -->
+		<record model="ir.actions.act_window" id="action_mcisogem_commune">
+			<field name="name">Commune</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.commune</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer une commune
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="action_mcisogem_commune" parent="menu_mcisogem_config_sub"
+			id="mcisogem_commune" />
+
+
+		<!-- Action du menu plage de bons-->
+		<record model="ir.actions.act_window" id="action_mcisogem_plage_bon">
+			<field name="name">Plage de Bons</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.plage.bon</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquer ici pour créer une plage de bon.
+				</p>
+			</field>
+		</record>
+
+		<!-- ===================== Liste des plage de bons ============================= -->
+		<record id="mcisogem_plage_bon_tree" model="ir.ui.view">
+			<field name="name">mcisogem.plage.bon.tree</field>
+			<field name="model">mcisogem.plage.bon</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="centre_id" />
+					<field name="debut" />
+					<field name="fin" />
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== Plage centre form ============================= -->
+		<record id="mcisogem_plage_bon_form" model="ir.ui.view">
+			<field name="name">mcisogem.plage.bon.form</field>
+			<field name="model">mcisogem.plage.bon</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							Centre 
+							<h1><field name="centre_id" placeholder="Centre"/></h1>
+						</div>
+
+						<group col="2">
+							<group>
+								<field name="debut" />
+							</group>
+							<group>
+								<field name="fin" />
+							</group>
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<menuitem action="action_mcisogem_plage_bon" parent="menu_mcisogem_config_sub"
+			id="mcisogem_plage_bon" />
+
+
+
+
+		
+
+        <!-- ===================== inherit user view ============================= -->
+      <!--   <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <group>
+                        <field name="type_user" widget="radio"/>
+                    </group>
+
+
+                    <label for="mcisogem_role_user_id" class="oe_edit_only" attrs="{'invisible':[('type_user','=',False)]}" string="Rôle" />
+                    <h2>
+                        <field name="mcisogem_role_user_id" attrs="{'invisible':[('type_user','=',False)]}" domain="[('type_user','=',type_user)]" on_change="onchange_role(mcisogem_role_user_id,context)" />
+                        <field name="view1" invisible="1" />
+                        <field name="view2" invisible="1" />
+                        <field name="view3" invisible="1" />
+                        <field name="view4" invisible="1" />
+                    </h2>
+
+
+                    <label for="centre_id" class="oe_edit_only" string="Centre de soins" attrs="{'invisible':[('view2','=',False)]}" />
+                    <h2>
+                        <field name="centre_id" attrs="{'invisible':[('view2','=',False)]}" />
+                    </h2>
+
+                    <label for="garant_id" class="oe_edit_only" string="Garant" attrs="{'invisible':[('view3','=',False)]}" />
+                    <h2>
+                        <field name="garant_id" attrs="{'invisible':[('view3','=',False)]}" />
+                    </h2>
+
+                    <label for="souscr_id" class="oe_edit_only" string="Souscripteur" attrs="{'invisible':[('view4','=',False)]}" />
+                    <h2>
+                        <field name="souscr_id" attrs="{'invisible':[('view4','=',False)]}" />
+                    </h2>
+
+                    <label for="prestat_id" class="oe_edit_only" string="Prestataire" attrs="{'invisible':[('view1','=',False)]}" />
+                    <h2>
+                        <field name="prestat_id" attrs="{'invisible':[('view1','=',False)]}" />
+                    </h2>
+
+                </field>
+                <field name="company_ids" position="replace">
+                    <field name="company_ids" invisible="1"/>
+                </field>
+
+                <xpath expr="//page[@string='Preferences']" position="attributes" >
+                     <attribute name='invisible'>1</attribute>
+                </xpath>
+                <xpath expr="//page[@string='Access Rights']" position="attributes" >
+                    <attribute name='invisible'>1</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+
+
+        <!-- ===================== inherit user view ============================= -->
+       <!--  <record id="action_res_users" model="ir.actions.act_window">
+            <field name="name">Editeur de centre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_users_form_inherit"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+            <field name="domain">[('type_user','=','GRC')]</field>
+        </record>
+        <record id="action_res_users2" model="ir.actions.act_window">
+            <field name="name">Utilisateurs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_users_form_inherit"/>
+            <field name="search_view_id" ref="base.view_users_search"/>
+        </record>
+ -->
+
+
+        
+        <!-- Menu gauche user -->
+       <!--  <menuitem name="Utilisateurs" id="menu_mcisogem_user" parent="menu_mcisogem_config" />
+
+        <menuitem action="action_res_users" parent="menu_mcisogem_user" id="mcisogem_user" name="Editeur de centre" sequence="2"/>
+
+        <menuitem action="action_res_users2" id="menu_action_res_users" parent="menu_mcisogem_user" name="Utilisateurs" sequence="1" /> -->
+
+<!-- NEW AJOUT -->
+
+
+        <!-- ===================== utilisateur_mobile form ============================= -->
+        <record id="view_mcisogem_utilisateur_mobile_form" model="ir.ui.view">
+            <field name="name">mcisogem.utilisateur.mobile.form</field>
+            <field name="model">mcisogem.utilisateur.mobile</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Utilisateur mobile">
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <div class="oe_edit_only">
+                                <label for="matricule" />
+                            </div>
+                            <h1>
+                                <field name="matricule" default_focus="1" placeholder="Matricule..." />
+                            </h1>
+
+                        </div>
+
+                            <group col="1">
+                                <group>
+                                    <field name="login" placeholder="Login" />
+                                    <field name="mot_de_passe" placeholder="Mot de passe"/>
+                                    <field name="base" />
+                                </group>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- ===================== Liste utilisateur_mobile ============================= -->
+        <record id="mcisogem_utilisateur_mobile_tree" model="ir.ui.view">
+            <field name="name">mcisogem.utilisateur.mobile.tree</field>
+            <field name="model">mcisogem.utilisateur.mobile</field>
+            <field name="arch" type="xml">
+                <tree string="Utilisateur mobile">
+                    <field name="matricule" />
+                    <field name="login" />
+                    <field name="mot_de_passe" />
+                    <field name="base" />
+                </tree>
+            </field>
+        </record>
+        <!-- ===================== filtre utilisateur_mobile ============================= -->
+        <record id="view_mcisogem_utilisateur_mobile_filter" model="ir.ui.view">
+            <field name="name">mcisogem.utilisateur.mobile.select</field>
+            <field name="model">mcisogem.utilisateur.mobile</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher un utilisateur mobile">
+                    <field name="matricule" />
+                    <field name="login" />
+                    <field name="mot_de_passe" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Action du menu utilisateur_mobile -->
+        <record model="ir.actions.act_window" id="action_mcisogem_utilisateur_mobile">
+            <field name="name">Utilisateur mobile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mcisogem.utilisateur.mobile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour créer un utilisateur mobile.
+                </p>
+            </field>
+        </record>
+
+
+
+        <!-- ===================== pub_mobile form ============================= -->
+        <record id="view_mcisogem_pub_mobile_form" model="ir.ui.view">
+            <field name="name">mcisogem.pub.mobile.form</field>
+            <field name="model">mcisogem.pub.mobile</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="pub mobile">
+                    <sheet>
+                            <field name="id" readonly="1" invisible="1"/>
+
+                            <!-- <field name="image_medium" widget="image" class="oe_left oe_avatar" /> -->
+                            <!-- <field name="attachments" widget="image" class="oe_left oe_avatar"/> -->
+                            <field name="attachments" widget="many2many_binary"/>
+
+                            <div class="oe_title" style="clear:both">
+                                <label for="titre" class="oe_edit_only" attrs="{'invisible': [('id','=',False)]}"/>
+                                <h1>
+                                    <field name="titre" readonly="1" />
+                                </h1>
+
+                            </div>
+
+                            <group col="1">
+                                <group>
+                                    <field name="titre"/>
+                                    <field name="contenu"/>
+                                    <field name="Date"/>
+                                </group>
+                            </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- ===================== Liste pub_mobile ============================= -->
+        <record id="mcisogem_pub_mobile_tree" model="ir.ui.view">
+            <field name="name">mcisogem.pub.mobile.tree</field>
+            <field name="model">mcisogem.pub.mobile</field>
+            <field name="arch" type="xml">
+                <tree string="pub mobile">
+                    <field name="titre" />
+                    <field name="contenu" />
+                    <field name="Date" />
+                </tree>
+            </field>
+        </record>
+        <!-- ===================== filtre pub_mobile ============================= -->
+        <record id="view_mcisogem_pub_mobile_filter" model="ir.ui.view">
+            <field name="name">mcisogem.pub.mobile.select</field>
+            <field name="model">mcisogem.pub.mobile</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher une pub mobile">
+                    <field name="titre" />
+                    <field name="contenu" />
+                    <field name="Date" />
+                </search>
+            </field>
+        </record>
+
+        <!-- Action du menu pub_mobile -->
+        <record model="ir.actions.act_window" id="action_mcisogem_pub_mobile">
+            <field name="name">Pub mobile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mcisogem.pub.mobile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cliquez ici pour créer un utilisateur mobile.
+                </p>
+            </field>
+        </record>
+
+        
+
+
+	</data>
+</openerp>

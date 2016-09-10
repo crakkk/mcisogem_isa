@@ -1,0 +1,8 @@
+ <templates>
+   <t t-name="form_fiche_evaluation_none">
+    	
+       <table>
+       	hello
+       </table>
+    </t>
+ </templates>

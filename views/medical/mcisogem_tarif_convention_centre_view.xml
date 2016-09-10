@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ===================== type de centre form ============================= -->
+		<record id="view_mcisogem_tarif_convention_centre_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.centre.form</field>
+			<field name="model">mcisogem.tarif.convention.centre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Réseau de soins">
+					<field name="affichage" invisible="1" />
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Réseau de soins" />
+							</h1>
+							<group>
+									</group>
+						</div>
+
+<group>
+										<field name="code_garant" />
+									</group>
+									<group>
+										<field name="code_police" on_change="onchange_code_police(code_police,context)"
+											domain="[('garant_id','=',code_garant)]" />
+									</group>
+
+
+						<group attrs="{'invisible': [('affichage','=',1)]}">
+							<notebook>
+								<page string="Choix des Collèges">
+									
+									<group>
+										<field name="code_college_ids">
+											<tree string="Choix des collèges" editable="bottom" create="false" >
+												<field name="choix" on_change="onchange_choix_college(choix, context)" />
+												<field name="code" />
+												<field name="name" />
+											</tree>
+										</field>
+									</group>
+								</page>
+								<page string="Convention">
+									<group>
+										<field name="code_convention"
+											on_change="onchange_code_convention(code_convention, context)" />
+									</group>
+								</page>
+
+								<page string="Choix des Centres">
+									<group>
+										<field name="code_centre_ids">
+											<tree string="Choix des centres" editable="bottom">
+												<field name="choix" on_change="onchange_choix_centre(choix, context)" />
+												<field name="code" />
+												<field name="name" />
+											</tree>
+										</field>
+									</group>
+								</page>
+							</notebook>
+						</group>
+
+						<group attrs="{'invisible': [('affichage','=',0)]}">
+							
+							<group>
+								<field name="code_college" />
+							</group>
+							<group>
+								<field name="code_centre" />
+							</group>
+							<group>
+								<field name="code_acte" />
+							</group>
+							<group>
+								<group>
+									<field name="montant_brut_tarif" />
+								</group>
+								<group>
+									<field name="montant_plafond_tarif" />
+								</group>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="date_effet_tarif" />
+							</group>
+							<group>
+								<field name="date_resiliation" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_tarif_convention_centre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.centre.tree</field>
+			<field name="model">mcisogem.tarif.convention.centre</field>
+			<field name="arch" type="xml">
+				<tree string="Réseau de soins">
+					<field name="code_police" />
+					<field name="code_college" />
+					<field name="code_centre" />
+					<field name="code_acte" />
+					<field name="montant_brut_tarif" />
+					<field name="date_effet_tarif" />
+					<field name="date_resiliation" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_tarif_convention_centre_filter"
+			model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.centre.select</field>
+			<field name="model">mcisogem.tarif.convention.centre</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un tarif convention centre">
+					<field name="code_police" />
+					<field name="code_college" />
+					<field name="code_centre" />
+					<field name="code_acte" />
+					<field name="montant_brut_tarif" />
+					<field name="date_effet_tarif" />
+					<field name="date_resiliation" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_tarif_convention_centre">
+			<field name="name">Réseau de soins </field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tarif.convention.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un réseau de soins
+				</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Réseau de soins" id="menu_mcisogem_tarif_convention_centre"
+			action="action_mcisogem_tarif_convention_centre" sequence="1"
+			parent="menu_mcisogem_medical_reseau_soins" /> -->
+
+
+	</data>
+</openerp>

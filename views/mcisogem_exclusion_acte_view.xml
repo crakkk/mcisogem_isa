@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- ========= formulaire d exclusion d'acte par police  ============= -->
+		<record id="mcisogem_act_excl_pol_form" model="ir.ui.view">
+			<field name="name">mcisogem.act.excl.pol.form</field>
+			<field name="model">mcisogem.act.excl.pol</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Exclusion d'acte par police">
+					<header>
+							<field name="state" widget="statusbar" statusbar_visible="Ex,A"
+								 statusbar_colors='{"progress":"blue"}' />
+					</header>
+					
+					<sheet>
+						<div class="oe_right">
+								
+							<button class="oe_inline oe_stat_button" string="Resilier"
+								 states="Ex" name="button_action_resilier" type="object" icon="fa-times-circle" />
+
+						    <button class="oe_inline oe_stat_button" string="Activer"
+							 states="A" name="button_to_exclure" type="object" icon="fa-check"  />
+
+						</div>
+
+						<div class="oe_title">
+							<h1>
+
+								<field name="police_id" placeholder="Police..."/>
+							</h1>
+						</div>
+
+					<group col="2">
+						<group >
+							<field name="dat_eff_act_exc" />
+						</group>
+						<group >
+							<field name="dat_res_act_exc" attrs="{'invisible': [('state','!=','A')]}"/>
+						</group>
+					
+					</group>
+					
+
+					<notebook>
+						<page string="Acte(s) à exclure">
+							<field name="nomen_prest_ids">
+								<tree>
+									<field name="libelle_court_acte" />
+									<field name="name" />
+								</tree>
+							</field>
+						</page>
+
+						<page String="Centre(s)">
+							<field name="centre_ids">
+								<tree>
+									<field name="code_centre" />
+									<field name="name" />
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				    </sheet>
+			    </form>
+			</field>
+		</record>
+
+
+		 <!-- ========= popup de resiliation d'une exclusion d'acte par police  ============= -->
+		<record id="mcisogem_act_res_excl_pol_pop" model="ir.ui.view">
+			<field name="name">mcisogem.act.ann.excl.pol.form</field>
+			<field name="model">mcisogem.act.excl.pol</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Exclusion d'acte par police" create="true">
+
+					<sheet>
+						<group col="2">
+							<group string="Annuler une exclusion">
+								<field name="dat_res_act_exc" required="1"/>
+							</group>
+						</group>
+						<footer>
+							<button name="resilier" string="Valider" type="object" class="oe_highlight"/>  
+							ou	  
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+		<!-- ========= liste exclusion d'acte par police  ============= -->
+		<record id="mcisogem_act_excl_pol_tree" model="ir.ui.view">
+			<field name="name">mcisogem.act.excl.pol.tree</field>
+			<field name="model">mcisogem.act.excl.pol</field>
+			<field name="arch" type="xml">
+				<tree string="Historique des exclusions">
+
+					<field name="police_id" />
+					<field name="centre_ids" />
+					<field name="nomen_prest_ids"/>
+
+					<field name="state" />
+
+					<field name="dat_eff_act_exc" attrs="{'invisible':[('state','=','A')]}"/>
+
+					<field name="dat_res_act_exc" attrs="{'invisible':[('state','=','Ex')]}"/>
+									
+			    </tree>
+			</field>
+		</record>
+
+
+	   <!-- Action du menu exclusion acte police -->
+		<record model="ir.actions.act_window" id="action_mcisogem_act_excl_pol">
+			<field name="name">Exclusion acte/police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.act.excl.pol</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="mcisogem_act_excl_pol_form"/>
+		</record>
+
+		<!-- menu PARTICULARITE DE POLICE PAR CENTRE -->
+		
+	</data>	
+</openerp>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- ========= formulaire d encaissement de budget  ============= -->
+		<record id="mcisogem_encaissement_form" model="ir.ui.view">
+			<field name="name">mcisogem.encaissement.form</field>
+			<field name="model">mcisogem.encaissement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<group col="2"  string="Encaissement de Budget">
+						<group>
+							<field name="budget_id" on_change="onchange_budget(budget_id)" options="{'no_create_edit': True}"/>
+						</group>
+					</group>
+					<group col="3">
+						<group>
+							<field name="police_id" />
+						</group>
+						<group>
+							<field name="college_id" />
+						</group>
+						<group>
+							<field name="garant_id" />
+						</group>
+					</group>	
+					<group col="3">
+						<group>
+							<field name="mnt_a_enc" on_change="onchange_montant(mnt_a_enc , mnt_enc)" />
+						</group>
+						<group>
+							<field name="mnt_enc" on_change="onchange_montant(mnt_a_enc , mnt_enc)" />
+						</group>
+						<group>
+							<field name="mnt_rest" />
+						</group>
+					</group>
+					
+					<group col="2">	
+						<group>
+							<field name="dt_deb" />
+							
+						</group>
+						<group>
+							<field name="dt_enc" />
+						</group>
+					</group>
+				</sheet>
+			</field>
+		</record>
+
+		<!-- ========= liste encaissement de budget ============= -->
+		<record id="mcisogem_surpime_tree" model="ir.ui.view">
+			<field name="name">mcisogem.encaissement.tree</field>
+			<field name="model">mcisogem.encaissement</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="budget_id"/>
+					<field name="college_id" />
+					<field name="police_id" />	
+					<field name="garant_id" />
+					<field name="mnt_a_enc" />
+					<field name="mnt_rest" />
+					<field name="mnt_enc" />
+					<field name="dt_deb" />
+					<field name="dt_enc" />
+				</tree>
+			</field>
+		</record>	
+
+
+		<!-- Action du menu encaissement de budget -->
+		<record model="ir.actions.act_window" id="action_mcisogem_encaissement">
+			<field name="name">Encaissement de budget</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.encaissement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+	</data>	
+</openerp>

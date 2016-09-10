@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- ===================== type de centre form ============================= -->
+		<record id="view_mcisogem_type_chambre_form" model="ir.ui.view">
+			<field name="name">mcisogem.type.chambre.form</field>
+			<field name="model">mcisogem.type.chambre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Type de chambre">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Type de chambre" />
+							</h1>
+						</div>
+						<group>
+							</group>
+								<group>
+									<group>
+										<field name="name" />
+									</group>
+								</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		
+		<!-- ===================== Liste type de centre ============================= -->
+		<record id="mcisogem_type_chambre_tree" model="ir.ui.view">
+			<field name="name">mcisogem.type.chambre.tree</field>
+			<field name="model">mcisogem.type.chambre</field>
+			<field name="arch" type="xml">
+				<tree string="Type de chambre">
+					<field name="code_type_chambre" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+		
+		
+		<!-- ===================== filtre type de centre ============================= -->
+		<record id="view_mcisogem_type_chambre_filter" model="ir.ui.view">
+			<field name="name">mcisogem.type.chambre.select</field>
+			<field name="model">mcisogem.type.chambre</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un type de chambre">
+					<field name="code_type_chambre" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu type de centre -->
+		<record model="ir.actions.act_window" id="action_mcisogem_type_chambre">
+			<field name="name">Type de chambre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.type.chambre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer type de chambre.
+				</p>
+			</field>
+		</record>
+		
+		
+		<menuitem name="Type de chambre" id="menu_mcisogem_type_chambre"
+			action="action_mcisogem_type_chambre" sequence="10"
+			parent="menu_mcisogem_ref_subb" />
+	
+	
+	</data>	
+</openerp>

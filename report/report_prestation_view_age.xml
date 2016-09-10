@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_prestation_age_graph" model="ir.ui.view">
+            <field name="name">report.prestation.age.graph</field>
+            <field name="model">report.prestation.age</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="taux_moin_18" type="measure"/>
+                    <field name="mont_remb_moin_18" type="measure"/>
+                    <field name="taux_18_30" type="measure"/>
+                    <field name="mont_remb_18_30" type="measure"/>
+                    <field name="taux_30_60" type="measure"/>
+                    <field name="mont_remb_30_60" type="measure"/>
+                    <field name="taux_plus_60" type="measure"/>
+                    <field name="mont_remb_plus_60" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_age_graph" model="ir.ui.view">
+            <field name="name">report.prestation.age.graph</field>
+            <field name="model">report.prestation.age</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="taux_moin_18" type="measure"/>
+                    <field name="mont_remb_moin_18" type="measure"/>
+                    <field name="taux_18_30" type="measure"/>
+                    <field name="mont_remb_18_30" type="measure"/>
+                    <field name="taux_30_60" type="measure"/>
+                    <field name="mont_remb_30_60" type="measure"/>
+                    <field name="taux_plus_60" type="measure"/>
+                    <field name="mont_remb_plus_60" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_age_2_graph" model="ir.ui.view">
+             <field name="name">report.prestation.age.2.graph</field>
+             <field name="model">report.prestation.age</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="garant_id"/>
+                     <field name="taux_moin_18"/>
+                     <field name="mont_remb_moin_18"/>
+                     <field name="taux_18_30"/>
+                     <field name="mont_remb_18_30"/>
+                     <field name="taux_30_60"/>
+                     <field name="mont_remb_30_60"/>
+                     <field name="taux_plus_60"/>
+                     <field name="mont_remb_plus_60"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_report_prestation_age_line_graph" model="ir.ui.view">
+             <field name="name">report.prestation.age.line.graph</field>
+             <field name="model">report.prestation.age</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                     <field name="garant_id"/>
+                     <field name="exercice_id"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_prestation_age_tree" model="ir.ui.view">
+            <field name="name">report.prestation.age.tree</field>
+            <field name="model">report.prestation.age</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="garant_id"/>
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_prestation_age_search" model="ir.ui.view">
+            <field name="name">report.prestation.age.search</field>
+            <field name="model">report.prestation.age</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des sinistres">
+                    <field name="exercice_id"/>
+                    <field name="garant_id"/>
+                    <field name="police_id"/>
+                    <field name="periode_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                        <field name="garant_id"/>
+                        <field name="police_id"/>
+                        <field name="periode_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_prestation_age" model="ir.actions.act_window">
+            <field name="name">Conso tranche d'age</field>
+            <field name="res_model">report.prestation.age</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_prestation_age_graph"/>
+            <field name="search_view_id" ref="view_report_prestation_age_search"/>
+        </record>
+
+        <record id="action_server_report_prestation_age" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_prestation_age"/>
+            <field name="code">action = pool.get('report.prestation.age').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Consommation tranche d'age</field>
+        </record>
+
+    <menuitem name="Tranche d'age" parent="cons" id='act_server_report_prestation_age' action="action_server_report_prestation_age" sequence="2"/>
+
+</data>
+</openerp>
+ 

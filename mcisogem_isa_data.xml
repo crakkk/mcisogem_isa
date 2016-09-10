@@ -1,0 +1,1018 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+		<!--Données numero -->
+		<record id="mcisogem_numero_0" model="mcisogem.numero">
+			<field name="name">0</field>
+			<field name="num_remb">0</field>
+			<field name="numero">0</field>
+			<field name="num_benef">0</field>
+			<field name="num_police">0</field>
+			<field name="num_prestexec">0</field>
+			<field name="num_quittance">0</field>
+			<field name="num_centre">0</field>
+			<field name="num_regl_quittance">0</field>
+			<field name="num_regt">0</field>
+			<field name="num_regt_garant">0</field>
+			<field name="num_remb_garant">0</field>
+			<field name="num_court_souscr">0</field>
+			<field name="num_quittancier">0</field>
+		</record>
+
+		<!--Données CENTRE DE GESTION -->
+		<record id="mcisogem_centre_gestion_0" model="mcisogem.centre.gestion">
+			<field name="name">MCI-SOGEM</field>
+			<field name="code_centre">A</field>
+			<field name="lettre_cle">A</field>
+		</record>
+
+		<!--Données REGIME -->
+		<record id="mcisogem_regime_0" model="mcisogem.regime">
+			<field name="code_regime">TP</field>
+			<field name="name">TIERS PAYANT</field>
+		</record>
+
+		<record id="mcisogem_regime_1" model="mcisogem.regime">
+			<field name="code_regime">RD</field>
+			<field name="name">REMBOURSEMENT DIRECT</field>
+		</record>
+
+
+		<!-- Données unite de temps -->
+
+		<!-- A decommenter lors d'une nouvelle installatipn  -->
+
+
+		
+		<record id="mcisogem_unite_temps_1" model="mcisogem.unite.temps">
+			<field name="name">MENSUEL</field>
+			<field name="code_unite_temps">1</field>
+			<field name="nbre_jour">30</field>
+		</record>
+
+		<record id="mcisogem_unite_temps_2" model="mcisogem.unite.temps">
+			<field name="name">BIMENSUEL</field>
+			<field name="code_unite_temps">2</field>
+			<field name="nbre_jour">60</field>
+		</record>
+
+		<record id="mcisogem_unite_temps_3" model="mcisogem.unite.temps">
+			<field name="name">ANNUEL</field>
+			<field name="code_unite_temps">3</field>
+			<field name="nbre_jour">365</field>
+		</record>
+		
+		<record id="mcisogem_unite_temps_4" model="mcisogem.unite.temps">
+			<field name="name">BIENNAL</field>
+			<field name="code_unite_temps">4</field>
+			<field name="nbre_jour">730</field>
+		</record>
+
+
+		<!--Données FAMILLE D'ACTES -->
+		<record id="mcisogem_fam_prest_0" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">CON</field>
+			<field name="name">CONSULTATION</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_1" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">RAD</field>
+			<field name="name">IMAGERIE ET EXAMENS SPECIALISES</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_2" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">BIO</field>
+			<field name="name">BIOLOGIE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_3" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">OPT</field>
+			<field name="name">OPTIQUE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_4" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">DEN</field>
+			<field name="name">DENTAIRE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_5" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">HOS</field>
+			<field name="name">HOSPITALISATION</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_6" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">TRA</field>
+			<field name="name">TRANSPORT MEDICALISE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_7" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">AUX</field>
+			<field name="name">AUXILIAIRE MEDICAUX</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_8" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">MAT</field>
+			<field name="name">MATERNITE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_9" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">FAR</field>
+			<field name="name">PHARMACIE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_10" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">AUE</field>
+			<field name="name">AUTRES EXAMENS</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_11" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">BIL</field>
+			<field name="name">BILAN DE SANTE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_12" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">PMA</field>
+			<field name="name">PROCREATION MEDICALEMENT ASSISTEE</field>
+		</record>
+
+		<record id="mcisogem_fam_prest_13" model="mcisogem.fam.prest">
+			<field name="libelle_court_famille">ETMP</field>
+			<field name="name">ACTES TECHNIQUES MEDICAUX DU PRATICIEN</field>
+		</record>
+
+
+
+		<!--Données ACTES -->
+		<!-- <record id="mcisogem_nomen_prest_0" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">C</field>
+			<field name="name">CONSULTATION GÉNÉRALISTE</field>
+			<field name="code_fam_prest">1</field>
+			<field name="l_cle_nomen">C</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_1" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">CS</field>
+			<field name="name">CONSULTATION SPÉCIALISTE</field>
+			<field name="code_fam_prest">1</field>
+			<field name="l_cle_nomen">CS</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_2" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">AMI</field>
+			<field name="name">SOINS INFIRMIER</field>
+			<field name="code_fam_prest">8</field>
+			<field name="l_cle_nomen">AMI</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_3" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">FHHM</field>
+			<field name="name">FORFAIT HOSPITALISATION MÉDICALE JOUR</field>
+			<field name="code_fam_prest">6</field>
+			<field name="l_cle_nomen">FHHM</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_4" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">B</field>
+			<field name="name">ACTES DE BIOLOGIE MEDICALE</field>
+			<field name="code_fam_prest">3</field>
+			<field name="l_cle_nomen">B</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_5" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">ADI</field>
+			<field name="name">ACTES D'IMAGERIES (CCAM)</field>
+			<field name="code_fam_prest">2</field>
+			<field name="l_cle_nomen">Z</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_6" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">ADC</field>
+			<field name="name">ACTES DE CHIRURGIE (CCAM)</field>
+			<field name="code_fam_prest">14</field>
+			<field name="l_cle_nomen">KC</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_7" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">ADE</field>
+			<field name="name">ACTES D'ECHOGRAPHIE (CCAM)</field>
+			<field name="code_fam_prest">9</field>
+			<field name="l_cle_nomen">KE</field>
+		</record>
+
+		<record id="mcisogem_nomen_prest_8" model="mcisogem.nomen.prest">
+			<field name="libelle_court_acte">D</field>
+			<field name="name">ACTES PRATIQUES PAR LES DENTISTES</field>
+			<field name="code_fam_prest">5</field>
+			<field name="l_cle_nomen">D</field>
+		</record> -->
+
+
+		<!--Données SOUS ACTES -->
+		<!-- <record id="mcisogem_sous_actes_0" model="mcisogem.sous.actes">
+			<field name="libelle_court_sous_acte">BNDA008</field>
+			<field name="code_famille_acte">4</field>
+			<field name="code_acte">5</field>
+			<field name="name">SANG : GLUCOSE (GLYCEMIE)</field>
+			<field name="l_cle_nomen">B</field>			
+		</record>
+
+		<record id="mcisogem_sous_actes_1" model="mcisogem.sous.actes">
+			<field name="libelle_court_sous_acte">BNDA008</field>
+			<field name="code_famille_acte">3</field>
+			<field name="code_acte">6</field>
+			<field name="name">SANG : GLUCOSE (GLYCEMIE)</field>
+			<field name="l_cle_nomen">Z</field>			
+		</record> -->
+
+
+
+
+		<!--Données STATUT BENEF -->
+		<record id="mcisogem_statut_benef_0" model="mcisogem.stat.benef">
+			<field name="name">ASSURE PRINCIPAL</field>
+			<field name="cod_statut_benef">A</field>
+		</record>
+
+		<record id="mcisogem_statut_benef_1" model="mcisogem.stat.benef">
+			<field name="name">CONJOINT</field>
+			<field name="cod_statut_benef">C</field>
+		</record>
+
+		<record id="mcisogem_statut_benef_2" model="mcisogem.stat.benef">
+			<field name="name">ENFANT</field>
+			<field name="cod_statut_benef">E</field>
+		</record>
+
+
+		<!--Données CONCURRENT -->
+		<record id="mcisogem_concur_0" model="mcisogem.concurent">
+			<field name="name">AUCUN</field>
+			<field name="code_concur">1</field>
+		</record>
+
+
+		<!--Données MODE DE RECONDUCTION DE CONTRAT -->
+		<record id="mcisogem_mod_recond_0" model="mcisogem.mod.recond">
+			<field name="name">TACITE RECONDUCTION</field>
+			<field name="code_mod_recond">1</field>
+		</record>
+
+		<record id="mcisogem_mod_recond_1" model="mcisogem.mod.recond">
+			<field name="name">SANS TACITE RECONDUCTION</field>
+			<field name="code_mod_recond">2</field>
+		</record>
+
+		<record id="mcisogem_mod_recond_2" model="mcisogem.mod.recond">
+			<field name="name">TEMPORAIRE</field>
+			<field name="code_mod_recond">3</field>
+		</record>
+
+		<record id="mcisogem_mod_recond_3" model="mcisogem.mod.recond">
+			<field name="name">AUTRE FORME DE RECONDUCTION</field>
+			<field name="code_mod_recond">4</field>
+		</record>
+
+
+		<!--Données TYPE CONTRAT -->
+		<record id="mcisogem_type_contrat_0" model="mcisogem.type.contrat">
+			<field name="name">GROUPE</field>
+			<field name="code_type_contrat">1</field>
+		</record>
+
+		<record id="mcisogem_type_contrat_1" model="mcisogem.type.contrat">
+			<field name="name">INDIVIDUEL</field>
+			<field name="code_type_contrat">2</field>
+		</record>
+
+		<record id="mcisogem_type_contrat_2" model="mcisogem.type.contrat">
+			<field name="name">COLLECTIVE</field>
+			<field name="code_type_contrat">3</field>
+		</record>
+
+		<record id="mcisogem_type_contrat_3" model="mcisogem.type.contrat">
+			<field name="name">FAMILLE</field>
+			<field name="code_type_contrat">4</field>
+		</record>
+
+		<record id="mcisogem_type_contrat_4" model="mcisogem.type.contrat">
+			<field name="name">CFE</field>
+			<field name="code_type_contrat">5</field>
+		</record>
+
+		<record id="mcisogem_type_contrat_5" model="mcisogem.type.contrat">
+			<field name="name">ASSISTANCE</field>
+			<field name="code_type_contrat">6</field>
+		</record>
+
+
+		<!--Données NATURE RISQUE -->
+		<record id="mcisogem_nature_risk_0" model="mcisogem.nature.risque">
+			<field name="name">SANTE FAMILLE</field>
+			<field name="code_nature_risque">MF</field>
+		</record>
+
+		<record id="mcisogem_nature_risk_1" model="mcisogem.nature.risque">
+			<field name="name">SANTE GROUPE</field>
+			<field name="code_nature_risque">MG</field>
+		</record>
+
+		<record id="mcisogem_nature_risk_2" model="mcisogem.nature.risque">
+			<field name="name">SANTE INDIVIDUELLE</field>
+			<field name="code_nature_risque">MI</field>
+		</record>
+
+
+		<!--Données TYPE GARANT -->
+		<record id="mcisogem_type_garant_0" model="mcisogem.type.garant">
+			<field name="name">COMPAGNIE</field>
+			<field name="code_type_garant">1</field>
+		</record>
+
+		<record id="mcisogem_type_garant_1" model="mcisogem.type.garant">
+			<field name="name">AUTO ASSURANCE</field>
+			<field name="code_type_garant">2</field>
+		</record>
+
+		<record id="mcisogem_type_garant_2" model="mcisogem.type.garant">
+			<field name="name">MUTUELLE</field>
+			<field name="code_type_garant">3</field>
+		</record>
+
+		<record id="mcisogem_type_garant_3" model="mcisogem.type.garant">
+			<field name="name">AUTRE</field>
+			<field name="code_type_garant">4</field>
+		</record>
+
+
+
+		<!--Données TERRITORIALITE -->
+		<record id="mcisogem_territoire_0" model="mcisogem.territoire">
+			<field name="name">ANGOLA</field>
+			<field name="code_territoire">ANG</field>
+		</record>
+
+		<record id="mcisogem_territoire_1" model="mcisogem.territoire">
+			<field name="name">BURKINA FASO</field>
+			<field name="code_territoire">BE</field>
+		</record>
+
+		<record id="mcisogem_territoire_2" model="mcisogem.territoire">
+			<field name="name">CÔTE D'IVOIRE</field>
+			<field name="code_territoire">CI</field>
+		</record>
+
+		<record id="mcisogem_territoire_3" model="mcisogem.territoire">
+			<field name="name">GUINEE</field>
+			<field name="code_territoire">GU</field>
+		</record>
+
+		<record id="mcisogem_territoire_4" model="mcisogem.territoire">
+			<field name="name">MONDE ENTIER</field>
+			<field name="code_territoire">ME</field>
+		</record>
+
+
+		<!--Données TYPE ETABLESSEMENT SANITAIRE -->
+		<!-- <record id="mcisogem_type_centre_0" model="mcisogem.type.centre">
+			<field name="name">CLINIQUE MEDICALE</field>
+			<field name="code_type_centre2">CM</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_1" model="mcisogem.type.centre">
+			<field name="name">POLYCLINIQUE</field>
+			<field name="code_type_centre2">PC</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_2" model="mcisogem.type.centre">e
+			<field name="name">CENTRE MEDICAL D'ENTREPRISE</field>
+			<field name="code_type_centre2">CME</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_3" model="mcisogem.type.centre">
+			<field name="name">HOPITAL PUBLIC</field>
+			<field name="code_type_centre2">HP</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_4" model="mcisogem.type.centre">
+			<field name="name">HOPITAL CONFESSIONEL</field>
+			<field name="code_type_centre2">HC</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_5" model="mcisogem.type.centre">
+			<field name="name">CABINET DENTAIRE</field>
+			<field name="code_type_centre2">CD</field>
+			
+		</record>
+
+		<record id="mcisogem_type_centre_6" model="mcisogem.type.centre">
+			<field name="name">MEDECIN REFERENT</field>
+			<field name="code_type_centre2">MR</field>
+			
+		</record> -->
+
+
+		<!--Données rôle user -->
+		<record id="mcisogem_role_user_0" model="mcisogem.role.user">
+			<field name="name">GARANT</field>
+			<field name="type_user">GRC</field>
+		</record>
+		<record id="mcisogem_role_user_1" model="mcisogem.role.user">
+			<field name="name">MEDECIN CONSEIL</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_2" model="mcisogem.role.user">
+			<field name="name">MEDECIN CME</field>
+			<field name="type_user">GRC</field>
+		</record>
+		<record id="mcisogem_role_user_3" model="mcisogem.role.user">
+			<field name="name">SECRETARIAT MEDICAL</field>
+			<field name="type_user">GRC</field>
+		</record>
+		<record id="mcisogem_role_user_4" model="mcisogem.role.user">
+			<field name="name">SOUSCRIPTEUR</field>
+			<field name="type_user">GRC</field>
+		</record>
+		<record id="mcisogem_role_user_5" model="mcisogem.role.user">
+			<field name="name">PRESTATAIRE</field>
+			<field name="type_user">GRC</field>
+		</record>
+		<record id="mcisogem_role_user_6" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE PRODUCTION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_7" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE MEDICAL</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_8" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE COMPTABLE</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_9" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE PRESTATION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_10" model="mcisogem.role.user">
+			<field name="name">UTILISATEUR PRODUCTION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_11" model="mcisogem.role.user">
+			<field name="name">UTILISATEUR MEDICAL</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_12" model="mcisogem.role.user">
+			<field name="name">UTILISATEUR COMPTABLE</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_13" model="mcisogem.role.user">
+			<field name="name">UTILISATEUR PRESTATION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		<record id="mcisogem_role_user_14" model="mcisogem.role.user">
+			<field name="name">VISUALISATION PRESTATION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="mcisogem_role_user_15" model="mcisogem.role.user">
+			<field name="name">INTERMEDIAIRE</field>
+			<field name="type_user">GRC</field>
+		</record>
+
+
+		<!--Données tranche age -->
+		<record id="mcisogem_tranche_age_0" model="mcisogem.tranche.age">
+			<field name="code_tranche">1</field>
+			<field name="debut_tranche">999</field>
+			<field name="fin_tranche">9999</field>
+			<field name="name">999-9999</field>
+		</record>
+
+		<record id="mcisogem_tranche_age_1" model="mcisogem.tranche.age">
+			<field name="code_tranche">2</field>
+			<field name="debut_tranche">0</field>
+			<field name="fin_tranche">20</field>
+			<field name="name">0-20</field>
+		</record>
+
+		<record id="mcisogem_tranche_age_2" model="mcisogem.tranche.age">
+			<field name="code_tranche">3</field>
+			<field name="debut_tranche">21</field>
+			<field name="fin_tranche">24</field>
+			<field name="name">21-24</field>
+		</record>
+
+		<record id="mcisogem_tranche_age_3" model="mcisogem.tranche.age">
+			<field name="code_tranche">4</field>
+			<field name="debut_tranche">25</field>
+			<field name="fin_tranche">29</field>
+			<field name="name">25-29</field>
+		</record>
+
+		<record id="mcisogem_tranche_age_4" model="mcisogem.tranche.age">
+			<field name="code_tranche">5</field>
+			<field name="debut_tranche">30</field>
+			<field name="fin_tranche">34</field>
+			<field name="name">30-34</field>
+		</record>
+
+		<record id="mcisogem_tranche_age_5" model="mcisogem.tranche.age">
+			<field name="code_tranche">6</field>
+			<field name="debut_tranche">35</field>
+			<field name="fin_tranche">99</field>
+			<field name="name">35-99</field>
+		</record>
+
+
+
+		<!--Données LISTE DE DENTS -->
+		<record id="mcisogem_liste_dent_0" model="mcisogem.liste.dent">
+			<field name="name">11</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_1" model="mcisogem.liste.dent">
+			<field name="name">12</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_2" model="mcisogem.liste.dent">
+			<field name="name">13</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_3" model="mcisogem.liste.dent">
+			<field name="name">14</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_4" model="mcisogem.liste.dent">
+			<field name="name">15</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_5" model="mcisogem.liste.dent">
+			<field name="name">16</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_6" model="mcisogem.liste.dent">
+			<field name="name">17</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_7" model="mcisogem.liste.dent">
+			<field name="name">18</field>
+			<field name="type_dent">DENTS DE SAGESSE</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_8" model="mcisogem.liste.dent">
+			<field name="name">21</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_9" model="mcisogem.liste.dent">
+			<field name="name">22</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_10" model="mcisogem.liste.dent">
+			<field name="name">23</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_11" model="mcisogem.liste.dent">
+			<field name="name">24</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_12" model="mcisogem.liste.dent">
+			<field name="name">25</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_13" model="mcisogem.liste.dent">
+			<field name="name">26</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_14" model="mcisogem.liste.dent">
+			<field name="name">27</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_15" model="mcisogem.liste.dent">
+			<field name="name">28</field>
+			<field name="type_dent">DENTS DE SAGESSE</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_16" model="mcisogem.liste.dent">
+			<field name="name">48</field>
+			<field name="type_dent">DENTS DE SAGESSE</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_17" model="mcisogem.liste.dent">
+			<field name="name">47</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_18" model="mcisogem.liste.dent">
+			<field name="name">46</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_19" model="mcisogem.liste.dent">
+			<field name="name">45</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_20" model="mcisogem.liste.dent">
+			<field name="name">44</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_21" model="mcisogem.liste.dent">
+			<field name="name">43</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_22" model="mcisogem.liste.dent">
+			<field name="name">42</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_23" model="mcisogem.liste.dent">
+			<field name="name">41</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_24" model="mcisogem.liste.dent">
+			<field name="name">31</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_25" model="mcisogem.liste.dent">
+			<field name="name">32</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_26" model="mcisogem.liste.dent">
+			<field name="name">33</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_27" model="mcisogem.liste.dent">
+			<field name="name">34</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_28" model="mcisogem.liste.dent">
+			<field name="name">35</field>
+			<field name="type_dent">PREMOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_29" model="mcisogem.liste.dent">
+			<field name="name">36</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_30" model="mcisogem.liste.dent">
+			<field name="name">37</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_31" model="mcisogem.liste.dent">
+			<field name="name">38</field>
+			<field name="type_dent">DENTS DE SAGESSE</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ADULTE</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_32" model="mcisogem.liste.dent">
+			<field name="name">75</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_33" model="mcisogem.liste.dent">
+			<field name="name">74</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_34" model="mcisogem.liste.dent">
+			<field name="name">73</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_35" model="mcisogem.liste.dent">
+			<field name="name">72</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_36" model="mcisogem.liste.dent">
+			<field name="name">71</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_37" model="mcisogem.liste.dent">
+			<field name="name">81</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_38" model="mcisogem.liste.dent">
+			<field name="name">82</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_39" model="mcisogem.liste.dent">
+			<field name="name">83</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_40" model="mcisogem.liste.dent">
+			<field name="name">84</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_41" model="mcisogem.liste.dent">
+			<field name="name">85</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_42" model="mcisogem.liste.dent">
+			<field name="name">85</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE INFERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE INFERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_43" model="mcisogem.liste.dent">
+			<field name="name">65</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_44" model="mcisogem.liste.dent">
+			<field name="name">64</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_45" model="mcisogem.liste.dent">
+			<field name="name">63</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_46" model="mcisogem.liste.dent">
+			<field name="name">62</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_47" model="mcisogem.liste.dent">
+			<field name="name">61</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE GAUCHE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_48" model="mcisogem.liste.dent">
+			<field name="name">51</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_49" model="mcisogem.liste.dent">
+			<field name="name">52</field>
+			<field name="type_dent">INCISIVES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_50" model="mcisogem.liste.dent">
+			<field name="name">53</field>
+			<field name="type_dent">CANINES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_51" model="mcisogem.liste.dent">
+			<field name="name">54</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+		<record id="mcisogem_liste_dent_52" model="mcisogem.liste.dent">
+			<field name="name">55</field>
+			<field name="type_dent">MOLAIRES</field>
+			<field name="machoire">MACHOIRE SUPERIEURE</field>
+			<field name="semi_arcade">SEMI-ARCADE SUPERIEURE DROITE</field>
+			<field name="enf_ad">ENFANT</field>
+		</record>
+
+
+
+		<record id="mcisogem_type_avenant_0" model="mcisogem.type.avenant">
+			<field name="name">AVENANT INITIAL</field>
+			<field name="code_type_avenant">AI</field>
+		</record>
+
+
+		<record id="mcisogem_type_avenant_1" model="mcisogem.type.avenant">
+			<field name="name">AVENANT DE MODIFICATION</field>
+			<field name="code_type_avenant">AB</field>
+		</record>
+
+		<record id="mcisogem_type_avenant_2" model="mcisogem.type.avenant">
+			<field name="name">AVENANT DE MOUVEMENT</field>
+			<field name="code_type_avenant">AM</field>
+		</record>
+
+		<record id="mcisogem_type_avenant_3" model="mcisogem.type.avenant">
+			<field name="name">AVENANT DE FACTURATION</field>
+			<field name="code_type_avenant">AS</field>
+		</record>
+
+		<record id="mcisogem_type_avenant_4" model="mcisogem.type.avenant">
+			<field name="name">AVENANT DE RESILIATION</field>
+			<field name="code_type_avenant">ARS</field>
+		</record>
+
+		<record id="mcisogem_type_avenant_5" model="mcisogem.type.avenant">
+			<field name="name">AVENANT DE REGULARISATION</field>
+			<field name="code_type_avenant">AR</field>
+		</record>
+
+		<record id="mcisogem_type_avenant_6" model="mcisogem.type.avenant">
+			<field name="name">AVENANT D'ANNULTION</field>
+			<field name="code_type_avenant">ANN</field>
+		</record>
+
+		<!-- LISTE INFO GARANT DEMANDE -->
+		<record id="mcisogem_info_demande_niveau_garant" model="mcisogem.info_demande_garant">
+			<field name="name">neptune</field>
+		</record>
+
+		<!-- LISTE INFO GARANT -->
+		<record id="mcisogem_info_niveau_garant" model="mcisogem.info_garant">
+			<field name="name">neptune</field>
+		</record>
+
+		<!-- LISTE POLICE GARANT -->
+		<record id="police-garnt-inc-1" model="mcisogem.police.inc.garant">
+			<field name="name">neptune</field>
+		</record>
+
+
+		<!-- B.A.R INTERMEDIAIRE  -->
+		<record id="mcisogem_bar_niveau_inter" model="mcisogem.bar.inter">
+			<field name="name">neptune</field>
+		</record>
+		
+	</data>
+</openerp>

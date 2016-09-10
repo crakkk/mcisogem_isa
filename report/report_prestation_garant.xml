@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_prestation_garant_graph" model="ir.ui.view">
+            <field name="name">report.prestation.garant.graph</field>
+            <field name="model">report.prestation.garant</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="police_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="montant_total" type="measure"/>
+                    <field name="montant_remb" type="measure"/>
+                    <field name="montant_exclu" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_garant_graph" model="ir.ui.view">
+            <field name="name">report.prestation.garant.graph</field>
+            <field name="model">report.prestation.garant</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="police_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="montant_total" type="measure"/>
+                    <field name="montant_remb" type="measure"/>
+                    <field name="montant_exclu" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_prestation_garant_2_graph" model="ir.ui.view">
+             <field name="name">report.prestation.garant.2.graph</field>
+             <field name="model">report.prestation.garant</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="police_id"/>
+                     <field name="montant_remb"/>
+                     <field name="montant_total"/>
+                     <field name="montant_exclu"/>
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_report_prestation_garant_line_graph" model="ir.ui.view">
+             <field name="name">report.prestation.garant.line.graph</field>
+             <field name="model">report.prestation.garant</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="line">
+                     <field name="police_id"/>
+                     <field name="exercice_id"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_prestation_garant_tree" model="ir.ui.view">
+            <field name="name">report.prestation.garant.tree</field>
+            <field name="model">report.prestation.garant</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="exercice_id"/>
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_prestation_garant_search" model="ir.ui.view">
+            <field name="name">report.prestation.garant.search</field>
+            <field name="model">report.prestation.garant</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des sinistres">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_server_report_prestation_garant" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_prestation_garant"/>
+            <field name="code">action = pool.get('report.prestation.garant').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Graphe prestation par garant</field>
+        </record>
+
+        <record id="action_report_prestation_garant" model="ir.actions.act_window">
+            <field name="name">Report prestation</field>
+            <field name="res_model">report.prestation.garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_prestation_garant_graph"/>
+            <field name="search_view_id" ref="view_report_prestation_garant_search"/>
+        </record>
+
+    <menuitem name="Rapport_sinistre/Période Garant" parent="ab" id='act_server_report_prestation_garant' action="action_server_report_prestation_garant"/>
+
+</data>
+</openerp>
+ 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_retrait_garant_graph" model="ir.ui.view">
+            <field name="name">report.retrait.garant.graph</field>
+            <field name="model">report.retrait.garant</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph  garant" type="bar">
+                    <field name="police_id" type="row"/>
+                    <field name="exercice_id" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_retrait_garant_graph" model="ir.ui.view">
+            <field name="name">report.retrait.garant.graph</field>
+            <field name="model">report.retrait.garant</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph garant" type="pivot">
+                    <field name="police_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_report_retrait_garant_2_graph" model="ir.ui.view">
+             <field name="name">report.retrait.garant.2.graph</field>
+             <field name="model">report.retrait.garant</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="police_id"/>
+                     <field name="nbr_attente"/>
+                    <field name="nbr_valide"/>
+                    <field name="nbr_rejete"/>
+                     <field name="nbr_total"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_report_retrait_garant_tree" model="ir.ui.view">
+            <field name="name">report.retrait.garant.tree</field>
+            <field name="model">report.retrait.garant</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="police_id"/>
+                    <field name="nbr_total"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_report_retrait_garant_search" model="ir.ui.view">
+            <field name="name">report.retrait.garant.search</field>
+            <field name="model">report.retrait.garant</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des retrait garant">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+         <record id="action_server_report_retrait_garant" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_retrait_garant"/>
+            <field name="code">action = pool.get('report.retrait.garant').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Graphe demande de retrait par garant</field>
+        </record>
+
+        <record id="action_report_retrait_garant" model="ir.actions.act_window">
+            <field name="name">Report retrait garant</field>
+            <field name="res_model">report.retrait.garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_retrait_garant_graph"/>
+            <field name="search_view_id" ref="view_report_retrait_garant_search"/>
+        </record>
+
+    <menuitem name="Retraits garant" parent="ad" id='act_server_report_retrait_garant' action="action_server_report_retrait_garant"/>
+
+</data>
+</openerp>
+ 

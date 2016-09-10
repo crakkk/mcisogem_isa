@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+			 <!-- =========formulaire de renouvellement d'exercice ============= -->
+		<record id="mcisogem_histo_renouv_pol_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.renouv.police.form</field>
+			<field name="model">mcisogem.histo.renouv.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Clôture d'exercices">
+					<sheet>
+						<group col="2">
+							<field name="garant_id" />
+							<field name="police_ids" domain="[('garant_id','=',garant_id)]" widget="many2many_list">
+								<tree>
+									<field name="num_interne_police" />
+									<field name="name" />
+									<field name="dt_deb_exercice" />
+									<field name="dt_fin_exercice" />
+									<field name="souscripteur_id" />
+									<field name="courtier_id" />
+								</tree>
+							</field>
+						</group>
+
+						<group col="2">
+							<group>
+								<field name="date_debut" />
+							</group>
+
+							<group>
+								<field name="date_fin" />
+							</group>
+						</group>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+		<!-- ========= historique de renouvellement d exercice  ============= -->
+		<record id="mcisogem_histo_renouv_pol_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.renouv.police.tree</field>
+			<field name="model">mcisogem.histo.renouv.police</field>
+			<field name="arch" type="xml">
+				<tree string="Historique de renouvellement d'exercices">
+					
+					<field name="garant_id" />
+					<field name="police_ids" />
+					<field name="date_debut" />
+					<field name="date_fin" />
+			
+			    </tree>
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu renouvelement exercice -->
+		<record model="ir.actions.act_window" id="action_mcisogem_renouv_pol">
+			<field name="name">Renouvellement d'exercices</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.renouv.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+	</data>	
+</openerp>

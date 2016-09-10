@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_brouillard">
+
+        <style>
+               body{
+                  font-size: 15px;
+                }
+                
+                label {
+                   float: left;
+                   width: 180px;
+                   margin-right: 1em;
+                }
+
+                h1 {
+                  text-align: center;
+                  
+                  padding: 5px;
+                }
+                th {
+                  text-align: center;
+                  background-color: lightgray;
+                  padding: 10px;
+                }
+                
+               
+                .left {
+                  text-align: left;
+                }
+
+                .right{
+                  text-align: right;
+                }
+                
+                .entete {
+                  background-color: lightgray;
+                }
+                
+                table{
+                 
+                  clear: both;
+                  
+                  padding: 10px;
+                    text-align: center;
+                }
+                
+                td {
+                  padding-top: 5px;
+                  padding-bottom: 5px;
+                }
+
+                tr{
+                  margin-bottom: 10px;
+                }
+                .center{
+                  text-align: center;
+                  padding: 15px;
+                } 
+
+        </style>
+
+       <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+
+              <div class="page"> 
+                  <h3>
+
+                      <div class="left"><span t-raw="'%s &lt;&gt;' %  res_company.partner_id.name if  res_company.partner_id.name  else ''"/></div>
+ 
+                      <div class="right">  <span t-field="o.write_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/>  </div> 
+                      
+                  </h3>
+
+                  <h1>BROUILLARD DE SAISIE </h1>
+
+                  
+                  
+                   <t t-foreach="o.garant_id" t-as="garant">
+                        <h5>
+                            <div class="left">Garant : <span t-esc="garant.name"/> </div>
+                        </h5>
+
+
+                        <t t-foreach="o.centre_id" t-as="centre">
+
+
+                              <h6>
+                                <div class="left">Prestataire : <span t-esc="centre.name"/> </div>
+                              </h6>
+
+
+                            <t t-foreach="o.prestation_brouillard_details_id" t-as="details">
+                             
+                            
+                                  <div t-if="details.centre_id.id==centre.id and details.garant_id.id==garant.id">
+                                           
+                                            <div class="left">Facture #: <span t-esc="details.num_fact"/> </div>
+                                            <table>
+                                                  <tr class="entete">
+                                                    <th>Matricule</th>
+                                                    <th>Bénéficiaire</th>
+                                                    <th>Souscripteur</th>
+                                                    <th>Date de soins</th>
+                                                    <th>Centre Presc.</th>
+                                                    <th>Medecin Presc</th>
+                                                    <th>Code aff.</th>
+                                                    <th>N° Transaction</th>
+                                                    <th>Acte</th>
+                                                    <th>N° Bon</th>
+                                                    <th>Montant brut</th>
+                                                    <th>Exclusions</th>
+                                                    <th>Taux</th>
+                                                    <th>Montant Net</th>
+                                                    
+                                                  </tr>
+                                                       <t t-foreach="o.prestation_ids" t-as="pr">
+                                               
+                                                      <tr t-if="details.centre_id.id==pr.centre_id.id and details.num_fact==pr.num_fact and details.garant_id.id==pr.garant_id.id" >
+                                                        
+                                                          <td><span t-esc="pr.beneficiaire_id.name"/></td>
+                                                          <td><span t-esc="pr.nom_prenom"/></td>
+                                                          <td><span t-esc="pr.beneficiaire_id.souscripteur_id.name"/></td>
+                                                          <td><span t-esc="pr.date_prest" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></td>
+                                                          <td><span t-esc="pr.centre_id.name"/></td>
+                                                          <td><span t-esc="pr.praticien_id.nom_prenoms_prestat"/></td>
+                                                          <td><span t-esc="pr.affection_id.lbc_affection"/></td>
+                                                          <td><span t-esc="pr.id"/></td>
+                                                          <td><span t-esc="pr.acte_id.name"/></td>
+                                                          <td><span t-esc="pr.num_bon"/></td>
+                                                          <td><span t-esc="pr.montant_total" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/></td>
+                                                          <td><span t-esc="pr.montant_exclu" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/></td>
+                                                          <td><span t-esc="pr.taux_part_patient"/></td>
+                                                          <td><span t-esc="pr.part_gest" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/></td>
+                                                          
+                                                      </tr> 
+                                                          
+                                                 </t>
+                                                  
+                                               
+
+                                            
+            
+                                                  <tr>
+                                                    <td colspan="12" style="text-align:right;"> <b>Total Facture: </b> </td>
+                                                   
+                                                    <td colspan="2" style="text-align:right;">
+                                                          <t t-esc="details.total_fact" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/></td>
+                                                   
+                                                  </tr>
+
+                                               
+                                                
+                                            </table>
+                                               
+                                  </div>
+                           
+                                
+                                
+
+                            </t>
+                             <t t-set="trouver" t-value="0" />
+
+                            <t t-foreach="o.prestation_brouillard_details_id" t-as="details" >
+                                       
+                              <div class="right" t-if="details.centre_id.id==centre.id and details.garant_id.id==garant.id and trouver==0"> 
+
+                                              <t t-set="trouver" t-value="1" />
+                               <b> Total Prestataire: <t t-esc="details.total_prest" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/> </b>
+                              </div>
+                            </t>
+                           
+                           
+                        </t>
+
+                        <t t-set="trouver" t-value="0" />
+                        <t t-foreach="o.prestation_brouillard_details_id" t-as="details">
+                          <div class="right" t-if="details.garant_id.id==garant.id and trouver==0">
+                              <t t-set="trouver" t-value="1" />
+                              <b>Total Assureur: <t t-esc="details.total_gest" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;res_company.currency_id&quot;}"/> </b>
+                          </div>
+                        </t>
+                    
+                      </t>
+                     
+                  
+                  <div class="right">Date comptable : <span t-esc="o.periode_id.name"/> </div>
+
+                
+                 
+
+               
+                  
+              </div>
+
+                
+                 
+
+  
+
+                
+                 
+
+               
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

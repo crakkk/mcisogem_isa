@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+ 
+     <record id="view_report_stat_acte_conso_tree_filter" model="ir.ui.view">
+            <field name="name">mcisogem.report.stat.acte.conso.select</field>
+            <field name="model">mcisogem.report.stat.acte.conso</field>
+            <field name="arch" type="xml">
+                <search string="Recherche de taux de prescription">
+                    <field name="acte_id"/>
+                    <field name="exercice_id"/>
+                    <field name="periode_id"/>
+                    <field name="montant_total"/>
+                    <field name="nbr_taux_periode"/>
+                    <group expand="0" string="Grouper par : ">
+                        <filter name="group_exercice_id" string="Exercice" context="{'group_by':'exercice_id'}"/>
+                        <filter name="group_periode_id" string="Période" context="{'group_by':'periode_id'}"/>
+                    </group> 
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_report_stat_acte_conso_tree" model="ir.ui.view">
+            <field name="name">mcisogem.report.stat.acte.conso.tree</field>
+            <field name="model">mcisogem.report.stat.acte.conso</field>
+            <field name="arch" type="xml">
+                <tree string="Taux des prescriptions">
+                    <field name="acte_id"/>
+                    <!-- <field name="exercice_id"/> -->
+                    <!-- <field name="periode_id"/> -->
+                    <field name="montant_total"/>
+                    <field name="nbr_taux_periode"/>
+                </tree> 
+                
+            </field>
+
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="action_acte_conso">
+            <field name="name">Les actes les plus coûteux</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mcisogem.report.stat.acte.conso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_report_stat_acte_conso_tree" />
+            <field name="context">{'search_default_group_exercice_id': 1,'search_default_group_periode_id': 1 }</field>
+            
+        </record>
+
+
+        <record id="ir_cron_scheduler_alerte_actes_les_plus_couteux" model="ir.cron">
+            <field name="name">Alertes actes les plus coûteux</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mcisogem.report.stat.acte.conso'" name="model"/>
+            <field eval="'acte_conso_crone'" name="function"/>
+        </record>
+
+
+        <menuitem name="Actes les plus coûteux" parent="cons" id='act_acte_conso' action="action_acte_conso" sequence="4"/>
+
+
+</data>
+</openerp>
+ 

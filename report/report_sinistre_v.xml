@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_sinistre_v">
+
+        <style>
+               <style>
+               body{
+                  font-size: 18px;
+                }
+
+                
+                 .left1 {
+                  text-align: left;
+                }
+
+                .right1{
+                  text-align: right;
+                }
+                
+                .titre{
+           text-align: center;
+           text-decoration: underline;
+           font-weight:bold;
+          }
+                .entete2{
+            width: 100%;
+            border:1px solid rgba(255, 0, 0, 0);
+            padding-top: 1%;
+            margin-bottom: 2%;
+          }
+          .left2, .right2{
+            display: inline-block;
+            vertical-align: top;
+          }
+          .left2 {
+            width: 49%;
+            position: relative;
+                
+          }
+          .right2 {
+            width: 49%;
+            position: relative;  
+          }
+                .entete_table {
+                  background-color: lightgray;
+                  border:1px solid black;
+                }
+        table {
+          border-collapse:collapse;
+          width:100%;
+          margin: auto;
+         }
+          th, td {
+           /*border:1px solid black;
+           width:10%;*/
+         }
+          td {
+           text-align:center;
+         }
+         th {
+           /* background-color: #ccc;*/
+            text-align: center;
+                    background-color: lightgray;
+                    padding: 10px;
+
+        }
+        </style> 
+
+        </style>
+
+      <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+
+              <div class="page">
+
+                    <div class="entete1">
+                      <div class="left1"><b>MCI SOGEM</b></div>
+                      <div class="right1">Date: <span t-field="o.write_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></div>   
+                      <p class="titre"><b>Liste des transferts Banques</b></p>     
+                    </div>
+                  <!-- <t t-foreach="o.transfert_id" t-as="transferts"> -->
+                  <t t-foreach="o.garant_t_id" t-as="g">
+                    <div class="entete2">
+                      <div class="left2">
+                        <p>Banque : <b><span t-esc="o.banque_r_id.banque_com_id.name"/></b> pour MCI SOGEM <b><span t-esc="g.garant_id.name"/></b> </p>
+                        <p>Devise : <b>Franc CFA</b></p>
+                        <p>Libelle : </p>
+                      </div>
+
+                      <div class="right2">
+                        <p>N°. Compte : <b><span t-esc="o.banque_r_id.num_cmpte"/></b></p>
+                      </div>      
+                    </div>
+
+                    <t t-foreach="o.banque_c_t_id" t-as="b">
+                      <div t-if="b.garant_id==g.garant_id">
+                         <!-- <h4>
+                            <div class="left1">Banques centre: <span t-esc="b.banque_id.name"/></div>
+                         </h4> -->
+
+                        <div>
+                          <table>
+                              <tr>
+                                <td colspan="1"><b><span t-esc="b.banque_id.name"/></b></td>
+                                <td colspan="5" style="text-align:left;"><b><span t-esc="b.banque_id.code_banque"/></b></td>
+                              </tr>
+                              <tr class="entete_table">
+                                <th>Code</th>
+                                <th>Bénéficiaire</th>
+                                <th>Compte</th>
+                                <th>Date de valeur</th>
+                                <th>Montant</th>
+                                <th>Franc CFA</th> 
+                              </tr>
+                              <t t-foreach="o.transfert_id" t-as="trans">
+                                <tr t-if="trans.garant_id==g.garant_id and trans.banque_c_id==b.banque_id" >
+                                  <td><span t-esc="trans.centre_id.code_centre"/></td>
+                                  <td><span t-esc="trans.centre_id.name"/></td>
+                                  <td><span t-esc="trans.banque_c_id.code_banque"/></td>
+                                  <!-- <td>07/05/2006</td> -->
+                                  <td>
+                                    <span t-field="trans.write_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/>
+                                  </td>
+                                  <td></td>
+                                  <td><b><span t-esc="trans.montant"/></b></td>
+                                </tr> 
+                              </t>
+                              
+                              <tr>
+                                <td colspan="2" style="text-align:center;"></td>
+                                <td colspan="2" style="text-align:center; border-top:1px solid black"> Total :  <span t-esc="b.banque_id.code_banque"/></td>
+                                <td colspan="2" style="text-align:right; border-top:1px solid black"><b><span t-esc="b.banque_total"/></b></td>
+                               
+                              </tr>
+
+                                                               
+                                                                
+                            </table>
+                        </div>
+                      </div>
+                      </t>
+                      <div class="entete2">
+                        <div class="left2">
+                          <p>Banque : <b><span t-esc="o.banque_r_id.name"/></b> pour MCI SOGEM <b><span t-esc="g.garant_id.name"/></b> </p>
+                          <p>Devise : <b>Franc CFA</b></p>
+                          <p>Libelle : </p>
+                        </div>
+
+                        <div class="right2">
+                          <p>N°. Compte : <b><span t-esc="o.banque_r_id.num_cmpte"/></b></p>
+                        </div>      
+                      </div>
+                      <div>
+                          <table>
+                              <tr>
+                                <td colspan="2" style="text-align:center;width:33%;border:1px solid black;width:33%; border-right-color:#fff; color:#fff;">NEPTUNE NEPTUNE</td>
+                                <td colspan="2" style="text-align:center; border:1px solid black;width:33%; border-right-color:#fff"> Total :  </td>
+                                <td colspan="2" style="text-align:right; border:1px solid black;width:33%;"><b><span t-esc="g.garant_total"/></b></td>
+                              </tr>
+                                  
+                            </table>
+                        </div>
+                    </t>
+                    <!-- </t> -->
+              </div>     
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

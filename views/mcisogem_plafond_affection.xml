@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- ========= formulaire de definition de plafond par affection  ============= -->
+		<record id="mcisogem_plafond_affection_form" model="ir.ui.view">
+			<field name="name">mcisogem.plafond.affection.form</field>
+			<field name="model">mcisogem.plafond.affection</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					
+					<sheet>
+						<field name="id" invisible="1"/>
+
+						
+
+						
+						<group>
+							<field name="benef_id" attrs="{'invisible':['|', ('tout_benef','!=',False) , ('id','=',False)]}"/>
+						</group>
+
+						<group>
+								<field name="tout_benef" attrs="{'invisible':[('id','!=',False)]}"/>
+						</group>
+
+						<group col="2" attrs="{'invisible':[('id','=',False)]}">
+							<group>
+								<field name="code_aff_id" />
+							</group>
+						</group>
+
+
+						<group>
+							<field name="plafond" />
+						</group>
+
+
+						
+
+
+						<notebook attrs="{'invisible':[('id','!=',False)]}">
+
+							<page string="Chapitres">
+								<field name="chapitre_affec_ids"  on_change="onchange_chapitre(chapitre_affec_ids)"/>
+							</page>
+
+
+							<page String="Sous-Chapitres">
+								<field name="sous_chap_affec_ids" on_change="onchange_sous_chapitre(sous_chap_affec_ids)"/>
+							</page>
+
+							<page String="Polices" attrs="{'invisible':[('tout_benef','!=',False)]}">
+
+								<field name="police_ids" on_change="onchange_police(police_ids)"/>
+
+							</page>
+
+
+							<page String="Colleges" attrs="{'invisible':[('tout_benef','!=',False)]}">
+
+								<field name="college_ids" on_change="onchange_college(college_ids)"/>
+
+							</page>
+
+
+							<page String="Bénéficiaires" attrs="{'invisible':[('tout_benef','!=',False)]}">
+
+								<field name="cod_benef_ids"/>
+
+							</page>
+
+
+						
+
+
+
+							<page String="Affections">
+								<field name="affec_ids" />
+							</page>
+
+
+						</notebook>
+
+						<group>
+							<field name="dt_effet" />
+						</group>
+
+
+				    </sheet>
+			    </form>
+			</field>
+		</record>
+
+
+	
+
+
+		<!-- ========= liste plafond par affection  ============= -->
+		<record id="mcisogem_plafond_affection_tree" model="ir.ui.view">
+			<field name="name">mcisogem.plafond.affection.tree</field>
+			<field name="model">mcisogem.plafond.affection</field>
+			<field name="arch" type="xml">
+				<tree string="Plafonds">
+
+				<!-- 	<field name="tout_benef" /> -->
+					<field name="benef_id" />
+					<field name="code_aff_id"/>
+					<field name="plafond" />
+									
+			    </tree>
+			</field>
+		</record>
+
+
+	   <!-- Action du menu plafond par affection -->
+		<record model="ir.actions.act_window" id="action_mcisogem_plafond_affection">
+			<field name="name">Plafond par Affection</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.plafond.affection</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- menu PARTICULARITE DE POLICE PAR CENTRE -->
+		
+	</data>	
+</openerp>

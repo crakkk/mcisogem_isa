@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+	
+
+
+
+		<menuitem name="Production" id="menu_mcisogem_prod" sequence="13" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+		
+		<menuitem name="Production" id="menu_mcisogem_prod_prod" parent="menu_mcisogem_prod" />
+
+
+		<menuitem name="Creation" id="menu_mcisogem_prod_creation" parent="menu_mcisogem_prod_prod" />
+
+			<menuitem action="action_mcisogem_garant" parent="menu_mcisogem_prod_creation" id="mcisogem_garant" />
+
+			<menuitem action="action_mcisogem_courtier" parent="menu_mcisogem_prod_creation" id="mcisogem_courtier" />
+
+
+			<menuitem parent="menu_mcisogem_prod_creation" id="mcisogem_exercice" name="Exercice"/>
+
+				<menuitem action="action_mcisogem_exercice" name="Exercice de police" parent="mcisogem_exercice" id="mcisogem_exercice_police" />
+				<menuitem action="action_mcisogem_exercice_comptable" name="Exercice comptable" parent="mcisogem_exercice" id="mcisogem_exercice_comptable" />
+
+			<!-- <menuitem action="action_mcisogem_college" parent="menu_mcisogem_prod_creation" id="mcisogem_college" /> -->
+
+
+		<menuitem name="Etablissement de contrats" id="menu_mcisogem_prod_etabl" parent="menu_mcisogem_prod_prod" />
+
+
+			<menuitem action="action_mcisogem_souscripteur" parent="menu_mcisogem_prod_etabl" id="mcisogem_souscripteur" sequence="1"/>
+
+			<!-- <menuitem name="Avenant et prime" id="mcisogem_avenant_prime" parent="menu_mcisogem_prod_etabl" sequence="2"/> -->
+
+				<!-- <menuitem action="action_mcisogem_avenant" parent="mcisogem_avenant_prime" id="mcisogem_avenant" /> -->
+
+
+			<menuitem action="action_mcisogem_bareme" name="Produit" parent="menu_mcisogem_prod_etabl" id="mcisogem_produit" sequence="2"/>
+
+
+			
+			<!-- <menuitem action="action_mcisogem_delai_carence" parent="menu_mcisogem_prod_etabl" id="mcisogem_delai_carence" sequence="3"/> -->
+			
+
+		
+
+
+			<menuitem  parent="menu_mcisogem_prod_etabl" id="mcisogem_police" name="Police" sequence="5"/>
+
+				<menuitem action="action_mcisogem_police" parent="mcisogem_police" id="mcisogem_police_n2" sequence="1"/>
+
+				<menuitem action="action_mcisogem_histo_resil_police" parent="mcisogem_police" name="Historique des résiliations et réactivations" id="mcisogem_histo_resil_police_menu" sequence="2"/>
+
+				<menuitem action="action_mcisogem_liste_noire" parent="mcisogem_police" name="Historique des suspensions"
+				 id="mcisogem_liste_noire" sequence="3"/>
+
+				<menuitem action="action_mcisogem_motif_suspen" parent="mcisogem_police" id="mcisogem_motif_suspen" sequence="4"/>
+
+			<menuitem  parent="menu_mcisogem_prod_etabl" id="mcisogem_exclusion_acte" name="Exclusion" sequence="6" action="action_mcisogem_exclusion_acte"/>
+
+			<menuitem  parent="menu_mcisogem_prod_etabl" name="Particularités de la police par centre"
+		 id="particul_police_menu" />
+		 	
+		 	<menuitem action="action_mcisogem_nego_pol" parent="menu_mcisogem_prod_etabl" name="Réseau de Soins"
+		 			 id="mcisogem_tarif_nego_pol_menu" />
+
+
+		 			 
+		 
+			<menuitem action="action_mcisogem_encaissement" parent="menu_mcisogem_prod_etabl" name="Encaissement de budget"
+		 id="mcisogem_encaissement_menu" />
+
+			<menuitem action="action_mcisogem_reajustement" parent="menu_mcisogem_prod_etabl" name="Réajustement de budget"
+		 id="mcisogem_reajustement_menu" />
+
+
+		<menuitem action="action_mcisogem_type_avenant" parent="menu_mcisogem_config_sub" id="mcisogem_type_avenant" />
+
+		
+		<!-- <menuitem action="action_mcisogem_copie_tarif_police" parent="particul_police_menu" name="Copie de Tarif négocié par police"
+		 id="mcisogem_copie_tarif_police" />
+
+		<menuitem action="action_mcisogem_copie_tarif_centre" parent="particul_police_menu" name="Copie de Tarif négocié par centre"
+		 id="mcisogem_copie_tarif_centre" /> -->
+
+		<menuitem action="action_mcisogem_ticket_moderateur" parent="particul_police_menu" name="Ticket Modérateur"
+		 id="mcisogem_ticket_moderateur_menu" />
+
+		<menuitem name="Beneficiaires" id="menu_mcisogem_prod_benef" parent="menu_mcisogem_prod_prod" />
+
+			<menuitem action="action_mcisogem_benef" parent="menu_mcisogem_prod_benef" id="mcisogem_benef" sequence="1" />
+
+			<!-- <menuitem action="action_mcisogem_histo_benef" parent="menu_mcisogem_prod_benef" id="mcisogem_histo_benef" sequence="2" /> -->
+
+			<!-- <menuitem action="action_mcisogem_surprime" parent="menu_mcisogem_prod_benef" name="Surprime"
+		 id="mcisogem_surprime_menu" sequence="3" /> -->
+
+			<menuitem action="action_mcisogem_retrait_benef" parent="menu_mcisogem_prod_benef" id="mcisogem_menu_retrait_benef" sequence="4"/>
+
+			<menuitem parent="menu_mcisogem_prod_benef" name="Particularités de Bénéficiaires par centre" id="mcisogem_menu_part_benef" sequence="5"/>
+
+				<menuitem parent="menu_mcisogem_prod_benef" name="Particularités de Bénéficiaires par centre" id="mcisogem_menu_part_benef" />
+					<menuitem action="action_mcisogem_act_excl_benef" parent="mcisogem_menu_part_benef" name="Exculsion Acte/Bénéficiaire" id="mcisogem_menu_excl_benef" />
+
+					<menuitem action="action_mcisogem_act_excl_benef" parent="mcisogem_menu_part_benef" name="Exculsion Acte/Bénéficiaire"
+			 id="mcisogem_menu_excl_benef" />
+
+					<menuitem action="action_mcisogem_nego_benef" parent="mcisogem_menu_part_benef" name="Negociation de tarifs centre beneficiaire"
+		 id="mcisogem_tarif_nego_benef_menu" />
+
+					<menuitem action="action_mcisogem_tick_mod_nego_benef" parent="mcisogem_menu_part_benef" name="Ticket Modérateur négocié par centres et par bénéficiaires" id="mcisogem_ticket_nego_benef_menu" />
+
+					<menuitem action="action_mcisogem_plafond_affection" parent="mcisogem_menu_part_benef" name="Plafond par Affection" id="mcisogem_plf_affec_menu" />
+
+			<menuitem action="action_mcisogem_motif_suspen_benef"  parent="menu_mcisogem_prod_benef" id="menu_suspension_benef"/>
+				
+
+
+
+		
+
+
+		<menuitem action="action_mcisogem_act_excl_pol" parent="particul_police_menu" name="Exclusion acte/police"
+		 id="mcisogem_act_excl_pol_menu" />
+
+
+		 
+
+
+		<!-- <menuitem name="Traitement fin exercice" id="menu_mcisogem_fin_exercice" parent="menu_mcisogem_prod_prod" />
+
+		<menuitem action="action_mcisogem_clot_pol" parent="menu_mcisogem_fin_exercice" name="Clôture d'exercices"
+		 id="mcisogem_clot_pol" />
+
+
+		<menuitem action="action_mcisogem_renouv_pol" parent="menu_mcisogem_fin_exercice" name="Renouvellement d'exercices"
+
+		 		 id="mcisogem_renouv_pol" /> -->
+	</data>	
+</openerp>

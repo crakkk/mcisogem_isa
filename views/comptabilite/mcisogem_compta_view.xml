@@ -1,0 +1,1440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+			
+		<menuitem name="Comptabilité" id="menu_mcisogem_compta"
+			sequence="16" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user,mcisogem_isa.group_admin" />
+
+		<menuitem name="Banques" id="menu_mcisogem_compta_banque_gauch" parent="menu_mcisogem_compta" sequence="1"/>
+
+		<!-- ========= formulaire BANQUE COMMERCIALE ============= -->
+		<record id="view_mcisogem_banque_com_form" model="ir.ui.view">
+			<field name="name">mcisogem.banque.commerciale.form</field>
+			<field name="model">mcisogem.banque.commerciale</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="code_banque" default_focus="1" placeholder="Code banque..." />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="name"/>
+							<field name="adresse"/>
+						</group>
+						<group col="2">
+							<group>
+								<field name="gestionnaire"/>
+								<field name="swift_code"/>
+							</group>
+							<group>
+								<field name="tel"/>
+								<field name="fax"/>
+								<field name="email"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste BANQUE COMMERCIALE ============================= -->
+		<record id="mcisogem_banque_com_tree" model="ir.ui.view">
+			<field name="name">mcisogem.banque.commerciale.tree</field>
+			<field name="model">mcisogem.banque.commerciale</field>
+			<field name="arch" type="xml">
+				<tree string="Banque commerciale">
+					<field name="code_banque" />
+					<field name="name" />
+					<field name="adresse" />
+					<field name="gestionnaire" />
+					<field name="swift_code" />
+					<field name="tel"/>
+					<field name="fax"/>	
+					<field name="email"/>				
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre benef ============================= -->
+		<record id="view_mcisogem_banque_com_filter" model="ir.ui.view">
+			<field name="name">mcisogem.banque.commerciale.select</field>
+			<field name="model">mcisogem.banque.commerciale</field>
+			<field name="arch" type="xml">
+				<search string="Recherche banque commerciale">
+					<field name="code_banque" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+	
+		<!-- Action du menu BANQUE COMMERCIALE -->
+		<record model="ir.actions.act_window" id="action_mcisogem_banque_com">
+			<field name="name">Banque commerciale</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.banque.commerciale</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer une banque commerciale</p>
+			</field>
+		</record>
+
+		<!-- <menuitem name="Banque" id="menu_mcisogem_compta_banque" parent="menu_mcisogem_compta_banque_gauch" /> -->
+
+		<menuitem name="Banque commerciale" id="menu_mcisogem_compta_banque_com" parent="menu_mcisogem_compta_banque_gauch" action="action_mcisogem_banque_com" sequence="1" />
+
+
+		<!-- ========= formulaire BANQUE REGLEMENT ============= -->
+		<record id="view_mcisogem_banque_reglemt_form" model="ir.ui.view">
+			<field name="name">mcisogem.banque.reglement.form</field>
+			<field name="model">mcisogem.banque.reglement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" default_focus="1" placeholder="Code" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="num_cmpte"/>
+							<field name="banque_com_id"/>
+						</group>
+						<group col="2">
+							<group>
+								<field name="banque_int"/>
+								<field name="compte_treso"/>
+							</group>
+							<group>
+								<field name="code_journal" readonly="1"/>
+							</group>
+						</group>
+						<group>
+							<field name="observ" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste BANQUE REGLEMENT ============================= -->
+		<record id="mcisogem_banque_reglemt_tree" model="ir.ui.view">
+			<field name="name">mcisogem.banque.reglement.tree</field>
+			<field name="model">mcisogem.banque.reglement</field>
+			<field name="arch" type="xml">
+				<tree string="Banque de règlement">
+					<field name="name" />
+					<field name="num_cmpte" />
+					<field name="banque_com_id" />
+					<field name="code_journal" />
+					<field name="banque_int" />
+					<field name="compte_treso" />
+					<field name="observ"/>					
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre BANQUE REGLEMENT ============================= -->
+		<record id="view_mcisogem_banque_reglemt_filter" model="ir.ui.view">
+			<field name="name">mcisogem.banque.reglement.select</field>
+			<field name="model">mcisogem.banque.reglement</field>
+			<field name="arch" type="xml">
+				<search string="Recherche une banque de règlement">
+					<field name="num_cmpte" />
+					<field name="name" />
+					<field name="banque_com_id" />
+				</search>
+			</field>
+		</record>
+
+	
+		<!-- Action du menu BANQUE REGLEMENT -->
+		<record model="ir.actions.act_window" id="action_mcisogem_banque_reglemt">
+			<field name="name">Banque de règlement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.banque.reglement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer une banque de règlement</p>
+			</field>
+		</record>
+
+		<menuitem name="Banque de règlement" id="menu_mcisogem_compta_banque_reglemt" parent="menu_mcisogem_compta_banque_gauch" action="action_mcisogem_banque_reglemt" sequence="2" />
+
+
+		<!-- Action du menu ATTRIBUTION DE COMPTE GARANT -->
+		<record model="ir.actions.act_window" id="action_mcisogem_attr_garant">
+			<field name="name">Compte garant</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.garant</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',['sent','done','finish','cancel'])]</field>
+		</record>
+
+		<menuitem name="Attribution de compte" id="menu_mcisogem_attr_compte" parent="menu_mcisogem_compta_banque_gauch" />
+
+		<menuitem name="Compte garant" id="menu_mcisogem_cmpt_assur" parent="menu_mcisogem_attr_compte" action="action_mcisogem_attr_garant" sequence="1" />
+
+		<record id="view_order_form_cust_ref_readonly" model="ir.ui.view">
+    		<field name="name">mcisogem.centre.form</field>
+    		<field name="model">mcisogem.centre</field>
+    		<field name="inherit_id" ref="mcisogem_isa.view_mcisogem_centre_form"/>
+    		<field name="groups_id" eval="[(6, 0, [ref('mcisogem_isa.group_comptabilite_manager') ])]"/>
+    		<field name="arch" type="xml">
+        	<field name='name' position="attributes">
+            	<attribute name="readonly">0</attribute>
+        	</field>
+    		</field>
+		</record>
+
+
+		<!-- Action du menu ATTRIBUTION DE COMPTE CENTRE -->
+		<record model="ir.actions.act_window" id="action_mcisogem_attr_centre">
+			<field name="name">Compte centre</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.centre</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',['done','finish'])]</field>
+		</record>
+
+		<menuitem name="Compte centre" id="menu_mcisogem_cmpt_centre" parent="menu_mcisogem_attr_compte" action="action_mcisogem_attr_centre" sequence="2" />
+
+
+		<!-- Action du menu ATTRIBUTION DE COMPTE PRATICIEN -->
+		<record model="ir.actions.act_window" id="action_mcisogem_attr_praticien">
+			<field name="name">Compte praticien</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.praticien</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',['done','finish'])]</field>
+		</record>
+
+		<menuitem name="Compte praticien" id="menu_mcisogem_cmpt_praticien" parent="menu_mcisogem_attr_compte" action="action_mcisogem_attr_praticien" sequence="3" />
+
+
+
+
+		<!-- ========= formulaire VALIDATION PAIEMENT ============= -->
+		<record id="view_mcisogem_prestation_recherche_temp_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.recherche.temp.form</field>
+			<field name="model">mcisogem.prestation.recherche.temp</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Validation des paiements" create="false" edit="false">
+					<sheet>
+						<group>
+							<field name="banque_id" on_change="onchange_banque(banque_id)"/>
+							<!-- <field name="utilisateur" invisible="1"/> -->
+							<field name="cod_journal" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+							<field name="treso" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+						</group>
+						<group >
+							<label for="num_chek_debut" string="N° du 1er chèque"/>
+									<table>
+										<tr>
+											<td >
+												<field name="num_chek_debut"/>
+											</td>
+											<td style="padding-top:2px;margin-left:3px">
+												<label for="num_chek_fin" string="Au" />
+											</td>
+											<td >
+												<field name="num_chek_fin"/>
+											</td>
+										</tr>
+									</table>
+						</group>
+						<group>
+						</group>
+						<group>
+						<field name="result_ids" nolabel="1" readonly="1" >
+								<tree edit="bottom" readonly="1" create="false">
+									<field name="num_cheque" readonly="1"/>
+									<field name="centre_id" readonly="1"/>
+									
+									<field name="nbre_prestat" sum="nbre_prestat" readonly="1"/>
+									
+									<field name="code_journal" readonly="1"/>
+									<field name="banque_int" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+
+									<field name="montant_exclus" sum="montant_exclus" readonly="1"/>
+								</tree>
+							</field>
+					</group>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+
+		<record id="action_prestation_recherche_temp" model="ir.actions.act_window">
+            <field name="name">Validation des paiements</field>
+            <field name="res_model">mcisogem.prestation.recherche.temp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+
+
+		<!-- ========= formulaire VALIDATION PAIEMENT VIREMENT============= -->
+		<record id="view_mcisogem_prestation_recherche_virement_temp_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.recherche.virement.temp.form</field>
+			<field name="model">mcisogem.prestation.recherche.virement.temp</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Validation des paiements" create="false" edit="false">
+					<sheet>
+						<group>
+							<field name="banque_id" on_change="onchange_banque(banque_id)"/>
+							<field name="cod_journal" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+							<field name="treso" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+						</group>
+						<group>
+						</group>
+						<group>
+						<field name="result_ids" nolabel="1" readonly="1" >
+								<tree edit="bottom" readonly="1" create="false">
+									<field name="centre_id" readonly="1"/>
+									
+									<field name="nbre_prestat" sum="nbre_prestat" readonly="1"/>
+									
+									<field name="code_journal" readonly="1"/>
+									<field name="banque_int" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+
+									<field name="montant_exclus" sum="montant_exclus" readonly="1"/>
+								</tree>
+							</field>
+					</group>
+					</sheet>
+					
+				</form>
+			</field>
+		</record>
+
+		<record id="action_prestation_recherche_virement_temp" model="ir.actions.act_window">
+            <field name="name">Validation des paiements</field>
+            <field name="res_model">mcisogem.prestation.recherche.virement.temp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+		<!-- ========= FORMULAIRE ECRITURE COMPTABLE ============= -->
+		<record id="view_mcisogem_ecriture_comptable_form" model="ir.ui.view">
+			<field name="name">mcisogem.ecriture.comptable.form</field>
+			<field name="model">mcisogem.ecriture.comptable</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<header>
+					<field name="state" widget="statusbar" statusbar_visible="V,A"
+									 statusbar_colors='{"progress":"blue"}' />
+
+				</header>
+				<form string="Ecriture comptable" create="false" delete="false" edit="false">
+					<sheet>
+						<div class="oe_right">
+								<button name="button_cancel"  type="object" string="Annuler" class="oe_inline oe_stat_button" confirm="Voulez vous valider l'annulation de l'écriture ?" icon="fa-times" attrs="{'invisible':['|' , ('sens','=','D') , ('state','=','A')]}"/>
+							</div>
+						<div class="oe_title">
+							<h1>
+								<field name="num_piece_reglmt" />
+							</h1>
+							<field name="libelle_reglemt" />
+						</div>
+						<group>
+						</group>
+						<group col="2">
+							<group>
+								<field name="date_ecriture"/>
+								<field name="periode_id" />
+								<field name="code_journal"/>
+								<field name="type_ecriture" invisible="1"/>
+							</group>
+							<group>
+								<field name="date_annulation" attrs="{'invisible':[('state','!=','A')]}"/>
+								<field name="sens"/>
+								<field name="montant"/>
+							</group>
+						</group>
+						<group col="2">
+							<group>
+								<field name="compte_gle"/>
+							<field name="compte_tiers"/>
+							</group>
+							<group>
+								<field name="banque_int"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste ECRITURE COMPTABLE ============================= -->
+		<record id="mcisogem_ecriture_comptable_tree" model="ir.ui.view">
+			<field name="name">mcisogem.ecriture.comptable.tree</field>
+			<field name="model">mcisogem.ecriture.comptable</field>
+			<field name="arch" type="xml">
+				<tree string="Ecriture comptable" create="false" delete="false">
+					<field name="num_piece_reglmt" />
+					<field name="date_ecriture" />
+					<field name="code_journal" />
+					<field name="periode_id" />
+					<field name="libelle_reglemt" />
+					<field name="sens"/>					
+					<field name="compte_gle"/>
+					<field name="compte_tiers"/>
+					<field name="montant"/>
+					<field name="banque_int"/>			
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre ECRITURE COMPTABLE ============================= -->
+		<record id="view_mcisogem_ecriture_comptable_filter" model="ir.ui.view">
+			<field name="name">mcisogem.ecriture.comptable.select</field>
+			<field name="model">mcisogem.ecriture.comptable</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une écriture">
+					<field name="periode_id" />
+					<field name="num_piece_reglmt" />
+					<field name="date_ecriture" />
+					<field name="mode_paiement" />
+					<field name="libelle_reglemt" />
+					<field name="montant"/>
+				</search>
+			</field>
+		</record>
+	
+		<!-- Action du menu ECRITURE COMPTABLE DE CONSTATATION-->
+		<record model="ir.actions.act_window" id="action_mcisogem_ecriture_comptable_const">
+			<field name="name">Ecriture comptable de constatation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.ecriture.comptable</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('type_ecriture','=','CONSTATATION')]</field>
+		</record>
+
+		<!-- Action du menu ECRITURE COMPTABLE DE PAIEMENT-->
+		<record model="ir.actions.act_window" id="action_mcisogem_ecriture_comptable_paiem">
+			<field name="name">Ecriture comptable de constatation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.ecriture.comptable</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('type_ecriture','=','PAIEMENT')]</field>
+		</record>
+
+		<!-- Action du menu ANNULATION ECRITURE COMPTABLE -->
+		<record model="ir.actions.act_window" id="action_mcisogem_ecriture_comptable_cancel">
+			<field name="name">Historique des écriture annulées</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.ecriture.comptable</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','A')]</field>
+		</record>
+
+
+		<!-- Period -->
+        <record id="view_mcisogem_account_period_form" model="ir.ui.view">
+            <field name="name">mcisogem.account.period.form</field>
+            <field name="model">mcisogem.account.period</field>
+            <field name="arch" type="xml">
+                <form string="Période">
+                    <header>
+                        <button string="Clôturer la période" name="fermer_periode" type="action" class="oe_highlight" states="draft"/>
+                        <button name="action_draft" states="done" string="Réouvrir la période" type="object"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="exercice_id" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <label for="date_start" string="Durée"/>
+                                <div>
+                                    <field name="date_start" class="oe_inline" nolabel="1"/> -
+                                    <field name="date_stop" nolabel="1" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_mcisogem_account_period_tree" model="ir.ui.view">
+            <field name="name">mcisogem.account.period.tree</field>
+            <field name="model">mcisogem.account.period</field>
+            <field name="arch" type="xml">
+              <tree colors="blue:state == 'draft';gray:state == 'done' " string="Period">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_mcisogem_account_period_search" model="ir.ui.view">
+            <field name="name">mcisogem.account.period.search</field>
+            <field name="model">mcisogem.account.period</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher une période">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]" string="Période"/>
+                    <filter string="A fermer" name="draft" domain="[('state','=','draft')]" icon="terp-dialog-close"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_account_period" model="ir.actions.act_window">
+            <field name="name">Périodes</field>
+            <field name="res_model">mcisogem.exercice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{'search_default_draft': 1}</field> -->
+        </record>
+
+        <!-- ========= formulaire de validation comptable des reglement  ============= -->
+		<record id="mcisogem_validation_compta_prestation_reglement_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.compta.prestation.reglement.form</field>
+			<field name="model">mcisogem.validation.compta.prestation.reglement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Validation des règlements/remboursements" edit="false" delete="false">
+					<sheet>
+						<group>
+								<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+						</group>
+
+						<group>
+							<field name="affiche" invisible="1"/>
+							<field name="mode_paiement" widget="radio" domain="[('code_regime', 'in', ['TP', 'RD'])]" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" attrs="{'readonly':[('affiche','=',True)]}" invisible="1"/>
+						</group>
+							
+						<group>
+							<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+						</group>
+
+						<group col="1">
+							<group>
+								<field name="centre_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+
+						<group col="1">
+							<group>
+								<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" nolabel="1" attrs="{'readonly':[('affiche','=',True)]}">
+								<tree editable="bottom">
+									<field name="id" string="N°" readonly="1"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="beneficiaire_id" string="Matricule" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" string="Montant total" sum="montant_total" readonly="1"/>
+									<field name="part_patient" sum="part_patient" string="Part patient" readonly="1"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="1"/>
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+		<!-- ========= formulaire de validation comptable des remboursement  ============= -->
+		<record id="mcisogem_validation_compta_prestation_remb_form" model="ir.ui.view">
+			<field name="name">mcisogem.validation.compta.prestation.remb.form</field>
+			<field name="model">mcisogem.validation.compta.prestation.remb</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Validation des remboursements" edit="false" delete="false">
+					<sheet>
+						<group>
+								<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+						</group>
+
+						<group>
+							<field name="affiche" invisible="1"/>
+							<field name="mode_paiement" widget="radio" domain="[('code_regime', 'in', ['TP', 'RD'])]" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" attrs="{'readonly':[('affiche','=',True)]}" invisible="1"/>
+						</group>
+						
+						<group>
+							<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+						</group>
+
+						<group col="1">
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+
+						<group col="1">
+							<group>
+								<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" nolabel="1" attrs="{'readonly':[('affiche','=',True)]}">
+								<tree editable="bottom">
+									<field name="id" string="N°" readonly="1"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="beneficiaire_id" string="Matricule" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" string="Montant total" sum="montant_total" readonly="1"/>
+									<field name="part_patient" sum="part_patient" string="Part patient" readonly="1"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="1"/>
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+
+        <record id="action_valid_reglemnt" model="ir.actions.act_window">
+            <field name="name">Validation des règlements</field>
+            <field name="res_model">mcisogem.validation.compta.prestation.reglement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="action_valid_remb" model="ir.actions.act_window">
+            <field name="name">Validation des remboursements</field>
+            <field name="res_model">mcisogem.validation.compta.prestation.remb</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+        <!-- ========= formulaire de paiement des sinistres  ============= -->
+		<record id="mcisogem_paiement_sinistre_form" model="ir.ui.view">
+			<field name="name">mcisogem.paiement.sinistre.form</field>
+			<field name="model">mcisogem.paiement.sinistre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Paiement des sinistres" edit="false" delete="false">
+					<sheet>
+						<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Regrouper" class="oe_inline oe_stat_button" icon=" fa-compress" />
+							</div>
+
+						<group>
+							<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact,num_fact)"/>
+						</group>
+
+						<group>
+							<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+						</group>
+
+						<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+						<group col="1">
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>	
+							</group>		
+						</group>
+						<group col="1">
+							<group>
+								<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									<field name="id" string="N°" readonly="1"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="beneficiaire_id" string="Matricule" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" string="Côut total" sum="montant_total" readonly="1"/>
+									<field name="part_patient" sum="part_patient" readonly="1"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="1"/>
+									<!-- <field name="montant_exclus" sum="montant_exclus" readonly="0"/> -->
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+
+        <record id="action_paiement_sinistres" model="ir.actions.act_window">
+            <field name="name">Paiement des sinistres</field>
+            <field name="res_model">mcisogem.paiement.sinistre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mcisogem_paiement_sinistre_form" />
+        </record>
+
+
+
+        <!-- ========= formulaire de paiement des sinistres VIREMENT ============= -->
+		<record id="mcisogem_paiement_sinistre_virement_form" model="ir.ui.view">
+			<field name="name">mcisogem.paiement.sinistre.virement.form</field>
+			<field name="model">mcisogem.paiement.sinistre</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Paiement des sinistres" edit="false" delete="false">
+					<sheet>
+						<div class="oe_right">
+								<button name="button_regroup"  type="object" string="Regrouper" class="oe_inline oe_stat_button" icon=" fa-compress" />
+							</div>
+
+						<group>
+								<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact,num_fact)"/>
+						</group>
+						
+						<group>
+							<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+						</group>
+
+							
+						<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+						<group col="1">
+							<group>
+								<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>	
+							</group>		
+						</group>
+						<group col="1">
+							<group>
+								<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group>
+						<field name="prestation_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree editable="bottom">
+									<field name="id" string="N°" readonly="1"/>
+									<field name="date_prest" readonly="1" string="Date"/>
+									<field name="beneficiaire_id" string="Matricule" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" string="Côut total" sum="montant_total" readonly="1"/>
+									<field name="part_patient" sum="part_patient" readonly="1"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="1"/>
+									<!-- <field name="montant_exclus" sum="montant_exclus" readonly="0"/> -->
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+		<record id="action_paiement_sinistres_virement" model="ir.actions.act_window">
+            <field name="name">Paiement des sinistres</field>
+            <field name="res_model">mcisogem.paiement.sinistre</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mcisogem_paiement_sinistre_virement_form" />
+        </record>
+
+
+        <!-- ========= formulaire HISTORIQUE  ============= -->
+		<record id="mcisogem_prestation_histo_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.compta.form</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+					<form string="Prestation" edit="false" delete="false" create="false">
+
+					<header>
+						<field name="state" widget="statusbar" statusbar_visible="SP,P" statusbar_colors='{"progress":"blue"}' />
+					</header>
+
+					<sheet>
+						<div>
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+						</div>
+
+						<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="affichdetail" invisible="1"/>
+								<field name="affichebenef" invisible="1"/>
+								<field name="aff_quantite" invisible="1"/>
+								<field name="aff_hos_mat" invisible="1"/>
+								
+								<label for="num_police" string="N° de Prestation:" attrs="{'invisible':[('id','=',False)]}"/>
+								<field name="id" class="oe_inline"  attrs="{'invisible':[('id','=',False)]}"/>
+								
+	                            <h1>
+
+	                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)]}"/>
+	                                <br></br>
+
+	                                <field name="num_bon" placeholder="N° Bon" attrs="{'invisible':[('affichdetail','=',False)]}" on_change="_get_detail_bon(num_bon)"/>
+
+				    			</h1>
+
+		    					<field name="affichebenef" invisible="1"/>
+		    					<field name="a_sous_acte" invisible="1"/>
+								
+						</div>
+
+						<h2>
+							<field name="centre_user_id" on_change="onchange_presta_prat(centre_user_id)" invisible="1"/>
+						</h2>
+
+						<group col="3">
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+							<group>
+
+								
+									<div style="width:40%;margin-left:auto !important;margin-right:auto !important;">
+								        <h1>
+								            <field name="matric_benef"  placeholder="Matricule"  on_change="benef_change(matric_benef)" attrs="{'invisible':[('affichebenef','!=',False)]}" required="1"/>
+								        </h1>
+							    	</div>
+
+						        
+
+			               </group>
+			                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+			            </group>
+			            
+			            
+			            <group col="2" attrs="{'invisible':[('affichdetail','=',False)]}">	
+			            				
+							<group>
+								<field name="nom_benef" readonly="True"/>
+								<field name="date_naiss" readonly="True"/>
+							</group>
+
+							<group>
+								<field name="prenom_benef" readonly="True"/>
+								<field name="sexe" readonly="True"/>
+							</group>
+
+						</group>
+
+						
+
+						<hr attrs="{'invisible':[('affichdetail','=',False)]}"></hr>
+
+
+						<group  col="4" attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group>
+								<field name="consultation" on_change="onchange_consultation(consultation)"/>
+							</group>
+
+							<group>
+								<field name="acteenclinique" on_change="onchange_acteenclinique(acteenclinique)"/>
+							</group>
+
+							<group>
+								<field name="dentaire" on_change="onchange_dentaire(dentaire)"/>
+							</group>
+
+							<group>
+								<field name="phamarcie" on_change="onchange_phamarcie(phamarcie)"/>
+							</group>
+							
+						</group>
+
+
+						<hr attrs="{'invisible':[('affichdetail','=',False)]}"></hr>
+						<notebook colspan="3"  attrs="{'invisible':[('affichdetail','=',False)]}">
+						<page string="Information Prestation"  attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group col="1">
+								<group col="1">
+
+									<group>
+										<field name="acte_id" on_change="onchange_acte(acte_id)" 
+										 attrs="{'readonly':[('consultation','=',False) , ('acteenclinique','=',False) , ('dentaire','=',False) , ('phamarcie','=',False)]}"/>
+									</group>
+
+									<group>
+
+										<field name="sous_actes_ids" 
+										 attrs="{'invisible':[('a_sous_acte' , '=' , False)]}">
+
+		                                	<tree editable="bottom">
+		                                		<field name="acte_id" invisible="1"/>
+		                                		<field name="sous_acte_id"/>
+		                                		<field name="qte" />
+		                                	</tree>
+
+	                                	</field>
+
+
+	                                	<field name="dent_ids" attrs="{'invisible':['|' ,('acte_id','=',False), ('dentaire' , '=' , False)]}" widget="many2many_tags">
+	                                		<tree editable="bottom">
+	                                			<field name="name"/>
+	                                			<field name="enf_ad"/>
+	                                			<field name="machoire"/>
+	                                			<field name="semi_arcade"/>
+	                                			<field name="type_dent"/>
+	                                		</tree>
+	                                	</field>
+		                                
+	                                </group>
+									
+									<group col="2">
+										<group>
+											<field name="affection_id"/>
+										</group>
+
+										<group>
+											<field name="praticien_acte_temp_id" attrs="{'invisible':[('id','!=',False)]}"/>
+											<field name="praticien_id" attrs="{'invisible':[('id','=',False)]}"/>
+										</group>
+									</group>
+									
+									<group col="2">
+										<group>
+											<field name="date_hospi" attrs="{'invisible':[('aff_hos_mat','=',False)]}"/>
+										</group>
+
+										<group>
+											<field name="dure_demande" attrs="{'invisible':[('aff_hos_mat','=',False)]}"/>
+										</group>
+									</group>
+	
+								</group>
+
+                                <group col="2">
+                                    <group class="oe_subtotal_footer oe_right">
+
+                                    	<label for="montant_exclu" string="Montant exclu" class="oe_force_bold oe_mini_subtotal_footer_separator" 
+                                		   style="padding-right: 0px !important;" attrs="{'invisible':[('montant_exclu','=',0)]}"/>
+                               		
+                               			
+                           				<field name="montant_exclu" nolabel="1" class="oe_bold oe_account_total" attrs="{'invisible':[('montant_exclu','=',0)]}"/> 
+
+                                        <label for="montant_total" string="Montant Total" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>
+
+                                        <field name="montant_total" nolabel="1" class="oe_bold oe_account_total" attrs="{'readonly' : [('phamarcie' , '=' , False)]}"/>
+
+                                        <label for="taux_part_patient" string="* Ticket Modérateur (%)" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;" attrs="{'invisible' : [('id' , '=' , False)]}"/>
+
+                                        <field name="taux_part_patient" nolabel="1" class="oe_bold oe_account_total" attrs="{'invisible' : [('id' , '=' , False)]}"/>
+
+
+                                        <label for="part_patient" class="oe_subtotal_footer_separator oe_open_balance" string="= Part Patient" style="padding-right: 0px !important; padding-top: 6px !important;"/>
+                                        <field name="part_patient" nolabel="1" class="oe_subtotal_footer_separator oe_open_balance" />                                   
+                                    </group>
+                            	</group>
+                                </group>  
+					
+						</page>
+						
+						<page string="Ordonnance"  attrs="{'invisible':[('affichdetail','=',False)]}">
+							 <field name="ordo_ids" widget="many2many_list">
+                                <tree editable="bottom">
+                                     <field name="medicament_ids" />
+                                     <field name="quantite" />  
+                                   
+                                </tree>
+                            </field> 											
+						</page>	
+						</notebook>
+
+					</sheet>
+					
+				</form>		   
+			</field>
+		</record>
+
+		<record id="view_mcisogem_prestation_histo_filter" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.histo.select</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher une prestation payées">
+
+					<field name="id" string="N° de la prestation"/>
+					<field name="garant_id"/>
+					<field name="centre_id"/>
+					<field name="exercice_id"/>
+					<field name="periode_id"/>
+					<field name="num_bon" />
+					<field name="beneficiaire_id" />
+					<field name="centre_id"/>
+					<field name="num_fact"/>
+					<field name="create_uid" string="Editeur"/>
+					<field name="state"/>
+
+
+					 <group expand="0" string="Grouper par : ">
+                        <filter name="group_garant_id" string="Garant" context="{'group_by':'garant_id'}"/>
+                        <filter name="group_centre_id" string="Centre" context="{'group_by':'centre_id'}"/>
+                        <filter name="group_exercice_id" string="Exercice" context="{'group_by':'exercice_id'}"/>
+                        <filter name="group_periode_id" string="Période" context="{'group_by':'periode_id'}"/>
+
+                        <filter string="Utilisateur" context="{'group_by':'create_uid'}"/>
+						<filter string="N° Facture" context="{'group_by':'num_fact'}"/>
+                    
+                        <filter string="Centre" context="{'group_by':'centre_id'}"/>
+                        <filter string="Beneficiaire" context="{'group_by':'beneficiaire_id'}"/>
+                        <filter string="Statut" context="{'group_by':'state'}"/>
+                    </group>
+
+				</search>
+			</field>
+		</record>
+
+		<record id="mcisogem_prestation_histo_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.histo.tree</field>
+			<field name="model">mcisogem.prestation</field>
+			<field name="arch" type="xml">
+				<tree string="Prestation payées" create="false" delete="false">
+					<field name="id" string="N°" readonly="1"/>
+									<field name="date_prest" readonly="1"/>
+									<field name="beneficiaire_id" string="Matricule" readonly="1"/>
+
+									<field name="nom_prenom" readonly="1"/>
+
+									<field name="acte_id" readonly="1"/>
+									
+									<field name="centre_id" readonly="1"/>
+									<field name="praticien_id" readonly="1"/>
+
+									<field name="montant_total" string="Côut total" sum="montant_total" readonly="1"/>
+									<field name="part_patient" sum="part_patient" readonly="1"/>
+									<field name="part_gest" string="Montant Remboursé" sum="part_gest" readonly="0"/>
+									<!-- <field name="montant_exclus" sum="montant_exclus" readonly="0"/> -->
+									<field name="state" readonly="1"/>					
+				</tree>	
+			</field>
+		</record>
+
+
+        <record id="action_mcisogem_paiement_histo" model="ir.actions.act_window">
+            <field name="name">Historique des prestations payées</field>
+            <field name="res_model">mcisogem.prestation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','P')]</field>
+            <field name="context">{'search_default_group_garant_id': 1, 'search_default_group_centre_id': 1, 'search_default_group_exercice_id': 1, 'search_default_group_periode_id': 1}</field>
+        </record>
+
+        <!-- ========= formulaire de recherche sinitre cheque  ============= -->
+		<record id="mcisogem_recherche_etat_sinistre_c_form" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.etat.sinistre.c.form</field>
+			<field name="model">mcisogem.recherche.etat.sinistre.c</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="ECHERCHE" edit="false" delete="false">
+					<sheet>
+						<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Rechercher" class="oe_inline oe_stat_button" icon=" fa-search-minus" />
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/>
+							</div>
+							<field name="id" invisible="1"/>
+
+						<group>
+								<field name="mode_paiement" widget="radio" />
+						</group>
+						
+							
+						<group>
+							<field name="banque_r_id" />
+						</group>
+						
+						<group>
+								<field name="garant_id"/>
+							</group>
+						<group col="1">
+							<group>
+								<field name="centre_id"/>	
+							</group>		
+						</group>
+						<group col="1">
+							<group>
+								<field name="periode_id"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group attrs="{'invisible':[('id','=',False)]}">
+						<field name="transfert_id"  widget="one2many" nolabel="1" >
+								<tree edit="false" create="false" delete="false">
+									<field name="create_uid" readonly="1"/>
+									<field name="banque_r_id"/>
+                                    <field name="centre_id"/>
+                                    <field name="garant_id" />
+                                    <field name="periode_id"/>
+                                    <field name="banque_c_id"/>
+                                    <field name="montant"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+
+        <record id="action_recherche_etat_sinistre_c" model="ir.actions.act_window">
+            <field name="name">RECHERCHE</field>
+            <field name="res_model">mcisogem.recherche.etat.sinistre.c</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+       <!--  **************************************************************************************** -->
+
+       <!-- ========= formulaire de recherche sinitre cheque  ============= -->
+		<record id="mcisogem_recherche_etat_sinistre_v_form" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.etat.sinistre.v.form</field>
+			<field name="model">mcisogem.recherche.etat.sinistre.v</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="ECHERCHE" edit="false" delete="false">
+					<sheet>
+						<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Rechercher" class="oe_inline oe_stat_button" icon=" fa-search-minus" />
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/>
+							</div>
+							<field name="id" invisible="1"/>
+
+						
+
+					
+						<group>
+							<field name="mode_paiement" widget="radio" />
+						</group>
+						
+						<group>
+								<field name="banque_r_id" />
+						</group>
+						
+						<group>
+								<field name="garant_id"/>
+							</group>
+						<group col="1">
+							<group>
+								<field name="centre_id"/>	
+							</group>		
+						</group>
+						<group col="1">
+							<group>
+								<field name="periode_id"/>
+							</group>
+						</group>
+							
+				    </sheet>
+				    <group attrs="{'invisible':[('id','=',False)]}">
+						<field name="transfert_id"  widget="one2many" nolabel="1" >
+								<tree edit="false" create="false" delete="false">
+									<field name="create_uid" readonly="1"/>
+									<field name="banque_r_id"/>
+                                    <field name="centre_id"/>
+                                    <field name="garant_id" />
+                                    <field name="periode_id"/>
+                                    <field name="banque_c_id"/>
+                                    <field name="montant"/>
+								</tree>
+							</field>
+					</group>					
+			    </form>			   
+			</field>
+		</record>
+
+
+        <record id="action_recherche_etat_sinistre_v" model="ir.actions.act_window">
+            <field name="name">RECHERCHE</field>
+            <field name="res_model">mcisogem.recherche.etat.sinistre.v</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!-- paiement des quittances -->
+
+         <record model="ir.actions.act_window" id="action_mcisogem_quittancier_compta">
+            <field name="name">Quittances</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mcisogem.quittancier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('etat_paiement','!=','P')]</field>  
+        </record>
+
+        <!-- ******************************* -->
+        <!-- ############################## NEW REGLEMENT BANK ############################ -->
+
+        	<!-- ========= formulaire VALIDATION PAIEMENT ============= -->
+		<record id="view_mcisogem_prestation_recherche_cheque_temp_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.recherche.cheque.temp.form</field>
+			<field name="model">mcisogem.prestation.recherche.cheque.temp</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Validation des paiements" create="false" edit="false">
+					<sheet>
+						<group>
+							<field name="banque_id" on_change="onchange_banque(banque_id)"/>
+							<!-- <field name="utilisateur" invisible="1"/> -->
+							<field name="cod_journal" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+							<field name="treso" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+						</group>
+						<group >
+							<label for="num_chek_debut" string="N° du 1er chèque"/>
+									<table>
+										<tr>
+											<td >
+												<field name="num_chek_debut"/>
+											</td>
+											<td style="padding-top:2px;margin-left:3px">
+												<label for="num_chek_fin" string="Au" />
+											</td>
+											<td >
+												<field name="num_chek_fin"/>
+											</td>
+										</tr>
+									</table>
+						</group>
+						<group>
+						</group>
+						<group col="1" string="Critères de recherche">
+							<group col="2">
+								<group>
+									<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+								</group>
+								<group>
+									<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact,num_fact)"/>
+								</group>
+							</group>
+
+							
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+							<group col="1">
+								<group>
+									<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>	
+								</group>		
+							</group>
+							<group col="1">
+								<group>
+									<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+								</group>
+							</group>
+						</group>
+					</sheet>
+						<group>
+						<field name="result_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree edit="bottom">
+									<field name="num_cheque" readonly="1"/>
+									<field name="centre_id" readonly="1"/>
+									<field name="garant_id" readonly="1"/>
+									
+									<field name="nbre_prestat" sum="nbre_prestat" readonly="1"/>
+									
+									<field name="code_journal" readonly="1"/>
+									<field name="banque_int" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+
+									<field name="montant_exclus" sum="montant_exclus" readonly="1"/>
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>
+					
+					
+				</form>
+			</field>
+		</record>
+
+		<record id="action_prestation_recherche_cheque_temp" model="ir.actions.act_window">
+            <field name="name">Validation des paiements</field>
+            <field name="res_model">mcisogem.prestation.recherche.cheque.temp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+
+
+		<!-- ========= formulaire VALIDATION PAIEMENT VIREMENT============= -->
+		<record id="view_mcisogem_prestation_recherche_vire_temp_form" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.recherche.vire.temp.form</field>
+			<field name="model">mcisogem.prestation.recherche.vire.temp</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Validation des paiements" create="false" edit="false">
+					<sheet>
+						<group>
+							<field name="banque_id" on_change="onchange_banque(banque_id)"/>
+							<field name="cod_journal" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+							<field name="treso" readonly="1" attrs="{'invisible': [('banque_id','=',False)]}"/>
+						</group>
+						
+						<group>
+						</group>
+						<group col="1" string="Critères de recherche">
+							<group col="2">
+								<group>
+									<field name="mode_paiement" widget="radio" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+								</group>
+								<group>
+									<field name="num_fact"  on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact,num_fact)"/>
+								</group>
+							</group>
+
+							
+
+							<group>
+								<field name="garant_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)" />
+							</group>
+							<group col="1">
+								<group>
+									<field name="centre_ids" widget="many2many_tags" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>	
+								</group>		
+							</group>
+							<group col="1">
+								<group>
+									<field name="periode_ids" widget="many2many_tags" options="{'no_create_edit': True}" on_change="onchange_pram(mode_paiement,centre_ids,garant_ids,periode_ids,num_fact)"/>
+								</group>
+							</group>
+						</group>
+					</sheet>
+						
+						<group>
+						<field name="result_ids" options="{'no_create_edit': True}" nolabel="1">
+								<tree edit="bottom">
+									<field name="num_cheque" readonly="1"/>
+									<field name="centre_id" readonly="1"/>
+									<field name="garant_id" readonly="1"/>
+									
+									<field name="nbre_prestat" sum="nbre_prestat" readonly="1"/>
+									
+									<field name="code_journal" readonly="1"/>
+									<field name="banque_int" readonly="1"/>
+
+									<field name="montant_total" sum="montant_total" readonly="1"/>
+
+									<field name="montant_exclus" sum="montant_exclus" readonly="1"/>
+									<field name="state" readonly="1"/>
+								</tree>
+							</field>
+					</group>
+					
+					
+				</form>
+			</field>
+		</record>
+
+		<record id="action_prestation_recherche_vire_temp" model="ir.actions.act_window">
+            <field name="name">Validation des paiements</field>
+            <field name="res_model">mcisogem.prestation.recherche.vire.temp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+         <!-- ############################## NEW REGLEMENT BANK ############################ //-->
+
+
+       <!--  **************************************************************************************** -->
+
+        <menuitem name="Configuration" id="menu_mcisogem_config_compta" parent="menu_mcisogem_compta" sequence="22"/>
+        <menuitem id="menu_action_account_period" action="action_account_period" parent="menu_mcisogem_config_compta"/>
+
+		<menuitem name="Validation comptable" id="menu_mcisogem_comptabilite_valid" parent="menu_mcisogem_compta" sequence="2" />
+
+		<menuitem name="Règlements" id="menu_mcisogem_comptabilite_regle" parent="menu_mcisogem_comptabilite_valid" action="action_valid_reglemnt" sequence="1"/>
+
+		<menuitem name="Remboursements" id="menu_mcisogem_comptabilite_remb" parent="menu_mcisogem_comptabilite_valid" action="action_valid_remb" sequence="2"/>
+
+
+		<menuitem name="Taches périodiques" id="menu_mcisogem_tache_period_gauch" parent="menu_mcisogem_compta" sequence="3" />
+		<menuitem name="Paiement des sinistres" id="menu_mcisogem_paiem_sinistre" parent="menu_mcisogem_tache_period_gauch" sequence="1"/>
+			<menuitem name="Chèque" id="menu_mcisogem_paiem_sinistre_cheque" parent="menu_mcisogem_paiem_sinistre" action="action_paiement_sinistres" sequence="1"/>
+
+			<menuitem name="Virement" id="menu_mcisogem_paiem_sinistre_virement" parent="menu_mcisogem_paiem_sinistre" action="action_paiement_sinistres_virement" sequence="2"/>
+
+			<menuitem name="Chèque TEST" id="menu_mcisogem_paiem_sinistre_c" parent="menu_mcisogem_paiem_sinistre" action="action_prestation_recherche_cheque_temp" sequence="3"/>
+
+			<menuitem name="Virement TEST" id="menu_mcisogem_paiem_sinistre_v" parent="menu_mcisogem_paiem_sinistre" action="action_prestation_recherche_vire_temp" sequence="4"/>
+
+			<menuitem name="Etats" id="menu_mcisogem_paiem_etat" parent="menu_mcisogem_tache_period_gauch" sequence="3"/>
+
+				<menuitem name="Chèque" id="menu_mcisogem_paiem_etat_cheque" parent="menu_mcisogem_paiem_etat" action="action_recherche_etat_sinistre_c" sequence="1"/>
+				<menuitem name="Virement" id="menu_mcisogem_paiem_etat_virement" parent="menu_mcisogem_paiem_etat" action="action_recherche_etat_sinistre_v" sequence="2"/>
+		<menuitem name="Historique" id="menu_mcisogem_paiement_histo" parent="menu_mcisogem_tache_period_gauch" action="action_mcisogem_paiement_histo" sequence="2"/>
+
+
+
+		<menuitem name="Pièces comptables" id="menu_mcisogem_piece_compta" parent="menu_mcisogem_compta" sequence="4"/>
+		<menuitem name="Ecritures comptables" id="menu_mcisogem_ecriture_compt" parent="menu_mcisogem_piece_compta" />
+
+		<menuitem name="Paiement" id="menu_mcisogem_ecriture_compta_paiement" parent="menu_mcisogem_ecriture_compt" action="action_mcisogem_ecriture_comptable_paiem" sequence="2" />
+		<menuitem name="Constatation" id="menu_mcisogem_ecriture_compta_constat" parent="menu_mcisogem_ecriture_compt" action="action_mcisogem_ecriture_comptable_const" sequence="1" />
+
+		<menuitem name="Historique" id="menu_mcisogem_histo" parent="menu_mcisogem_piece_compta" />
+
+		<menuitem name="Ecritures annulées" id="menu_mcisogem_ecriture_annul" parent="menu_mcisogem_histo" action="action_mcisogem_ecriture_comptable_cancel" sequence="1" />
+
+
+
+	</data>
+	</openerp>

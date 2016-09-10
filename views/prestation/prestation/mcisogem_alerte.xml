@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>	
+
+		<record id="mcisogem_alerte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.alerte.plafond.tree</field>
+			<field name="model">mcisogem.alerte.plafond</field>
+			<field name="arch" type="xml">
+				<tree string="Alertes" edit="false" delete="false" create="false">
+					<field name="benef_id"/>
+					<field name="acte_id"/>
+					<field name="affection_id"/>
+					<field name="police_id"/>
+					<field name="college_id"/>
+					<field name="montant_plafond"/>
+					<field name="montant_atteint"/>
+					<field name="taux"/>
+				</tree>	
+			</field>
+		</record>
+
+
+		<record id="mcisogem_quittance_alerte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.alerte.quittancier.tree</field>
+			<field name="model">mcisogem.alerte.quittancier</field>
+			<field name="arch" type="xml">
+				<tree string="Alertes" edit="false" delete="false" create="false">
+					<field name="quittance_id"/>
+					<field name="police_id"/>
+					<field name="dt_emi_quittance"/>
+					<field name="depassement"/>
+				</tree>	
+			</field>
+		</record>
+
+
+
+
+
+		<!-- ========= formulaire alertes  ============= -->
+		<record id="mcisogem_alerte_form" model="ir.ui.view">
+			<field name="name">mcisogem.alerte.plafond.form</field>
+			<field name="model">mcisogem.alerte.plafond</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Validation des prestations" create="false" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+							<group col="1">
+								<field name="benef_id"/>
+							</group>
+
+							<group col="2">
+								<group>
+									<field name="acte_id" attrs="{'invisible':[('acte_id','=',False)]}"/>
+								</group>
+
+								<group>
+									<field name="affection_id" attrs="{'invisible':[('affection_id','=',False)]}"/>
+								</group>
+
+							</group>
+
+							<group col="2">
+								<group>
+									<field name="police_id"/>
+								</group>
+								<group>
+									<field name="college_id" />
+								</group>
+							</group>
+
+							<group col="3">
+								<group>
+									<field name="montant_plafond"/>
+								</group>
+								<group>
+									<field name="montant_atteint" />
+								</group>
+								<group>
+									<field name="taux" />
+								</group>
+							</group>
+
+							
+
+						</group>
+							
+				    </sheet>
+				   
+					
+			    </form>
+
+			   
+			</field>
+		</record>
+		
+
+		<!-- ========= formulaire alertes  ============= -->
+		<record id="mcisogem_quittance_alerte_form" model="ir.ui.view">
+			<field name="name">mcisogem.alerte.quittancier.form</field>
+			<field name="model">mcisogem.alerte.quittancier</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form create="false" edit="false" delete="false">
+					<sheet>
+						<group col="1">
+							<group col="1">
+								<field name="quittance_id"/>
+							</group>
+
+							<group col="2">
+								<group>
+									<field name="police_id"/>
+								</group>
+							</group>
+
+							<group col="2">
+								<group>
+									<field name="dt_emi_quittance"/>
+								</group>
+								<group>
+									<field name="depassement" />
+								</group>
+							</group>
+						</group>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+
+
+		<record model="ir.actions.act_window" id="action_mcisogem_alerte">
+			<field name="name">Alertes</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.alerte.plafond</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_mcisogem_alerte_quittance">
+			<field name="name">Alertes Quittances</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.alerte.quittancier</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+        <record id="ir_cron_scheduler_alerte_action" model="ir.cron">
+            <field name="name">Alertes</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mcisogem.alerte.plafond'" name="model"/>
+            <field eval="'benef_en_alerte'" name="function"/>
+        </record>
+
+
+        <record id="ir_cron_scheduler_alerte_quittance_action" model="ir.cron">
+            <field name="name">Alertes Quittances</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mcisogem.alerte.quittancier'" name="model"/>
+            <field eval="'quittance_en_alerte'" name="function"/>
+        </record>
+
+
+
+ 	</data>	
+</openerp>

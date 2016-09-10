@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+			
+       <!--  <report 
+            id="report_quittancier_souscripteur_"
+            model="mcisogem.quittancier"
+            string="Bordereau d'Emission de la commission du courtier"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_quittancier_souscripteur"
+            attachment_use="False"
+            file="mcisogem_isa.report_quittancier_souscripteur"
+        />
+
+
+         <report 
+            id="report_quittancier_prime_"
+            model="mcisogem.quittancier"
+            string="Bordereau d'Emission de la prime"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_quittancier_prime"
+            attachment_use="False"
+            file="mcisogem_isa.report_quittancier_prime"
+        />
+
+
+        <report 
+            id="report_quittancier_mci_"
+            model="mcisogem.quittancier"
+            string="Bordereau d'Emission de la quittance MCI"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_quittancier_mci"
+            attachment_use="False"
+            file="mcisogem_isa.report_quittancier_mci"
+        /> -->
+
+        <report 
+            id="report_benef_carte_"
+            model="mcisogem.recherche.carte"
+            string="carte par benef"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_carte"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_carte"
+        />
+
+
+        <report 
+            id="report_quittancier_all_"
+            model="mcisogem.quittancier"
+            string="Imprimer Tout"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_quittancier_all"
+            attachment_use="False"
+            file="mcisogem_isa.report_quittancier_all"
+        />
+
+        <report 
+            id="report_brouillard_prestation"
+            model="mcisogem.brouillard.prestation"
+            string="Brouillard"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_brouillard"
+            attachment_use="False"
+
+            file="mcisogem_isa.report_brouillard"
+        />
+
+        <report 
+            id="report_bon_prestation"
+            model="mcisogem.prestation"
+            string="Bon de prestation"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_bon"
+            attachment_use="False"
+            menu="False"
+
+            file="mcisogem_isa.report_bon"
+        />
+
+         <report 
+            id="report_benef_inc_garant_"
+            model="mcisogem.recherche.benef.garant"
+            string="Incorporation par garant"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_inc_garant"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_inc_garant"
+        />
+
+        <report 
+            id="report_benef_inc_garantpc_"
+            model="mcisogem.recherche.benef.garant.incpc"
+            string="Incorporation par garant"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_inc_garantpc"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_inc_garantpc"
+        />
+
+        <report 
+            id="report_benef_garant_"
+            model="mcisogem.recherche.benef.garant"
+            string="Assurés par garant"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_garant"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_garant"
+        />
+
+        <report 
+            id="report_benef_"
+            model="mcisogem.recherche.benef"
+            string="Assurés"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef"
+        />
+
+        <report 
+            id="report_benef_inc_"
+            model="mcisogem.recherche.benef"
+            string="Incorporation"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_inc"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_inc"
+        />
+
+        <report 
+            id="report_benef_ret_"
+            model="mcisogem.recherche.benef"
+            string="retrait"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_ret"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_ret"
+        />
+
+        <report 
+            id="report_benef_sus_"
+            model="mcisogem.recherche.benef"
+            string="suspension"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_sus"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_sus"
+        />
+        
+        <report 
+            id="report_benef_age_"
+            model="mcisogem.recherche.benef"
+            string="Limite age"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_age"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_age"
+        />
+        <report 
+            id="report_benef_stat_"
+            model="mcisogem.recherche.benef"
+            string="Beneficiaire par statut"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_benef_stat"
+            attachment_use="False"
+            file="mcisogem_isa.report_benef_stat"
+        />
+
+        <report 
+            id="report_bon_pcharge_"
+            model="mcisogem.pcharge"
+            string="Bon de prise en charge"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_bon_pcharge"
+            attachment_use="False"
+            menu="False"
+            file="mcisogem_isa.report_bon_pcharge"
+        />
+
+         <report 
+            id="report_bon_prorogation_"
+            model="mcisogem.prorogation"
+            string="Bon de prorogation"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_bon_prorogation"
+            attachment_use="False"
+            file="mcisogem_isa.report_bon_prorogation"
+        />
+
+        <report 
+            id="report_bon_consultation_"
+            model="mcisogem.prestation"
+            string="Bon de consultation"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_bon_consultation"
+            attachment_use="False"
+            menu="False"
+
+            file="mcisogem_isa.report_bon_consultation"
+        />
+
+        <report 
+            id="report_sinistre_c_"
+            model="mcisogem.recherche.etat.sinistre.c"
+            string="Transfert"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_sinistre_c"
+            attachment_use="False"
+            file="mcisogem_isa.report_sinistre_c"
+        />
+
+        <report 
+            id="report_sinistre_cn_"
+            model="mcisogem.recherche.etat.sinistre.c"
+            string="Transfert new"
+            report_type="qweb-pdf"
+            name="mcisogem_isa.report_sinistre_c_new"
+            attachment_use="False"
+            file="mcisogem_isa.report_sinistre_c_new"
+        />
+
+
+
+	</data>
+</openerp>

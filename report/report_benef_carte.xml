@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_benef_carte">
+        <style>
+
+            .b1{
+              clear:both;
+                }
+            .valeur{
+                width: 1004px;
+                margin-top:-370px;
+              }
+            .valeur1, .valeur2{
+                  display: inline-block;
+                  vertical-align: top;
+               }
+            .valeur1 {
+                width: 40%;
+                position: relative;
+              }
+              
+            .valeur2{
+                width: 59%;
+                position: relative;  
+             }
+
+        </style>
+
+
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+            <div class="page" t-foreach="o.beneficiaire_id" t-as="i">
+             <!-- Save for Web Slices (Basic.jpg) -->
+               <div class="b1">
+                    <table id="Tableau_01" width="1004" height="650" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td colspan="3">
+                                <img t-if="i.regime_id" t-att-src="'data:image/png;base64,%s' % i.regime_id.image_1" width="1004" height="50" alt=""/></td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <img t-if="i.regime_id" t-att-src="'data:image/png;base64,%s' % i.regime_id.image_2" width="737" height="275" alt=""/></td>
+                              <td>
+                                <img t-if="i.image_medium" t-att-src="'data:image/png;base64,%s' % i.image_medium" width="236" height="275" alt=""/></td>
+                              <td>
+                                <img t-if="i.regime_id" t-att-src="'data:image/png;base64,%s' % i.regime_id.image_4" width="31" height="275" alt=""/></td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">
+                                <img t-if="i.regime_id" t-att-src="'data:image/png;base64,%s' % i.regime_id.image_5" width="1004" height="325" alt=""/></td>
+                            </tr>
+                    </table>
+               <!-- End Save for Web Slices -->
+                    <div class="valeur">
+                      <div class="valeur1">
+
+                          <div>
+                            <p style="font-family:Futura std light;margin-left:5px;font-weight:bold;font-size:45px; color:#646469;margin-bottom: 0px;text-align: center;"><span t-esc="i.nom_benef"/></p>
+                            <p style="font-family:Futura std light;margin-left:5px;font-size:30px; color:#646469;margin-top: 0px;margin-bottom: 0px;text-align: center;"><span t-esc="i.prenom_benef"/></p>
+                        </div>
+
+                        <div>
+                            <p style="font-family:Futura std light;font-size:25px; color:#646469;margin-left:280px;margin-top: 60px; "><span t-esc="i.group_sang_benef"/></p>
+                            <p style="font-family:Futura std light;font-size:25px; color:#646469;margin-left:150px; "><span t-esc="i.regime_id.name"/></p>
+                        </div>
+
+                      </div>
+
+                      <div class="valeur2">
+
+                           <div>
+                            <p style="font-family:Futura std light;font-size:35px; color:#646469;text-align: right;margin-right: 10px;margin-top: 50px;margin-bottom: 0px; "><span t-esc="i.souscripteur_id.name"/></p>
+                            <p style="font-family:Futura std light;font-size:50px; color:#fff;margin-top: 0px;margin-bottom: 0px; "><span t-esc="i.beneficiaire"/></p>
+                        </div>
+                        
+                      </div>
+                  </div>
+              </div>
+                  
+            </div>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

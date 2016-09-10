@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ========= liste ticket moderateur négocié ============= -->
+		<record id="mcisogem_tick_mod_pol_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tick.mod.pol.tree</field>
+			<field name="model">mcisogem.tick.mod.pol</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="centre_id" />
+					<field name="nomen_prest_id" />
+					<field name="police_id" />	
+					<field name="college_id" />	
+
+					<field name="choix_typ_tick_mod" />
+					<field name="mnt_tick_mod" />
+
+					
+					<field name="dt_eff_tick_mod" />
+
+					<field name="dt_res_tick_mod" />
+					<field name="state" />
+					
+				</tree>
+			</field>
+		</record>	
+
+		<!-- ========= formulaire ticket moderateur  ============= -->
+		<record id="mcisogem_tick_mod_pol_form" model="ir.ui.view">
+			<field name="name">mcisogem.tick.mod.pol.form</field>
+			<field name="model">mcisogem.tick.mod.pol</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+
+			    <form string="Ticket modérateur par centre et par police">
+					<header>
+							<field name="state" widget="statusbar" statusbar_visible="N,A"
+								 statusbar_colors='{"progress":"blue"}' />
+					</header>
+					
+					<sheet>
+						<div class="oe_right">
+								
+							<button class="oe_inline oe_stat_button" string="Négocier"
+								 states="A" name="button_negocier" type="object" icon="fa-check" 
+								 />
+
+							<button class="oe_inline oe_stat_button" string="Annuler"
+								 states="N" name="button_action_resilier" type="object" icon="fa-times-circle"
+							 />
+						</div>
+						<field name="affichage" invisible="1" />
+						<field name="dt_res_tick_mod" invisible="1"/>
+
+						<div class="oe_title">
+							<h1>Ticket modérateur par centre - police</h1>
+						</div>
+
+						<group col="1">
+							<group>
+								<field name="garant_id" on_change="onchange_garant_id(garant_id)" attrs="{'invisible': [('affichage','=',1)]}"/>
+							</group>
+							<group>
+								<notebook attrs="{'invisible': [('affichage','=',1)]}">
+									<page string="Polices">
+										<field name="code_police_temp" attrs="{'invisible': [('affichage','=',1)]}" on_change="onchange_police(code_police_temp)" />
+											
+								    </page>
+
+								    <page string="Collèges">
+								    	<field name="code_college_temp" attrs="{'invisible': [('affichage','=',1)]}" />
+								    </page>
+
+
+								    <page string="Actes">
+								    	<field name="code_acte_temp" attrs="{'invisible': [('affichage','=',1)]}" />
+								    </page>
+
+								     <page string="Centres">
+								     	<field name="code_centre_temp" attrs="{'invisible': [('affichage','=',1)]}" />
+								    </page>
+
+							    </notebook>
+							</group>
+
+							<field name="nomen_prest_id" attrs="{'invisible': [('affichage','=',0)]}" />
+
+							<field name="centre_id" attrs="{'invisible': [('affichage','=',0)]}" />
+								
+							<field name="police_id" attrs="{'invisible': [('affichage','=',0)]}" />
+
+							<field name="college_id" attrs="{'invisible': [('affichage','=',0)]}" />
+
+							<group col="3">
+
+								<group>
+										<field name="choix_typ_tick_mod" />
+									<field name="mnt_tick_mod" />
+								</group>
+
+								<group>
+									<field name="dt_eff_tick_mod"/>
+								</group>
+							</group>
+					    </group>
+								
+				    </sheet>
+				    
+			    </form>
+			</field>
+		</record>	
+
+		
+		<!-- ========= popup d annulation d'un ticket modérateur ============= -->
+		<record id="mcisogem_annul_tick_mod_pol_form" model="ir.ui.view">
+			<field name="name">mcisogem.annul.tick.mod.pol.form</field>
+			<field name="model">mcisogem.tick.mod.pol</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Annulation d'un ticket moderateur" create="true">
+					<sheet>
+						<group col="2">
+							<group>
+								<field name="dt_res_tick_mod" required="1"/>
+							</group>
+						</group>
+						<footer>
+							<button name="button_resilier" string="Valider" type="object" class="oe_highlight"/>  
+							ou	  
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+
+		<!-- Action du menu creation de ticket mederateur-->
+		<record model="ir.actions.act_window" id="action_mcisogem_ticket_moderateur">
+			<field name="name">Création de ticket Modérateur</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tick.mod.pol</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="mcisogem_tick_mod_pol_form"/>
+		</record>
+
+		
+
+	</data>	
+</openerp>

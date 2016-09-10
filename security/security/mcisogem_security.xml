@@ -1,0 +1,219 @@
+<openerp>
+	<data noupdate="0">
+		<record id="group_production_manager" model="res.groups">
+			<field name="name">RESPONSABLE PRODUCTION</field>
+		</record>
+
+		<record id="group_medical_manager" model="res.groups">
+			<field name="name">RESPONSABLE MEDICAL</field>
+		</record>
+
+		<record id="group_medical_user" model="res.groups">
+			<field name="name">UTILISATEUR MEDICAL</field>
+		</record>
+
+
+		<record id="group_comptabilite_manager" model="res.groups">
+			<field name="name">RESPONSABLE COMPTABLE</field>
+		</record>
+
+		<record id="group_comptabilite_user" model="res.groups">
+			<field name="name">UTILISATEUR COMPTABLE</field>
+		</record>
+
+		<record id="group_production_user" model="res.groups">
+			<field name="name">UTILISATEUR PRODUCTION</field>
+		</record>
+
+		<record id="group_prestation_user" model="res.groups">
+			<field name="name">UTILISATEUR PRESTATION</field>
+		</record>
+
+		<record id="group_prestation_manager" model="res.groups">
+			<field name="name">RESPONSABLE PRESTATION</field>
+		</record>
+
+		<record id="group_admin" model="res.groups">
+			<field name="name">ADMINISTRATEUR</field>
+		</record>
+
+		<record id="group_intermediaire" model="res.groups">
+			<field name="name">INTERMEDIAIRE</field>
+		</record>		
+
+		<record id="group_medecin_conseil" model="res.groups">
+			<field name="name">MEDECIN CONSEIL</field>
+		</record>
+
+		<record id="group_medecin_cme" model="res.groups">
+			<field name="name">MEDECIN CME</field>
+		</record>
+
+		<record id="group_secretariat_medical" model="res.groups">
+			<field name="name">SECRETARIAT MEDICAL</field>
+		</record>
+
+			<record id="group_managmers" model="res.groups">
+			<field name="name">MANAGERS</field>
+		</record>
+
+		<record id="group_prestataire" model="res.groups">
+			<field name="name">PRESTATAIRE</field>
+		</record>
+
+		<record id="group_garant" model="res.groups">
+			<field name="name">GARANT</field>
+		</record>
+
+		<record id="group_intermediaire" model="res.groups">
+			<field name="name">INTERMEDIAIRE</field>
+		</record>	
+
+		<record id="group_souscripteur" model="res.groups">
+			<field name="name">SOUSCRIPTEUR</field>
+		</record>	
+
+
+
+		<record id="group_prestation_valid_dir" model="res.groups">
+			<field name="name">PRESTATION(VALIDATION DIRECTION)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="group_prestation_cre_rgl" model="res.groups">
+			<field name="name">PRESTATION(CREATION REGLEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="group_prestation_valid_sais" model="res.groups">
+			<field name="name">PRESTATION(VALIDATION SAISIE)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="group_compta_remb" model="res.groups">
+			<field name="name">COMPTABILITE(VALIDATION REMBOURSEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="group_compta_regl" model="res.groups">
+			<field name="name">COMPTABILITE(VALIDATION REGLEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+
+
+
+
+		<!-- Seul le centre connecté a le droit d agir sur ses prestations  -->
+		<record id="prestation_user_rule" model="ir.rule">
+			<field name="name">Prestations Regles</field>
+			<field name="model_id" ref="model_mcisogem_prestation"/>
+			<field name="domain_force">['|' , ('centre_id','in',[user.centre_id.id,False]),('souscripteur' , 'in' ,[user.souscr_id.id,False])]</field>
+			<field name="perm_read" eval="True"/>
+		    <field name="perm_write" eval="False"/>
+		    <field name="perm_create" eval="True"/>
+		    <field name="perm_unlink" eval="False"/>
+		    <field name="groups" eval="[(4,ref('mcisogem_isa.group_secretariat_medical'))]"/>
+		</record>
+
+		<!-- Seul le centre souscriteur garant  connectés ont le droit d agir sur ses plaintes et suggestions  -->
+		<record id="plainte_centre_user_rule" model="ir.rule">
+	        <field name="name">Plaintes et suggestions Regles Souscripteur</field>
+	        <field name="model_id" ref="model_mcisogem_plainte"/>
+	       	<field name="domain_force">[('centre_ids','=', user.centre_id.id)]</field>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('mcisogem_isa.group_prestataire'))]"/>
+		</record>
+
+
+		<!-- Seul le garant connecté ont le droit d agir sur ses plaintes et suggestions  -->
+		<record id="plainte_garant_user_rule" model="ir.rule">
+	        <field name="name">Plaintes et suggestions Regles Garant</field>
+	        <field name="model_id" ref="model_mcisogem_plainte"/>
+	       	<field name="domain_force">[('garant_ids', '=' ,user.garant_id.id)]</field>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('mcisogem_isa.group_garant'))]"/>
+		</record>
+
+
+		<!-- Seul le souscriteur connecté ont le droit d agir sur ses plaintes et suggestions  -->
+		<record id="plainte_sous_user_rule" model="ir.rule">
+	        <field name="name">Plaintes et suggestions Regles Sous</field>
+	        <field name="model_id" ref="model_mcisogem_plainte"/>
+	       	<field name="domain_force">[('souscripteur_id' ,'=',user.souscr_id.id)]</field>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="False"/>
+	        <field name="groups" eval="[(4,ref('mcisogem_isa.group_souscripteur'))]"/>
+		</record>
+
+
+
+
+		<!-- Seul le souscriteur connecté a le droit d agir sur ses plaintes et suggestions  -->
+		<record id="reclamation_user_rule" model="ir.rule">
+	        <field name="name">Reclamation Regles</field>
+	        <field name="model_id" ref="model_mcisogem_reclamation"/>
+	        <field name="domain_force">[('souscripteur_id' , '=' ,user.souscr_id.id)]</field>
+	        <field name="perm_read" eval="True"/>
+	        <field name="perm_write" eval="False"/>
+	        <field name="perm_create" eval="True"/>
+	        <field name="perm_unlink" eval="False"/>
+		</record>
+
+		<record id="entente_user_rule" model="ir.rule">
+            <field name="name">entente Regles</field>
+            <field name="model_id" ref="model_mcisogem_entente"/>
+            <field name="domain_force">[('id_centre','=',user.centre_id.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('mcisogem_isa.group_prestataire'))]"/>
+        </record>
+
+		<record id="pcharge_user_rule" model="ir.rule">
+            <field name="name">pcharge Regles</field>
+            <field name="model_id" ref="model_mcisogem_pcharge"/>
+            <field name="domain_force">[('centre','=',user.centre_id.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('mcisogem_isa.group_prestataire'))]"/>
+        </record>
+
+        <record id="presta_temp_user_rule" model="ir.rule">
+            <field name="name">Presta Temp Rule</field>
+            <field name="model_id" ref="model_mcisogem_praticien_presta_tempo" />
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('mcisogem_isa.group_secretariat_medical'))]"/>
+        </record>
+
+
+        <record id="tarif_nego_centre_temp_rule" model="ir.rule">
+            <field name="name">Tarif Nego Centre Rule</field>
+            <field name="model_id" ref="model_mcisogem_tarif_nego_centre_temp" />
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="groups" eval="[(4,ref('mcisogem_isa.group_medical_manager'))]"/>
+        </record>
+
+
+	</data>
+</openerp> 
+	

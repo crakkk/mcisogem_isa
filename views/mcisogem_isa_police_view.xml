@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- ===================== POLICE form ============================= -->
+		<record id="view_mcisogem_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.police.form</field>
+			<field name="model">mcisogem.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Police">
+					<header>
+						<field name="a_histo_police" invisible="1"/>
+						<field name="a_college" invisible="1"/>
+
+						<button name="button_to_college" string="Collèges" type="object" class="oe_highlight" />
+
+						
+						<button name="button_to_histo_police" string="Historique police"
+							type="object" class="oe_highlight" attrs="{'invisible': [('a_college','=',False)]}"/>
+
+
+						<button name="button_to_histo_prime" string="Historique prime"
+							type="object" class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/>
+
+
+						<button name="button_to_bareme_pol" string="Produit-Police"
+							type="object" class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/>
+
+
+						<button name="button_to_exercice_pol" string="Exercice police"
+							type="object" class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/>
+
+
+						<button name="button_to_avenant" string="Avenant" type="object"
+							class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/>
+
+<!-- 
+						<button name="button_reseau" string="Reseau" type="object"
+							class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/> -->
+
+						
+						<button name="button_to_beneficiaire" string="Bénéficiaires" type="object" class="oe_highlight" attrs="{'invisible': [('a_histo_police','=',False)]}"/>
+						
+
+						<field name="state" widget="statusbar" statusbar_visible="draft,resil,lnoir"
+							statusbar_colors='{"progress":"blue"}'/>
+					</header>
+					<sheet>
+						<!-- <field name="id" readonly="1" invisible="1"/> -->
+						<div class="oe_title">
+							
+							<label for="num_interne_police" string="Numero interne police :" attrs="{'invisible': [('id','=',False)]}"/>
+							<field name="id" class="oe_inline" readonly="1"/>
+							<field name="affiche_ro" invisible="1"/>
+
+							<br />
+							<h1>
+								<field name="name" default_focus="1" placeholder="Designation..." />
+							</h1>
+						</div>
+
+						<div class="oe_right">
+							
+							<button class="oe_inline oe_stat_button" string="Resiliation"
+								states="draft,lnoir" name="button_resilier_police" type="object" icon="fa-times-circle"
+								 />
+							<button class="oe_inline oe_stat_button" string="Suspension"
+								states="resil,lnoir,draft" name="button_to_lnoire" type="object" icon="fa-pause"
+								/>
+							<button class="oe_inline oe_stat_button" string="Annuler"
+								 states="resil" name="button_to_annuler" type="object"
+								 icon="fa-reply" confirm= "Cette police est résiliée , voulez-vous la réactiver ?"/>
+							
+						</div>
+						<group col="1">
+							<table>
+								<tr>
+									<td width="10%">
+										<label for="exercice_id" string="Exercice" />
+									</td>
+									<td width="10%" >Date debut</td>
+									<td width="10%" >Date fin</td>
+									<td width="10%">Date deffet</td>
+									<td width="10%">Date expiration</td>
+								</tr>
+								<tr>
+									<td>
+										<field name="exercice_id" on_change="onchange_exercice(exercice_id)" />
+									</td>
+									<td>
+										<field name="dt_deb_exercice" />
+									</td>
+									<td>
+										<field name="dt_fin_exercice" />
+									</td>
+									<td>
+										<field name="dt_effet" />
+									</td>
+									<td>
+										<field name="dt_expiration" />
+									</td>
+								</tr>
+							</table>
+						</group>
+						<br>
+						</br>
+						<group col="1">
+							<group col="2">
+								<group string="">
+									<field name="type_contrat_id" />
+									<field name="mod_recond_id" />
+									<field name="territoire_id" />
+									<field name="souscripteur_id" on_change="onchange_souscr(souscripteur_id)" />
+									<field name="garant_id" />
+								</group>
+								<group string="">
+									<field name="courtier_id" />
+									<field name="code_regime" />
+									<field name="num_pol_remplacee" />
+									<field name="num_police_assur" />
+									<field name="type_regime" widget="radio" invisible="1"/>
+									<field name="base_remb" attrs="{'invisible': [('type_regime','!=','O')]}"/>
+
+									<field name="delai_carence"/>
+
+
+								</group>
+							</group>
+						</group>
+						<notebook>
+							<page string="Police">
+								<group col="1">
+									<group string="">
+										<label for="periode_ferme_pol" string="Periode ferme (Jours)" attrs="{'invisible': [('id','=',False)]}"/>
+
+										<table attrs="{'invisible': [('id','=',False)]}">
+											<tr>
+												<td width="10%">
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<field name="periode_ferme_pol" />
+												</td>
+												
+											</tr>
+										</table>
+
+										<field name="remb" invisible="1" />
+										<field name="dt_resil_pol" attrs="{'invisible': [('state','=','draft')]}"/>
+										
+										<field name="remb_souscr_assure" on_change="onchange_remb(remb_souscr_assure)" class="oe_bold"/>
+										<field name="remb_autre" attrs="{'invisible': [('remb','=',True)]}" />
+										<field name="concurent_id" />
+									</group>
+								</group>
+							</page>
+							<page string="Gestion des accessoires">
+								<group col="1">
+									<group col="2">
+										<group string="Accessoires">
+											<field name="imputation_acc_courtier" widget="chekbox" />
+											<field name="imputation_acc_cie" widget="chekbox" />
+											<field name="imputation_acc_gestionnaire" widget="chekbox" />
+											<field name="imputation_acc_autre" widget="chekbox" />
+											
+										</group>
+
+										<group string="Taxes">
+											<field name="tva_oui_non" widget="chekbox" />
+											<field name="taxe_enreg" widget="chekbox" />
+											<field name="taxe_exon" widget="chekbox" />
+										</group>
+
+
+										<group string="Repartition prime">
+											<field name="repartition_prime" widget="radio" />
+										</group>
+
+									</group>
+									<group col="2">
+										<group string="Periodicité paiement prime">
+											<field name="periodicite_paiem" widget="radio" />
+										</group>
+										<group string="Enregistrement prime par">
+											<field name="type_prime" widget="radio" />
+										</group>
+									</group>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste police ============================= -->
+		<record id="mcisogem_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.police.tree</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<tree string="Police" colors="red:state == 'lnoir';blue:state == 'resil'">
+					<field name="id" />
+					<field name="name" />
+					<field name="souscripteur_id" />
+					<field name="garant_id" />
+					<field name="dt_effet" />
+					<field name="dt_resil_pol" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		
+		<!-- ===================== filtre police ============================= -->
+		<record id="view_mcisogem_police_filter" model="ir.ui.view">
+			<field name="name">mcisogem.police.select</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<search string="Search police">
+					<field name="id" />
+					<field name="name" />
+					<field name="garant_id" />
+					<field name="souscripteur_id" />
+					<field name="dt_effet" />
+					<field name="state" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu police -->
+		<record model="ir.actions.act_window" id="action_mcisogem_police">
+			<field name="name">Police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer une police.</p>
+			</field>
+		</record>
+		<!-- <menuitem  parent="menu_mcisogem_prod_etabl" id="mcisogem_police" name="Police"/> -->
+
+		<!-- <menuitem action="action_mcisogem_police" parent="mcisogem_police" id="mcisogem_police_n2" name="police"/> -->
+
+
+
+
+		<!-- ===================== HISTO POLICE form ============================= -->
+		<record id="view_mcisogem_histo_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.police.form</field>
+			<field name="model">mcisogem.histo.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Historique police">
+					<header>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							(
+							<label for="num_police" string="Numéro interne police :" />
+							<field name="num_police" class="oe_inline"  />
+							)
+							<h1>
+								<field name="name" on_change="onchange_police(name)" />
+							</h1>
+						</div>
+
+						<field name="affichage_ta" invisible="1" />
+						<field name="affichage_col" invisible="1" />
+						<field name="affichage_college" invisible="1" />
+						<field name="affichage_tran" invisible="1" />
+
+						<group>
+							<field name="dt_eff_histo_pol" string="Date d'effet" />
+						</group>
+
+						<group col="1">
+							<group col="2">
+								<group string="Informations générales">
+									<field name="num_police_assur" />
+									<field name="dt_eff_mod_pol" />
+									<field name="num_avenant" />
+									<field name="souscripteur" />
+									<field name="garant" />
+									<field name="intermediaire" />
+									<field name="code_type_contrat" />
+									<field name="code_regroupe_territoire" />
+									<field name="regime_id" />
+									<field name="code_college" attrs="{'invisible': [('affichage_col','!=',1)]}" />
+									<field name="code_tranche_age" attrs="{'invisible': [('affichage_tran','!=',1)]}" />
+								</group>
+
+								<group string="Informations liées aux bénéficiaires">
+									<!-- <field name="bl_ouvert_assur" widget="chekbox" />
+									<field name="bl_ouvert_conj" widget="chekbox" />
+									<field name="bl_ouvert_conj_2" widget="chekbox" />
+									<field name="bl_ouvert_enfant" widget="chekbox" />
+									<field name="bl_ouvert_enfant_2" widget="chekbox" />
+									<field name="bl_ouvert_parent" widget="chekbox" />
+									<field name="bl_ouvert_grand_parent" widget="chekbox" />
+									<field name="bl_ouvert_autre" widget="chekbox" /> -->
+
+
+									<field name="limite_age_pol" />
+									<field name="age_majorite_pol" />
+									<field name="age_majorite_eleve_pol" />
+									
+									<field name="mod_calcul_age" widget="radio" />
+								</group>
+							</group>
+						</group>
+						<notebook>
+
+							<page string="Collège" attrs="{'invisible': [('affichage_college','!=',0)]}">
+								<group col="1">
+									<group string="">
+										<field name="college_ids" widget="many2many_checkboxes">
+										</field>
+									</group>
+								</group>
+							</page>
+
+
+
+							<page string="Tranche d'âge" attrs="{'invisible': [('affichage_ta','!=',1)]}">
+								<group col="1">
+									<group string="">
+										<field name="tranche_age_ids" widget="many2many_checkboxes">
+											<tree string="Tranche d'âge" editable="top/bottom">
+												<field name="name" />
+											</tree>
+										</field>
+									</group>
+								</group>
+							</page>
+
+
+
+							<page string="Gestion des plafonds">
+								<group col="2">
+									<group>
+										<field name="mnt_plfd_pol" />
+										<field name="mnt_plfd_col" />
+										<field name="mnt_plfd_ass" />
+										<field name="mnt_plfd_conj" />
+										<field name="mnt_plfd_enf" />
+										<field name="mnt_plfd_dep" />
+										<field name="mnt_plfd_gen" />
+										
+									</group>
+									<group>
+										<field name="mnt_plfd_fam" />
+										<field name="mnt_plfd_tenf" />
+										<field name="mnt_plfd_parent" />
+										<field name="mnt_plfd_parent_autre" />
+										<field name="mnt_plfd_territoire" />
+										<field name="mnt_plfd_aut_conj" />
+										<field name="mnt_plfd_enf_sup" />
+									</group>
+								</group>
+							</page>
+
+							<page string="Statuts Concernés">
+								<group>
+									<field name="statut_ids" widget="many2many_tags"  options="{'no_create_edit': True}"/>
+								</group>
+							</page>
+
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<!-- ===================== Liste HISTO police ============================= -->
+		<record id="mcisogem_histo_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.police.tree</field>
+			<field name="model">mcisogem.histo.police</field>
+			<field name="arch" type="xml">
+				<tree string="Histo Police" create="true" delete='true'>
+					<field name="num_police">[('code_gest_id','=',user.code_gest_id)]</field>
+					<field name="name" />
+					<field name="code_college" string="Collège" />
+
+					<field name="statut_ids"/>
+					<field name="code_tranche_age" string="Tranche d'âge" />
+
+					<field name="dt_eff_histo_pol" string="Date d'effet" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre HISTO police ============================= -->
+		<record id="view_mcisogem_histo_police_filter" model="ir.ui.view">
+			<field name="name">mcisogem.histo.police.select</field>
+			<field name="model">mcisogem.histo.police</field>
+			<field name="arch" type="xml">
+				<search string="Rechecher police">
+					<field name="num_police" />
+					<field name="name" />
+					<field name="code_college" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu Histo police -->
+		<record model="ir.actions.act_window" id="action_mcisogem_histo_police">
+			<field name="name">Histo Police</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour créer un historique de police.</p>
+			</field>
+		</record>
+	</data>
+</openerp>

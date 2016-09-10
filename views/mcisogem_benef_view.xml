@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+			
+		
+	
+		<!-- Action du menu beneficiaire -->
+		<record model="ir.actions.act_window" id="action_mcisogem_benef">
+			<field name="name">Bénéficiaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.benef</field>
+			<field name="view_type">form</field>
+
+			<field name="context">{'search_default_group_police_id': 1, 'search_default_group_college_id': 1}</field>
+
+			<field name="view_mode">kanban,tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Pour créer un bénéficiaire , allez dans Police --> Bénéficiaire</p>
+			</field>
+		</record>
+
+
+		
+
+
+		<!-- ===================== Liste benef ============================= -->
+		<record id="mcisogem_benef_tree" model="ir.ui.view">
+			<field name="name">mcisogem.benef.tree</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaires" colors="red:statut=='R';blue:statut=='S'">
+					<field name="name" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<field name="statut_benef"/>
+					<field name="dt_entree"/>
+					<field name="dt_effet"/>
+					<field name="statut"/>
+					<field name="age"/>
+					
+				</tree>
+			</field>
+		</record>
+
+
+		
+		<!-- ===================== Kanban ============================= -->
+		<record id="mcisogem_benef_kanban" model="ir.ui.view">
+			<field name="name">mcisogem.benef.kanban</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="arch" type="xml">
+				<kanban create="false">
+					<field name="new_matricule_benef" />
+					<field name="name" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_vignette oe_semantic_html_override">
+								<a type="open">
+									<img
+										t-att-src="kanban_image('mcisogem.benef', 'image_small', record.id.value)"
+										class="oe_kanban_image" />
+								</a>
+								<div class="oe_kanban_details">
+									<h4>
+										<a type="open">
+											<field name="name" />
+										</a>
+									</h4>
+									<div name="tags" />
+									<ul>
+										<li>
+											Nom:
+											<field name="nom">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Prénom :
+											<field name="prenom_benef">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Statut :
+											<field name="statut_benef">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Police :
+											<field name="police_id">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Collège :
+											<field name="college_id">
+											</field>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre benef ============================= -->
+		<record id="view_mcisogem_benef_filter" model="ir.ui.view">
+			<field name="name">mcisogem.benef.select</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="name" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="police_id" />
+					<field name="statut_benef"/>
+					
+					<group expand="0" string="Groupé Par">
+                    	<filter string="Assuré Principal" context="{'group_by' : 'benef_id'}"/>
+                        <filter string="Police" name="group_police_id" context="{'group_by' : 'police_id'}"/>
+						<filter string="Collège" name="group_college_id" context="{'group_by' : 'college_id'}"/>
+                        <filter string="Statut" context="{'group_by' : 'statut_benef'}"/>
+                        <filter string="Etat" context="{'group_by' : 'statut'}"/>
+                    </group>
+
+
+				</search>
+			</field>
+		</record>
+
+		<!-- ===================== Beneficiaires form ============================= -->
+		<record id="view_mcisogem_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.benef.form</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+					<header>
+						<button name="button_histo_benef" string="Dépendants" class="oe_highlight" type="object" attrs="{'invisible':['|' , ('statut','=','S') , ('code_statut' , '!=' , 'A')]}"/>
+
+						<button name="button_histo_suspension" string="Historique des suspensions" class="oe_highlight" type="object"/>
+
+						<button name="button_histo_exclusion" string="Historique des exclusions" class="oe_highlight" type="object"/>
+
+						<!-- <button name="button_surprime" string="Surprime" class="oe_highlight" type="object"/> -->
+
+						<button name="button_to_prestation" string="Prestations" class="oe_highlight" type="object"/>
+						<button name="button_reseau_soins" string="Réseau de soins" class="oe_highlight" type="object"/>
+
+						<field name="statut" widget="statusbar" statusbar_visible="A,S,R"
+										 statusbar_colors='{"progress":"blue"}' />
+
+					</header>
+
+					<form string="Bénéficiaires">
+						<sheet>					
+								<div class="oe_right">
+									<button class="oe_inline oe_stat_button" string="Suspendre"
+									    name="button_action_suspendre" type="object" icon="fa-pause"
+										 attrs="{'invisible':[('statut','in',['S' , 'R'])]}" />
+
+									<button class="oe_inline oe_stat_button" string="Rétirer"
+									    name="button_action_exclure" type="object" icon="fa-eject"
+										 attrs="{'invisible':[('statut','=','R')]}" />
+
+									<button class="oe_inline oe_stat_button" string="Annuler"
+									    name="button_action_annuler" type="object" icon="fa-mail-reply"
+									    attrs="{'invisible':[('statut','=','A')]}"
+										 />
+								</div>
+								<field name="id" readonly="1" invisible="1"/>
+
+
+								<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+
+								<div class="oe_title" style="clear:both">
+									<label for="name" class="oe_edit_only" attrs="{'invisible': [('id','=',False)]}"/>
+									<h1>
+										<field name="name" readonly="1" />
+									</h1>
+									
+								</div>
+
+								<group>
+
+								</group>
+
+
+								<div>
+									<label for="est_assur_depend" />
+									<field name="est_assur_depend" on_change="onchange_assur_depend(est_assur_depend)"/>
+								
+								</div>
+
+								<div>
+									<label for="avoir_surprime" />
+									<field name="avoir_surprime" />
+
+								</div>
+
+
+								<group>
+
+								</group>
+
+								<div class="oe_title">
+
+									<group col="3" attrs="{'invisible':[('est_assur_depend','=',False)]}">
+										<group>
+											<field name="benef_id"  on_change="onchange_benef_id(benef_id)" 
+												 domain="[('code_statut' , '=' , 'A') , ('police_id' , '=' , police_id)]" 
+												 attrs="{'required':[('est_assur_depend','=',True)]}"/>
+										</group>
+
+
+										<group attrs="{'invisible': [('benef_id','=',False)]}"> 
+											<field name="nom_assur_princ" readonly="1"/>
+										</group>
+
+
+										<group attrs="{'invisible': [('benef_id','=',False)]}">
+											<field name="prenom_assur_princ" readonly="1"/>
+										</group>
+									</group>
+
+								</div>
+								<group>
+
+								</group >
+								
+
+								<group col="2">
+									<group >
+										<field name="statut_benef" on_change="onchange_code_statut(statut_benef)" options="{'no_create_edit': True}"/>
+										<field name="code_statut" invisible="1"/>
+										<field name="avoir_ss_id" on_change="onchange_ss_id(avoir_ss_id)"/>
+										<field name="nom" />
+										<field name="nom_jeun_fille" attrs="{'invisible':[('sexe','!=','F')]}"/>
+										<field name="prenom_benef" />
+										<field name="dt_naiss_benef" />
+										<field name="lieu_naiss_benef" />
+										<field name="adr_benef" />
+										<field name="tel_benef" />				
+									</group >
+									<group >
+										<field name="ss_id" attrs="{'invisible':[('avoir_ss_id','=',False)] , 'required':[('avoir_ss_id','!=',False)]}" />
+										<field name="matric_chez_souscr" />
+										<field name="matric_isa" />
+										<field name="sexe" />
+										<field name="couverture" />
+										<field name="rang" />	
+										<field name="fax_benef" />
+										<field name="cod_bp_benef" />
+										<field name="bp_benef" />	
+										<field name="eleve" attrs="{'invisible':[('code_statut','not in',['E'])]}"/>	
+									</group>
+									</group >
+									<notebook>
+										<page string="Informations Complémentaires" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user">
+											<group col="2">
+												<group >
+													<field name="garant_id" readonly="1"/>
+
+													<field name="souscripteur_id" attrs="{'readonly':[('police_id','!=',False)]}"/>
+
+													<field name="police_id" readonly= "1" domain="[('garant_id','=',garant_id) , ('type_regime' , '=' , 'O')]" on_change="onchange_police(police_id)"/>
+
+													<field name="college_id" domain="[('police_id','=',police_id)]"/>
+
+													<field name="police_complementaire_ids" attrs="{'invisible':['|',('police_id','=',False) ,('avoir_ss_id','=',False)]}" editable="bottom">
+														<tree String="Polices complémentaires" editable="bottom">
+															<field name="police_id" domain="[('type_regime' , '=' , 'C')]"/>
+															<field name="college_id" domain="[('police_id','=',police_id)]"/>
+															<field name="niveau"/>
+														</tree>
+													</field>
+
+													
+												</group>					
+											</group>					
+										</page>
+
+										<page string="Finance" groups="mcisogem_isa.group_comptabilite_manager,mcisogem_isa.group_comptabilite_user">
+											<group col="2">
+												<group >
+													<field name="affiche" invisible="1" />
+													<field name="num_banq_benef"/>
+													<field name="num_compt_benef"/>
+
+												</group>
+												<group >
+													<field name="num_guichet_benef"/>
+													<field name="cle_rib_benef"/>													
+												</group>		
+											</group>					
+										</page>	
+
+										<page string="Informations medicales" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user">			
+											<group col="2">
+												<group >
+													<field name="group_sang_benef" />
+													<field name="dt_mensuration" />
+													<field name="allergie_benef" />
+													<field name="bl_trt_en_cours" />
+													<field name="trt_en_cours_until" />	
+													<field name="specif_trav_benef" />
+													<field name="transfus_benef" />
+													<field name="prothese_benef" />																		
+												</group>
+												<group >
+													<field name="poids_benef" />
+													<field name="taille_benef" />
+													<field name="anteced_fam" />
+													<field name="predisp_benef" />	
+													<field name="anteced_obstetric" />
+													<field name="anteced_chir" />
+													<field name="anteced_medic" />									
+												</group>		
+											</group>	
+										</page>
+										
+
+
+									</notebook>
+
+
+
+
+
+
+							       <group col="2" string="Surprime" attrs="{'invisible':[('avoir_surprime','=',False)]}">
+
+									    <group>
+											<field name="type_surprime" attrs="{'required':[('avoir_surprime','!=',False)]}"/>
+										</group>
+
+									   <group>
+											<field name="surprime" attrs="{'required':[('avoir_surprime','!=',False)]}"/>
+										</group>
+								   </group>
+
+
+									<group col="2">
+										 <group>
+											<field name="date_exclusion"  attrs="{'invisible':[('statut','!=','R')]}"/>
+										</group>
+
+										<group>
+											<field name="dt_effet"/>
+										</group>
+									</group>						
+						</sheet>
+					</form>
+			</field>
+		</record>
+		
+		
+		<!-- Action du menu liste des beneficiaire -->
+		<record model="ir.actions.act_window" id="action_mcisogem_histo_benef">
+			<field name="name">Liste des Béneficiaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="context">{'order': 'benef_id'}</field>
+			<field name="res_model">mcisogem.benef</field>
+			<field name="view_type">tree</field>
+			<field name="view_mode">kanban,tree</field>
+			<!-- <field name="view_id" ref="mcisogem_view_histo_benef_form"/> -->
+			<field name="view_id" ref="view_mcisogem_benef_form"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create"></p>
+			</field>
+		</record>
+
+
+
+			<!-- ========= formulaire de retrait en masse ============= -->
+		<record id="view_mcisogem_histo_retrait_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.retrait.masse.form</field>
+			<field name="model">mcisogem.histo.retrait.masse</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<field name="garant_id"/>
+							<field name="police_id" domain="[('garant_id' , '=' , garant_id)]" on_change="onchange_police(police_id)"/>
+							<field name="benef_ids" />
+							<field name="date_retrait"/>
+						
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste retrait en masse ============================= -->
+		<record id="mcisogem_histo_retrait_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.retrait.masse.tree</field>
+			<field name="model">mcisogem.histo.retrait.masse</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="garant_id" />
+					<field name="police_id" />
+					<field name="benef_ids" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- Action du menu retrait en masse -->
+		<record model="ir.actions.act_window" id="action_mcisogem_retrait_benef">
+			<field name="name">Retrait en Masse Beneficiaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.retrait.masse</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour faire un retrait</p>
+			</field>
+		</record>
+
+	
+
+
+
+		<!-- ========= formulaire de suspensio du beneficiaire ============= -->
+		<record id="view_mcisogem_suspension_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.benef.form.sus</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<field name="chargement" invisible="1"/>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="nom" readonly="1"/>
+							</group>
+							<group>
+								<field name="prenom_benef" readonly="1"/>
+							</group>
+						</group>
+
+						<group col="2">
+							<field name="motif_suspension" required="1" widget="radio"/>
+						</group>
+						
+						<footer>
+								<button string="Valider" name="button_valider" type="object" class="oe_highlight"/>
+								ou
+								<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<!-- ========= formulaire d exclusion du beneficiaire ============= -->
+		<record id="view_mcisogem_exclusion_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.benef.form.excl</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="nom" readonly="1"/>
+							</group>
+							<group>
+								<field name="prenom_benef" readonly="1"/>
+							</group>
+						</group>
+
+						<group col="2">
+							<field name="date_exclusion" required="1"/>
+						</group>
+						
+						<footer>
+								<button string="Valider" name="button_valider_exclusion" type="object" class="oe_highlight"/>
+								ou
+								<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		
+
+		<!-- ===================== Liste histo benef ============================= -->
+		<record id="mcisogem_view_histo_benef_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.benef.tree</field>
+			<field name="model">mcisogem.histo.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaires" colors="red:statut=='R';blue:statut=='S'">
+					<field name="ass_matric_benef" />
+					<field name="name" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="st_ace_benef"/>
+					<field name="statut"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== Historique de beneficiaires form ============================= -->
+		<record id="mcisogem_view_histo_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.benef.form</field>
+			<field name="model">mcisogem.histo.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+					<header>
+						<field name="statut" invisible="1" />
+					</header>
+
+					<form string="Bénéficiaires">
+						<sheet>	
+								<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+								<div class="oe_title">
+									<label string="Assuré Principal"/> <h3> <field name="nom_assur_princ"/></h3>
+									<h3> <field name="ass_matric_benef"/></h3>
+									<h3><field name="nom_assur_princ"/>  <field name="prenom_assur_princ"/></h3>
+									<!-- <label for="matric_benef" class="oe_edit_only" /> -->
+									<label for="num_interne_police"/>  <field name="num_interne_police"/>
+								</div>
+
+								<group>
+									<h1>
+										<field name="name" width="30%" readonly="1"/>
+									</h1>
+								</group>
+								<group col="2">
+									<group >
+										<field name="avoir_ss_id" on_change="onchange_ss_id(avoir_ss_id)"/>
+										<field name="lien_parente" widget="radio"/>
+										<field name="nom" />
+										<field name="prenom_benef" />
+										<field name="dt_naiss_benef" />	
+										<field name="sexe" />
+									</group>
+									<group>
+										<field name="ss_id" attrs="{'invisible':[('avoir_ss_id','=',False)]}"/>
+										<field name="histo_st_eleve" />
+										<field name="creat_incorpo" widget="radio"/>	
+										<field name="zone_geo_id"/>
+										<field name="code_ville"/>
+										<field name="sal_brut_benef"/>
+									</group>
+								</group >
+								<group col="3">			
+									<group>
+										<field name="dt_eff_mod_benef"/>
+									</group>
+									<group>
+										<field name="dt_entree_benef" />
+									</group>	
+								</group>					
+						</sheet>
+					</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Kanban ============================= -->
+		<record id="mcisogem_histo_benef_kanban" model="ir.ui.view">
+			<field name="name">mcisogem.histo.benef.kanban</field>
+			<field name="model">mcisogem.histo.benef</field>
+			<field name="arch" type="xml">
+				<kanban>
+					<!-- <field name="image_small" /> -->
+					<field name="name" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<templates>
+						<t t-name="kanban-box">
+							<div class="oe_kanban_vignette oe_semantic_html_override">
+								<a type="open">
+									<img
+										t-att-src="kanban_image('mcisogem.histo.benef', 'image_small', record.id.value)"
+										class="oe_kanban_image" />
+								</a>
+								<div class="oe_kanban_details">
+									<h4>
+										<a type="open">
+											<field name="new_matric_benef" />
+											<field name="ss_id" />
+										</a>
+									</h4>
+									<div name="tags" />
+									<ul>
+										<li>
+											Nom:
+											<field name="nom">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Prénom :
+											<field name="prenom_benef">
+											</field>
+										</li>
+									</ul>
+									<ul>
+										<li>
+											Date de naissance :
+											<field name="dt_naiss_benef">
+											</field>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste histo des suspensions ============================= -->
+		<record id="mcisogem_histo_suspension_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.suspension.tree</field>
+			<field name="model">mcisogem.histo.suspension</field>
+			<field name="arch" type="xml">
+				<tree create="false" edit="false" delete="false">
+					<field name="benef_id" />
+					<field name="motif_suspension" />
+					<field name="dt_action" />
+					<field name="action" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== histo des suspensions form ============================= -->
+		<record id="mcisogem_histo_suspension_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.suspension.form</field>
+			<field name="model">mcisogem.histo.suspension</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group col="1">
+							<group>
+								<field name="benef_id"/>
+								<field name="action"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== histo des retrait form ============================= -->
+		<record id="mcisogem_histo_retrait_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.retrait.form</field>
+			<field name="model">mcisogem.histo.retrait</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group col="1">
+							<group>
+								<field name="benef_id"/>
+								<field name="action"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre suspension ============================= -->
+		<record id="view_histo_suspension_filter" model="ir.ui.view">
+			<field name="name">mcisogem.histo.suspension.select</field>
+			<field name="model">mcisogem.histo.suspension</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="benef_id" />
+					<field name="motif_suspension" />
+					<field name="dt_action" />
+					<field name="action"/>
+				</search>
+			</field>
+		</record>
+
+
+			<!-- ===================== filtre retrait ============================= -->
+		<record id="view_histo_retrait_filter" model="ir.ui.view">
+			<field name="name">mcisogem.histo.retrait.select</field>
+			<field name="model">mcisogem.histo.retrait</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="benef_id" />
+					<field name="dt_action" />
+					<field name="action"/>
+				</search>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste histo des exclusions ============================= -->
+		<record id="mcisogem_histo_retrait_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.retrait.tree</field>
+			<field name="model">mcisogem.histo.retrait</field>
+			<field name="arch" type="xml">
+				<tree create="false" edit="false" delete="false">
+					<field name="benef_id" />
+					<field name="dt_action" />
+					<field name="action" />
+				</tree>
+			</field>
+		</record>
+
+
+
+	</data>
+</openerp>

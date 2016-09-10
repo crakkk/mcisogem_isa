@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_bon_prorogation">
+
+       <style>
+
+
+ .page{
+
+    font-family: "Times New Roman";
+    font-weight: normal;
+    font-size: 17px;
+  }
+
+  .p{
+
+    display: inline;
+    width: 100%;
+  }
+
+  .p1, .p2{
+
+      display: inline-block;
+   }
+
+  .p1 {
+
+    width: 19%;
+    position: relative;
+    font-weight:bold;
+  }
+
+   .p2 { 
+
+    width: 79%;
+    position: relative;  
+    float: right;
+  }
+
+  .entete{
+
+    display: inline;
+    width: 100%;
+  }
+
+  .ent_right, .ent_left{
+
+      display: inline-block;
+   }
+
+  .ent_right {
+
+    width: 58%;
+    position: relative;
+    font-weight:bold;
+  }
+
+   .ent_left { 
+
+    width: 38%;
+    position: relative;  
+    float: right;
+  }
+
+  .ent_bas {
+    
+    width: 100%;
+    position: relative; 
+    text-align: center;
+  }
+ 
+  label{
+
+    font-weight:bold;
+  }
+
+  table {
+
+  border-collapse:collapse;
+  width:100%;
+  margin: auto;
+  margin-bottom: 3%;
+ }
+
+  th, td {
+
+   border:1px solid black;  
+ }
+
+  td {
+
+   text-align:center;
+   font-size: 15px;
+   padding-top: 1%;
+   padding-bottom: 1%;
+
+ }
+
+ th {
+
+    background-color: #ccc;
+}
+
+  caption {
+
+   font-weight:bold
+ }
+
+  .reduire_col{
+    
+    width: 10%;
+  }
+
+  .reduire_col_val{
+    
+    width: 23%;
+  }
+
+  .reduire_col_val_fact{
+    
+    width: 30%;
+  }
+
+  .reduire_col_fact{
+    
+    width: 10%;
+  }
+
+ .ass_doc{
+
+    display: inline;
+    width: 100%;
+  }
+
+  .ass, .doc{
+
+      display: inline-block;
+   }
+
+  .ass {
+    
+    position: relative;
+  }
+
+  .doc {
+    
+    margin-left: 20px;
+    position: relative;    
+  }
+
+  .pied{
+
+    display: inline;
+    width: 100%;
+    font-size: 17px;
+  }
+
+  .pied_right, .pied_left{
+
+      display: inline-block;
+   }
+
+  .pied_right {
+    
+    width: 35%;
+    position: relative;
+    float: left;  
+  }
+
+   .pied_left {
+    
+    width: 58%;
+    position: relative;
+    float: left;
+  }
+
+  .signature tr, .signature td{
+  
+    border-color: #fff;
+  }
+
+  .th_blod{
+
+    font-weight:bold;
+  }
+</style>
+
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="conteneur">
+                      <div class="page">
+                          <div class="p">
+                              <div class="p1">
+                                  <img t-if="o.beneficiaire_id.image_medium" t-att-src="'data:image/png;base64,%s' % o.image_medium" width="120" height="120" alt=""/>
+                              </div>
+                              <div class="p2">
+                                <div class="entete">
+                                  <div class="ent_right">
+                                    <p style="text-align: center;  font-size: 20px;">CERTIFICAT DE PRISE EN CHARGE D'ACTE MEDICAUX (PROROGATION)</p>
+                                  </div>
+                                  <div class="ent_left">
+                                    <div class="numero" style=" width: 90%; ; border:1px solid black;float: right; padding-top: 3%;">
+                                      <p style="text-align: center;"><label>N°PC : #</label> <b><span t-raw="'%s &lt;&gt;' % o.num_prorogation  if o.num_prorogation  else ''"/></b> (VALIDEE)</p>
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="ent_bas">
+                                  <p style="text-align: center; font-size:18px;">Certificat à retourner par le prestataire médical à la Société <label>MCI SOGEM</label></p>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="ent_garant">
+                            <p style="float: left;width: 100%; border:2px solid black; font-size:18px; margin-bottom: 3%; padding-left: 2%;"><label style="text-decoration: underline;">Garant :</label> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.garant_id.name  if o.pcharge_id.beneficiaire_id.garant_id.name  else ''"/></b></p>
+                          </div>
+                          <div class="ass_doc">
+                                <div class="ass" style="width: 58%;">
+                                  <table >
+                                                 <tbody>
+                                                    <tr>
+                                                      <td colspan="3" style="text-align: center; font-weight:bold; font-size:18px;"> Droit d'accès du patient à la prise en charge </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                      <td colspan="2"> SOCIETE </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.souscripteur_id.name  if o.pcharge_id.beneficiaire_id.souscripteur_id.name  else ''"/></b> </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                      <td rowspan="2"> Salarié</td>
+                                                      <td > Nom </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.nom_princ  if o.pcharge_id.nom_princ  else ''"/></b> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.prenom_princ  if o.pcharge_id.prenom_princ  else ''"/></b></td>
+                                                   </tr>
+
+                                                   <tr>
+                                                      <td > Matricule </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.mat_princ.name  if o.pcharge_id.mat_princ.name  else ''"/></b> </td>
+                                                   </tr>
+                                                  
+                                                    <tr>
+                                                      <td rowspan="4"> Patient</td>
+                                                      <td > Nom </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.nom  if o.pcharge_id.beneficiaire_id.nom  else ''"/></b> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.prenom_benef  if o.pcharge_id.beneficiaire_id.prenom_benef  else ''"/></b> </td>
+                                                   </tr>
+
+                                                   <tr>
+                                                      <td > Matricule </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.name  if o.pcharge_id.beneficiaire_id.name  else ''"/></b> </td>
+                                                   </tr>
+
+                                                   <tr>
+                                                      <td > AGE </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.age_patient  if o.pcharge_id.age_patient  else ''"/></b> </td>
+                                                   </tr>
+                                                   <tr>
+                                                      <td > Sexe </td>
+                                                      <td class="th_blod"> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.beneficiaire_id.sexe  if o.pcharge_id.beneficiaire_id.sexe  else ''"/></b> </td>
+                                                   </tr>
+
+                                                 
+                                                  </tbody>
+                                          </table>
+                                          
+                                  
+                                </div>
+
+                                <div class="doc" style="width: 38%;">
+                                          <table>
+                                                 <tbody>
+                                     
+                                                       <tr>
+                                                           <td  style="padding-top: 3%; padding-bottom: 3%;"> Médecin prescripteur <br></br> <label><b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.praticien_id.nom_prestat  if o.pcharge_id.praticien_id.nom_prestat  else ''"/></b> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.praticien_id.prenoms_prestat  if o.pcharge_id.praticien_id.prenoms_prestat  else ''"/></b></label></td>
+                                                       </tr>
+
+                                                       <tr>
+                                                          <td  style="padding-top: 4%; padding-bottom: 4%;"> Date de prescription<br></br> <label><b><span t-raw="'%s &lt;&gt;' % o.create_date  if o.create_date  else ''"/></b> </label></td>
+                                                       </tr>
+
+                                                       <tr>
+                                                         <td  style="padding-top: 4%; padding-bottom: 4%;"> Etablissement destinataire de la prise en charge <br></br><label> <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.centre.name  if o.pcharge_id.centre.name  else ''"/></b> </label></td>
+                                                       </tr>
+                                                      
+                                                </tbody>
+                                          </table>         
+                                </div>
+                          </div>
+
+                          <div class="actes">
+                            
+                            <table>
+                                      <tbody>
+                                          
+                                              <tr>
+                                                  <td colspan="8" class="affection" style="text-align: center;border:2px solid black;"> <label>OBJET DE LA PRISE EN CHARGE</label> (Une feuille de prise en charge)</td>
+                                              </tr>
+
+                                              <tr> 
+                                                <td colspan="8" class="affection" style="text-align: left; padding-bottom: 2%; padding-left: 2%;"> Affection : <label>  <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.affection_id.lbc_affection  if o.pcharge_id.affection_id.lbc_affection  else ''"/></b></label></td>
+                                              </tr>
+
+                                              <tr>
+                                                <td class="reduire_col_val"> Hospitalisation médicale</td>
+                                                <td  class="reduire_col" > <t t-if="o.facte_id.name=='HOSPITALISATION'"><label>X</label></t></td>
+                                                <td class="reduire_col_val"> Analyse biologique</td>
+                                                <td class="reduire_col"> <t t-if="o.facte_id.name=='BIOLOGIE'"><label>X</label></t> </td>
+                                                <td class="reduire_col_val"> Prothèse dentaire</td>
+                                                <td  class="reduire_col" > <t t-if="o.facte_id.name=='DENTAIRE'"><label>X</label></t></td>
+                                                
+                                              </tr>
+
+                                              <tr>
+                                                <td class="reduire_col_val"> Hospitalisation chirugicale</td>
+                                                <td class="reduire_col"> <t t-if="o.facte_id.name=='ACTES DE CHIRURGIE'"><label>X</label></t> </td>
+                                                <td class="reduire_col_val"> Imagerie médicale/radio</td>
+                                                <td class="reduire_col"> <t t-if="o.facte_id.name=='IMAGERIE ET EXAMENS SPECIALISES'"><label>X</label></t> </td>
+                                                <td class="reduire_col_val"> Kinésithérapie</td>
+                                                <td class="reduire_col"> </td>
+                                              </tr>
+
+                                              <tr>
+                                                <td class="reduire_col_val"> Accouchement</td>
+                                                <td class="reduire_col"><t t-if="o.facte_id.name=='MATERNITE'"><label>X</label></t> </td>
+                                                <td class="reduire_col_val"> Optique médical</td>
+                                                <td class="reduire_col"> <t t-if="o.facte_id.name=='OPTIQUE'"><label>X</label></t></td>
+                                                <td class="reduire_col_val"> Autres examens</td>
+                                                <td class="reduire_col"><t t-if="o.facte_id.name=='AUTRES EXAMENS'"><label>X</label></t></td>
+                                              </tr>
+
+                                              <tr>
+                                                <td colspan="8" class="detail_acte" style="text-align: left; padding-bottom: 1%; padding-left: 2%;"> Détail de la prescription : <label></label></td>
+                                              </tr>
+                                            
+                                     </tbody>
+                              </table>
+                          </div>
+
+                          <div class="condition">
+                           
+                            <table>
+                                  <tbody>
+                                              <tr>
+                                                  <td colspan="6" class="affection" style="text-align: center;border:2px solid black;"> <label>CONDITIONS DE LA PRISE EN CHARGE</label></td>
+                                              </tr>
+                                               
+                                              <tr>
+                                                <td > Ticket modérateur</td>
+                                                <td >  <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.ticket_mod  if o.pcharge_id.ticket_mod  else ''"/></b> %</td>
+                                                <td > Taux de prise en charge</td>
+                                                <td > <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.taux_pc  if o.pcharge_id.taux_pc  else ''"/></b> %</td>
+                                              </tr>
+
+                                              <tr>
+                                                <td > Quantité</td>
+                                                <td > <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.quantite  if o.pcharge_id.quantite  else ''"/></b></td>
+                                                <td > Plafond</td>
+                                                <td > <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.plafond_chambre  if o.pcharge_id.plafond_chambre  else ''"/></b> </td>
+                                              </tr>
+
+                                              <tr>
+                                                <td > Nombre de jours accordés</td>
+                                                <td > <b><span t-raw="'%s &lt;&gt;' % o.dure_demande  if o.dure_demande  else ''"/></b> + <b><span t-raw="'%s &lt;&gt;' % o.nbr_jour_acc  if o.nbr_jour_acc  else ''"/></b></td>
+                                                <td > Plafond chambre</td>
+                                                <td >  <b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.plafond_chambre  if o.pcharge_id.plafond_chambre  else ''"/></b> </td>
+                                              </tr>          
+                                  </tbody>
+                              </table>
+                          </div>
+
+                          <div class="exclusion">
+                           
+                            <table>
+                                    <tbody>
+
+                                      <tr>
+                                        <td colspan="6" class="affection" style="text-align: center;border:2px solid black;"> <label>EXCLUSIONS ET/OU INSTRUCTIONS PARTICULIERES</label></td>
+                                      </tr>
+
+                                      <tr>
+                                        <td > <label><b><span t-raw="'%s &lt;&gt;' % o.motif_prorogation  if o.motif_prorogation  else ''"/></b></label></td>
+                                      </tr>
+                                              
+                                    </tbody>
+                              </table>
+                          </div>
+
+                          <div class="facturation">
+                           
+                            <table>
+                                 <tbody>
+                                    <tr>
+                                      <td colspan="6" class="affection" style="text-align: center;border:2px solid black;"> <label>FACTURATION</label></td>
+                                    </tr>
+
+                                    <tr>
+                                      <td class="reduire_col_val_fact"> Montant brut négocié</td>
+                                      <td class="reduire_col_val_fact"> Ticket modérateur</td>
+                                      <td class="reduire_col_fact"> %</td>
+                                      <td class="reduire_col_val_fact"> A régler par la tiers payeur</td>
+                                    </tr>
+
+                                    <tr>
+                                      <td class="reduire_col_val_fact"> Nombre de jours accordés</td>
+                                      <td colspan="2" class="reduire_col_val_fact"><b><span t-raw="'%s &lt;&gt;' % o.pcharge_id.ticket_mod  if o.pcharge_id.ticket_mod  else ''"/></b> </td>
+                                      <td class="reduire_col_val_fact"> </td>
+                                    </tr>
+
+                                  </tbody>
+                              </table>
+                          </div>
+
+                          <div class="pied">
+
+                              <div class="pied_right">
+                                <p>Date de la prise en charge : <label><b><span t-field="o.pcharge_id.create_date" t-field-options='{"format": "d MMMM y"}'/></b></label></p>
+                               <p>Medecin Conseil / <label> <b><span t-raw="'%s &lt;&gt;' % o.ident.praticien_id.nom_prenoms_prestat if o.ident else ''"/></b></label></p>
+                              </div>
+
+                              <div class="pied_left">
+                                  <div style="float:right; margin-top: 5%;">
+                                    <p>Date d'exécution des prestation : <label><b><span t-field="o.create_date" t-field-options='{"format": "d MMMM y"}'/></b></label></p>
+                                    <table class="signature" >
+                                        <tbody>
+                                              <tr> 
+                                                <td style="width: 50%;" > Signature du patient</td>
+                                                <td style="width: 50%;" > Signature et cachet du prestataire</td>
+                                              </tr> 
+                                        </tbody>
+                                    </table>
+                                    
+                                  </div>
+                              </div>
+
+                        </div>
+                     
+                    </div>
+             </div>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

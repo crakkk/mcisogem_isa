@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+	<data>
+
+		<template id="report_bon">
+
+			<style type="text/css">
+					
+				.page{
+    
+				  	font-family: "Times New Roman";
+				  	font-weight: normal;
+				  	font-size:32px;
+				  	color: rgba(255,255,254,0) !important;
+				}
+
+				.entete{
+				    display: inline;
+				    width: 100%;
+				    color: rgba(255,255,254,0) !important;
+				}
+
+				.ent_right, .ent_left{
+			      display: inline-block;
+			      color: rgba(255,255,254,0) !important;
+			   	}
+
+			   .ent_right {
+			    
+			    	width: 58%;
+			    	position: relative;
+			    	font-weight:bold;
+			    	 color: rgba(255,255,254,0) !important;
+			    
+			  	}
+
+			   .ent_left {
+			    
+			   	 	width: 38%;
+			    	position: relative;  
+			    	float: right;
+			    	color: rgba(255,255,254,0) !important;
+			    	 
+				}
+				.ent_bas {
+			    
+				    width: 100%;
+				    position: relative; 
+				    text-align: center;
+				    color: rgba(255,255,254,0) !important;
+				}
+
+			    table {
+			  		border-collapse:collapse;
+			  		width:100%;
+			  		margin: auto;
+			  		margin-bottom: 2%;
+			  		color: rgba(255,255,254,0) !important;
+			    }
+				
+			    td {
+			   		text-align:center;
+			   		
+			 
+			    }
+			
+  .reduire_col{
+    
+    width: 10%;
+     
+  }
+
+  .reduire_col_val{
+    
+    width: 23%;
+  }
+  .reduire_col_val_fact{
+    
+    width: 30%;
+  }
+  .reduire_col_fact{
+    
+    width: 10%;
+  }
+
+ .ass_doc{
+    display: inline;
+    width: 100%;
+     
+  }
+   .ass, .doc{
+      display: inline-block;
+   }
+   .ass {
+    
+  	padding-top : 4%;
+    position: relative;
+    
+  }
+   .doc {
+    
+  	padding-left: 10%;
+    position: relative;
+    padding-top : 2%;    
+  }
+
+  .pied{
+    display: inline;
+    width: 100%;
+    
+  }
+
+	.pied_right, .pied_left{
+      display: inline-block;
+   }
+
+   .pied_right {
+    
+    width: 35%;
+   
+    position: relative;
+    float: left;
+   
+    
+  }
+   .pied_left {
+    
+    width: 58%;
+    position: relative;
+    float: left;
+
+   
+
+   
+	}
+	.signature tr, .signature td{
+	
+	border-color: #fff;
+	}
+	.th_blod{
+		font-weight:bold;
+
+	}
+	
+
+    actes {
+    	margin-top : 5%;
+    }
+
+    span {
+    	color : black;
+    }
+
+			</style>
+
+<t t-call="report.html_container">
+
+	<t t-foreach="docs" t-as="o">
+
+		<div class="page">
+			<div class="entete">
+				<div class="ent_right">
+					<p style="text-align: center;">CERTIFICAT DE PRISE EN CHARGE D'ACTE MEDICAUX</p>
+				</div>
+				<div class="ent_left">
+					<div class="numero" style=" width: 90%;float: right;">
+						<p style="text-align: center;"><label>N°</label> <b><span t-esc="o.num_bon"/></b></p>
+					</div>
+				</div>
+
+			</div>
+			<div class="ent_bas">
+				<p style="text-align: center;">Certificat à retourner par le prestataire médical à la Société <label>MCI-SOGEM</label></p>
+			</div>
+			<div class="ent_garant">
+				<p style="float: left;width: 100%;"><label style="text-decoration: underline;">Compagnie d'assurances:</label>
+				<b><span t-esc="o.garant_id.name"/></b></p>
+			</div>
+			
+			<div class="ass" style="width: 96%;">
+				<table>
+            	     <tr>
+                		<td colspan="2"> SOCIETE </td>
+                		<td class="th_blod"> <span t-esc="o.police_id.souscripteur_id.name"/> </td>
+                		<td>Date</td>
+            	     </tr>
+               
+            	    <tr>
+            	     	<td rowspan="2"> Salarié </td>
+            	     	<td > Nom </td>
+
+            	     	<td class="th_blod"> 
+        	     			<span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.nom  if o.beneficiaire_id.benef_id else ''"/> 
+            	     		<span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.prenom_benef  if o.beneficiaire_id.benef_id else ''"/>
+            	     	</td>
+            	     	<td> <label> <br></br> <span t-field="o.date_prest" t-field-options='{"format": "d MMMM y"}'/></label></td>
+            	 
+            	    </tr>
+            	      	
+
+
+            	     <tr>
+            	     	<td > Matricule </td>
+            	     	<td class="th_blod"> <span t-raw="'%s &lt;&gt;' % o.beneficiaire_id.benef_id.name  if o.beneficiaire_id.benef_id else ''"/>  </td>
+            	     	<td >Centre médical<br></br> <label><span t-esc="o.centre_id.name"/> </label></td>
+            	     </tr>
+            	
+
+            	     <tr>
+            	      	<td rowspan="4"> Patient</td>
+            	     	<td style="margin-top:10%;"> Nom </td>
+            	     	<td class="th_blod"> <span t-esc="o.nom_benef"/>   <span t-esc="o.prenom_benef"/> </td>
+            	     	<td rowspan="2">Médecin exécutant<br></br> <label><span t-esc="o.praticien_id.nom_prenoms_prestat"/> </label></td>
+
+            	     </tr>
+            	     <tr>
+            	     	<td > Matricule </td>
+            	     	<td class="th_blod">  <span t-esc="o.beneficiaire_id.name"/> </td>
+
+            	     </tr>
+            	     <tr>
+            	     	<td > AGE </td>
+            	     	<td class="th_blod"> <span t-esc="o.beneficiaire_id.age"/> </td>
+            	     	<td rowspan="2">Médecin prescripteur<br></br> <label><span t-esc="o.praticien_id.nom_prenoms_prestat"/> </label></td>
+            	     </tr>
+            	     <tr>
+            	     	<td > Sexe </td>
+            	     	<td class="th_blod"> <span t-esc="o.beneficiaire_id.sexe"/> </td>
+
+            	     </tr>
+
+                </table>
+                
+				
+			</div>
+
+
+			<div style="margin-bottom:3.5%;"> </div>
+			<div class="actes" style="width: 96%;">
+				
+				<table>
+                       <tbody>
+           					
+           					<tr>
+       							<td class="affection" style="text-align: center;"> 
+       								<label >ACTE EXECUTE (une feuille de prise en charge par acte)</label></td>
+									
+								<td class="affection th_blod" style="text-align: center;"><label>Codes</label></td>
+								
+           					</tr>
+	                	    <tr>
+	                    		<td style="text-align: left;"> Nature de l'acte : <span t-esc="o.acte_id.name"/>   </td>
+								<td style="text-align: center;" class="th_blod"> <span t-esc="o.acte_id.libelle_court_acte"/></td>
+	                	    </tr>
+							
+							<tr>
+	                    		<td style="text-align: left;"> Affection : <span t-esc="o.affection_id.lbc_affection"/> </td>
+								<td style="text-align: center;" class="th_blod"> <span t-esc="o.affection_id.code_affection"/> </td>
+	                	    </tr>
+						
+                        </tbody>
+			    </table>
+				
+				<table>
+                   <tbody>
+       					
+       					<tr>
+       							<td style="text-align: center;">Montant brut négocié</td>
+								<td style="text-align: center;">Ticket Modérateur</td>
+								<td style="text-align: center;"> %</td>
+								<td style="text-align: center;">A régler par le tiers payeur</td>
+							
+       					</tr>
+                	    <tr>
+                    		<td class="th_blod"> <span t-esc="o.montant_total" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+							<td colspan="2" class="th_blod"> <span t-esc="o.taux_part_patient"/></td>
+							<td class="th_blod">  <span t-esc="o.part_gest"/> </td>
+                	    </tr>
+					
+                    </tbody>
+			    </table>
+			
+
+			</div>
+			
+		</div>
+
+    </t>
+
+</t>
+
+
+</template>
+
+	</data>
+</openerp>

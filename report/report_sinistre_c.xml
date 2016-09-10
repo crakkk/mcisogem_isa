@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_sinistre_c">
+
+        <style>
+               <style>
+               body{
+                  font-size: 18px;
+                }
+
+                .e{
+                  width: 100%;
+                  border:1px solid rgba(255, 0, 0, 0);
+                  padding-top: 1%;
+                  margin-bottom: 2%;
+                }
+                .e1, .e2, .e3{
+                  display: inline-block;
+                  vertical-align: top;
+                }
+                .e1 {
+                  width: 33%;
+                  position: relative;
+                      
+                }
+                .e2 {
+                  width: 33%;
+                  position: relative;  
+                }
+
+                .e3 {
+                  width: 33%;
+                  position: relative;  
+                }
+
+                .p{
+                  width: 80%;
+                  border:1px solid rgba(255, 0, 0, 0);
+                  padding-top: 1%;
+                  margin-bottom: 2%;
+                  margin: auto;
+                }
+                .p1, .p2{
+                  display: inline-block;
+                  vertical-align: top;
+                }
+                .p1 {
+                  width: 48%;
+                  position: relative;
+                      
+                }
+                .p2 {
+                  width: 48%;
+                  position: relative;  
+                  text-align: right;
+                }
+
+
+                label {
+                  font-weight: bold; 
+                }
+
+                table {
+                border-collapse:collapse;
+                width:100%;
+                margin: auto;
+               }
+                th, td {
+                 border:1px solid black;
+                 border-left-color: #fff;
+                 border-right-color: #fff;
+                 /*width:10%;*/
+               }
+                td {
+                 text-align:center;
+               }
+               th {
+                  text-align: center;
+                          padding: 10px;
+                   background-color: lightgray;
+              } 
+       .bas{
+          border:1px solid black;
+          border-bottom-color: #fff;
+          border-left-color: #fff;
+          border-right-color: #fff;
+
+        }
+        </style> 
+
+        </style>
+
+      <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+
+               <div class="page">
+                <div class="mci">
+                    MCI-SOGEM 
+                </div>
+                <t t-foreach="o.centre_ids" t-as="centres">
+
+                      <div class="e">
+
+                        <div class="e1"></div>
+                        <div class="e2">
+                          <h4><span t-esc="centres.centre_id.name"/></h4>
+                          <p>Numéro de compte : <label><span t-esc="o.banque_r_id.num_cmpte"/></label></p>
+                          <p>ABIDJAN , le <span t-field="o.write_date" t-field-options="{&quot;format&quot;: &quot;d MMMM y&quot;}"/></p>
+                        </div>
+                        <div class="e3"></div>
+                          
+                      </div>
+                
+                      <div class="p">
+
+                        <div class="p1">OBJET : Règlement des prestations SIN <label><span t-esc="o.periode_id.name"/></label></div>
+                        <div class="p2"><label>Edition du</label> <span t-field="o.write_date"/></div>
+
+                        <hr></hr>
+                        <p>Messieurs,<br></br>Nous vous prions de trouver le détail des règlements effectués.</p>
+                      </div>
+
+                      <div>
+                        <table>
+                              <tr class="entete_table">
+                                <th>GARNT</th>
+                                <th>N°CHEQUE</th>
+                                <th>BANQUE</th>
+                                <th>MONTANT REGLE</th> 
+                              </tr>
+
+                              <t t-foreach="o.garant_ids" t-as="garants">
+                                <t t-if="garants.centre_id==centres.centre_id">
+                                <t t-foreach="o.transfert_id" t-as="trans">
+                                  <tr t-if="trans.centre_id==centres.centre_id and trans.garant_id==garants.garant_id">
+                                    <td><span t-esc="trans.garant_id.name"/></td>
+                                    <td><span t-esc="trans.num_cheque"/></td>
+                                    <td><span t-esc="o.banque_r_id.name"/></td>
+                                    <td><span t-esc="garants.garant_total"/></td> 
+                                  </tr>
+
+                                </t>
+                                </t>
+
+                              </t>
+                              <tr class="bas">
+                                <td colspan="3"><label>Synthèse pour  <span t-esc="o.banque_r_id.num_cmpte"/>( enregistrements)</label></td>
+                                <td><label><span t-esc="centres.centre_total"/></label></td>
+                              </tr>
+
+                          </table>
+                          <p><br></br><br></br>Vous en souhaitant bonne reception, veuillez agrée, Messieurs, l'assurance de nos meilleurs sentiments<br></br>SERVICE COMPTABLE</p>
+
+                      </div>
+                  </t>
+              </div>   
+            </t>
+        </t>
+
+</template>
+</data>
+</openerp>

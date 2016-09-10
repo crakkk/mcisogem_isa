@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- ===================== tarif convention medecin form ============================= -->
+		<record id="view_mcisogem_tarif_convention_medecin_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.medecin.form</field>
+			<field name="model">mcisogem.tarif.convention.medecin</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Tarif convention medecin">
+					<field name="affichage" invisible="1" />
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Tarif Convention Medecin" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+						</group>
+						<group>
+							<field name="code_centre" on_change="onchange_code_centre(code_centre)" />
+						</group>
+						<group>
+							<field name="code_medecin_id"/>
+						</group>
+						<group>
+							<field name="code_famille" attrs="{'invisible': [('affichage','=',1)]}"
+								on_change="onchange_code_famille_tarif_convention_medecin(code_famille)" />
+						</group>
+						<group>
+							<field name="code_acte" attrs="{'invisible': [('affichage','=',0)]}" />
+						</group>
+						<group>
+							<field name="montant_brut_tarif" attrs="{'invisible': [('affichage','=',0)]}" />
+							<field name="plafond_tarif" attrs="{'invisible': [('affichage','=',0)]}" />
+						</group>
+						<group>
+							<field name="code_tarif_convention_medecin_temp" attrs="{'invisible': [('affichage','=',1)]}">
+								<tree string="Choix des actes" editable="bottom" create="false" delete="false" >
+									<field name="choix_conv" />
+									<field name="code_acte" />
+									<field name="montant_brut_tarif" />
+									<field name="plafond_tarifconv" />
+								</tree>
+							</field>
+						</group>
+						<group>
+							<group>
+								<field name="date_effet_tarif" />
+							</group>
+							<!-- <group>
+								<field name="date_resiliation_tarif" />
+							</group> -->
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste tarif convention medecin ============================= -->
+		<record id="mcisogem_tarif_convention_medecin_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.medecin.tree</field>
+			<field name="model">mcisogem.tarif.convention.medecin</field>
+			<field name="arch" type="xml">
+				<tree string="Tarif Convention">
+					<field name="code_centre" />
+					<field name="code_medecin_id" />
+					<field name="code_acte" />
+					<field name="montant_brut_tarif" />
+					<field name="plafond_tarif" />
+					<field name="date_effet_tarif" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre tarif convention medecin ============================= -->
+		<record id="view_mcisogem_tarif_convention_medecin_filter" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.convention.medecin.select</field>
+			<field name="model">mcisogem.tarif.convention.medecin</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un tarif convention medecin">
+					<field name="code_centre" />
+					<field name="code_medecin_id" />
+					<field name="code_acte" />
+					<field name="montant_brut_tarif" />
+					<field name="plafond_tarif" />					
+					<field name="date_effet_tarif" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu tarif convention medecin -->
+		<record model="ir.actions.act_window" id="action_mcisogem_tarif_convention_medecin">
+			<field name="name">Tarif Convention Medecin</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tarif.convention.medecin</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un tarif convention medecin
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Tarif convention praticien" id="menu_mcisogem_tarif_convention_medecin"
+			action="action_mcisogem_tarif_convention_medecin" sequence="6"
+			parent="menu_mcisogem_medical_prestataire" />		
+				</data>	
+</openerp>

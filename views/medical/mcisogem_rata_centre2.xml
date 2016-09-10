@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ===================== RATTACHEMENT CONVENTION form ============================= -->
+		<record id="view_mcisogem_agr_prestat_form" model="ir.ui.view">
+			<field name="name">mcisogem.agr.prestat.form</field>
+			<field name="model">mcisogem.agr.prestat</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Rattachement des medécins aux centres">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<label string="Rattachement des medécins aux centres" />
+							</h1>
+						</div>
+						<group>
+						</group>
+						<group>
+							<field name="code_centre" />
+						</group>
+						<label string="Choix des medécins" />
+							<field name="code_praticien_ids">
+								<tree editable="bottom">
+									<field name="code_specialite" />
+									<field name="libelle_court_prestat" />
+									<field name="nom_prenoms_prestat" />
+								</tree>
+							</field>
+						<group>
+							<group>
+								<field name="dt_agr_prestat" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- ===================== Liste RATTACHEMENT CONVENTION ============================= -->
+		<record id="mcisogem_agr_prestat_tree" model="ir.ui.view">
+			<field name="name">mcisogem.agr.prestat.tree</field>
+			<field name="model">mcisogem.agr.prestat</field>
+			<field name="arch" type="xml">
+				<tree string="Rattachement des medécins aux centres">
+					<field name="code_centre" />
+					<field name="dt_agr_prestat" />
+					<field name="code_praticien_ids" string="Médecin(s)" />
+				</tree>
+			</field>
+		</record>
+
+
+		<!-- ===================== filtre RATTACHEMENT CONVENTION ============================= -->
+		<record id="view_mcisogem_agr_prestat_filter" model="ir.ui.view">
+			<field name="name">mcisogem.agr.prestat.select</field>
+			<field name="model">mcisogem.agr.prestat</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher un agrément medécin">
+					<field name="code_centre" />
+					<field name="dt_agr_prestat" />
+					<field name="code_praticien_ids" string="Médecin(s)" />
+				</search>
+			</field>
+		</record>
+
+		<!-- Action du menu RATTACHEMENT CONVENTION -->
+		<record model="ir.actions.act_window" id="action_mcisogem_agr_prestat">
+			<field name="name">Rattachement centre medecin</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.agr.prestat</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Cliquez ici pour créer un rattachement des medécins aux centres
+				</p>
+			</field>
+		</record>
+
+		<menuitem name="Rattachement centre" id="menu_mcisogem_agr_prestat"
+			action="action_mcisogem_agr_prestat" sequence="4"
+			parent="menu_mcisogem_medical_prestataire" />
+
+
+	</data>
+</openerp>

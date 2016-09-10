@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+
+		<!-- ========= formulaire de tarif négocié par centre et par police  ============= -->
+		<record id="mcisogem_tarif_nego_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.nego.police.form</field>
+			<field name="model">mcisogem.tarif.nego.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Tarif négocié par centre et par police">
+					<header>
+							<field name="state" widget="statusbar" statusbar_visible="N,A"
+								 statusbar_colors='{"progress":"blue"}' />
+					</header>
+					
+					<sheet>
+						<div class="oe_right">
+								
+							<button class="oe_inline oe_stat_button" string="Activer"
+								 states="A" name="button_negocier" type="object" icon="fa-times-circle"
+								 />
+
+							<button class="oe_inline oe_stat_button" string="Résilier"
+								 states="N" name="button_action_resilier" type="object" icon="fa-check"
+							 />
+
+						</div>
+
+						<div class="oe_title">
+							
+							<h1><field name="reseau_id" placeholder="Réseau"/></h1>
+						</div>
+
+						<field name="id" invisible="1" />
+						<field name="chargement" invisible="1" on_change="onchange_chargement()"/>
+
+
+						<group>
+							<notebook attrs="{'invisible': [('id','!=',False)]}">
+
+							    <page String="Centres">
+							     	<field String="Centres" name="code_centre_temp">
+										<tree string="Centres" editable="bottom">
+											<field name="centre_id" />
+											<field name="convention_id" />
+										</tree>
+									</field>
+							    </page>
+
+							    <page String="Pharmacies">
+							    	<field  name="pharma_ids" />
+							    </page>
+
+						    </notebook>
+						</group>
+
+						<group>
+							<field name="centre_id" attrs="{'invisible': [('id','=',False)]}" />
+							<field name="convention_id" attrs="{'invisible': [('id','=',False)]}" />
+						</group>
+
+						<group col="2">
+							<group>
+								<field name="dt_effet_tarif"/>
+							</group>
+							<group>
+								<field name="dt_res_tarif" attrs="{'invisible': [('state','!=','A')]}"/>
+							</group>
+						</group>
+
+
+				    </sheet>
+				    
+			    </form>
+			</field>
+		</record>
+
+		<!-- ========= popup de resiliation d'une négociation de tarif  ============= -->
+		<record id="mcisogem_tarif_annul_nego_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.annul.nego.police.form</field>
+			<field name="model">mcisogem.tarif.nego.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Resilier le réseau de soins" create="true">
+					<sheet>
+						<group col="2">
+							<group string="Resilier le réseau de soins">
+								<field name="dt_res_tarif" required="1"/>
+							</group>
+						</group>
+						<footer>
+							<button name="button_resilier" string="Valider" type="object" class="oe_highlight"/>  
+							ou	  
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+		<!-- ========= liste tarif négocié par  police par acte ============= -->
+		<record id="mcisogem_excl_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.nego.police.tree</field>
+			<field name="model">mcisogem.tarif.nego.police</field>
+			<field name="arch" type="xml">
+				<tree>
+					
+					<field name="reseau_id" />
+					<field name="centre_id" />
+					<field name="convention_id" />
+
+					<field name="dt_effet_tarif" />
+					<field name="dt_res_tarif" />
+
+							
+			    </tree>
+			</field>
+		</record>
+
+
+
+		<!-- ========= liste temp college ============= -->
+		<record id="mcisogem_tarif_college_temp_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.college.temp.tree</field>
+			<field name="model">mcisogem.tarif.college.temp</field>
+			<field name="arch" type="xml">
+				<tree string="Collège">
+					
+					<field name="code_college" />
+							
+			    </tree>
+			</field>
+		</record>
+
+
+		<!-- ========= liste temp centre ============= -->
+		<record id="mcisogem_tarif_centre_temp_tree" model="ir.ui.view">
+			<field name="name">mcisogem.tarif.nego.centre.temp.tree</field>
+			<field name="model">mcisogem.tarif.nego.centre.temp</field>
+			<field name="arch" type="xml">
+				<tree string="Centre">
+					<field name="centre_id" />
+					<field name="convention_id" />
+							
+			    </tree>
+			</field>
+		</record>
+
+
+
+		 <!-- Action du menu tarif négocié -->
+		<record model="ir.actions.act_window" id="action_mcisogem_nego_pol">
+			<field name="name">Réseau de soins</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.tarif.nego.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="mcisogem_tarif_nego_police_form"/>
+		</record>
+
+	</data>	
+</openerp>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_benef_report_inter_graph" model="ir.ui.view">
+            <field name="name">report.benef.inter.graph</field>
+            <field name="model">report.benef.inter</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="intermediaire_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_benef_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_benef_report_inter_graph" model="ir.ui.view">
+            <field name="name">report.benef.inter.graph</field>
+            <field name="model">report.benef.inter</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="intermediaire_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_benef_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_benef_report_inter_2_graph" model="ir.ui.view">
+             <field name="name">report.benef.inter.2.graph</field>
+             <field name="model">report.benef.inter</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales by Account" type="pie">
+                     <field name="police_id"/>
+                     <field name="nbr_benef_total"/>
+                 </graph>
+             </field>
+        </record>
+
+
+        <record id="view_benef_report_inter_tree" model="ir.ui.view">
+            <field name="name">report.benef.inter.tree</field>
+            <field name="model">report.benef.inter</field>
+            <field name="arch" type="xml">
+                <tree string="report tree">
+                    <field name="intermediaire_id"/>
+                    <field name="exercice_id"/>
+                    <field name="police_id"/>
+                </tree>
+            </field>
+        </record>
+
+       <record id="view_benef_report_inter_search" model="ir.ui.view">
+            <field name="name">report.benef.inter.search</field>
+            <field name="model">report.benef.inter</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des bénéficiaire">
+                    <field name="intermediaire_id"/>
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                        <field name="intermediaire_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_beneficiaire_inter_report" model="ir.actions.act_window">
+            <field name="name">Report report</field>
+            <field name="res_model">report.benef.inter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_benef_report_inter_2_graph"/>
+            <field name="search_view_id" ref="view_benef_report_inter_search"/>
+        </record>
+
+    <!-- <menuitem name="Graphes" parent="tb" id='act_beneficiaire_inter_report' action="action_beneficiaire_inter_report" groups="mcisogem_isa.group_intermediaire"/> -->
+
+</data>
+</openerp>
+ 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+
+        <menuitem id="grcmci" name="Relations clients" sequence="16"/>
+     
+            <menuitem id="grcmci_sub" name="Gestion des clients" parent="grcmci"/>
+                 
+                        
+                         <menuitem name="Plaintes et suggestions" id="ps" parent="grcmci" sequence="1"/>                                      
+                                <menuitem name="Categorie" id="actcategoriep" parent="ps" action='action_categoriep' sequence="3" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                                <menuitem name="Objet de plainte" id="act_objet" parent="ps" action='action_objet' sequence="2" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/> 
+
+                                <menuitem name="Création" id="act_plainte" parent="ps" action='action_plainte' sequence="1" groups="mcisogem_isa.group_garant,mcisogem_isa.group_prestataire,mcisogem_isa.group_souscripteur"/>
+
+                                <menuitem name="Personnes a notifier" action="open_hr_mci_notification_user_form" 
+                                id="menu_view_hr_mci_notification_user_form"
+                                parent="ps" sequence="4" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                                <menuitem name="Liste des plaintes et suggestions" id="act_plainte_mci" parent="ps" action='action_plainte_mci' sequence="5" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+
+                          <menuitem name="Demandes" id="demande" parent="grcmci" sequence="2"/> 
+
+                                <menuitem name="Demandes" id="sous_demande" parent="demande" sequence="1"/>
+                                   
+                                    <menuitem name="Incorpo/retrait/suspension" id="act_police_inc_garant" parent="sous_demande" action='action_police_inc_garant'  sequence="1" groups="mcisogem_isa.group_garant"/>
+                                 
+                                  
+                                <menuitem name="Demandes émises" id="act_info_demande_garant" parent="demande" action='action_info_demande_garant'  sequence="2" groups="mcisogem_isa.group_garant"/> 
+                                   <!--  <menuitem name="(inter)Demandes émises" id="act_info_demande_inter" parent="demande" action='action_info_demande_inter'  sequence="3" groups="mcisogem_isa.group_intermediaire"/>
+                                    <menuitem name="(MC)Demandes émises" id="act_info_demande_mc" parent="demande" action='action_info_demande_mc'  sequence="3" groups="mcisogem_isa.group_medecin_conseil"/>  -->
+                         <menuitem name="Demandes émises" id="de" parent="grcmci" sequence="3"/>
+                    
+                                    <menuitem name="Incorporation" id="act_benf_incorpo_prod" parent="de" action='action_benf_incorpo_prod' sequence="1" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                                    <menuitem name="Retrait" id="act_retrait_mci" parent="de" action='action_retrait_mci' sequence="2" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                                    <menuitem name="Suspension" id="act_suspend_mci" parent="de" action='action_suspend_mci' sequence="3" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+                        <menuitem name="Barèmes et Reseaux" id="bar" parent="grcmci" sequence="4"/>
+                                    <menuitem name="Barèmes/Reseaux" id="act_bareme_reseau_acte" parent="bar" action='action_bareme_reseau_acte' groups="mcisogem_isa.group_souscripteur"/> 
+
+                        <menuitem name="Réclamations" id="recl" parent="grcmci" sequence="5"/> 
+                                    <menuitem name="Création" id="act_reclamation" parent="recl" action='action_reclamation' sequence="1" groups="mcisogem_isa.group_souscripteur"/>
+                                    <menuitem name="Genre de Réclamations" id="act_genre_reclamation" parent="recl" action='action_genre_reclamation' sequence="2" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                                    <menuitem name="Liste des Réclamations" id="act_reclamation_mci" parent="recl" action='action_reclamation_mci' sequence="3" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                        <!-- <menuitem name="IMAGE" id="img" parent="grcmci" sequence="6"/> 
+                                    <menuitem name="Création" id="img_carte" parent="img" action='action_image_carte_1' sequence="1"/> -->
+                                     
+
+                                       
+ 
+        <menuitem id="grcmci_suivi" name="Suivi d'activités" sequence="17"/>
+            <menuitem id="tb" name="Tableau de bord" parent="grcmci_suivi" />
+                <menuitem name="Informations garant" id="act_info_garant" parent="tb" action='action_info_garant' groups="mcisogem_isa.group_garant"/>
+                <menuitem name="Analyse des beneficiaires" id="ab" parent="tb" />
+                        <menuitem name="Recherche" id="act_recherche_benef_garant" parent="ab" action='action_recherche_benef_garant' groups="mcisogem_isa.group_garant"/>
+                        <menuitem name="Recherche" id="act_recherche_benef" parent="ab" action='action_recherche_benef' groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+                <menuitem name="Analyse des Demandes" id="ad" parent="tb" />
+ 
+                        
+        
+
+
+                       <!--  <menuitem name="Suspenssions" parent="ad" id='act_server_report_suspend_garant' action="action_server_report_suspend_garant"/>
+
+                        <menuitem name="Retraits" parent="ad" id='act_server_report_retrait_garant' action="action_server_report_retrait_garant"/>
+
+                        <menuitem name="Incorporations" parent="ad" id='act_server_report_incorporation_garant' action="action_server_report_incorporation_garant"/>
+
+
+
+                        <menuitem name="Prises en charge" parent="ad" id='act_report_pcharge' action="action_report_pcharge"/>
+
+                        <menuitem name="Ententes préalables" parent="ad" id='act_report_ententep' action="action_report_ententep"/>     
+
+
+
+                        <menuitem name="Suspenssions" parent="ad" id='act_report_suspend_' action="action_report_suspend_mci"/>
+
+                        <menuitem name="Retraits" parent="ad" id='act_report_retrait_' action="action_report_retrait_mci"/>
+
+                        <menuitem name="Incorporations" parent="ad" id='act_report_incorporation' action="action_report_incorporation"/>   -->
+
+                    
+
+        <menuitem name="Details des prestations réglées" id="act_mcisogem_prestation_regle" parent="tb" action='action_mcisogem_prestation_regle' groups="mcisogem_isa.group_prestataire,mcisogem_isa.group_secretariat_medical"/>
+
+        <menuitem name="Conso bénéficiaire" id="act_mcisogem_conso_benef" parent="cons" action='action_mcisogem_conso_benef' groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+        <menuitem name="Actes soumis à ententes préalables" id="act_mcisogem_acte_entente_prealable_mc" parent="tb" action='action_mcisogem_acte_entente_prealable_mc' groups="mcisogem_isa.group_medecin_conseil,mcisogem_isa.group_souscripteur"/>
+         
+        <menuitem name="Activités dans les reseaux de soins" id="act_mcisogem_prestation_activite" parent="tb" action='action_mcisogem_prestation_activite' groups="mcisogem_isa.group_medecin_conseil"/>
+
+        <menuitem name="Hospitalisation en cours" id="act_mcisogem_pcharge_n_mc" parent="tb" action='action_mcisogem_pcharge_n_mc' groups="mcisogem_isa.group_medecin_conseil"/> 
+
+        <menuitem name="Analyse des Consomations" id="cons" parent="tb" />
+
+
+                       
+
+
+
+    </data> 
+</openerp>

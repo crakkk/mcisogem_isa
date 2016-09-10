@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+
+
+		 <!-- =========formulaire de cloture d'exercice ============= -->
+		<record id="mcisogem_histo_clot_police_form" model="ir.ui.view">
+			<field name="name">mcisogem.histo.clot.police.form</field>
+			<field name="model">mcisogem.histo.clot.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				
+				<form string="Clôture d'exercices">
+
+					<sheet>
+						<group col="2">
+							<field name="police_id" />
+							<field name="exercice_ids" domain="[('police_id' , '=' , police_id)]">
+								<tree>
+									<field name="num_interne_police" />
+									<field name="name" />
+									<field name="date_debut_exercice" />
+									<field name="date_fin_exercice" />
+								</tree>
+							</field>
+
+							<field name="dt_action" />
+						</group>
+				    </sheet>
+			    </form>
+
+			   
+			</field>
+		</record>
+
+
+		<!-- ========= historique de cloture de police  ============= -->
+		<record id="mcisogem_histo_clot_police_tree" model="ir.ui.view">
+			<field name="name">mcisogem.histo.clot.police.tree</field>
+			<field name="model">mcisogem.histo.clot.police</field>
+			<field name="arch" type="xml">
+				<tree string="Historique des clôtures d'exercice">
+					
+					<field name="exercice_ids" />
+
+					<field name="dt_action"/>
+									
+			    </tree>
+			</field>
+		</record>
+
+
+		<!-- Action du menu cloture exercice -->
+		<record model="ir.actions.act_window" id="action_mcisogem_clot_pol">
+			<field name="name">Clotures d'exercices</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.clot.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		
+	</data>	
+</openerp>

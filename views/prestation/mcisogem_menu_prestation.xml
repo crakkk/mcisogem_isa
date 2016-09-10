@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Au niveau des centres -->
+		<menuitem name="Médical" id="menu_mcisogem_prest" sequence="15" groups="mcisogem_isa.group_secretariat_medical,mcisogem_isa.group_prestataire"/>
+
+
+			<menuitem name="Prestation" id="menu_mcisogem_prest_prest" parent="menu_mcisogem_prest" sequence="1"/>
+
+				<menuitem action="action_mcisogem_prestation" name="Saisie" parent="menu_mcisogem_prest_prest" id="mcisogem_prestat" sequence="1" groups="mcisogem_isa.group_secretariat_medical"/>
+
+				<menuitem action="action_mcisogem_regroup_prestation" name="Regoupement de prestations" parent="menu_mcisogem_prest_prest" id="mcisogem_regroup_prestat" sequence="3"/>
+
+				<menuitem name="Demandes" id="demande_p" parent="menu_mcisogem_prest" sequence="2"/> 
+
+				<menuitem name="Demandes" id="sous_demande_p" parent="demande_p" sequence="1"/>
+
+					<menuitem name="Prise en charge" id="act_prise_charge_p" parent="sous_demande_p" action='action_prise_charge'  sequence="1" />
+	                                     
+	                <menuitem name="Entente préalable" id="act_entente_p" parent="sous_demande_p" action='action_entente' sequence="2"/>
+
+                <menuitem name="Demandes émises" id="act_info_demande_garant_p" parent="demande_p" action='action_info_demande_garant'  sequence="2"/>   
+
+
+
+
+
+			<!-- Au niveau MCI -->
+
+		<menuitem name="Prestation" id="menu_mcisogem_prest_mci" sequence="16" groups="mcisogem_isa.group_prestation_manager,mcisogem_isa.group_admin,mcisogem_isa.group_prestation_user"/>
+
+
+			<menuitem name="Prestation" id="menu_mcisogem_prest_prest_1" parent="menu_mcisogem_prest_mci" sequence="1"/>
+
+				<menuitem action="action_mcisogem_valid_recp" name="Réception électronique" parent="menu_mcisogem_prest_prest_1" id="mcisogem_mcisogem_valid_recp" sequence="1"/>
+
+				<menuitem  name="Saisies Prestations" parent="menu_mcisogem_prest_prest_1" id="mcisogem_prestat_saisie_mci_M" sequence="2"/>
+
+
+					<menuitem action="action_mcisogem_prestation_mci_rd" name="Remboursement" parent="mcisogem_prestat_saisie_mci_M" id="mcisogem_prestat_saisie_mci_rd" sequence="2"/>
+
+					<menuitem action="action_mcisogem_prestation_mci_tp" name="Règlement" parent="mcisogem_prestat_saisie_mci_M" id="mcisogem_prestat_saisie_mci_tp" sequence="1"/>
+
+
+			    <menuitem parent="menu_mcisogem_prest_prest_1" id="mcisogem_prestation_brouillard" name="Brouillard"
+						 sequence="3"/>
+
+
+					<menuitem action="action_mcisogem_brouillard_prestation_rd" parent="mcisogem_prestation_brouillard" id="mcisogem_prestation_brouillard_rd" name="Tiers Payant"
+						 sequence="3"/>
+					<menuitem action="action_mcisogem_brouillard_prestation_tp" parent="mcisogem_prestation_brouillard" id="mcisogem_prestation_brouillard_tp" name="Remboursement direct"
+						 sequence="3"/>
+
+
+
+
+				<menuitem parent="menu_mcisogem_prest_mci" id="mcisogem_valid_prestation" name="Validation des prestations" sequence="2"/>
+
+
+
+					<menuitem action="action_mcisogem_valid_prestation" parent="mcisogem_valid_prestation" id="mcisogem_valid_prestat_sin" name="Validation des saisies" sequence="1"/>
+
+
+
+					<menuitem id="menu_mcisogem_reglement" parent="mcisogem_valid_prestation" sequence="2" name="Règlement"/>
+						<menuitem action="action_mcisogem_prestation_cr_regl" parent="menu_mcisogem_reglement" id="mcisogem_prestat_cr_regl" name="Création" sequence="1"/>
+						<menuitem action="action_mcisogem_prestation_vis_regl" parent="menu_mcisogem_reglement" id="mcisogem_prestat_vis_regl" name="Visualisation" sequence="2"/>
+
+
+					<menuitem id="menu_mcisogem_remboursement" parent="mcisogem_valid_prestation" sequence="3" name="Remboursement"/>
+						<menuitem action="action_mcisogem_prestation_cr_remb" parent="menu_mcisogem_remboursement" id="mcisogem_prestat_cr_regl" name="Création" sequence="1"/>
+						<menuitem action="action_mcisogem_prestation_vis_remb" parent="menu_mcisogem_remboursement" id="mcisogem_prestat_vis_regl" name="Visualisation" sequence="2"/>
+
+
+				<menuitem parent="mcisogem_valid_prestat" id="mcisogem_prestation_valid_dir" name="Validation direction"
+							 sequence="4"/>
+
+				<menuitem action="action_mcisogem_prestation_valid_dir_rd" parent="mcisogem_prestation_valid_dir" id="mcisogem_prestation_valid_dir_rd" name="Remboursement"
+							 sequence="1"/>
+
+				<menuitem action="action_mcisogem_prestation_valid_dir_tp" parent="mcisogem_prestation_valid_dir" id="mcisogem_prestation_valid_dir_tp" name="Règlement"
+							 sequence="2"/>
+
+
+
+					
+
+
+			<menuitem name="Exclusion" id="menu_mcisogem_excl_pr" parent="menu_mcisogem_prest_mci" sequence="2"/>
+
+				<menuitem action="action_mcisogem_type_exclusion" name="Type exclusion" parent="menu_mcisogem_excl_pr" id="mcisogem_mcisogem_type_excl" sequence="1"/>
+				<menuitem action="action_mcisogem_motif_exclusion" name="Motif exclusion" parent="menu_mcisogem_excl_pr" id="mcisogem_mcisogem_motif_excl" sequence="2"/>
+				<menuitem action="action_mcisogem_motif_rejet" name="Motif rejet" parent="menu_mcisogem_excl_pr" id="mcisogem_mcisogem_motif_rejet" sequence="3"/>
+
+			<menuitem name="ETATS" id="menu_mcisogem_prestations_etat" parent="menu_mcisogem_prest_mci" sequence="3"/>
+				 
+				<menuitem name="Décompte des paiements" parent="menu_mcisogem_prestations_etat" 
+					 id="mcisogem_mcisogem_decompte" sequence="1"/>
+
+				<menuitem name="Bordereau de Transmission" parent="menu_mcisogem_prestations_etat" 
+					 id="mcisogem_mcisogem_bordereau" sequence="2"/>
+
+				<menuitem name="Etat des préfinancements" parent="menu_mcisogem_prestations_etat" 
+					 id="mcisogem_mcisogem_prefinancement" sequence="3"/>
+
+			
+
+
+	</data>	
+</openerp>

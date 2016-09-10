@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_quittancier_prime">
+
+        <style>
+            .page {
+              font-family:"DaunPenh";
+              padding-left : .5em;
+              width : 100%;
+              font-weight : bold;
+              margin-top : -1.5em;
+            }
+      
+      .q {
+        margin-left : 2em;
+        float : right;
+      }
+      
+      b {
+        font-weight : bold;
+      }
+
+      p {
+        line-height: 90%;
+
+      }
+      .g {
+        margin-left : 1em;
+        float : left;
+      }
+      
+
+      h1 , h2 , h3 , h4 , h5 , h6 {
+        color : black !important;
+        font-weight : normal;
+        margin-bottom : -0.5em;
+
+      }
+
+      h1 {
+        font-size : 60px;
+      }
+
+      h2 {
+        font-size : 45px;
+      }
+
+
+      .valeur {
+        text-align : right;
+      }
+      
+      .comm {
+        background-color: lightgray;
+        text-align : center;
+        padding-top : .3em;
+        padding-bottom : 0px;
+        font-size : 30px;
+      }
+      .d {
+        text-align : right;
+      }
+
+
+      .titre {
+        background-color: lightgray;
+        text-align : center;
+        padding-top : 1%;
+        padding-bottom : 0em;
+        margin-top : .5em;
+        border : 1px dotted gray;
+
+      }
+            label {
+             float: left;
+             width: 220px;
+             margin-right: 1em;
+             font-weight:normal;
+            }
+
+            th {
+              text-align: center;
+              background-color: lightgray;
+              padding: .5%;
+              padding-top : 1%;
+              font-weight:normal !important;
+              font-size:27px;
+              border : 1px dotted gray;
+              white-space:nowrap;
+
+            }
+            .ligne {
+              clear: both;
+              max-width : 100%;
+              margin-bottom: .5em;
+              margin-top: 2em;
+
+            }
+
+            .bloc span {
+              font-weight:bolder !important;
+            }
+
+            .bloc {
+              font-size:28px;
+              float: left;
+              border: 1px dotted gray;
+              min-height: 280px;
+              max-height: 280px;
+              min-width: 49.75%;
+              max-width: 49.75%;
+              padding: .5%;
+              margin-bottom: .5em;
+             
+            }
+      
+            #bloc2 {
+              margin-left : .5%;
+            }
+
+            table{
+              margin-left : 0px  !important;
+              font-size:20px;
+              clear: both;
+              text-align: center;
+              min-width : 100%;
+              max-width : 100%;
+            }
+
+            td {
+              border: 1px dotted gray;
+              min-width : 16%;
+              max-width : 16%;
+
+            }
+
+            .table_bas {
+              margin-left : 0px !important;
+              clear: both;
+              margin-bottom : 1px !important;
+              text-align: left;
+              border: 1px dotted gray;
+              margin-top : 1em;
+              border-collapse: collapse;
+            }
+
+            table td {
+              font-size : 25px; 
+      
+            }
+            .table_bas td{
+              padding-left: 1%;
+              font-size : 27px; 
+              border : none;
+              min-width : 280px;
+              padding-top : 0% !important;
+              padding-bottom : 0% !important;
+            }
+      
+            td .valeur {
+              text-align : left !important;
+            }
+  
+            .montant {
+              font-size : 30px;
+              margin-top : 5px;
+            }
+
+            td.sans_bordure {
+              border:none;
+            }
+
+            tr{
+              margin-bottom: 7px;
+            }
+            .center{
+              text-align: center;
+              padding: 10px;
+            }
+
+            .left {
+                text-align: left;
+              }
+
+              .right{
+                text-align: right;
+              }
+
+        </style>
+
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+              <div class="page">
+                  <h1> <b><span t-raw="'%s &lt;&gt;' % o.garant_id.name  if o.garant_id.name  else ''"/></b></h1>
+                  <h2><div class="g"><b><span>QUITTANCE N°</span> <span t-raw="'%s &lt;&gt;' % o.id  if o.id  else ''"/></b></div>  
+            <div class="d"><b><span>du</span> <span t-field="o.dt_emi_quittance" t-field-options='{"format": "d-MMMM-Y"}'/></b></div>
+                  </h2>
+
+                  <h2 class="titre"><span><b>BORDEREAU D'EMISSION DE LA PRIME</b></span></h2>
+                
+                  <div class="ligne">
+
+                      <div class="bloc">
+                          <p> <label>Compagnie  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.garant_id.name  if o.garant_id.name  else ''"/></b> </p>
+
+                          <p> <label>Code Compagnie  </label> : <b><span t-raw="'%s &lt;&gt;' % o.garant_id.id  if o.garant_id.id  else ''"/></b> </p>
+
+                          <p> <label>Intermédiaire  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.courtier_id.name  if o.courtier_id.name  else ''"/></b> </p>
+
+                          <p> <label>Code Intermédiaire  </label> : <b><span t-raw="'%s &lt;&gt;' % o.courtier_id.id  if o.courtier_id.id  else ''"/></b> </p>
+
+                          <p> <label>Souscripteur  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.souscripteur_id.name  if o.souscripteur_id.name  else ''"/></b> </p>
+
+                          <p> <label>Numéro de compte  </label> : <b><span t-raw="'%s &lt;&gt;' % o.souscripteur_id.num_compte  if o.souscripteur_id.num_compte  else ''"/></b></p>
+
+                          <p> <label>Adresse postale  </label> : 
+                            <b><span t-raw="'%s &lt;&gt;' % o.garant_id.code_boite_postale  if o.garant_id.code_boite_postale  else ''"/> 
+
+                            <span t-raw="'%s &lt;&gt;' % o.garant_id.boite_postale  if o.garant_id.boite_postale  else ''"/></b>
+
+                          </p>
+
+                          <p> <label> <b>Numéro Interne  </b> </label> :  <b><span t-raw="'%s &lt;&gt;' % o.police_id.id  if o.police_id.id  else ''"/></b> </p>
+                        
+                      </div>
+
+                      <div class="bloc" id="bloc2">
+                        <p> <label>Nature du risque  </label> :  <b><span t-esc="o.nature_risque_id.name"/></b></p>
+
+                        <p> <label>Numéro de police  </label> : <b><span t-esc="o.police_id.num_police_assur"/></b></p>
+
+                        <p> <label>Durée  </label> : <b><span t-esc="o.duree_exercice"/></b>  </p>
+
+                        <p> <label>Echéance Annuelle  </label> : <b><span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM"}'/></b> </p>
+
+                        <p> <label>Fractionnement prime  </label> : <b><span t-esc="o.police_id.periodicite_paiem.name"/></b></p>
+
+                        <p> <label>Date d'effet  </label> : <b><span t-field="o.date_effet_police" t-field-options='{"format": "d MMMM y"}'/></b> </p>
+
+                        <p> <label>Numéro d'avenant  </label> : <b><span t-esc="o.avenant"/> </b></p>
+
+                      </div>
+
+                  </div>
+
+               <table>
+                  <tr style="margin-bottom:.5em;">
+                    <th>Période d'assurance</th>
+                    <th>Prime nette</th>
+                    <th>Prime additionnelle </th>
+                    <th>Accessoires</th>
+                    <th>Taxe d'enregistrement</th>
+                    <th>Prime Totale</th>
+                  </tr>
+
+                  <tr>
+                    <td colspan="6" class="center"> PRIME AU COMPTANT (à régler à la signature des présentes ) </td>
+                  </tr>
+
+                  <tr style="margin-bottom:.5em;">
+                    <td> du <span t-field="o.dt_emi_ave" t-field-options='{"format": "d MMMM y"}'/> au 
+                            <span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM y"}'/>
+                    </td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+
+                    <td> <span t-esc="o.prime_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+
+                    <td> <span t-esc="o.cout_d_acte1" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/>  </td>
+
+                    <td> <span t-esc="o.mnt_taxe_prime0" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/></td>
+
+                    <td> <span t-esc="o.mnt_glob0" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="6" class="center"> PRIME TERME (prochaine prime ) </td>
+                  </tr>
+
+
+
+                  <tr style="margin-bottom:.5em;">
+                    <td> du <span t-field="o.dt_emi_ave" t-field-options='{"format": "d MMMM y"}'/> au 
+                    <span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM y"}'/></td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" class="montant" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/> </td>
+
+                    <td> 0 </td>
+
+                    <td colspan="3"> (Prime de base susceptible d'être modifiée en fonction de l'effectif réellement assuré , de l'application de la cause d'ajustement et du taux de taxe en vigueur) </td>
+
+                  </tr>
+
+                  <tr>
+                    <td class="sans_bordure">PRIME ANNUELLE </td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+                    
+                    <td> 0 </td>
+
+                    <td colspan="3"> (Prime de base susceptible d'être modifiée en fonction de l'effectif réellement assuré , de l'application de la cause d'ajustement et du taux de taxe en vigueur) </td>
+
+                  </tr>
+
+            </table>
+
+
+          <h4 class="comm">COMMISSIONNEMENT</h4>
+
+        
+      
+        <table class="table_bas">
+              <tr>
+                <td colspan="3"><h4><u><span style="font-size:28px;"><b>COMMISSION D'APPORT DE L'INTERMEDIAIRE</b></span></u></h4></td>
+                <td><h4><span t-raw="'%s &lt;&gt;' % o.courtier_id.name  if o.courtier_id.name  else ''" style="font-size:28px;"/></h4></td>
+              </tr>
+
+              <tr>
+                <td>Taux</td> 
+                <td class="valeur"><span t-esc="o.mnt_comxion_courtier" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/>%</td>
+              </tr>
+
+              <tr>
+                <td>Montant</td> 
+                <td class="valeur"><span t-esc="o.cout_d_acte_courtier" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+              </tr>
+
+
+              <tr>
+                <td>Coût d'acte</td> 
+                <td class="valeur"><span t-esc="o.taxe_acc_courtier" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></td>
+                <td><b>Total</b></td>
+                <td><b><span t-esc="(o.cout_d_acte_courtier + o.taxe_acc_courtier)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}'/></b></td> 
+              </tr>
+
+     
+        
+    </table>
+    
+    <table class="table_bas">
+              <tr>
+                <td colspan="3"><h4><u><span style="font-size:28px;"> <b>PRIME A RESERVER PAR L'INTERMEDIAIRE A</b> </span></u></h4></td>
+                <td><h4><span t-raw="'%s &lt;&gt;' % o.garant_id.name  if o.garant_id.name  else ''" style="font-size:28px;"/></h4></td>
+              </tr>
+
+              <tr>
+                <td>Prime</td> 
+                <td class="valeur"><span t-esc="(o.prime_tot_sans_sida - o.cout_d_acte_courtier)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' style="font-size:29px;"/></td>
+              </tr>
+
+              <tr>
+                <td>Coût d'acte</td> 
+                <td class="valeur"><span t-esc="(o.cout_d_acte1 - o.taxe_acc_courtier)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' style="font-size:29px;"/></td>
+              </tr>
+
+              <tr>
+                <td>Taxe d'enregistrement</td> 
+                <td class="valeur"><span t-esc="o.mnt_taxe_prime0" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' style="font-size:29px;"/></td>
+        <td><b>Total</b> </td> 
+                <td><b><span t-esc="(o.prime_tot_sans_sida - o.cout_d_acte_courtier + o.cout_d_acte1 - o.taxe_acc_courtier + o.mnt_taxe_prime0)" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' style="font-size:29px;"/></b></td>
+              </tr>
+
+        
+    </table>
+    
+
+    </div>
+
+
+
+
+             <p style="page-break-before:always;"> </p>
+
+
+            <div class="page">
+
+                  <h2 class="titre">CONDITIONS PARTICULIERES</h2>
+                   <div class="ligne">
+
+                      <div class="bloc">
+                          <p> <label>Compagnie  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.garant_id.name  if o.garant_id.name  else ''"/></b> </p>
+
+                          <p> <label>Code Compagnie  </label> : <b><span t-raw="'%s &lt;&gt;' % o.garant_id.id  if o.garant_id.id  else ''"/></b> </p>
+
+                          <p> <label>Intermédiaire  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.courtier_id.name  if o.courtier_id.name  else ''"/></b> </p>
+
+                          <p> <label>Code Intermédiaire  </label> : <b><span t-raw="'%s &lt;&gt;' % o.courtier_id.id  if o.courtier_id.id  else ''"/></b> </p>
+
+                          <p> <label>Souscripteur  </label> :  <b><span t-raw="'%s &lt;&gt;' % o.souscripteur_id.name  if o.souscripteur_id.name  else ''"/></b> </p>
+
+                          <p> <label>Numéro de compte  </label> : <b><span t-raw="'%s &lt;&gt;' % o.souscripteur_id.num_compte  if o.souscripteur_id.num_compte  else ''"/></b></p>
+
+                          <p> <label>Adresse postale  </label> : 
+                            <b><span t-raw="'%s &lt;&gt;' % o.garant_id.code_boite_postale  if o.garant_id.code_boite_postale  else ''"/> 
+
+                            <span t-raw="'%s &lt;&gt;' % o.garant_id.boite_postale  if o.garant_id.boite_postale  else ''"/></b>
+
+                          </p>
+
+                          <p> <label> <b>Numéro Interne  </b> </label> :  <b><span t-raw="'%s &lt;&gt;' % o.police_id.id  if o.police_id.id  else ''"/></b> </p>
+                        
+                      </div>
+
+                      <div class="bloc" id="bloc2">
+                        <p> <label>Nature du risque  </label> :  <b><span t-esc="o.nature_risque_id.name"/></b></p>
+
+                        <p> <label>Numéro de police  </label> : <b><span t-esc="o.police_id.num_police_assur"/></b></p>
+
+                        <p> <label>Durée  </label> : <b><span t-esc="o.duree_exercice"/></b>  </p>
+
+                        <p> <label>Echéance Annuelle  </label> : <b><span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM"}'/></b> </p>
+
+                        <p> <label>Fractionnement prime  </label> : <b><span t-esc="o.police_id.periodicite_paiem.name"/></b></p>
+
+                        <p> <label>Date d'effet  </label> : <b><span t-field="o.date_effet_police" t-field-options='{"format": "d MMMM y"}'/></b> </p>
+
+                        <p> <label>Numéro d'avenant  </label> : <b><span t-esc="o.avenant"/> </b></p>
+
+                      </div>
+
+                  </div>
+
+               <table>
+                  <tr style="margin-bottom:.5em;">
+                    <th>Période d'assurance</th>
+                    <th>Prime nette</th>
+                    <th>Prime additionnelle </th>
+                    <th>Accessoires</th>
+                    <th>Taxe d'enregistrement</th>
+                    <th>Prime Totale</th>
+                  </tr>
+
+                  <tr>
+                    <td colspan="6" class="center"> PRIME AU COMPTANT (à régler à la signature des présentes ) </td>
+                  </tr>
+
+                  <tr style="margin-bottom:.5em;">
+                    <td> du <span t-field="o.dt_emi_ave" t-field-options='{"format": "d MMMM y"}'/> au 
+                            <span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM y"}'/>
+                    </td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+
+                    <td> <span t-esc="o.prime_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+
+                    <td> <span t-esc="o.cout_d_acte1" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/>  </td>
+
+                    <td> <span t-esc="o.mnt_taxe_prime0" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/></td>
+
+                    <td> <span t-esc="o.mnt_glob0" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="6" class="center"> PRIME TERME (prochaine prime ) </td>
+                  </tr>
+
+
+
+                  <tr style="margin-bottom:.5em;">
+                    <td> du <span t-field="o.dt_emi_ave" t-field-options='{"format": "d MMMM y"}'/> au 
+                    <span t-field="o.dt_fin_ave" t-field-options='{"format": "d MMMM y"}'/></td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+
+                    <td> 0 </td>
+
+                    <td colspan="3"> (Prime de base susceptible d'être modifiée en fonction de l'effectif réellement assuré , de l'application de la cause d'ajustement et du taux de taxe en vigueur) </td>
+
+                  </tr>
+
+                  <tr>
+                    <td class="sans_bordure">PRIME ANNUELLE </td>
+
+                    <td> <span t-esc="o.prime_tot_sans_sida" t-esc-options='{"widget": "monetary", "display_currency": "res_company.currency_id"}' class="montant"/> </td>
+                    
+                    <td> 0 </td>
+
+                    <td colspan="3"> (Prime de base susceptible d'être modifiée en fonction de l'effectif réellement assuré , de l'application de la cause d'ajustement et du taux de taxe en vigueur) </td>
+
+                  </tr>
+
+            </table>
+
+            <h2 class="center"><b><u>OBJET</u></b>: AVENANT DE REGULARISATION DE MOUVEMENTS D'EFFECTIFS</h2>
+            <div class="center">
+                <span style="font-size:25px;"><b>Etabli à ABIDJAN en 2 exemplaires le : <span t-field="o.create_date" t-field-options='{"format": "d MMMM y"}'/></b></span>
+            </div>
+
+            <div class="left">
+              <span style="font-size:25px;"><b><u>LE SOUSCRIPTEUR</u></b></span>
+            </div>
+
+            <div class="right">
+              <span style="font-size:25px;"><b><u>LA COMPAGNIE </u></b></span>
+            </div>
+
+
+            <div class="center">
+              <span style="font-size:20px;">Copie compagnie</span>
+            </div>
+
+
+            </div>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

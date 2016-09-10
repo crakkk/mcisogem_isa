@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+		<!-- ========= historique de resiliation de police ============= -->
+		<record id="mcisogem_histo_resil_polic" model="ir.ui.view">
+			<field name="name">mcisogem.histo.resil.police.tree</field>
+			<field name="model">mcisogem.histo.resil.police</field>
+			<field name="arch" type="xml">
+				<tree create="false" edit="false" delete="false">
+
+					<!-- <field name="num_interne_pol" /> -->
+					<field name="lib_action"/>
+					<field name="police_id" />	
+					<field name="dt_action" />
+						
+				</tree>
+			</field>
+		</record>	
+
+		<!-- ========= formulaire de resiliation de police ============= -->
+		<record id="view_mcisogem_police_resilier_form" model="ir.ui.view">
+			<field name="name">mcisogem.police.resilier.form</field>
+			<field name="model">mcisogem.histo.resil.police</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml" >
+				<form >
+					<sheet>
+						<div class="oe_title">
+							<br />
+							<h1>
+								<field name="police_id" default_focus="1" placeholder="police..." readonly="1" on_change="onchange_police(police_id)"/>
+							</h1>
+						</div>
+						<group col="2">
+							<group>
+								<field name="num_interne_pol" />
+							</group>
+							<group>
+								<field name="dt_action" />
+							</group>
+							<field name="lib_action" invisible="1"/>
+						</group>
+						<footer>
+								<button string="Valider" name="button_resilier_police" type="object" class="oe_highlight"/>
+								ou
+								<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Action du menu historique de resiliation -->
+		<record model="ir.actions.act_window" id="action_mcisogem_histo_resil_police">
+			<field name="name">Historique des résiliations et réactivations</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.histo.resil.police</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		
+
+		<!-- ===================== Liste noire form ============================= -->
+		<record id="view_mcisogem_liste_noire_form" model="ir.ui.view">
+			<field name="name">mcisogem.liste.noire.form</field>
+			<field name="model">mcisogem.liste.noire</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Suspension">
+					<sheet>
+						<field name="actif" invisible="1" width="70%"/>
+						<div class="oe_title">
+							<br />
+							<h1>
+								<field name="police_id" default_focus="1" placeholder="police..." readonly="1"/>
+							</h1>
+						</div>
+						<group col="1">
+							<group>
+								<field name="dt_eff" class="oe_inline" attrs="{'invisible': [('actif','!=',False)]}"/>
+								<field name="dt_levee" class="oe_inline" attrs="{'invisible': [('actif','==',False)]}"/>
+								<field name="motif_suspen_id" widget="radio" attrs="{'invisible': [('actif','!=',False)]}"/>
+							</group>
+						</group>
+						<footer>
+							<button string="Valider" name="button_liste_noire" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== Liste ============================= -->
+		<record id="mcisogem_liste_noire_tree" model="ir.ui.view">
+			<field name="name">mcisogem.liste.noire.tree</field>
+			<field name="model">mcisogem.liste.noire</field>
+			<field name="arch" type="xml">
+				<tree string="Suspension" create="false" edit="false" delete="false">
+					<field name="police_id" />
+					<field name="dt_eff" />
+					<field name="dt_levee" />
+					<field name="motif_suspen_id" />
+				</tree>
+			</field>
+		</record>
+
+		<!-- ===================== filtre liste noire ============================= -->
+		<record id="view_mcisogem_liste_noire_filter" model="ir.ui.view">
+			<field name="name">mcisogem.liste.noire.select</field>
+			<field name="model">mcisogem.liste.noire</field>
+			<field name="arch" type="xml">
+				<search string="S">
+					<field name="police_id" />
+					<field name="dt_eff" />
+					<field name="motif_suspen_id" />
+					<field name="dt_levee" />
+				</search>
+			</field>
+		</record>
+
+
+
+		<!-- ===================== filtre histo_resil_police============================= -->
+		<record id="view_mcisogem_histo_resil_police_filter" model="ir.ui.view">
+			<field name="name">mcisogem.histo.resil.police.select</field>
+			<field name="model">mcisogem.histo.resil.police</field>
+			<field name="arch" type="xml">
+				<search string="S">
+					<field name="police_id" />
+					<field name="dt_action" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- Action du menu liste noire -->
+		<record model="ir.actions.act_window" id="action_mcisogem_liste_noire">
+			<field name="name">Historique des Suspensions</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.liste.noire</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		
+	</data>	
+</openerp>			

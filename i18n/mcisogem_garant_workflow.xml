@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="mcisogem_garant" model="workflow">
+            <field name="name">Garant Workflow</field>
+            <field name="osv">mcisogem.garant</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record id="act_draft" model="workflow.activity">
+            <field name="wkf_id" ref="mcisogem_garant"/>
+            <field name="flow_start">True</field>
+            <field name="name">draft</field>
+        </record>
+        <record id="act_sent" model="workflow.activity">
+            <field name="wkf_id" ref="mcisogem_garant"/>
+            <field name="name">sent</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+        </record>
+        <record id="act_done" model="workflow.activity">
+            <field name="wkf_id" ref="mcisogem_garant"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="join_mode">AND</field>
+            <field name="action">wkf_action_confirm()</field>
+        </record>
+        <record id="act_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="mcisogem_garant"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">wkf_action_cancel()</field>
+        </record>
+        <record id="act_finish" model="workflow.activity">
+            <field name="wkf_id" ref="mcisogem_garant"/>
+            <field name="name">wkf_end</field>
+        </record>
+        
+        <record id="trans_sent" model="workflow.transition">
+            <field name="act_from" ref="act_draft"/>
+            <field name="act_to" ref="act_sent"/>
+            <field name="signal">button_to_sent</field>
+        </record>
+        <record id="trans_bid_confirmed" model="workflow.transition">
+            <field name="act_from" ref="act_done"/>
+            <field name="act_to" ref="act_finish"/>
+            <field name="role_id" ref="base.group_erp_manager"/>
+            <field name="signal">button_to_done</field>
+        </record>        
+        <record id="trans_sent_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_finish"/>
+            <field name="act_to" ref="act_sent"/>
+            <field name="role_id" ref="base.group_erp_manager"/>
+            <field name="signal">button_to_cancel</field>
+        </record>
+
+    </data>
+</openerp>

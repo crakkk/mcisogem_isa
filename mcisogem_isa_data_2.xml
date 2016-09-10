@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+	
+		<record id="mcisogem_role_user_8" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE COMPTABLE</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		
+		<record id="mcisogem_role_user_9" model="mcisogem.role.user">
+			<field name="name">RESPONSABLE PRESTATION</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+
+		<record id="mcisogem_role_user_16" model="mcisogem.role.user">
+			<field name="name">PRESTATION(VALIDATION DIRECTION)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="mcisogem_role_user_17" model="mcisogem.role.user">
+			<field name="name">PRESTATION(CREATION REGLEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+		
+		<record id="mcisogem_role_user_18" model="mcisogem.role.user">
+			<field name="name">PRESTATION(VALIDATION SAISIE)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="mcisogem_role_user_19" model="mcisogem.role.user">
+			<field name="name">COMPTABILITE(VALIDATION REMBOURSEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+		<record id="mcisogem_role_user_20" model="mcisogem.role.user">
+			<field name="name">COMPTABILITE(VALIDATION REGLEMENT)</field>
+			<field name="type_user">GESTIONNAIRE</field>
+		</record>
+
+	</data>
+</openerp>

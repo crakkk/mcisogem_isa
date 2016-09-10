@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom report-->
+<openerp>
+<data>
+<template id="report_benef_inc">
+
+       <style>
+
+ .page{
+    
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;/* police */
+  font-weight: normal;
+  
+}
+
+ table {
+  border-collapse:collapse;
+  width:100%;
+  margin: auto;
+ }
+  th, td {
+   border:1px solid black;
+   width:10%;
+ }
+  td {
+   text-align:center;
+ }
+ th {
+    background-color: #ccc;
+    text-align:center;
+
+}
+  caption {
+   font-weight:bold
+ }
+  .titre {
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 7px;
+    background-color: #ccc;
+  }
+  .conteneur{
+    display: inline;
+    width: 100%;
+  }
+   .entete1, .entete2{
+      display: inline-block;
+   }
+   .entete1 {
+    
+    width: 48%;
+    position: relative;
+    
+  }
+   .entete2 {
+    
+    width: 48%;
+    position: relative;    
+  }
+  label{
+    font-weight:bold;
+    text-decoration: underline;
+  }
+  p{
+    font-weight:bold;
+  }
+</style>
+
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                  <h1 class="titre">ETATS DES INCORPORATIONS</h1>
+                  <div class="conteneur">
+                      <div class="entete1">
+                        <p><b><span t-if="o.garant_id">  <span>Garant : </span> <t t-esc="o.garant_id.name" /></span></b></p>
+                        <p>
+                          <b><span t-if="o.date_d">  <span>Période du: </span> <span t-field="o.date_d" t-field-options='{"format": "d-MMMM-Y"}'/></span></b>
+                          <b><span t-if="o.date_f">  <span>Au : </span> <span t-field="o.date_f" t-field-options='{"format": "d-MMMM-Y"}'/></span></b>
+                        </p>
+                        <p><b><span t-if="o.police_id">  <span>Police : </span> <t t-esc="o.police_id.name" /></span></b></p>
+                        
+                      </div>
+                     
+                  </div>
+
+                   <!-- <p><label>College :</label> <b><span t-raw="'%s &lt;&gt;' % o.college_id.name  if o.college_id.name  else ''"/></b></p> -->
+                   <div>
+                    <p><b><span t-if="o.souscripteur_id">  <span>Souscripteur : </span> <t t-esc="o.souscripteur_id.name" /></span></b></p>
+                    <p><b><span t-if="o.college_id">  <span>College : </span> <t t-esc="o.college_id.name" /></span></b></p>
+                      <table>
+                       <thead>
+                          <tr>
+                            
+                            <th>Matricule</th>
+                            <th>Nom</th>
+                            <th>Prénoms</th>
+                            <th>Statut Beneficiaire</th>
+                            <th>Genre</th>
+                            <th>Date de naissance</th>
+                           <!--  <th>Date effet</th> -->
+                            
+                         </tr>
+                        </thead>
+
+                       <tbody>
+                        
+                          <tr t-foreach="o.beneficiaire_id" t-as="i">
+                           
+                            <td> <span t-esc="i.beneficiaire"/> </td>
+                            <td><span t-esc="i.nom_benef"/></td>
+                            <td><span t-esc="i.prenom_benef"/></td>
+                            <td><span t-esc="i.statut.name"/></td>
+                            <td><span t-esc="i.genre"/></td>
+                            <td><span t-esc="i.date" t-esc-options='{"format": "d-MMMM-Y"}'/></td>
+                             <!-- <td><span t-esc="i.date_ef" t-esc-options='{"format": "d-MMMM-Y"}'/></td> -->
+                            
+                          </tr>
+                       
+                        </tbody>
+                      </table>
+                  </div>  
+                </div>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

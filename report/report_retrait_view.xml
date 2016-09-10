@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_report_retrait_graph" model="ir.ui.view">
+            <field name="name">report.retrait.graph</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="bar">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" nterval="month" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="view_report_retrait_graph" model="ir.ui.view">
+            <field name="name">report.retrait.graph</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pivot">
+                    <field name="garant_id" type="row"/>
+                    <field name="exercice_id" type="col"/>
+                    <field name="nbr_attente" type="measure"/>
+                    <field name="nbr_valide" type="measure"/>
+                    <field name="nbr_rejete" type="measure"/>
+                    <field name="nbr_total" type="measure"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="view_report_retrait_2_graph" model="ir.ui.view">
+            <field name="name">report.retrait.2.graph</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="pie">
+                    <field name="garant_id"/>
+                    <field name="exercice_id"/>
+                    <field name="nbr_attente"/>
+                    <field name="nbr_valide"/>
+                    <field name="nbr_rejete"/>
+                    <field name="nbr_total"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="view_report_retrait_line_graph" model="ir.ui.view">
+            <field name="name">report.retrait.line.graph</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <graph string="Report graph" type="line">
+                    <field name="garant_id"/>
+                    <field name="exercice_id"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="view_report_retrait_tree" model="ir.ui.view">
+            <field name="name">report.retrait.tree</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <tree string="Report tree">
+                    <field name="garant_id"/>
+                    <field name="police_id"/>
+                    <field name="exercice_id"/>
+                </tree>
+            </field>
+    </record>
+
+   <record id="view_report_retrait_search" model="ir.ui.view">
+            <field name="name">report.retrait.search</field>
+            <field name="model">report.retrait</field>
+            <field name="arch" type="xml">
+                <search string="Analyse des retrait">
+                    <field name="exercice_id"/>
+                    <group expand="1" string="Group By">
+                        <field name="exercice_id"/>
+                    </group>
+                </search>
+            </field>
+    </record>
+
+     <record id="action_report_retrait" model="ir.actions.act_window">
+            <field name="name">Analyse deamnde de retrait</field>
+            <field name="res_model">report.retrait</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="view_id" ref="view_report_retrait_graph"/>
+            <field name="search_view_id" ref="view_report_retrait_search"/>
+        </record>
+
+        <record id="action_server_report_retrait" model="ir.actions.server">
+            <field name="sequence" eval="1"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_report_retrait"/>
+            <field name="code">action = pool.get('report.retrait').init_server(cr, uid, context)</field>
+            <field name="condition">True</field>
+            <field name="name">Graphe demande de retrait</field>
+        </record>
+
+    <menuitem name="Retrait mci" parent="ad" id='act_report_retrait' action="action_server_report_retrait"/>
+
+  
+
+</data>
+</openerp>
+ 

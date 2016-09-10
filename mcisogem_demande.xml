@@ -1,0 +1,2979 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>	
+
+
+
+			<!-- PERSONNES A NOTIFIER POUR LES PLAINTES ET SUGGESTIONS -->
+	        <record id="view_hr_mci_notification_user_form" model="ir.ui.view">
+	            <field name="name">hr.mci.notification.user.form</field>
+	            <field name="model">hr.mci.notification.user</field>
+	            <field name="arch" type="xml">
+	                <form string="Personnes a notifier">
+	                    <group>
+	                        <field name="user_id"/>
+	                    </group>
+	                </form>
+	            </field>
+	        </record>
+
+	        <record id="view_hr_mci_notification_user_tree" model="ir.ui.view">
+	            <field name="name">hr.mci.notification.user.tree</field>
+	            <field name="model">hr.mci.notification.user</field>
+	            <field name="arch" type="xml">
+	                <tree string="Personnes a notifier">
+	                    <field name="user_id"/>
+	                </tree>
+	            </field>
+	        </record>
+
+	        <record id="open_hr_mci_notification_user_form" model="ir.actions.act_window">
+	            <field name="name">Personnes a notifier</field>
+	            <field name="res_model">hr.mci.notification.user</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,form</field>
+	        </record>
+
+			<!-- PERSONNES A NOTIFIER POUR LES PLAINTES ET SUGGESTIONS/ -->
+
+			<!-- ===================== CATEGORIE DE PLAINTES ET SUGGESTIONS ================= -->	
+
+			<record id="view_categoriep_form" model="ir.ui.view">
+				<field name="name">mcisogem.categoriep.form</field>
+				<field name="model">mcisogem.categoriep</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="categorie">
+					
+						<sheet>
+							
+							 <div class="oe_title">
+	                            <h1>
+	                                <field name="name" placeholder="Libelle" />
+				    			</h1>
+	                        </div>
+							
+						</sheet>	
+					</form>
+				</field>
+			</record>
+		
+			<record id="view_categoriep_tree" model="ir.ui.view">
+				<field name="name">mcisogem.categoriep.tree</field>
+				<field name="model">mcisogem.categoriep</field>
+				<field name="arch" type="xml">
+					<tree string="categorie">
+							<field name="name" />
+					</tree>	
+				</field>
+			</record>		
+
+			<record model="ir.actions.act_window" id="action_categoriep">
+				<field name="name">Categorie de plainte</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.categoriep</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Cliquez ici pour créer une categorie de plainte.</p>
+				</field>
+			</record>
+
+			<!-- ===================== CATEGORIE DE PLAINTES ET SUGGESTIONS /================= -->	
+
+			<!-- =====================OBJETS DE PLAINTES ================= -->	
+
+			<record id="view_objetp_form" model="ir.ui.view">
+				<field name="name">mcisogem.objetp.form</field>
+				<field name="model">mcisogem.objetp</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="objet">
+						<sheet>
+							 <div class="oe_title">
+	                            <h1>
+	                                <field name="name" placeholder="Objet" />
+				    			</h1>
+	                        </div>
+							<group col="2">
+								<group>
+									<field name="categoriep_id" />
+								</group>
+							</group>
+						</sheet>	
+					</form>
+				</field>
+			</record>
+
+		
+		
+			<record id="view_objetp_tree" model="ir.ui.view">
+				<field name="name">mcisogem.objetp.tree</field>
+				<field name="model">mcisogem.objetp</field>
+				<field name="arch" type="xml">
+					<tree string="objet">	
+						<field name="name" />
+						<field name="categoriep_id" />		
+					</tree>	
+				</field>
+			</record>
+		
+
+			<record model="ir.actions.act_window" id="action_objet">
+				<field name="name">Objet</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.objetp</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Cliquez ici pour créer une objet de plaine.</p>
+				</field>
+			</record>
+
+			<!-- ===================== OBJETS DE PLAINTES /================= -->	
+
+			<!-- ===================== PLAINTES ET SUGGESTIONS ================= -->	
+
+			<record id="view_plainte_form" model="ir.ui.view">
+				<field name="name">mcisogem.plainte.form</field>
+				<field name="model">mcisogem.plainte</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="plainte">
+						<sheet>
+							<group>
+								<field name="affi_objet" invisible="1"/>
+								
+								<group>
+									<field name="categoriep_id" on_change="onchange_cat(categoriep_id)"/>
+
+								</group>
+							</group>
+							<group attrs="{'invisible':[('affi_objet','=',False)]}">
+								<group >
+									<field name="objetp_id" domain="[('categoriep_id','=','categoriep_id)]" />
+								</group>
+							</group>
+							<group >
+								<group>
+									<field name="description" />
+								</group>
+							</group>
+						</sheet>	
+				</form>
+				</field>
+			</record>
+
+			
+			<record id="view_plainte_tree_filter" model="ir.ui.view">
+				<field name="name">mcisogem.plainte.select</field>
+				<field name="model">mcisogem.plainte</field>
+				<field name="arch" type="xml">
+					<search string="Rechercher de plaintes">
+						<field name="categoriep_id"/>
+						<field name="objetp_id"/>
+						<field name="description"/>
+						<field name="garant_ids"/>	
+						<field name="centre_ids"/>
+						<group expand="0" string="Grouper par : ">
+                        	<filter name="group_garant_ids" string="Garant" context="{'group_by':'garant_ids'}"/>
+                        	<filter name="group_categoriep_id" string="Categorie" context="{'group_by':'categoriep_id'}"/>
+	                        <filter name="group_objetp_id" string="Objet" context="{'group_by':'objetp_id'}"/>
+	                        <filter name="group_centre_ids" string="Centre" context="{'group_by':'centre_ids'}"/>
+	                        <filter name="group_souscripteur_id" string="Souscripteur" context="{'group_by':'souscripteur_id'}"/>
+                    	</group>    
+					</search>	
+				</field>
+			</record>
+			
+			<record id="view_plainte_tree" model="ir.ui.view">
+				<field name="name">mcisogem.plainte.tree</field>
+				<field name="model">mcisogem.plainte</field>
+				<field name="arch" type="xml">
+					<tree string="plainte">
+						<field name="categoriep_id"/>
+						<field name="objetp_id"/>
+						<field name="description" />	
+					</tree>	
+				</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_plainte">
+				<field name="name">Plaintes et suggestions</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.plainte</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form,tree</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Cliquez ici pour créer une plainte.</p>
+				</field>
+			</record>
+			<record model="ir.actions.act_window" id="action_plainte_mci">
+				<field name="name">Plaintes et suggestions</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.plainte</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree</field>
+				<field name="view_id" ref="view_plainte_tree" />
+				<!-- <field name="context">{'search_default_group_garant_ids': 1,'search_default_group_categoriep_id': 1,'search_default_group_objetp_id': 1 }</field> -->
+				<field name="context">{'search_default_group_categoriep_id': 1,'search_default_group_objetp_id': 1 }</field>
+			</record>
+
+			
+			<!--  ===================== PLAINTES ET SUGGESTIONS /=================  -->
+
+			<!-- ===================== DEMANDE ENTENTE PREALABLE================= -->	
+
+			 <record id="view_entente_form" model="ir.ui.view">
+				<field name="name">mcisogem.entente.form</field>
+				<field name="model">mcisogem.entente</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Entente préalable" delete="false">
+						<header>
+								<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+								statusbar_colors='{"progress":"blue"}' />
+						</header>
+						<sheet>
+							<div>
+								<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+	  						</div>
+							
+								<div class="oe_title">
+										
+										<field name="id" invisible="1"/>
+										<field name="affichdetail" invisible="1"/>
+										<field name="affichebenef" invisible="1"/>
+										<field name="affichsacte" invisible="1"/>
+										<field name="centre_id" invisible="1"/>
+										
+										<table>
+											<tr>
+											    <td><label for="num_entente" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td>
+											    <td><field name="num_entente" readonly="True" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td> 
+											    
+											</tr>
+											
+										</table>
+										 			<h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    					<field name="affichebenef" invisible="1"/>
+
+								</div>
+								<div class="oe_right">
+									 <button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+
+
+									<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+
+									
+									<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/>
+
+									
+								</div>
+							
+							<group col="3">
+								<group attrs="{'invisible':[('affichebenef','=',False)]}">
+								</group>
+								<group attrs="{'invisible':[('affichebenef','=',False)]}">
+								
+											<div class="oe_title">
+						                            <h1>
+						                                <field name="benef_test_id"  placeholder="Matricule" domain="[('garant_id' , '=' , garant_id)]" on_change="benef_change(benef_test_id)" attrs="{'invisible':[('affichebenef','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    			
+				                			</div>
+				                </group>
+				                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+								</group>
+				            </group>
+							
+								<field name="police_id" invisible="1"/>
+								<field name="college_id" invisible="1"/>
+
+				                <field name="garant_id" on_change="onchange_centre_tempo(college_id,police_id,garant_id)" invisible="1"/>
+								<field name="id_centre" on_change="onchange_centre_tempo2(id_centre,college_id)" invisible="1"/> 
+
+							<group col="1">
+		
+									
+								<group  col="2" attrs="{'invisible':[('affichdetail','=',False)]}">
+								
+								<group>
+									<field name="nom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="prenom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="mail_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>			
+								</group>
+								</group>
+							</group>
+							<group attrs="{'invisible':[('affichdetail','=',False)]}">
+									<field name="user_id" invisible="1"/>
+									<field name="acteent_id" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}" on_change="sous_acte_change(acteent_id)"/>
+									<field name="s_acteent_id" widget="many2many_list" attrs="{'invisible':[('affichsacte','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" domain="[('code_acte' , '=' , acteent_id)]" options="{'no_create_edit': True}"/>
+									<field name="affection_id" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									
+									<field name="motif" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_valider" attrs="{'invisible':[('state','!=','valide')] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_rejet" attrs="{'invisible':[('state','!=','rejet')] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+		
+								</group>
+							<group>
+									
+									
+									<field name="create_date" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+		
+								</group>
+
+							 
+							
+						</sheet>	
+				</form>
+				</field>
+			</record>
+
+
+			<record id="view_entente_tree_filter" model="ir.ui.view">
+				<field name="name">mcisogem.entente.select</field>
+				<field name="model">mcisogem.entente</field>
+				<field name="arch" type="xml">
+					<search string="Search Demande d'entente prealable">
+						<field name="beneficiaire_id" />
+						<field name="acteent_id" />
+						<field name="affection_id" />
+						<field name="motif"/>
+						<field name="state"/>
+						<field name="centre_id"/>
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+
+						<field name="exercice_id"/>
+						<field name="periode_id"/>
+						<group expand="0" string="Grouper par : ">
+							<filter name="group_exercice_id" string="Exercice" context="{'group_by':'exercice_id'}"/>
+							<filter name="group_periode_id" string="Periode" context="{'group_by':'periode_id'}"/>
+	                        <filter name="group_centre_id" string="Centre" context="{'group_by':'centre_id'}"/>
+                    	</group>   
+					</search>
+				</field>
+			</record>
+
+			
+			
+			<record id="view_entente_tree" model="ir.ui.view">
+				<field name="name">mcisogem.entente.tree</field>
+				<field name="model">mcisogem.entente</field>
+				<field name="arch" type="xml">
+					<tree string="Entente préalable" colors="green:state == 'valide';red:state == 'attente'" delete="false">
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="acteent_id" />
+						<field name="affection_id" />
+						<field name="motif"/>
+						<field name="state"/>
+						<field name="centre_id"/>	
+
+					</tree>	
+				</field>
+			</record>
+
+
+			<record model="ir.actions.act_window" id="action_entente">
+				<field name="name">Entente préalable</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.entente</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form,tree</field>
+				
+			</record>
+			
+
+		   <!-- ===================== DEMANDE ENTENTE PREALABLE/================= -->
+
+		    <!-- ====================MOTIF DE VALIDATION DES ENTENTES PREALABLE============================= -->
+		<record id="view_mcisogem_motif_vep_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vep.form</field>
+			<field name="model">mcisogem.motif.vep</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Motif">
+					<sheet>
+						<field name="entente_id" invisible="1"/>
+						<field name="type" invisible="1"/>
+						<group>
+								
+								<field name="name"/>
+						</group>
+						
+						<footer>
+							<button string="Valider" name="button_valider" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== motif validation pc Liste ============================= -->
+		<record id="mcisogem_motif_vep_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vep.tree</field>
+			<field name="model">mcisogem.motif.vep</field>
+			<field name="arch" type="xml">
+				<tree string="Suspension" create="false" edit="false" delete="false">
+					<field name="entente_id" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		
+		<!-- ===================== motif validation pc filtre ============================= -->
+		<record id="view_mcisogem_motif_vep_filter" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vep.select</field>
+			<field name="model">mcisogem.motif.vep</field>
+			<field name="arch" type="xml">
+				<search string="Search Suspension">
+					<field name="entente_id" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- Action du menu motif validation pc -->
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_vep">
+			<field name="name">Motifs</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.vep</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		 <!-- ====================MOTIF DE VALIDATION DES ENTENTES PREALABLE/============================= -->
+
+ 
+
+		    <!-- #############======= DEMANDE DE PRISE EN CHARGES==========############# -->	
+
+
+		 <record id="view_pcharge_form" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.form</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande de prise en charge" delete="false">
+					<header>
+							
+
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div>
+
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+						</div>
+							<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="affichdetail" invisible="1"/>
+		
+
+								<field name="aff_quantite" invisible="1"/>
+								<field name="aff_mont_tt" invisible="1"/>
+								<field name="aff_hos_mat" invisible="1"/>
+								<field name="aff_mont" invisible="1"/>
+								<field name="affichsacte" invisible="1"/>
+
+											<table>
+												<tr>
+												    <td><label for="num_pchrage" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td>
+												    <td><field name="num_pchrage" readonly="True" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td> 
+												    
+												</tr>
+												
+											</table>
+								
+
+								
+						                            <h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'invisible':[('affichdetail','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    					<field name="affichebenef" invisible="1"/>
+								    
+							    			
+			                      	    	
+
+							</div>
+							<div class="oe_right">
+								
+								<button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print" groups="mcisogem_isa.group_prestataire" states="valide"/>
+								<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/> 
+
+								
+							</div>
+							
+						
+						<group col="3">
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+
+							</group>
+							<group attrs="{'invisible':[('affichebenef','=',False)]}">
+							
+										
+					                            <h1>
+					                                <field name="benef_test_id"  placeholder="Matricule" domain="[('garant_id' , '=' , garant_id)]" on_change="benef_change(benef_test_id)" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								    			</h1>
+							    			
+			                      	    	
+			                </group>
+			                <group attrs="{'invisible':[('affichebenef','=',False)]}">
+							</group>
+			            </group>
+					          	    	<field name="police_id"  invisible="1"/>
+					          	    	<field name="college_id"  invisible="1"/>
+			                      	    <field name="garant_id" on_change="onchange_prat_tempo(college_id,police_id,garant_id)" invisible="1"/>
+										<field name="id_centre" on_change="onchange_prat_tempo2(id_centre,college_id)" invisible="1"/> 
+
+										<field name="age_patient" invisible="1"/>
+					          	    	<field name="nom_princ" invisible="1"/>
+			                      	    <field name="prenom_princ" invisible="1"/>
+										<field name="mat_princ" invisible="1"/> 
+										<field name="centre" invisible="1"/> 
+
+
+
+			                      	    	
+
+
+						<group col="1">
+								
+
+
+								
+								
+							<group  col="2" attrs="{'invisible':[('affichdetail','=',False)]}">
+								
+							
+								<group>
+									<field name="nom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="prenom_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="police_benef_id" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="mail_benef" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="college_benef_id" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>			
+								</group>
+							</group>
+						</group>
+						
+
+						<group col="2" string="Medecin traitant"  attrs="{'invisible':[('affichdetail','=',False)]}">
+							<group attrs="{'invisible':[('id','=',True)]}">
+								<field name="user_id" invisible="1"/>
+								
+								<field name="prati_id"  options="{'no_create_edit': True}" on_change="prat_change(prati_id)" domain="[('create_uid' , '=' , user_id)]" attrs="{'readonly':[('state','in', ('valide','rejet'))],'invisible':[('afficheprat','=',True)]}"/>
+								
+								<field name="afficheprat" invisible="1"/>
+
+	
+							</group>
+							<group attrs="{'invisible':[('afficheprat','=',False)]}">
+								<field name="nom_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+
+								<field name="prenom_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								<field name="mail_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								<field name="tel_prat" readonly="True" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+	
+							</group>
+						</group>
+						
+
+
+						
+
+							<group col="1" string="Nature demande" attrs="{'invisible':[('affichdetail','=',False)]}">
+
+								<group col="2">
+									<group>
+										<field name="facte_id" options="{'no_create_edit': True}" on_change="onchange_famille_acte(facte_id)" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										<field name="acte_id" options="{'no_create_edit': True}" domain="[('code_fam_prest','=','facte_id)]" attrs="{'readonly':[('state','in', ('valide','rejet'))]}" on_change="sous_acte_change(acte_id)"/>
+										<field name="affection_id" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									</group>
+									<group>
+										<div>
+											<label string="Piece jointe (Facture proforma ...)"></label>
+											<field name="fichier_join" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+										</div>
+									</group>
+								</group>
+
+								<group>
+									<field name="s_acteent_id" widget="many2many_list" attrs="{'invisible':[('affichsacte','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" domain="[('code_acte' , '=' , acte_id)]" options="{'no_create_edit': True}"/>
+								</group>
+
+								<group>
+
+									<field name="quantite" attrs="{'invisible':[('aff_quantite','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="montant_total_med" attrs="{'invisible':[('aff_mont_tt','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="date_hospi" attrs="{'invisible':[('aff_hos_mat','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="dure_demande" attrs="{'invisible':[('aff_hos_mat','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+										
+									<field name="monatant" attrs="{'invisible':[('aff_mont','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+									<field name="create_date" attrs="{'invisible':[('id','=',False)] , 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+
+																						
+									
+								</group>
+								<field name="motif" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+								
+	
+	
+							</group>
+							<group col="2" string="Accords" attrs="{'invisible':[('state','in',('nouveau','attente'))]}">
+
+								<group>
+									<field name="nbr_jour_acc" attrs="{'invisible':[('state','!=','valide')] , 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+								</group>
+								<group>
+									<field name="motif_valider" attrs="{'invisible':[('state','!=','valide')] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_rejet" attrs="{'invisible':[('state','!=','rejet')] , 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									
+								</group>
+								
+								
+	
+							</group>
+							
+						
+						 
+						
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+		<record id="view_pcharge_tree_filter" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.select</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="arch" type="xml">
+				<search string="Search Demande de prise en charge">
+					<field name="create_date" string="Date de création"/>
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="nom_prat"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif"/>
+					<field name="state"/>
+					<field name="centre"/>
+
+					<field name="exercice_id"/>
+					<field name="periode_id"/>
+					<group expand="0" string="Grouper par : ">
+						<filter name="group_exercice_id" string="Exercice" context="{'group_by':'exercice_id'}"/>
+						<filter name="group_periode_id" string="Periode" context="{'group_by':'periode_id'}"/>
+                        <filter name="group_centre" string="Centre" context="{'group_by':'centre'}"/>
+                    </group> 
+				</search>
+			</field>
+		</record>
+		
+		<record id="view_pcharge_tree" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.tree</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="arch" type="xml">
+				<tree string="Prise en charge" colors="green:state == 'valide';red:state == 'attente'" delete="false">
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="nom_prat"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif"/>
+					<field name="state"/>
+					<field name="centre"/>
+					<field name="nbr_jour_acc"/>
+					<button name="button_prorogation" type="object"  string="PROROGATION" states="valide"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<button name="button_courier" type="object"  string="FAIRE UN COURIER" attrs="{'invisible':[('nbr_jour_acc','in', (0,1,2,3,4))]}" class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<!-- <button name="hospitalisation_en_cours" type="object"  string="TEST EN COURS" states="valide" class="oe_inline oe_stat_button"/> -->
+				</tree>	
+				
+			</field>
+
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_prise_charge">
+			<field name="name">Les Prise en charge</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.pcharge</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" ref="view_pcharge_form" />
+			
+		</record>
+
+
+
+		
+		
+		
+
+       
+		   <!-- ===================== DEMANDE DE PRISE EN CHARGES/================= -->
+
+
+		   <!-- #############=======DEMANDE DE PROROGATION==========############# -->	
+
+
+		 <record id="view_prorogation_form" model="ir.ui.view">
+			<field name="name">mcisogem.prorogation.form</field>
+			<field name="model">mcisogem.prorogation</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande de prorogation">
+					<header>
+							
+
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+							statusbar_colors='{"progress":"blue"}' />
+					</header>
+					<sheet>
+						<div>
+
+							<field name="image_medium" widget="image" readonly="True" class="oe_left oe_avatar" />
+						</div>
+							<div class="oe_title">
+								<field name="id" invisible="1"/>
+								<field name="pcharge_id" invisible="1" on_change="pcharge_change(pcharge_id)"/>
+								<field name="centre_id" invisible="1"/>
+								
+
+											<table>
+												<tr>
+												    <td><label for="num_prorogation" attrs="{'invisible':[('id','=',False)]}"/></td>
+												    <td><field name="num_prorogation" readonly="True" attrs="{'invisible':[('id','=',False)]}"/></td> 
+												    
+												</tr>
+												
+											</table>
+								
+
+								
+						                            <h1>
+						                                <field name="beneficiaire_id" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" />
+									    			</h1>
+								    					
+								    
+							</div>
+							<div class="oe_right">
+								
+								<button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_medecin_conseil"/>
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print" groups="mcisogem_isa.group_prestataire" states="valide"/>
+								<button name="annuler_assures" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,rejet" icon="fa-angle-left" groups="mcisogem_isa.group_medecin_conseil"/>
+
+								
+							</div>
+							
+						
+					
+
+						<group col="1">
+								
+
+
+								<field name="centre" readonly="True"/> 
+								
+							<group  col="2">
+								
+							
+								<group>
+									<field name="nom_benef" readonly="True"/>
+									<field name="prenom_benef" readonly="True"/>
+										
+								</group>
+								<group>
+									
+									<field name="tel_benef" readonly="True"/>
+									<field name="mail_benef" readonly="True"/>			
+								</group>
+							</group>
+						</group>
+						
+
+						<group col="2" string="Medecin traitant"  >
+							<group>
+								
+								<field name="praticien_id" readonly="True" options="{'no_create_edit': True}"/>
+								
+								
+	
+							</group>
+							<group >
+								<field name="nom_prat" readonly="True"/>
+								<field name="prenom_prat" readonly="True"/>
+								
+	
+							</group>
+						</group>
+						
+
+
+						
+							<group col="1" string="Nature demande" >
+
+								<group col="2">
+									<group>
+										<field name="facte_id" options="{'no_create_edit': True}"  readonly="True"/>
+										<field name="acte_id" options="{'no_create_edit': True}"  readonly="True"/>
+										<field name="affection_id" options="{'no_create_edit': True}" readonly="True"/>
+									</group>
+									<group>
+										
+									</group>
+								</group>
+
+
+								<group>
+
+										
+									<field name="date_hospi"  readonly="True"/>	
+									<field name="dure_demande" readonly="True"/>	
+									<field name="dur_sup_demande" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="create_date" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+
+
+																						
+									<field name="motif_prorogation"/>
+									
+								</group>
+								
+	
+							</group>
+
+							<group col="2" string="Accords" attrs="{'invisible':[('state','in',('nouveau','attente'))]}">
+
+								<group>
+									<field name="nbr_jour_acc" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>	
+								</group>
+								<group>
+									<field name="motif_valider" attrs="{'invisible':[('state','!=','valide')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									<field name="motif_rejet" attrs="{'invisible':[('state','!=','rejet')], 'readonly':[('state','in', ('valide','rejet'))]}"/>
+									
+								</group>
+								
+								
+	
+							</group>
+							
+						
+						 
+						
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+		<record id="view_prorogation_tree_filter" model="ir.ui.view">
+			<field name="name">mcisogem.prorogation.select</field>
+			<field name="model">mcisogem.prorogation</field>
+			<field name="arch" type="xml">
+				<search string="Search Demande de prorogation">
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="praticien_id"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif_prorogation"/>
+					<field name="state"/>
+					<field name="centre"/>
+					<group expand="0" string="Grouper par : ">
+                        <filter name="group_centre" string="Centre" context="{'group_by':'centre'}"/>
+                    </group> 
+				</search>
+			</field>
+		</record>
+		
+		<record id="view_prorogation_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prorogation.tree</field>
+			<field name="model">mcisogem.prorogation</field>
+			<field name="arch" type="xml">
+				<tree string="Prorogation" colors="green:state == 'valide';red:state == 'attente'">
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="praticien_id"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif_prorogation"/>
+					<field name="state"/>
+					<field name="centre"/>
+					<field name="nbr_jour_acc"/>
+				</tree>	
+				
+			</field>
+
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_prorogation">
+			<field name="name">Les Prise en charge</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prorogation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			
+		</record>
+
+		
+
+       
+		   <!-- ===================== DEMANDE DE PROROGATION/================= -->
+
+		    <!-- ===================== MOTIF DE PROROGATION============================= -->
+		<record id="view_mcisogem_motif_vpro_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpro.form</field>
+			<field name="model">mcisogem.motif.vpro</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Motif">
+					<sheet>
+						<field name="prorogation_id" invisible="1"/>
+						<field name="type" invisible="1"/>
+						<group>
+								<field name="nbr_jour_acc" attrs="{'invisible':[('type','!=','VALIDATION')]}"/>
+								<field name="name"/>
+						</group>
+						
+						<footer>
+							<button string="Valider" name="button_valider" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== motif validation pc Liste ============================= -->
+		<record id="mcisogem_motif_vpro_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpro.tree</field>
+			<field name="model">mcisogem.motif.vpro</field>
+			<field name="arch" type="xml">
+				<tree string="Suspension" create="false" edit="false" delete="false">
+					<field name="prorogation_id" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		
+		<!-- ===================== motif validation pc filtre ============================= -->
+		<record id="view_mcisogem_motif_vpro_filter" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpro.select</field>
+			<field name="model">mcisogem.motif.vpro</field>
+			<field name="arch" type="xml">
+				<search string="Search Suspension">
+					<field name="prorogation_id" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- Action du menu motif validation pc -->
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_vpro">
+			<field name="name">Motifs</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.vep</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		 <!-- ===================== MOTIF DE PROROGATION/============================= -->
+
+
+		   <!-- ===================== MOTIF DE PRISE EN CHARGE pc form ============================= -->
+		<record id="view_mcisogem_motif_vpc_form" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpc.form</field>
+			<field name="model">mcisogem.motif.vpc</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Motif">
+					<sheet>
+						<field name="pcharge_id" invisible="1"/>
+						<field name="type" invisible="1"/>
+						<field name="affiche_jours" invisible="1"/>
+						<group>
+								<field name="nbr_jour_acc" attrs="{'invisible':['|',('type','!=','VALIDATION'),('affiche_jours','=',False)]}"/>
+								<field name="name"/>
+						</group>
+						
+						<footer>
+							<button string="Valider" name="button_valider" type="object" class="oe_highlight"/>
+							ou
+							<button string="Annuler" class="oe_link" special="cancel" />
+						</footer>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- ===================== motif validation pc Liste ============================= -->
+		<record id="mcisogem_motif_vpc_tree" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpctree</field>
+			<field name="model">mcisogem.motif.vpc</field>
+			<field name="arch" type="xml">
+				<tree string="Suspension" create="false" edit="false" delete="false">
+					<field name="pcharge_id" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		
+		<!-- ===================== motif validation pc filtre ============================= -->
+		<record id="view_mcisogem_motif_vpc_filter" model="ir.ui.view">
+			<field name="name">mcisogem.motif.vpc.select</field>
+			<field name="model">mcisogem.motif.vpc</field>
+			<field name="arch" type="xml">
+				<search string="Search Suspension">
+					<field name="pcharge_id" />
+					<field name="name" />
+				</search>
+			</field>
+		</record>
+
+
+		<!-- Action du menu motif validation pc -->
+		<record model="ir.actions.act_window" id="action_mcisogem_motif_vpc">
+			<field name="name">Motifs</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.motif.vpc</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		    <!-- ===================== MOTIF DE PRISE EN CHARGE============================ -->
+
+
+		   <!-- ================= LISTE DES DEMANDE PAR GARANT ================= -->
+		<record id="info_demande_garant_form" model="ir.ui.view">
+			<field name="name">mcisogem.info_demande_garant.form</field>
+			<field name="model">mcisogem.info_demande_garant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+						<field name="name"/>
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="info_demande_garantt_tree" model="ir.ui.view">
+			<field name="name">mcisogem.info_demande_garant.tree</field>
+			<field name="model">mcisogem.info_demande_garant</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					<button name="button_pcharge" type="object"  string="PRISE EN CHARGE"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>  
+					<button name="button_enttente" type="object"  string="ENTENTE PREALABLE"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<button name="button_prorogation" type="object"  string="PROROGATION"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<button name="button_incorporation" type="object"  string="INCORPORATIONS"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_garant"/>
+					<button name="button_retrait" type="object"  string="RETRAITS"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_garant"/>
+					<button name="button_suspend" type="object"  string="SUSPENSIONS"  class="oe_inline oe_stat_button" groups="mcisogem_isa.group_garant"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_info_demande_garant" model="ir.actions.act_window">
+            <field name="name">Informations</field>
+            <field name="res_model">mcisogem.info_demande_garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+          
+        </record>
+
+		<!-- ================= LISTE DES DEMANDE PAR GARANT /================= -->
+
+		<!-- ================= LISTE DES DEMANDE PAR INTERMEDIAIRE ================= -->
+		<record id="info_demande_inter_form" model="ir.ui.view">
+			<field name="name">mcisogem.info_demande_inter.form</field>
+			<field name="model">mcisogem.info_demande_inter</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+						<field name="name"/>
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="info_demande_inter_tree" model="ir.ui.view">
+			<field name="name">mcisogem.info_demande_inter.tree</field>
+			<field name="model">mcisogem.info_demande_inter</field>
+			<field name="arch" type="xml">
+				<tree string="Informations intermediaire">
+					<button name="button_incorporation" type="object"  string="INCORPORATIONS"  class="oe_inline oe_stat_button" />
+					<button name="button_retrait" type="object"  string="RETRAITS"  class="oe_inline oe_stat_button" />
+					<button name="button_suspend" type="object"  string="SUSPENSIONS"  class="oe_inline oe_stat_button" />
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_info_demande_inter" model="ir.actions.act_window">
+            <field name="name">Informations intermediaire</field>
+            <field name="res_model">mcisogem.info_demande_inter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+          
+        </record>
+
+		<!-- ================= LISTE DES DEMANDE PAR INTERMEDIAIRE /================= -->
+
+		<!-- ================= INFORMATIONS PAR GARANT ================= -->
+		<record id="view_info_garant_form" model="ir.ui.view">
+			<field name="name">mcisogem.info_garant.form</field>
+			<field name="model">mcisogem.info_garant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+
+						<field name="name"/>
+
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="info_garantt_tree" model="ir.ui.view">
+			<field name="name">mcisogem.info_garant.tree</field>
+			<field name="model">mcisogem.info_garant</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					<button name="button_beneficiaire" type="object"  string="LISTE DES BENEFICIAIRES"  class="oe_inline oe_stat_button"/>  
+					<button name="button_police" type="object"  string="LISTE DES POLICES"  class="oe_inline oe_stat_button" />
+					<button name="button_college" type="object"  string="LISTE DES COLLEGES"  class="oe_inline oe_stat_button" />
+					<button name="button_souscripteur" type="object"  string="LISTE DES SOUSCRIPTEURS"  class="oe_inline oe_stat_button" />  
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_info_garant" model="ir.actions.act_window">
+            <field name="name">Informations</field>
+            <field name="res_model">mcisogem.info_garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <!-- ================= INFORMATIONS PAR GARANT ================= -->
+
+        <!-- ================= BUTTON POUR INCOR/RET/SUSP GARANT================= -->
+		<record id="police_inc_garant_form" model="ir.ui.view">
+			<field name="name">mcisogem.police.inc_garant.form</field>
+			<field name="model">mcisogem.police.inc.garant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+
+						<field name="name"/>
+
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="police_inc_garant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.police.inc_garant.tree</field>
+			<field name="model">mcisogem.police.inc.garant</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					 
+					<button name="button_police_inc" type="object"  string=" DEMANDE D'INCORPORATION"  class="oe_inline oe_stat_button" />
+					<button name="button_retrait" type="object"  string=" DEMANDE DE RETRAIT"  class="oe_inline oe_stat_button" />
+					<button name="button_suspend" type="object"  string=" DEMANDE DE SUSPENSION"  class="oe_inline oe_stat_button" />
+					 
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_police_inc_garant" model="ir.actions.act_window">
+            <field name="name">Incorpo/retrait/suspension</field>
+            <field name="res_model">mcisogem.police.inc.garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+           
+        </record>
+        <!-- ================= BUTTON POUR INCOR/RET/SUSP GARANT ================= -->
+
+        <!-- ================= BUTTON POUR INCOR/RET/SUSP INTERMEDIAIRE ================= -->
+		<record id="police_inc_inter_form" model="ir.ui.view">
+			<field name="name">mcisogem.police.inc_inter.form</field>
+			<field name="model">mcisogem.police.inc.inter</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+
+						<field name="name"/>
+
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="police_inc_inter_tree" model="ir.ui.view">
+			<field name="name">mcisogem.police.inc_inter.tree</field>
+			<field name="model">mcisogem.police.inc.inter</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					 
+					<button name="button_police_inc" type="object"  string=" DEMANDE D'INCORPORATION"  class="oe_inline oe_stat_button" />
+					<button name="button_retrait" type="object"  string=" DEMANDE DE RETRAIT"  class="oe_inline oe_stat_button" />
+					<button name="button_suspend" type="object"  string=" DEMANDE DE SUSPENSION"  class="oe_inline oe_stat_button" />
+					 
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_police_inc_inter" model="ir.actions.act_window">
+            <field name="name">Incorpo/retrait/suspension</field>
+            <field name="res_model">mcisogem.police.inc.inter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+           
+        </record>
+        <!-- ================= BUTTON POUR INCOR/RET/SUSP INTERMEDIAIRE================= -->
+
+
+
+        <!-- POLICE PAR GARANT-->
+
+		<record id="police_garant_inc_tree" model="ir.ui.view">
+			<field name="name">police_garant_inc.tree</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<tree string="Police" colors="red:state == 'lnoir';blue:state == 'resil'">
+					<field name="souscripteur_id" />
+					<field name="name" />
+					<field name="dt_effet" />
+					<field name="dt_resil_pol" />
+					<field name="state" />
+					<button name="button_inc_garant" type="object"  string="Demande d'Incorporation" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_police_garant_inc">
+                <field name="name">Polices</field>
+                <field name="res_model">mcisogem.police</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="police_garant_inc_tree" />     
+            </record>
+
+		<!-- POLICE PAR GARANT/-->
+
+		<!-- POLICE PAR INTERMEDIAIRE-->
+
+		<record id="police_inter_inc_tree" model="ir.ui.view">
+			<field name="name">police_garant_inc.tree</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<tree string="Police" colors="red:state == 'lnoir';blue:state == 'resil'">
+					<field name="souscripteur_id" />
+					<field name="name" />
+					<field name="dt_effet" />
+					<field name="dt_resil_pol" />
+					<field name="state" />
+					<button name="button_inc_inter" type="object"  string="Demande d'Incorporation" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_police_inter_inc">
+                <field name="name">Polices</field>
+                <field name="res_model">mcisogem.police</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="police_inter_inc_tree" />     
+            </record>
+
+		<!-- POLICE PAR INTERMEDIAIRE/-->
+
+
+        <!-- ================= RECHERCHE BENEF PAR GARANT + CRITERES ================= -->
+
+		<record id="mcisogem_recherche_benef_garant_form" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.benef.garant.form</field>
+			<field name="model">mcisogem.recherche.benef.garant</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="recherche">
+					
+					<sheet>
+							<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Rechercher" class="oe_inline oe_stat_button" icon=" fa-search-minus" />
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/>
+								<!-- <button name="print_carte"  type="object" string="Imprimer carte" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/> -->
+								
+							</div>
+						<field name="garant_id" on_change="onchange_sous_col(garant_id)" invisible="1"/>
+						<field name="users" invisible="1"/>
+						<field name="id" invisible="1"/>
+						
+						<group col="3">
+							<group>
+								<field name="police_id" on_change="onchange_sous_col2(police_id,garant_id)" domain="[('garant_id' , '=' , garant_id)]" options="{'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="souscripteur_id_tempo"  domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="college_id_tempo" domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+
+						</group>
+						<group col="3">
+							<group>
+								<field name="stat_incorp"/>
+							</group>
+							
+							<group>
+								<field name="date_d"/>
+							</group>
+							<group>
+								<field name="date_f"/>
+							</group>
+						</group>
+						<group >
+							<!-- <field name="regime_id"/> -->
+						</group>
+				</sheet>
+						<group col="1" attrs="{'invisible':[('id','=',False)]}">   
+							<field name="beneficiaire_id" widget="one2many">
+							  <tree edit="false" create="false" delete="false">
+                                            <field name="beneficiaire"/>
+                                            <field name="nom_benef"/>
+                                            <field name="prenom_benef" />
+                                            <field name="date"/>
+                                            <field name="statut"/>
+                                            <field name="genre"/>
+                                </tree>   
+                            </field>
+                        </group>
+
+						
+			</form>
+			</field>
+		</record>
+		<record id="mcisogem_recherche_benef_garant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.benef.garant.tree</field>
+			<field name="model">mcisogem.recherche.benef.garant</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="garant"/>
+					<field name="police_id"/>	
+					<field name="souscripteur_id"/>
+					<field name="college_id"/>
+					<field name="date_f"/>
+					<field name="date_d"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_recherche_benef_garant" model="ir.actions.act_window">
+            <field name="name">Les Beneficiaire</field>
+            <field name="res_model">mcisogem.recherche.benef.garant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+          
+        </record>
+
+
+		<!-- ================= RECHERCHE BENEF PAR GARANT + CRITERES /================= -->
+
+
+		<!--  ===================== INCORPORATION GARANT+INTEREMEDIAIRE /=================  -->
+
+
+
+		<record id="view_benf_incorpo_form" model="ir.ui.view">
+			<field name="name">mcisogem.benf_incorpo.form</field>
+			<field name="model">mcisogem.benf_incorpo</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande d'ncorporation beneficiaire">
+					 <header>
+							
+					 		<button name="button_histo_benef_incorp" string="Dépendants" class="oe_highlight" type="object" attrs="{'invisible':[('code_statut','!=','A')]}"/>
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,retirer"
+							statusbar_colors='{"progress":"blue"}' />
+					
+						
+							
+					</header>
+					
+					<sheet>
+							<div class="oe_right">
+								<button name="button_action_valider" type="object"  string="Incorporer" states="attente," class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"
+								 />
+								<button name="button_action_retirer" type="object" string="Retrait" class="oe_inline oe_stat_button" states="attente,valide" icon="fa-star" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+								
+
+								<button name="button_action_annuler" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,retirer" icon="fa-angle-left" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+							</div>
+
+							<field name="id" readonly="1" invisible="1"/>
+							<field name="garant_id" invisible="1"/>
+							<field name="statut_a" invisible="1"/>
+							<field name="id_police" invisible="1"/>
+							<field name="aff_benf" invisible="1"/>
+							<field name="aff_benf_i" invisible="1"/>
+							<field name="aff_benf_pol" invisible="1"/>
+							<field name="aff_detail" invisible="1"/>
+							
+							<field name="aff_non_fille" invisible="1"/>
+							
+							
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+							<div class="oe_title" style="clear:both">
+									<label for="name" class="oe_edit_only" attrs="{'required': [('aff_benf','!=',False)]}"/>
+									
+								</div>
+							<div class="oe_title">
+									
+									<label for="est_assur_depend" />
+									<field name="est_assur_depend" on_change="onchange_assur_depend(est_assur_depend)"/>
+									<group col="5" attrs="{'invisible':[('est_assur_depend','=',False)]}">
+										
+										<group attrs="{'invisible':[('aff_benf','=',False)]}">
+											<field name="benef_p_id"  on_change="onchange_benef_p_id(benef_p_id)" domain="[('statut_benef' , '=' , statut_a),('garant_id' , '=' , garant_id), ('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf','!=',False)]}"/>
+										</group>
+										<group attrs="{'invisible':[('aff_benf_i','=',False)]}">
+											<field name="benef_id"  on_change="onchange_benef_id(benef_id)" domain="[('statut_benef' , '=' , statut_a),('garant_id' , '=' , garant_id), ('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf_i','!=',False)]}"/>
+										</group>
+										<group attrs="{'invisible':[('aff_benf_pol','=',False)]}">
+											<field name="benef_pol_id"  on_change="onchange_benef_id(benef_pol_id)" domain="[('statut_benef' , '=' , statut_a),('garant_id' , '=' , garant_id),('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf_pol','!=',False)]}"/>
+										</group>
+										<group >
+											<field name="nom_assur_princ" readonly="1" attrs="{'invisible':[('aff_detail','=',False)]}"/>
+										</group>
+										<group>
+											<field name="prenom_assur_princ" readonly="1" attrs="{'invisible':[('aff_detail','=',False)]}"/>
+										</group>
+									</group>
+
+							</div>
+							<group col="2">
+									<group >
+										<field name="statut_benef" widget="radio" on_change="onchange_code_statut(statut_benef)" options="{'no_create_edit': True}"/>
+										<field name="code_statut" invisible="1"/>
+										<field name="nom" />
+										<field name="nom_jeun_fille" attrs="{'invisible':[('aff_non_fille','=',False)]}"/>
+										<field name="prenom_benef" />
+										<field name="dt_naiss_benef" />
+										<field name="lieu_naiss_benef" />
+										<field name="adr_benef" />
+										<field name="tel_benef" />					
+									</group >
+									<group >
+										<field name="creat_incorpo" widget="radio" invisible="1"/>
+										<field name="sexe" on_change="onchange_sexe(sexe)"/>
+										<field name="fax_benef" />
+										<field name="cod_bp_benef" />
+										<field name="bp_benef" />	
+									</group>
+							</group >
+							<notebook>
+										<page string="Informations Complémentaires" >
+											<group col="2">
+												<group >
+													<field name="police_id" readonly="1" domain="[('garant_id','=',garant_id) , ('type_regime' , '=' , 'O')]" on_change="onchange_police(police_id)"/>
+													<field name="souscripteur_id" attrs="{'readonly':[('police_id','!=',False)]}"/>
+													<field name="college_id" domain="[('police_id','=',id_police)]" attrs="{'readonly':[('aff_detail','!=',False)]}"/>
+
+												</group>					
+											</group>					
+										</page>
+
+										<page string="Finance">
+											<group col="2">
+												<group >
+													<field name="affiche" invisible="1" />
+													<field name="num_banq_benef"/>
+													<field name="num_compt_benef"/>
+
+												</group>
+												<group >
+													<field name="num_guichet_benef"/>
+													<field name="cle_rib_benef"/>													
+												</group>		
+											</group>					
+										</page>	
+
+										<page string="Informations medicales" >			
+											<group col="2">
+												<group >
+													<field name="group_sang_benef" />
+													<field name="dt_mensuration" />
+													<field name="allergie_benef" />
+													<field name="bl_trt_en_cours" />
+													<field name="trt_en_cours_until" />	
+													<field name="specif_trav_benef" />
+													<field name="transfus_benef" />
+													<field name="prothese_benef" />																				
+												</group>
+												<group >
+													<field name="poids_benef" />
+													<field name="taille_benef" />
+													<field name="anteced_fam" />
+													<field name="predisp_benef" />	
+													<field name="anteced_obstetric" />
+													<field name="anteced_chir" />
+													<field name="anteced_medic" />								
+												</group>		
+											</group>	
+										</page>	
+									</notebook>
+
+									
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+
+		<record id="view_benf_incorpo_tree_filter" model="ir.ui.view">
+			<field name="name">mcisogem.benf_incorpo.select</field>
+			<field name="model">mcisogem.benf_incorpo</field>
+			<field name="arch" type="xml">
+				<search string="Recherche demande d' incorporation'">
+					<field name="create_date" string="Date"/>
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<field name="statut_benef"/>
+					<field name="state"/>
+					<field name="garant"/>
+					<field name="intermediaire"/>
+					<group expand="0" string="Grouper par : ">
+                        	<filter name="group_garant" string="Garant" context="{'group_by':'garant'}"/>
+                    </group> 
+				</search>
+			</field>
+		</record>
+
+		<record id="view_benf_incorpo_tree" model="ir.ui.view">
+			<field name="name">mcisogem.benf_incorpo.tree</field>
+			<field name="model">mcisogem.benf_incorpo</field>
+			<field name="arch" type="xml">
+				<tree string="Incorporation Beneficiaire" colors="green:state == 'valide';red:state == 'attente'">
+					<field name="create_date" string="Date"/>					
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<field name="statut_benef"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_benf_incorpo">
+			<field name="name">Incorporation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.benf_incorpo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cliquez ici pour une nouvelle incorporation</p>
+			</field>
+		</record>	
+
+
+
+
+
+		<!-- <record model="ir.actions.act_window" id="action_benf_incorpo_mci">
+			<field name="name">Incorporation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.benf_incorpo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_benf_incorpo_tree" />
+		</record>	 -->
+
+		<!--  ===================== INCORPORATION GARANT+INTEREMEDIAIRE /=================  -->
+
+		<!--  ===================== INCORPORATION GARANT+INTEREMEDIAIRE POUR MCI/=================  -->
+
+
+
+		<record id="view_benf_incorpo_mci_form" model="ir.ui.view">
+			<field name="name">mcisogem.benf_incorpo.form</field>
+			<field name="model">mcisogem.benf_incorpo</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Demande d'ncorporation beneficiaire" create="false">
+					 <header>
+							
+					 		<button name="button_histo_benef_incorp" string="Dépendants" class="oe_highlight" type="object" attrs="{'invisible':[('code_statut','!=','A')]}"/>
+							<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,retirer"
+							statusbar_colors='{"progress":"blue"}' />
+					
+						
+							
+					</header>
+					
+					<sheet>
+							<div class="oe_right">
+								<button name="button_action_valider" type="object"  string="Incorporer" states="attente," class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"
+								 />
+								<button name="button_action_retirer" type="object" string="Retrait" class="oe_inline oe_stat_button" states="attente,valide" icon="fa-star" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+								
+
+								<button name="button_action_annuler" type="object" string="Annuler" class="oe_inline oe_stat_button" states="valide,retirer" icon="fa-angle-left" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+							</div>
+
+							<field name="id" readonly="1" invisible="1"/>
+							<field name="garant_id" invisible="1"/>
+							
+							<field name="id_police" invisible="1"/>
+							<field name="aff_benf" invisible="1"/>
+							<field name="aff_benf_i" invisible="1"/>
+							<field name="aff_benf_pol" invisible="1"/>
+							<field name="aff_detail" invisible="1"/>
+							
+							<field name="aff_non_fille" invisible="1"/>
+							
+							
+							<field name="image_medium" widget="image" class="oe_left oe_avatar" />
+							<div class="oe_title" style="clear:both">
+									<label for="name" class="oe_edit_only" attrs="{'required': [('aff_benf','!=',False)]}"/>
+									
+								</div>
+							<div class="oe_title">
+									
+									<label for="est_assur_depend" />
+									<field name="est_assur_depend" on_change="onchange_assur_depend(est_assur_depend)"/>
+									<group col="5" attrs="{'invisible':[('est_assur_depend','=',False)]}">
+										
+										<group attrs="{'invisible':[('aff_benf','=',False)]}">
+											<field name="benef_p_id"  on_change="onchange_benef_p_id(benef_p_id)" domain="[('statut_benef' , '=' , 1),('garant_id' , '=' , garant_id), ('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf','!=',False)]}"/>
+										</group>
+										<group attrs="{'invisible':[('aff_benf_i','=',False)]}">
+											<field name="benef_id"  on_change="onchange_benef_id(benef_id)" domain="[('statut_benef' , '=' , 1),('garant_id' , '=' , garant_id), ('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf_i','!=',False)]}"/>
+										</group>
+										<group attrs="{'invisible':[('aff_benf_pol','=',False)]}">
+											<field name="benef_pol_id"  on_change="onchange_benef_id(benef_pol_id)" domain="[('statut_benef' , '=' , 1),('garant_id' , '=' , garant_id),('police_id' , '=' , id_police)]" attrs="{'required':[('code_statut','!=','A'), ('aff_benf_pol','!=',False)]}"/>
+										</group>
+										<group >
+											<field name="nom_assur_princ" readonly="1" attrs="{'invisible':[('aff_detail','=',False)]}"/>
+										</group>
+										<group>
+											<field name="prenom_assur_princ" readonly="1" attrs="{'invisible':[('aff_detail','=',False)]}"/>
+										</group>
+									</group>
+
+							</div>
+							<group col="2">
+									<group >
+										<field name="statut_benef" widget="radio" on_change="onchange_code_statut(statut_benef)" options="{'no_create_edit': True}"/>
+										<field name="code_statut" invisible="1"/>
+										<field name="nom" />
+										<field name="nom_jeun_fille" attrs="{'invisible':[('aff_non_fille','=',False)]}"/>
+										<field name="prenom_benef" />
+										<field name="dt_naiss_benef" />
+										<field name="lieu_naiss_benef" />
+										<field name="adr_benef" />
+										<field name="tel_benef" />					
+									</group >
+									<group >
+										<field name="creat_incorpo" widget="radio" invisible="1"/>
+										<field name="sexe" on_change="onchange_sexe(sexe)"/>
+										<field name="fax_benef" />
+										<field name="cod_bp_benef" />
+										<field name="bp_benef" />	
+									</group>
+							</group >
+							<notebook>
+										<page string="Informations Complémentaires" >
+											<group col="2">
+												<group >
+													<field name="police_id" readonly="1" domain="[('garant_id','=',garant_id) , ('type_regime' , '=' , 'O')]" on_change="onchange_police(police_id)"/>
+													<field name="souscripteur_id" attrs="{'readonly':[('police_id','!=',False)]}"/>
+													<field name="college_id" domain="[('police_id','=',id_police)]" attrs="{'readonly':[('aff_detail','!=',False)]}"/>
+												</group>					
+											</group>					
+										</page>
+
+										<page string="Finance">
+											<group col="2">
+												<group >
+													<field name="affiche" invisible="1" />
+													<field name="num_banq_benef"/>
+													<field name="num_compt_benef"/>
+
+												</group>
+												<group >
+													<field name="num_guichet_benef"/>
+													<field name="cle_rib_benef"/>													
+												</group>		
+											</group>					
+										</page>	
+
+										<page string="Informations medicales" >			
+											<group col="2">
+												<group >
+													<field name="group_sang_benef" />
+													<field name="dt_mensuration" />
+													<field name="allergie_benef" />
+													<field name="bl_trt_en_cours" />
+													<field name="trt_en_cours_until" />	
+													<field name="specif_trav_benef" />
+													<field name="transfus_benef" />
+													<field name="prothese_benef" />																				
+												</group>
+												<group >
+													<field name="poids_benef" />
+													<field name="taille_benef" />
+													<field name="anteced_fam" />
+													<field name="predisp_benef" />	
+													<field name="anteced_obstetric" />
+													<field name="anteced_chir" />
+													<field name="anteced_medic" />								
+												</group>		
+											</group>	
+										</page>	
+									</notebook>
+
+									
+					</sheet>	
+			</form>
+			</field>
+		</record>
+
+
+		<record id="view_benf_incorpo_mci_tree" model="ir.ui.view">
+			<field name="name">mcisogem.benf_incorpo.tree</field>
+			<field name="model">mcisogem.benf_incorpo</field>
+			<field name="arch" type="xml">
+				<tree string="Incorporation Beneficiaire" colors="green:state == 'valide';red:state == 'attente'">
+					
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<field name="dt_naiss_benef" />
+					<field name="sexe" />
+					<field name="statut_benef"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		
+
+		<record model="ir.actions.act_window" id="action_benf_incorpo_prod">
+			<field name="name">Incorporation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.benf_incorpo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_garant': 1}</field>
+			<field name="view_id" ref="view_benf_incorpo_mci_tree" />
+		</record>	
+		<!-- <record model="ir.actions.act_window" id="action_benf_incorpo_prod">
+			<field name="name">Incorporation</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.benf_incorpo</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_garant': 1,search_default_group_intermediaire': 1}</field>
+			<field name="view_id" ref="view_benf_incorpo_mci_tree" />
+		</record>	 -->
+
+		<!--  ===================== INCORPORATION GARANT+INTEREMEDIAIRE POUR MCI/=================  -->
+
+		<!-- BENEF PAR GAGARNT-->
+
+		<record id="benef_garant_tree" model="ir.ui.view">
+			<field name="name">mcisogem.benef.tree</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="name" />
+					<field name="statut_benef" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<button name="button_demande_retrait" type="object"  string="Demande retrait" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_benef_garant">
+                <field name="name">Beneficiaire</field>
+                <field name="res_model">mcisogem.benef</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="benef_garant_tree" />     
+            </record>
+
+		<!-- BENEF PAR GAGARNT/-->
+
+		<!-- BENEF PAR GAGARNT 2-->
+
+		<record id="benef_garant_tree2" model="ir.ui.view">
+			<field name="name">mcisogem.benef2.tree</field>
+			<field name="model">mcisogem.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="name" />
+					<field name="statut_benef" />
+					<field name="nom" />
+					<field name="prenom_benef" />
+					<button name="button_demande_suspend" type="object"  string="Demande suspension" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_benef_garant2">
+                <field name="name">Beneficiaire</field>
+                <field name="res_model">mcisogem.benef</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="benef_garant_tree2" />     
+            </record>
+
+		<!-- BENEF PAR GAGARNT 2/-->
+
+		<!-- BENEF PAR INTERMEDIAIRE-->
+
+		<record id="benef_inter_tree" model="ir.ui.view">
+			<field name="name">mcisogem.benef.inc.inter.tree</field>
+			<field name="model">mcisogem.benef.inc.inter</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="name" />
+					<field name="police_id"/>
+					<field name="statut_benef" />
+					<field name="nom" />
+					<field name="prenom" />
+					<button name="button_demande_retrait" type="object"  string="Demande retrait" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		<record id="benef_inter_tree_filter" model="ir.ui.view">
+			<field name="name">mmcisogem.benef.inc.inter.select</field>
+			<field name="model">mcisogem.benef.inc.inter</field>
+			<field name="arch" type="xml">
+				<search string="Rechercher Demande de retrait'">
+					<field name="name" />
+					<field name="police_id"/>
+					<field name="statut_benef" />
+					<field name="nom" />
+					<field name="prenom" />
+				</search>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_benef_inter">
+                <field name="name">Beneficiaire</field>
+                <field name="res_model">mcisogem.benef.inc.inter</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="benef_inter_tree" />     
+            </record>
+
+		<!-- BENEF PAR INTERMEDIAIRE/-->
+
+		<!-- BENEF PAR INTERMEDIAIRE 2-->
+
+		<record id="benef_inter_tree2" model="ir.ui.view">
+			<field name="name">mcisogem.benef.inc.inter2.tree</field>
+			<field name="model">mcisogem.benef.inc.inter</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="name" />
+					<field name="police_id"/>
+					<field name="statut_benef" />
+					<field name="nom" />
+					<field name="prenom" />
+					<button name="button_demande_suspend" type="object"  string="Demande suspension" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_benef_inter2">
+                <field name="name">Beneficiaire</field>
+                <field name="res_model">mcisogem.benef.inc.inter</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="benef_inter_tree2" />     
+            </record>
+
+		<!-- BENEF PAR INTERMEDIAIRE 2/-->
+
+
+		<!--  =====================DEMANDE DE RETRAIT=================  -->
+					 <record id="mcisogem_retrait_form" model="ir.ui.view">
+				<field name="name">mcisogem.retrait.form</field>
+				<field name="model">mcisogem.retrait</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Demande de retrait">
+						<header>
+								<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+								statusbar_colors='{"progress":"blue"}' />
+						</header>
+						<sheet>
+							<div>
+								<field name="image_medium" widget="image" readonly="True" class="oe_left oe_avatar" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+	  						</div>
+							
+								<div class="oe_title">
+										
+										<field name="id" invisible="1"/>
+										<field name="garant_id" invisible="1"/>
+										<field name="police_id" invisible="1"/> 
+										<table>
+											<tr>
+											    <td><label for="num_retrait" attrs="{'invisible':[('id','=',False)]}"/></td>
+											    <td><field name="num_retrait" readonly="True" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td> 
+											    
+											</tr>
+											
+										</table>
+										 			<h1>
+						                                <field name="beneficiaire_id" on_change="benef_change(beneficiaire_id)" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    					<field name="benef_id" invisible="1"/>
+
+								</div>
+								<div class="oe_right">
+									 <button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+									<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+									
+								</div>
+
+							<group col="1">
+		
+									
+								<group  col="2" >
+								
+								<group>
+									<field name="nom_benef" readonly="True"/>	
+								</group>
+								<group>
+									<field name="prenom_benef" readonly="True"/>		
+								</group>
+								</group>
+							</group>
+							<group >
+									
+									<field name="motif" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+		
+								</group>
+							<group>
+									
+									
+									<field name="create_date" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+		
+								</group>
+
+							 
+							
+						</sheet>	
+				</form>
+				</field>
+			</record>	
+		
+			<record id="view_retrait_tree_filter" model="ir.ui.view">
+				<field name="name">mcisogem.retrait.select</field>
+				<field name="model">mcisogem.retrait</field>
+				<field name="arch" type="xml">
+					<search string="Retrait" >
+						<field name="garant"/>
+						<field name="intermediaire"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+						<group expand="0" string="Grouper par : ">
+                        	<filter name="group_garant" string="Garant" context="{'group_by':'garant'}"/>
+                    	</group> 
+					</search>	
+				</field>
+			</record>
+
+			<record id="view_retrait_tree" model="ir.ui.view">
+				<field name="name">mcisogem.retrait.tree</field>
+				<field name="model">mcisogem.retrait</field>
+				<field name="arch" type="xml">
+					<tree string="Retrait" create="false" colors="green:state == 'valide';red:state == 'attente'">
+						<field name="create_date" string="Date"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+
+					</tree>	
+				</field>
+			</record>
+
+			<record id="view_retrait_mci_tree" model="ir.ui.view">
+				<field name="name">mcisogem.retrait.tree</field>
+				<field name="model">mcisogem.retrait</field>
+				<field name="arch" type="xml">
+					<tree string="Retrait" colors="green:state == 'valide';red:state == 'attente'">
+						<field name="create_date" string="Date"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+
+					</tree>	
+				</field>
+			</record>
+			
+			
+
+			<record model="ir.actions.act_window" id="action_retrait">
+				<field name="name">Retrait</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.retrait</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form,tree</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_retrait_mci">
+				<field name="name">Retrait</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.retrait</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="context">{'search_default_group_garant': 1}</field>
+				<field name="view_id" ref="view_retrait_mci_tree" />
+				
+			</record>
+
+		<!--  =====================DEMANDE DE RETRAIT/=================  -->
+
+		<!--  =====================DEMANDE DE SUSPENSION=================  -->
+					 <record id="mcisogem_suspend_form" model="ir.ui.view">
+				<field name="name">mcisogem.suspend.form</field>
+				<field name="model">mcisogem.suspend</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Demande de retrait">
+						<header>
+								<field name="state" widget="statusbar" statusbar_visible="nouveau,attente,valide,rejet"
+								statusbar_colors='{"progress":"blue"}' />
+						</header>
+						<sheet>
+							<div>
+								<field name="image_medium" readonly="True" widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+							
+								<div class="oe_title">
+										
+										<field name="id" invisible="1"/>
+										<field name="garant_id" invisible="1"/> 
+										<field name="police_id" invisible="1"/>
+										<table>
+											<tr>
+											    <td><label for="num_suspend" attrs="{'invisible':[('id','=',False)]}"/></td>
+											    <td><field name="num_suspend" readonly="True" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}"/></td> 
+											    
+											</tr>
+											
+										</table>
+										 			<h1>
+						                                <field name="beneficiaire_id" on_change="benef_change(beneficiaire_id)" readonly="True"  placeholder="Beneficiaire" options="{'no_create_edit': True}" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+									    			</h1>
+								    					<field name="benef_id" invisible="1"/>
+
+								</div>
+								<div class="oe_right">
+									 <button name="valide_demande" type="object"  string="Valider" states="attente" class="oe_inline oe_stat_button" icon="fa-angle-right" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+									<button name="rejet_demande" type="object" string="Rejet" class="oe_inline oe_stat_button" states="attente" icon="fa-ban" groups="mcisogem_isa.group_production_manager,mcisogem_isa.group_production_user"/>
+
+									
+								</div>
+
+							<group col="1">
+		
+									
+								<group  col="2">
+								
+								<group>
+									<field name="nom_benef" readonly="True"/>	
+								</group>
+								<group>
+									<field name="prenom_benef" readonly="True"/>		
+								</group>
+								</group>
+							</group>
+							<group >
+									
+									<field name="motif" attrs="{'readonly':[('state','in', ('valide','rejet'))]}"/>
+		
+								</group>
+							<group>
+									
+									
+									<field name="create_date" attrs="{'invisible':[('id','=',False)], 'readonly':[('state','in', ('valide','rejet'))]}" string="Date de création"/>
+		
+								</group>
+
+							 
+							
+						</sheet>	
+				</form>
+				</field>
+			</record>	
+
+			<record id="view_suspend_tree_filter" model="ir.ui.view">
+				<field name="name">mcisogem.suspend.select</field>
+				<field name="model">mcisogem.suspend</field>
+				<field name="arch" type="xml">
+					<search string="suspend" >
+						<field name="garant"/>
+						<field name="intermediaire"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+						<group expand="0" string="Grouper par : ">
+                        	<filter name="group_garant" string="Garant" context="{'group_by':'garant'}"/>
+                    	</group> 
+					</search>	
+				</field>
+			</record>
+		
+			<record id="view_suspend_tree" model="ir.ui.view">
+				<field name="name">mcisogem.suspend.tree</field>
+				<field name="model">mcisogem.suspend</field>
+				<field name="arch" type="xml">
+					<tree string="suspend" create="false" colors="green:state == 'valide';red:state == 'attente'">
+						<field name="create_date" string="Date"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+
+					</tree>	
+				</field>
+			</record>
+
+			<record id="view_suspend_mci_tree" model="ir.ui.view">
+				<field name="name">mcisogem.suspend.tree</field>
+				<field name="model">mcisogem.suspend</field>
+				<field name="arch" type="xml">
+					<tree string="suspend" colors="green:state == 'valide';red:state == 'attente'">
+						<field name="create_date" string="Date"/>
+						<field name="beneficiaire_id" />
+						<field name="nom_benef"/>
+						<field name="prenom_benef"/>
+						<field name="state"/>	
+
+					</tree>
+				</field>
+			</record>
+			
+
+			<record model="ir.actions.act_window" id="action_suspend">
+				<field name="name">Suspension</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.suspend</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form,tree</field>
+			</record>
+			<record model="ir.actions.act_window" id="action_suspend_mci">
+				<field name="name">Suspend</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.suspend</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="context">{'search_default_group_garant': 1}</field>
+				<field name="view_id" ref="view_suspend_mci_tree" />
+				
+			</record>
+
+		<!--  =====================DEMANDE DE SUSPENSION/=================  -->
+
+		<!-- POLICE POUR BAREMES-->
+
+		<record id="police_inter_bareme_tree" model="ir.ui.view">
+			<field name="name">police_inter_barem.tree</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<tree string="Police" colors="red:state == 'lnoir';blue:state == 'resil'">
+					<field name="souscripteur_id" />
+					<field name="name" />
+					<field name="dt_effet" />
+					<field name="dt_resil_pol" />
+					<field name="state" />
+					<button name="button_bareme" type="object"  string="BAREME" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_police_inter_bareme">
+                <field name="name">Polices</field>
+                <field name="res_model">mcisogem.police</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="police_inter_bareme_tree" />     
+            </record>
+
+		<!-- POLICE POUR BAREMES/-->
+
+		<!-- POLICE POUR BAREMES SOUSCRIPTEUR-->
+
+		<record id="police_sous_res_tree" model="ir.ui.view">
+			<field name="name">police_sous_res.tree</field>
+			<field name="model">mcisogem.police</field>
+			<field name="arch" type="xml">
+				<tree string="Police" colors="red:state == 'lnoir';blue:state == 'resil'">
+					<field name="souscripteur_id" />
+					<field name="name" />
+					<field name="dt_effet" />
+					<field name="dt_resil_pol" />
+					<field name="state" />
+					<button name="button_reseau" type="object"  string="RESEAUX DE SOINS" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+		 <record model="ir.actions.act_window" id="action_police_sous_res">
+                <field name="name">Polices</field>
+                <field name="res_model">mcisogem.police</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree</field>
+                <field name="domain">[]</field>
+            	<field name="context">{}</field>
+            	<field name="view_id" ref="police_sous_res_tree" />     
+            </record>
+
+		<!-- POLICE POUR BAREMES SOUSCRIPTEUR/-->
+
+
+		<!-- ================= BUTTON BAREM/RESAU/ACT POUR INTERMEDIAIRE ================= -->
+		<record id="bareme_reseau_acte_form" model="ir.ui.view">
+			<field name="name">mcisogem.bar.inter.form</field>
+			<field name="model">mcisogem.bar.inter</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+
+						<field name="name"/>
+
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="bareme_reseau_acte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.bar.inter.tree</field>
+			<field name="model">mcisogem.bar.inter</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					 
+					<button name="button_bareme" type="object"  string="BAREME DE GARANTIES"  class="oe_inline oe_stat_button" />
+					<!-- <button name="button_acte_soumis" type="object"  string="ACTES SOUMIS A ENTENTE PREALABLE"  class="oe_inline oe_stat_button" /> -->
+					<button name="button_reseau" type="object"  string=" RESEAU DE SOINS"  class="oe_inline oe_stat_button" />
+					 
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_bareme_reseau_acte" model="ir.actions.act_window">
+            <field name="name">bareme/reseau/acte</field>
+            <field name="res_model">mcisogem.bar.inter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+           
+        </record>
+        <!-- ================= BUTTON BAREM/RESAU/ACT POUR INTERMEDIAIRE ================= -->
+
+        <!-- ================= INFORMATIOS MEDECIN CONSEIL ================= -->
+		<record id="mcisogem_info_demande_mc_form" model="ir.ui.view">
+			<field name="name">mcisogem.info.demande.mc.form</field>
+			<field name="model">mcisogem.info.demande.mc</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Informations">
+				
+					<sheet>
+
+						<field name="name"/>
+
+					</sheet>	
+			</form>
+			</field>
+		</record>
+		<record id="mcisogem_info_demande_mc_tree" model="ir.ui.view">
+			<field name="name">mcisogem.info.demande.mc.tree</field>
+			<field name="model">mcisogem.info.demande.mc</field>
+			<field name="arch" type="xml">
+				<tree string="Informations">
+					 
+					<button name="button_pcharge_valide" type="object"  string="PRISE EN CHARGES VALIDES"  class="oe_inline oe_stat_button" />
+					<button name="button_pcharge_rejete" type="object"  string="PRISE EN CHARGES REJETES"  class="oe_inline oe_stat_button" />
+					
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_info_demande_mc" model="ir.actions.act_window">
+            <field name="name">Informations</field>
+            <field name="res_model">mcisogem.info.demande.mc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+           
+        </record>
+        <!-- ================= INFORMATIOS MEDECIN CONSEIL /================= -->
+
+         <!--  ##############################3FAIT HIER############################## -->
+
+        <!-- ================= LISTE DES PRESTATION REGLEES /================= -->
+        <record id="mcisogem_prestation_mc_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.mc.tree</field>
+			<field name="model">mcisogem.prestation</field>
+
+			<field name="arch" type="xml">
+				<tree string="Prestation reéglées" create="false" edit="false" delete="false">
+					<field name="id" string="N°"/>
+					<field name="date_prest" string="Date"/>
+					<field name="num_bon"/>
+					<field name="beneficiaire_id"/>
+
+					<field name="nom_prenom"/>
+
+					<field name="acte_id"/>
+					
+					<field name="centre_id" />
+					<field name="praticien_id" />
+
+					<field name="montant_total" sum="montant_total"/>
+					<field name="montant_exclu" sum="montant_exclu"/>
+					
+					<field name="part_gest" string="Montant Remboursé" sum="part_gest"/>
+
+					
+					<field name="motif_exclusion"/>
+					<field name="motif_rejet"/>
+
+
+					<field name="part_patient" sum="part_patient" string="Part patient"/>
+					<field name="state"/>
+					
+					
+				</tree>	
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_mcisogem_prestation_regle">
+			<field name="name">États détaillé des prestations réglées</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','P')]</field>
+			<field name="context">{'search_default_group_exercice_id': 1,'search_default_group_periode_id': 1}</field>
+			<field name="view_id" ref="mcisogem_prestation_mc_tree" />
+			
+		</record>
+
+		<!-- ================= CONSO BENEF /================= -->
+        <record id="mcisogem_prestation_prod_tree" model="ir.ui.view">
+			<field name="name">mcisogem.prestation.prod.tree</field>
+			<field name="model">mcisogem.prestation</field>
+
+			<field name="arch" type="xml">
+				<tree string="Prestation reéglées" create="false" edit="false" delete="false">
+					<field name="id" string="N°"/>
+					<field name="date_prest" string="Date"/>
+					<field name="num_bon"/>
+					<field name="beneficiaire_id"/>
+
+					<field name="nom_prenom"/>
+
+					<field name="acte_id"/>
+					
+					<field name="centre_id" />
+					<field name="praticien_id" />
+
+					<field name="montant_total" sum="montant_total"/>
+					<field name="montant_exclu" sum="montant_exclu"/>
+					
+					<field name="part_gest" string="Montant Remboursé" sum="part_gest"/>
+
+					
+					<field name="motif_exclusion"/>
+					<field name="motif_rejet"/>
+
+
+					<field name="part_patient" sum="part_patient" string="Part patient"/>
+					<field name="state"/>
+					
+					
+				</tree>	
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_mcisogem_conso_benef">
+			<field name="name">Consommation bénéficiaire</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','!=','Draft')]</field>
+			<field name="context">{'search_default_group_beneficiaire_id':1,'search_default_group_exercice_id': 1,'search_default_group_periode_id': 1}</field>
+			<field name="view_id" ref="mcisogem_prestation_prod_tree" />
+			
+		</record>
+
+		<!-- ================= LISTE DES PRESTATION REGLEES MOIS ET MOIS - 1/================= -->
+		<!-- <record model="ir.actions.act_window" id="action_mcisogem_prestation_regle_mois">
+			<field name="name">prestations réglées</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','P')]</field>
+			<field name="context">{'search_default_group_periode_id': 1}</field>
+			<field name="view_id" ref="mcisogem_prestation_mc_tree" />
+			
+		</record> -->
+
+		<!-- ================= LISTE DES ACTES SOUMIS A ENTENTE PREALABLE/================= -->
+        <record model="ir.actions.act_window" id="action_mcisogem_acte_entente_prealable_mc">
+			<field name="name">Actes soumis à entente préalable</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.nomen.prest</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[('bl_nomen_envig','=','True')]</field>
+			<field name="view_id" ref="mcisogem_acte_tree" />
+			
+		</record>
+
+		 <!-- ================= ACTIVITEES DANS LES RESEAU DE SOIN /================= -->
+        <record model="ir.actions.act_window" id="action_mcisogem_prestation_activite">
+			<field name="name">Activités dans les reseaux de soins</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.prestation</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+			<field name="domain">[('state','=','SP')]</field>
+			<field name="context">{'search_default_group_centre_id': 1, 'search_default_group_exercice_id': 1, 'search_default_group_periode_id': 1}</field>
+			<field name="view_id" ref="mcisogem_prestation_tree" />
+			
+		</record>
+
+		 <!-- ================= LISTE DES HOSPITALISATIONS EN COURS /================= -->
+		 <record id="view_pcharge_mc_tree" model="ir.ui.view">
+			<field name="name">mcisogem.pcharge.tree</field>
+			<field name="model">mcisogem.pcharge</field>
+			<field name="arch" type="xml">
+				<tree string="Hospitalisation en cours" create="false" colors="green:state == 'valide';red:state == 'attente'">
+					<field name="create_date" string="Date de création"/>
+					<field name="beneficiaire_id"/>
+					<field name="nom_benef"/>
+					<field name="prenom_benef"/>
+					<field name="nom_prat"/>
+					<field name="affection_id"/>
+					<field name="facte_id"/>
+					<field name="motif"/>
+					<field name="state"/>
+					<field name="centre"/>
+					<field name="nbr_jour_acc"/>
+					<button name="button_prorogation" type="object"  string="PROROGATION" states="valide"  class="oe_inline oe_stat_button"  groups="mcisogem_isa.group_prestataire"/>
+					<button name="button_courier" type="object"  string="FAIRE UN COURIER" attrs="{'invisible':[('nbr_jour_acc','in', (0,1,2,3,4))]}" class="oe_inline oe_stat_button" groups="mcisogem_isa.group_prestataire"/>
+					<!-- <button name="hospitalisation_en_cours" type="object" states="valide"  string="TEST EN COURS" class="oe_inline oe_stat_button"/> -->
+				</tree>	
+			</field>
+
+		</record>
+
+        <record model="ir.actions.act_window" id="action_mcisogem_pcharge_n_mc">
+			<field name="name">Hospitalisation en cours</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mcisogem.pcharge</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+			<!-- <field name="domain">[('facte_id','in',(6,9)),('state','=','valide')]</field> -->
+			<field name="domain">[('en_cours','=','True'),('facte_id','=',6)]</field>
+			<field name="context">{'search_default_group_centre': 1}</field>
+			<field name="view_id" ref="view_pcharge_mc_tree" />
+			
+		</record>
+
+		<record id="ir_cron_scheduler_alerte_hospotalisation_action" model="ir.cron">
+            <field name="name">Alertes hospotalisation</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">24</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'mcisogem.pcharge'" name="model"/>
+            <field eval="'hospitalisation_en_cours'" name="function"/>
+        </record>
+
+
+		 <!--  ##############################3FAIT HIER############################## -->
+
+		  	<!-- ================= GENRE RECLAMATIONS ================= -->
+
+		  	<record id="view_genre_reclamation_form" model="ir.ui.view">
+				<field name="name">mcisogem.genre.reclamation.form</field>
+				<field name="model">mcisogem.genre.reclamation</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Genre">
+					
+						<sheet>
+							
+							 <div class="oe_title">
+	                            <h1>
+	                                <field name="name" placeholder="Libelle" />
+				    			</h1>
+	                        </div>
+							
+						</sheet>	
+					</form>
+				</field>
+			</record>
+		
+			<record id="view_genre_reclamation_tree" model="ir.ui.view">
+				<field name="name">mcisogem.genre.reclamation.tree</field>
+				<field name="model">mcisogem.genre.reclamation</field>
+				<field name="arch" type="xml">
+					<tree string="Genre">
+							<field name="name" />
+					</tree>	
+				</field>
+			</record>		
+
+			<record model="ir.actions.act_window" id="action_genre_reclamation">
+				<field name="name">Genre de réclamations</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.genre.reclamation</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Cliquez ici pour créer un genre de réclamations.</p>
+				</field>
+			</record>
+
+ 			<!-- ================= GENRE RECLAMATIONS /================= -->
+
+		  <!-- ================= RECLAMATIONS ================= -->
+		  <record id="view_reclamation_form" model="ir.ui.view">
+				<field name="name">mcisogem.reclamation.form</field>
+				<field name="model">mcisogem.reclamation</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="Reclamation">
+						<sheet>
+							<group>
+								<group>
+									<field name="genre_id"/>
+								</group>
+							</group>
+							<group>
+								<group>
+									<field name="motif"/>
+								</group>
+							</group>
+							<group >
+								<group>
+									<field name="description" />
+								</group>
+							</group>
+						</sheet>	
+				</form>
+				</field>
+			</record>
+
+			
+			<record id="view_reclamation_tree_filter" model="ir.ui.view">
+				<field name="name">mcisogem.reclamation.select</field>
+				<field name="model">mcisogem.reclamation</field>
+				<field name="arch" type="xml">
+					<search string="Rechercher de Reclamation">
+						<field name="genre_id"/>
+						<field name="souscripteur_id"/>
+						<group expand="0" string="Grouper par : ">
+	                        <filter name="group_souscripteur_id" string="Souscripteur" context="{'group_by':'souscripteur_id'}"/>
+                    	</group>    
+					</search>	
+				</field>
+			</record>
+			
+			<record id="view_reclamation_tree" model="ir.ui.view">
+				<field name="name">mcisogem.reclamation.tree</field>
+				<field name="model">mcisogem.reclamation</field>
+				<field name="arch" type="xml">
+					<tree string="Reclamation">
+						<field name="genre_id"/>
+						<field name="motif"/>
+						<field name="description" />	
+					</tree>	
+				</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_reclamation">
+				<field name="name">Reclamation</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.reclamation</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">form,tree</field>
+				<field name="help" type="html">
+					<p class="oe_view_nocontent_create">Cliquez ici pour créer une reclamation.</p>
+				</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_reclamation_mci">
+				<field name="name">Liste Reclamation</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.reclamation</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree</field>
+				<field name="view_id" ref="view_reclamation_tree" />
+				<!-- <field name="context">{'search_default_group_garant_ids': 1,'search_default_group_categoriep_id': 1,'search_default_group_objetp_id': 1 }</field> -->
+				<!-- <field name="context">{'search_default_group_categoriep_id': 1,'search_default_group_objetp_id': 1 }</field> -->
+			</record>
+
+		   <!-- ================= RECLAMATIONS /================= -->
+
+
+		   <!--  =====================IMAGE CARTE=================  -->
+					 <record id="mcisogem_image_carte_1_form" model="ir.ui.view">
+				<field name="name">mcisogem.image.carte.1.form</field>
+				<field name="model">mcisogem.image.carte.1</field>
+				<field name="type">form</field>
+				<field name="arch" type="xml">
+					<form string="IMAGE">
+						
+						<sheet>
+							<div>
+								<field name="image_1"  widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+
+	  						<div>
+								<field name="image_2" widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+
+	  						<div>
+								<field name="image_3"  widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+
+	  						<div>
+								<field name="image_4"  widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+
+	  						<div>
+								<field name="image_5"  widget="image" class="oe_left oe_avatar"/>
+	  						</div>
+	  						<group>
+									<field name="name" />
+							</group>
+							
+								
+
+							 
+							
+						</sheet>	
+				</form>
+				</field>
+			</record>	
+
+		
+			<record id="mcisogem_image_carte_1_tree" model="ir.ui.view">
+				<field name="name">mcisogem.image.carte.1.tree</field>
+				<field name="model">mcisogem.image.carte.1</field>
+				<field name="arch" type="xml">
+					<tree string="image">
+						<field name="name"/>	
+
+					</tree>	
+				</field>
+			</record>
+
+			<record model="ir.actions.act_window" id="action_image_carte_1">
+				<field name="name">image</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">mcisogem.image.carte.1</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+			</record>
+
+		<!--  =====================IMAGE CARTE/=================  -->
+
+		<!-- ================= RECHERCHE BENEF PAR CARTE + CRITERES ================= -->
+
+		<record id="mcisogem_mcisogem_recherche_carte_form" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.carte.form</field>
+			<field name="model">mcisogem.recherche.carte</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="recherche">
+					
+					<sheet>
+							<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Rechercher" class="oe_inline oe_stat_button" icon=" fa-search-minus" />
+								<button name="print_carte"  type="object" string="Imprimer carte" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/>
+								
+							</div>
+						<field name="users" invisible="1"/>
+						<field name="id" invisible="1"/>
+						<div class="oe_title">
+                            <h1>
+                                <field name="garant_id" placeholder="Garant" on_change="onchange_sous_col(garant_id)" options="{'no_create_edit': True}"/>
+			    			</h1>
+	                    </div>
+						
+						<group col="2">
+							<group>
+								<field name="benef_id" domain="[('garant_id' , '=' , garant_id)]"/>
+							</group>
+							<group>
+								<field name="police_id" on_change="onchange_sous_col2(police_id,garant_id)" domain="[('garant_id' , '=' , garant_id)]" options="{'no_create_edit': True}"/>
+							</group>
+
+						</group>
+						<group col="2">
+							<group>
+								<field name="souscripteur_id_tempo"  domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="college_id_tempo" domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+						</group>
+						<group col="2">							
+							<group>
+								<field name="date_d"/>
+							</group>
+							<group>
+								<field name="date_f"/>
+							</group>
+						</group>
+						<group col="1">
+							<group>
+								<field name="regime_id"/>
+							</group>
+							
+						</group>
+
+					</sheet>	
+
+					<group col="1" attrs="{'invisible':[('id','=',False)]}">   
+							<field name="beneficiaire_id" widget="one2many">
+							  <tree edit="false" create="false" delete="false">
+                                            <field name="beneficiaire"/>
+                                            <field name="nom_benef"/>
+                                            <field name="prenom_benef" />
+                                            <field name="date"/>
+                                            <field name="statut"/>
+                                            <field name="genre"/>
+                                </tree>   
+                            </field>
+                        </group>
+			</form>
+			</field>
+		</record>
+		<record id="mcisogem_mcisogem_recherche_carte_tree" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.carte.tree</field>
+			<field name="model">mcisogem.recherche.carte</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="garant_id"/>
+					<field name="police_id"/>	
+					<field name="souscripteur_id"/>
+					<field name="college_id"/>
+					<field name="date_f"/>
+					<field name="date_d"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_mcisogem_recherche_carte" model="ir.actions.act_window">
+            <field name="name">Les Beneficiaire</field>
+            <field name="res_model">mcisogem.recherche.carte</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+          
+        </record>
+
+
+		<!-- ================= RECHERCHE BENEF PAR CARTE + CRITERES /================= -->
+
+
+		<record id="mcisogem_recherche_benef_form" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.benef.form</field>
+			<field name="model">mcisogem.recherche.benef</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="recherche">
+					
+					<sheet>
+							<div class="oe_right">
+								<button name="button_recherche"  type="object" string="Rechercher" class="oe_inline oe_stat_button" icon=" fa-search-minus" />
+								<button name="print_recherche"  type="object" string="Imprimer" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/>
+								<!-- <button name="print_carte"  type="object" string="Imprimer carte" class="oe_inline oe_stat_button" icon="fa-print"  attrs="{'invisible':[('id','=',False)]}"/> -->
+								
+							</div>
+						<!-- <field name="garant_id" on_change="onchange_sous_col(garant_id)" invisible="1"/> -->
+						<field name="users" invisible="1"/>
+						<field name="id" invisible="1"/>
+						<group>
+								<field name="garant_id" on_change="onchange_sous_col(garant_id)" options="{'no_create_edit': True}"/>
+						</group>
+						<group col="3">
+							<group>
+								<field name="police_id" on_change="onchange_sous_col2(police_id,garant_id)" domain="[('garant_id' , '=' , garant_id)]" options="{'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="souscripteur_id_tempo"  domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="college_id_tempo" domain="[('create_uid','=',users)]" options="{'no_create_edit': True}"/>
+							</group>
+
+						</group>
+						<group col="2">
+							
+							
+							<group>
+								<field name="date_d"/>
+							</group>
+							<group>
+								<field name="date_f"/>
+							</group>
+						</group>
+
+						<group col="3">
+							<group>
+									<field name="stat_incorp" on_change="onchange_inc(stat_incorp)"/>
+							</group>
+							<group>
+									<field name="stat_ret" on_change="onchange_ret(stat_ret)"/>
+							</group>
+							<group>
+									<field name="stat_susp" on_change="onchange_sus(stat_susp)"/>
+							</group>
+						</group>
+						<group col="2">
+							<group>
+									<field name="limit_age" on_change="onchange_age(limit_age)"/>
+							</group>
+							<group>
+									<field name="r_statut" on_change="onchange_statut(r_statut)"/>
+							</group>
+						</group>
+
+						<group col="2">
+							<group>
+									<field name="age" on_change="onchange_verifier_age(age)" attrs="{'invisible':[('limit_age','=',False)]}"/>
+							</group>
+							<group>
+									<field name="statut_ids" widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'invisible':[('r_statut','=',False)]}"/>	
+							</group>
+							
+						</group>
+
+						<group >
+				
+							
+						</group>
+				</sheet>
+						<group col="1" attrs="{'invisible':[('id','=',False)]}">   
+							<field name="beneficiaire_id" widget="one2many">
+							  <tree edit="false" create="false" delete="false">
+                                            <field name="beneficiaire"/>
+                                            <field name="nom_benef"/>
+                                            <field name="prenom_benef" />
+                                            <field name="date"/>
+                                            <field name="statut"/>
+                                            <field name="genre"/>
+                                </tree>   
+                            </field>
+                        </group>
+
+						
+			</form>
+			</field>
+		</record>
+		<record id="mcisogem_recherche_benef_tree" model="ir.ui.view">
+			<field name="name">mcisogem.recherche.benef.tree</field>
+			<field name="model">mcisogem.recherche.benef</field>
+			<field name="arch" type="xml">
+				<tree string="Beneficiaire">
+					<field name="garant_id"/>
+					<field name="police_id"/>	
+					<field name="souscripteur_id"/>
+					<field name="college_id"/>
+					<field name="date_f"/>
+					<field name="date_d"/>
+					
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_recherche_benef" model="ir.actions.act_window">
+            <field name="name">Les Beneficiaire</field>
+            <field name="res_model">mcisogem.recherche.benef</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+          
+        </record>
+
+
+		<!-- ================= RECHERCHE BENEF + CRITERES /================= -->
+
+
+
+	
+
+ 	</data>	
+</openerp>

@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- ===================== QUITTANCIER FORM ============================= -->
+        <record id="view_mcisogem_quittancier_form" model="ir.ui.view">
+            <field name="name">mcisogem.quittancier.form</field>
+            <field name="model">mcisogem.quittancier</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Quittancier" delete="false">
+
+
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,done,cancel" statusbar_colors="{&quot;progress&quot;:&quot;yellow&quot;}"/>
+                    </header>
+                    <sheet>
+                       <div class="oe_right">
+                             <field name="etat_paiement" invisible="1"/>
+
+
+                            <button class="oe_inline oe_stat_button" string="Valider" states="sent" name="button_to_valider" type="object" icon="fa-check"/>
+
+
+
+                            <button class="oe_inline oe_stat_button" name="button_to_cancel" string="Annuler" type="object" icon="fa-reply" confirm="Voulez-vous annuler la validation la quittance ?" groups="mcisogem_isa.group_production_manager" attrs="{'invisible':['|',('state','!=','done'),('etat_paiement','=','P')]}"/>
+
+
+
+                            <button class="oe_inline oe_stat_button" name="print_quittance" type="object" string="Imprimer" icon="fa-print" attrs="{'invisible':[('state','!=','done')]}"/>
+
+
+
+                            <button class="oe_inline oe_stat_button" name="payer" type="object" string="Payer" icon="fa-money" attrs="{'invisible':['|',('state','!=','done'),('etat_paiement','=','P')]}" confirm="Cette quittance a t-elle été payée ?" groups="mcisogem_isa.group_comptabilite_manager"/>
+
+
+                            <!-- <button class="oe_inline oe_stat_button" name="annuler_paiement" type="object" string="Non Payer" icon="fa-money"  attrs="{'invisible':['|',('state','!=','done') ,('etat_paiement','!=','P')]}"/> -->
+
+                        </div>
+                    <field name="souscripteur_id" invisible="1"/>
+                    <field name="id" invisible="1"/> 
+                    <field name="show_exoneration" invisible="1"/>
+                    <field name="show_taxe_enreg" invisible="1"/>
+                    <field name="show_taxe" invisible="1"/>  
+                    <field name="show_intermediaire" invisible="1"/>  
+                    <field name="show_garant" invisible="1"/>  
+                    <field name="show_gestionnaire" invisible="1"/>  
+
+                        <div class="oe_title">
+                            <label for="type_avenant_id" string="Type d'Avenant"/>
+                            <br/>
+                            <h2>
+                                <field name="type_avenant_id" on_change="onchange_type_avenan(type_avenant_id)" attrs="{'readonly':[('id','!=', False)]}"/>
+
+                               
+                            </h2>
+
+                            <label for="garant_id" string="Garant"/>
+                            <br/>
+                            <h1>
+                                <field name="affiche" invisible="1"/>
+                                <field name="id" invisible="1"/>
+                                <field name="garant_id" on_change="onchange_garant(garant_id)" attrs="{'readonly':['|' , ('type_avenant_id','=', False) , ('id' , '!=' , False)]}"/>
+                            </h1>
+
+<group style="color:red;margin-left:300px">
+                                <field name="write_uid" attrs="{'invisible':[('etat_paiement','!=', 'P')]}" string="Paiement reçu par :"  />
+</group>
+
+                            <br/>
+                            <label for="quittance_id" attrs="{'invisible':[('avenan_libelle', '!=', 'ANN')]}"/>
+                            <br/>
+                            <h2>
+                                <field name="quittance_id" on_change="onchange_quittance(quittance_id)" domain="[('garant_id','=',garant_id)]" attrs="{'invisible':[('avenan_libelle', '!=', 'ANN')]}"/>
+                            </h2>
+                          
+                        </div>
+                        <group col="1">
+                            <table>
+                                <tr>
+                                    <td width="10%">
+                                        <label for="police_id" attrs="{'invisible':[('garant_id','=',False)]}"/>
+                                    </td>
+                                    <td width="10%"><label for="souscripteur" string="Souscripteur" attrs="{'invisible':[('police_id','=',False)]}"/></td>
+                                    <td width="10%"><label for="Intermediaire" string="intermediaire" attrs="{'invisible':[('police_id','=',False)]}"/></td>
+                                    <td width="10%"><label for="date_effet_police" string="Date deffet" attrs="{'invisible':[('police_id','=',False)]}"/></td>
+                                    <td width="10%"><label for="dt_emi_ave" string="Exercice du" attrs="{'invisible':[('police_id','=',False)]}"/></td>
+                                    <td width="10%"><label for="dt_fin_ave" string="Au" attrs="{'invisible':[('police_id','=',False)]}"/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <field name="police_id" on_change="onchange_police(police_id , type_avenant_id)" domain="[('garant_id','=',garant_id)]" attrs="{'readonly':['|' , ('garant_id','=', False) , ('id','!=', False)]}"/>
+                                    </td>
+                                    <td>
+                                        <field name="souscripteur_id"/>
+                                    </td>
+                                    <td>
+                                        <field name="courtier_id" on_change="onchange_intermediaire(courtier_id)"/>
+                                    </td>
+
+
+                                    <td>
+                                        <field name="date_effet_police"/>
+                                    </td>
+                                    <td>
+                                        <field name="dt_emi_ave"/>
+                                    </td>
+                                    <td>
+                                        <field name="dt_fin_ave"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </group>
+                        <group col="1">
+                            <group col="3">
+                                <group string="" attrs="{'invisible':[('police_id','=',False)]}">                                    
+                                    <field name="periodicite_paiem"/>
+                                </group>
+                                <group string="" attrs="{'invisible':[('police_id','=',False)]}">                                    
+                                    <field name="repartition_prime" widget="radio"/>
+                                </group>
+                                <group string="" attrs="{'invisible':[('police_id','=',False)]}">                                    
+                                    <field name="imputation_acc_courtier" widget="chekbox"/>
+                                    <field name="imputation_acc_cie" widget="chekbox"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group col="1">
+                           
+                            <table>
+                                <tr>
+                                    <td width="5%">
+                                        <label for="nature_risque_id" string="Nature risque"/>
+                                    </td>
+                                    <td width="15%">
+                                        <field name="nature_risque_id" attrs="{'readonly':[('state','=','done')]}"/>
+                                    </td>
+                                    <td width="1%">
+                                    </td>
+                                 
+                                </tr>
+                            </table>
+                        </group>
+                        <group col="1">
+                            <table>
+                                <tr>
+                                    <field name="avenan_libelle" invisible="1"/>
+                                    <td width="5%">
+                                        <label for="dt_emi_quittance" string="Date émission quittance"/>
+                                    </td>
+                                    <td width="17%">
+                                        <field name="dt_emi_quittance" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                    </td>
+                                    <td width="3%">
+                                        <label for="deb_periode" string="Période du" attrs="{'invisible':[('police_id','=',False)]}"/>
+                                    </td>
+                                    <td width="5%">
+                                        <field name="deb_periode" attrs="{'readonly': [('state' , '=' , 'done')]}" on_change="onchange_police(police_id , type_avenant_id , deb_periode , fin_periode)"/>
+                                    </td>
+                                    <td width="3%">
+                                        <label for="fin_periode" string="Au" attrs="{'invisible':[('police_id','=',False)]}" />
+                                    </td>
+                                    <td width="10%">
+                                        <field name="fin_periode" attrs="{'readonly': [('state' , '=' , 'done')]}" on_change="onchange_police(police_id , type_avenant_id , deb_periode , fin_periode)"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </group>                        
+                        <br>
+                        </br>    
+
+                        <notebook>
+                            <page string="Résultat des calculs">
+                                <group col="2">
+                                    <group class="oe_subtotal_footer oe_left">
+                                        <label for="prime_tot_sans_sida" string="Prime Net" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>
+
+                                        <field name="prime_tot_sans_sida" nolabel="1" class="oe_bold oe_account_total" attrs="{'readonly': ['|' , ('avenan_libelle', '!=', 'AFA') , ('state' , '=' , 'done')]}"/>
+
+                                        <label for="prime_sida" string="+ Prime SIDA" class="oe_force_bold oe_mini_subtotal_footer_separator" style="padding-right: 0px !important;"/>
+
+                                        <field name="prime_sida" nolabel="1" class="oe_bold oe_account_total" attrs="{'readonly': ['|' , ('avenan_libelle', '!=', 'AFA') , ('state' , '=' , 'done')]}"/>
+
+                                        <label for="mnt_quittance_emis" class="oe_subtotal_footer_separator oe_open_balance" string="= Total prime net" style="padding-right: 0px !important; padding-top: 6px !important;"/>
+                                        <field name="mnt_quittance_emis" nolabel="1" class="oe_subtotal_footer_separator oe_open_balance" style="width:150px;"/>                                   
+                                    </group>
+                                </group>
+                                <group col="1">
+                                    <group col="2">
+                                        <group string="Accessoires">
+                                            <table>
+                                                <tr attrs="{'invisible':[('show_gestionnaire','=',False)]}">
+                                                    <td width="10%">
+                                                        <label for="taxe_acc_nostro" string="Gestionnaire" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="taxe_acc_nostro" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+
+
+                                                    <td width="10%">
+                                                        <label for="mnt_accessoires_gest" string=" " help="% Montant total prime HT"/>
+                                                    </td>
+
+
+                                                    <td width="8%">
+                                                        <field name="mnt_accessoires_gest" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+
+
+                                                    <td width="1%">
+                                                        <field name="type_mnt_accessoires_gest" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_mnt_accessoires_gest" string="%"/>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr attrs="{'invisible':[('show_garant','=',False)]}">
+                                                    <td width="10%">
+                                                        <label for="taxe_acc_assureur" string="Garant" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="taxe_acc_assureur" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="mnt_accessoires_assureur" string="  " help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="8%">
+                                                        <field name="mnt_accessoires_assureur" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="1%">
+                                                        <field name="type_accessoires_assureur" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_accessoires_assureur" string="%"/>
+                                                    </td>
+                                                </tr>
+
+
+
+                                                <tr attrs="{'invisible':[('show_intermediaire','=',False)]}">
+                                                    <td width="10%">
+                                                        <label for="taxe_acc_courtier" string="Intermediaire" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="taxe_acc_courtier" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="mnt_accessoires_courtier" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="8%">
+                                                        <field name="mnt_accessoires_courtier" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="1%">
+                                                        <field name="type_accessoires_courtier" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_accessoires_courtier" string="%"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="10%">
+                                                        <label for="cout_d_acte1" string="Total" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="cout_d_acte1" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>               
+                                        </group>
+                                        <group string="Comissions">   
+                                            <table>
+                                                <tr>
+                                                    <td width="10%">
+                                                        <label for="cout_d_acte" string="Gestionnaire" help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="cout_d_acte" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="mnt_comxion_gest" string="  " help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="8%">
+                                                        <field name="mnt_comxion_gest" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="1%">
+                                                        <field name="type_mnt_comxion_gest" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_mnt_comxion_gest" string="%"/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td width="10%">
+                                                        <label for="cout_d_acte_courtier" string="Intermediaire" help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="cout_d_acte_courtier" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="mnt_comxion_courtier" string="  " help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="8%">
+                                                        <field name="mnt_comxion_courtier" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="1%">
+                                                        <field name="type_mnt_comxion_courtier" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_mnt_comxion_courtier" string="%"/>
+                                                    </td>
+                                                </tr>
+
+                                               
+                                                <tr>
+                                                    <td width="10%">
+                                                        <label for="cout_d_acte0" string="Total" help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="cout_d_acte0"/>
+                                                    </td>
+                                                </tr>
+
+                                                 <tr>
+                                                    <td width="10%">
+                                                        <label for="base" string="Base" help="% Montant total prime HT" class="oe_bold" style="color:red"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <field name="base" class="oe_bold" style="color:red"/>
+                                                    </td>
+                                                </tr>
+
+
+
+                                            </table>           
+                                        </group>               
+                                    </group>
+                                </group>
+                                <group col="1">
+                                    <table>
+                                        <tr>
+                                            <td width="7%">
+                                                <h4>
+                                                    <label string="Montant total prime Nette + ACCESSOIRES" class="oe_bold"/>
+                                                </h4>
+                                            </td>
+                                            <td width="15%">
+                                                <field name="total_plus_access"/>
+                                            </td>
+                                        </tr>
+                                    </table>                                                   
+                                </group>
+
+
+                                <group col="1" string="Taxes">
+                                    <group col="2">
+                                        <group string="">
+                                            <table>
+                                                <tr attrs="{'invisible':[('show_taxe_enreg','=',False)]}">
+                                                    <td width="10%">
+                                                        <label for="mnt_taxe_prime0" string="Taxe d’enregistrement" help="%(Montant total prime HT + Accessoires)"/>
+                                                    </td>
+                                                    <td width="15%">
+                                                        <field name="mnt_taxe_prime0" attrs="{'invisible':[('id','=',False)]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="mnt_taxe" help="% Montant total prime HT"/>
+                                                    </td>
+                                                    <td width="8%">
+                                                        <field name="mnt_taxe" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="1%">
+                                                        <field name="type_mnt_taxe" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                                    </td>
+                                                    <td width="10%">
+                                                        <label for="type_mnt_taxe" string="%"/>
+                                                    </td>
+
+                                                   
+
+                                                </tr>
+                                                 <tr attrs="{'invisible':[('show_exoneration','=',False)]}">
+                                                     <td width="20%">
+                                                        <label for="exoneration"/>
+                                                    </td>
+                                                    <td width="25%">
+                                                        <field name="exoneration"/>
+                                                    </td>
+                                              
+
+                                                </tr>
+                                            </table>               
+                                        </group>
+                                        <group>
+                                        </group>               
+                                    </group>
+                                </group>
+                                <group col="1">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <label for="mnt_glob0" class="oe_subtotal_footer_separator oe_open_balance" string="Montant TTC" style="padding-right: 0px !important; padding-top: 6px !important;"/>
+                                        <field name="mnt_glob0" nolabel="1" class="oe_subtotal_footer_separator oe_open_balance"/>                                   
+                                    </group>                                               
+                                </group>
+                                <group col="1">
+                                    <group>
+                                        <field name="objet_particulier" attrs="{'readonly': [('state', '=', 'done')]}"/>                                   
+                                    </group>                                               
+                                </group>
+                            </page>
+
+                            <page string="Récapitulatif des mouvements Incorpo">
+                                <group col="1">
+                                    <field name="detail_quittancier_ids" widget="one2many">
+                                        <tree edit="false" create="false" delete="false">
+                                            <field name="st_creat_incorpo" invisible="1"/>
+                                            <field name="college"/>
+                                            <field name="code_statut_benef"/>
+                                            <!-- <field name="deb_tran_age"/> -->
+                                            <!-- <field name="fin_tran_age"/> -->
+                                            <!-- <field name="date_effet_police"/> -->
+                                          <!--   <field name="nbre_jour_mois_det"/>
+                                            <field name="nbre_jour_mois_exercice"/> -->
+                                            <field name="effectif_det" sum="Total effectif"/>                                          
+                                            <field name="prime_indivuel" sum="Total prime"/>
+                                            <field name="prime_indivuel_sida_tot" sum="Total prime SIDA"/>
+                                            <field name="prime_indivuel_tot" sum="Total prime"/>
+                                            
+                                        </tree>   
+                                    </field>           
+                                </group>                   
+                            </page>   
+
+                            <page string="Récapitulatif des mouvements Rétrait">
+                                <group col="1">   
+                                    <field name="detail_quittancier_retrait_ids" widget="one2many">
+                                        <tree edit="false" create="false" delete="false">
+                                            <field name="st_creat_incorpo" invisible="1"/>
+                                            <field name="college"/>
+                                            <field name="code_statut_benef"/>
+                                            <!-- <field name="deb_tran_age"/> -->
+                                            <!-- <field name="fin_tran_age"/> -->
+                                            <!-- <field name="date_effet_police"/> -->
+                                          <!--   <field name="nbre_jour_mois_det"/>
+                                            <field name="nbre_jour_mois_exercice"/> -->
+                                            <field name="effectif_det" sum="Total effectif"/>                                          
+                                            <field name="prime_indivuel" sum="Total prime"/>
+                                            <field name="prime_indivuel_sida_tot" sum="Total prime SIDA"/>
+                                            <field name="prime_indivuel_tot" sum="Total prime"/>
+                                            
+                                        </tree>   
+                                    </field>
+                                </group>                   
+                            </page>
+
+                        </notebook> 
+
+                        <footer>
+                            <button class="oe_inline oe_stat_button" string="Valider" states="sent" name="button_to_valider" type="object" icon="fa-check"/>
+                            <!-- <button class="oe_inline oe_stat_button" string="Modifier" states="sent" name="write" type="object" icon="fa-building-o" /> -->
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <!-- ===================== Liste QUITTANCIER ============================= -->
+
+        <record id="view_mcisogem_quittancier_tree" model="ir.ui.view">
+            <field name="name">mcisogem.quittancier.tree</field>
+            <field name="model">mcisogem.quittancier</field>
+            <field name="arch" type="xml">
+                <tree delete="false" edit="false" colors="red:etat_paiement == 'NP';green:etat_paiement == 'P'" >
+                    <field name="garant_id" />
+                    <field name="police_id" />    
+                    <field name="type_avenant_id" />
+                    <field name="prime_sida" />
+                    <field name="prime_tot_sans_sida" />
+                    <field name="mnt_glob0" />
+                    <field name="etat_paiement" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mcisogem_quittancier_filter" model="ir.ui.view">
+            <field name="name">mcisogem.quittancier.select</field>
+            <field name="model">mcisogem.quittancier</field>
+            <field name="arch" type="xml">
+                <search string="Rechercher une quittance">
+                    <field name="garant_id" />
+                    <field name="police_id" />    
+                    <field name="type_avenant_id" />
+                    <field name="etat_paiement" />                    
+                    <group expand="0" string="Grouper par : ">
+                        <filter name="group_etat_paiement" string="Etat de paiement" context="{'group_by':'etat_paiement'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+          <!-- Action du menu quittancier -->
+        <record model="ir.actions.act_window" id="action_mcisogem_quittancier">
+            <field name="name">Quittancier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mcisogem.quittancier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Cliquez ici pour créer une quittance.</p>
+            </field>
+        </record>
+
+
+
+
+            <menuitem action="action_mcisogem_quittancier" parent="menu_mcisogem_prod_etabl" id="mcisogem_quittancier" sequence="4"/>
+      
+    <!-- ===================== QUITTANCIER FIN ============================= -->
+
+    </data>
+</openerp>
